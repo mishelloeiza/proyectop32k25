@@ -52,7 +52,7 @@ public class MantenimientoAlumnos extends javax.swing.JInternalFrame {
         }
     }
 
-    public void buscarVendedor() {
+    public void buscarAlumno() {
         Alumno alumnoAConsultar = new Alumno();
         AlumnoDAO alumnoDAO = new AlumnoDAO();//AlumnoDAO(clase) alumnoDAO(objeto)
         alumnoAConsultar.setCarnetAlumno(Integer.parseInt(txtbuscado.getText()));
@@ -367,7 +367,7 @@ public class MantenimientoAlumnos extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        buscarVendedor();
+        buscarAlumno();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed

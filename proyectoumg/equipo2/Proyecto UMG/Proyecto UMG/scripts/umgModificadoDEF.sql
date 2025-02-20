@@ -119,3 +119,54 @@ ENGINE = INNODB CHARACTER SET = LATIN1;
 INSERT INTO usuario
 	(`username`,`password`)
     VALUES ('usuprueba','123456');
+
+CREATE TABLE IF NOT EXISTS bitacora (
+  id_bitacora INT NOT NULL AUTO_INCREMENT,
+  accion VARCHAR(60) NOT NULL,
+  fecha_hora DATETIME NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (id_bitacora))
+ENGINE = InnoDB CHARACTER SET = latin1;
+
+CREATE TRIGGER `log_alumnos` AFTER INSERT ON `alumnos` FOR EACH ROW INSERT INTO bitacora (accion) Values ('IngresoCorrectoDeAlumno');
+CREATE TRIGGER `log_alumnosd` AFTER DELETE ON `alumnos` FOR EACH ROW insert into bitacora (accion) values ('EliminacionCorrectaDeAlumnos');
+CREATE TRIGGER `log_alumnosu` AFTER UPDATE ON `alumnos` FOR EACH ROW insert into bitacora (accion) values ('ModificacionCorrectaDeAlumnos');
+
+CREATE TRIGGER `log_maestros` AFTER INSERT ON `maestros` FOR EACH ROW INSERT INTO bitacora (accion) Values ('IngresoCorrectoDeMaestros');
+CREATE TRIGGER `log_maestrosd` AFTER DELETE ON `maestros` FOR EACH ROW insert into bitacora (accion) values ('EliminacionCorrectaDeMaestros');
+CREATE TRIGGER `log_maestrosu` AFTER UPDATE ON `maestros` FOR EACH ROW insert into bitacora (accion) values ('ModificacionCorrectaDeMaestros');
+
+CREATE TRIGGER `log_facultades` AFTER INSERT ON `facultades` FOR EACH ROW INSERT INTO bitacora (accion) Values ('IngresoCorrectoDeFacultades');
+CREATE TRIGGER `log_facultadesd` AFTER DELETE ON `facultades` FOR EACH ROW insert into bitacora (accion) values ('EliminacionCorrectaDeFacultades');
+CREATE TRIGGER `log_facultadesu` AFTER UPDATE ON `facultades` FOR EACH ROW insert into bitacora (accion) values ('ModificacionCorrectaDeFacultades');
+
+CREATE TRIGGER `log_carreras` AFTER INSERT ON `carreras` FOR EACH ROW INSERT INTO bitacora (accion) Values ('IngresoCorrectoDeCarreras');
+CREATE TRIGGER `log_carrerasd` AFTER DELETE ON `carreras` FOR EACH ROW insert into bitacora (accion) values ('EliminacionCorrectaDeCarreras');
+CREATE TRIGGER `log_carrerasu` AFTER UPDATE ON `carreras` FOR EACH ROW insert into bitacora (accion) values ('ModificacionCorrectaDeCarreras');
+
+CREATE TRIGGER `log_cursos` AFTER INSERT ON `cursos` FOR EACH ROW INSERT INTO bitacora (accion) Values ('IngresoCorrectoDeCursos');
+CREATE TRIGGER `log_cursosd` AFTER DELETE ON `cursos` FOR EACH ROW insert into bitacora (accion) values ('EliminacionCorrectaDeCursos');
+CREATE TRIGGER `log_cursosu` AFTER UPDATE ON `cursos` FOR EACH ROW insert into bitacora (accion) values ('ModificacionCorrectaDeCursos');
+
+CREATE TRIGGER `log_secciones` AFTER INSERT ON `secciones` FOR EACH ROW INSERT INTO bitacora (accion) Values ('IngresoCorrectoDeSecciones');
+CREATE TRIGGER `log_seccionesd` AFTER DELETE ON `secciones` FOR EACH ROW insert into bitacora (accion) values ('EliminacionCorrectaDeSecciones');
+CREATE TRIGGER `log_seccionesu` AFTER UPDATE ON `secciones` FOR EACH ROW insert into bitacora (accion) values ('ModificacionCorrectaDeSecciones');
+
+CREATE TRIGGER `log_sedes` AFTER INSERT ON `sedes` FOR EACH ROW INSERT INTO bitacora (accion) Values ('IngresoCorrectoDeSedes');
+CREATE TRIGGER `log_sedesd` AFTER DELETE ON `sedes` FOR EACH ROW insert into bitacora (accion) values ('EliminacionCorrectaDeSedes');
+CREATE TRIGGER `log_sedesu` AFTER UPDATE ON `sedes` FOR EACH ROW insert into bitacora (accion) values ('ModificacionCorrectaDeSedes');
+
+CREATE TRIGGER `log_aulas` AFTER INSERT ON `aulas` FOR EACH ROW INSERT INTO bitacora (accion) Values ('IngresoCorrectoDeAulas');
+CREATE TRIGGER `log_aulasd` AFTER DELETE ON `aulas` FOR EACH ROW insert into bitacora (accion) values ('EliminacionCorrectaDeAulas');
+CREATE TRIGGER `log_aulasu` AFTER UPDATE ON `aulas` FOR EACH ROW insert into bitacora (accion) values ('ModificacionCorrectaDeAulas');
+
+CREATE TRIGGER `log_jornadas` AFTER INSERT ON `jornadas` FOR EACH ROW INSERT INTO bitacora (accion) Values ('IngresoCorrectoDeJornadas');
+CREATE TRIGGER `log_jornadasd` AFTER DELETE ON `jornadas` FOR EACH ROW insert into bitacora (accion) values ('EliminacionCorrectaDeJornadas');
+CREATE TRIGGER `log_jornadasu` AFTER UPDATE ON `jornadas` FOR EACH ROW insert into bitacora (accion) values ('ModificacionCorrectaDeJornadas');
+
+CREATE TRIGGER `log_asignacionalumnos` AFTER INSERT ON `asignacioncursosalumnos` FOR EACH ROW INSERT INTO bitacora (accion) Values ('IngresoCorrectoDeAsignacionCursosAlumnos');
+CREATE TRIGGER `log_asignacionalumnosd` AFTER DELETE ON `asignacioncursosalumnos` FOR EACH ROW insert into bitacora (accion) values ('EliminacionCorrectaDeAsignacionCursosAlumnos');
+CREATE TRIGGER `log_asignacionalumnosu` AFTER UPDATE ON `asignacioncursosalumnos` FOR EACH ROW insert into bitacora (accion) values ('ModificacionCorrectaDeAsignacionCursosAlumnos');
+
+CREATE TRIGGER `log_asignacionmaestros` AFTER INSERT ON `asignacioncursosmaestros` FOR EACH ROW INSERT INTO bitacora (accion) Values ('IngresoCorrectoDeAsignacionCursosMaestros');
+CREATE TRIGGER `log_asignacionmaestrosd` AFTER DELETE ON `asignacioncursosmaestros` FOR EACH ROW insert into bitacora (accion) values ('EliminacionCorrectaDeAsignacionCursosMaestros');
+CREATE TRIGGER `log_asignacionmaestrosu` AFTER UPDATE ON `asignacioncursosmaestros` FOR EACH ROW insert into bitacora (accion) values ('ModificacionCorrectaDeAsignacionCursosMaestros');

@@ -21,7 +21,6 @@ vista\MantenimientoAlumnos$6.class
 domain\Empleado.class
 vista\MdiGeneral$1.class
 vista\Login$3.class
-domain\Maestro.class
 domain\Usuario.class
 datos\Conexion.class
 vista\MantenimientoVendedores$7.class

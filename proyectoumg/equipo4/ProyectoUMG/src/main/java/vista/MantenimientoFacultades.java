@@ -6,9 +6,9 @@
 package vista;
 
 import datos.EmpleadoDAO;
-import datos.VendedorDAO;
+import datos.FacultadDAO;
 import domain.Empleado;
-import domain.Vendedor;
+import domain.Facultad;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
@@ -17,7 +17,7 @@ import java.io.File;
  *
  * @author visitante
  */
-public class MantenimientoVendedores extends javax.swing.JInternalFrame {
+public class MantenimientoFacultades extends javax.swing.JInternalFrame {
 
     public void llenadoDeCombos() {
         EmpleadoDAO empleadoDAO = new EmpleadoDAO();
@@ -30,32 +30,32 @@ public class MantenimientoVendedores extends javax.swing.JInternalFrame {
 
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID Vendedor");
-        modelo.addColumn("nombre");
-        modelo.addColumn("Dirección");
-        VendedorDAO vendedorDAO = new VendedorDAO();
-        List<Vendedor> vendedores = vendedorDAO.select();
-        tablaVendedores.setModel(modelo);
+        modelo.addColumn("ID Facultad");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Estatus");
+        FacultadDAO facultadDAO = new FacultadDAO();
+        List<Facultad> facultades = facultadDAO.select();
+        tablaAlumnos.setModel(modelo);
         String[] dato = new String[3];
-        for (int i = 0; i < vendedores.size(); i++) {
-            dato[0] = Integer.toString(vendedores.get(i).getId_vendedor());
-            dato[1] = vendedores.get(i).getNombreVendedor();
-            dato[2] = vendedores.get(i).getDireVendedor();
-            //System.out.println("vendedor:" + vendedores);
+        for (int i = 0; i < facultades.size(); i++) {
+            dato[0] = Integer.toString(facultades.get(i).getCodigoFacultad());
+            dato[1] = facultades.get(i).getNombreFacultad();
+            dato[2] = facultades.get(i).getEstatusFacultad();
+            //System.out.println("facultad:" + facultades);
             modelo.addRow(dato);
         }
     }
 
-    public void buscarVendedor() {
-        Vendedor vendedorAConsultar = new Vendedor();
-        VendedorDAO vendedorDAO = new VendedorDAO();
-        vendedorAConsultar.setId_vendedor(Integer.parseInt(txtbuscado.getText()));
-        vendedorAConsultar = vendedorDAO.query(vendedorAConsultar);
-        txtNombre.setText(vendedorAConsultar.getNombreVendedor());
-        txtDireccion.setText(vendedorAConsultar.getDireVendedor());
+    public void buscarFacultad() {
+        Facultad facultadAConsultar = new Facultad();
+        FacultadDAO facultadDAO = new FacultadDAO();
+        facultadAConsultar.setCodigoFacultad(Integer.parseInt(txtbuscado.getText()));
+        facultadAConsultar = facultadDAO.query(facultadAConsultar);
+        txtNombre.setText(facultadAConsultar.getNombreFacultad());
+        txtEstatus.setText(facultadAConsultar.getEstatusFacultad());
     }
 
-    public MantenimientoVendedores() {
+    public MantenimientoFacultades() {
         initComponents();
         llenadoDeTablas();
         llenadoDeCombos();
@@ -82,10 +82,10 @@ public class MantenimientoVendedores extends javax.swing.JInternalFrame {
         txtNombre = new javax.swing.JTextField();
         btnLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaVendedores = new javax.swing.JTable();
+        tablaAlumnos = new javax.swing.JTable();
         cbox_empleado = new javax.swing.JComboBox<>();
         label4 = new javax.swing.JLabel();
-        txtDireccion = new javax.swing.JTextField();
+        txtEstatus = new javax.swing.JTextField();
         label5 = new javax.swing.JLabel();
         lb = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -97,7 +97,7 @@ public class MantenimientoVendedores extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Mantenimiento Vendedor");
+        setTitle("Mantenimiento Facultad");
         setVisible(true);
 
         btnEliminar.setText("Eliminar");
@@ -122,7 +122,7 @@ public class MantenimientoVendedores extends javax.swing.JInternalFrame {
         });
 
         label1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label1.setText("Vendedor");
+        label1.setText("Facultad");
 
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -144,8 +144,8 @@ public class MantenimientoVendedores extends javax.swing.JInternalFrame {
             }
         });
 
-        tablaVendedores.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        tablaVendedores.setModel(new javax.swing.table.DefaultTableModel(
+        tablaAlumnos.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tablaAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -161,7 +161,7 @@ public class MantenimientoVendedores extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tablaVendedores);
+        jScrollPane1.setViewportView(tablaAlumnos);
 
         cbox_empleado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         cbox_empleado.addActionListener(new java.awt.event.ActionListener() {
@@ -173,11 +173,11 @@ public class MantenimientoVendedores extends javax.swing.JInternalFrame {
         label4.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label4.setText("Empleado:");
 
-        txtDireccion.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txtDireccion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+        txtEstatus.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtEstatus.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
 
         label5.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label5.setText("Dirección");
+        label5.setText("Estatus");
 
         lb.setForeground(new java.awt.Color(204, 204, 204));
         lb.setText(".");
@@ -217,14 +217,14 @@ public class MantenimientoVendedores extends javax.swing.JInternalFrame {
                             .addComponent(label5))
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                            .addComponent(txtEstatus, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
                             .addComponent(txtNombre))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -243,7 +243,7 @@ public class MantenimientoVendedores extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(label1)
-                .addGap(4, 4, 4)
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -255,7 +255,7 @@ public class MantenimientoVendedores extends javax.swing.JInternalFrame {
                                     .addComponent(label3))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(label5)))
                             .addComponent(lb))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -273,7 +273,7 @@ public class MantenimientoVendedores extends javax.swing.JInternalFrame {
                     .addComponent(label4)
                     .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -281,42 +281,42 @@ public class MantenimientoVendedores extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        VendedorDAO vendedorDAO = new VendedorDAO();
-        Vendedor vendedorAEliminar = new Vendedor();
-        vendedorAEliminar.setId_vendedor(Integer.parseInt(txtbuscado.getText()));
-        vendedorDAO.delete(vendedorAEliminar);
+        FacultadDAO facultadDAO = new FacultadDAO();
+        Facultad facultadAEliminar = new Facultad();
+        facultadAEliminar.setCodigoFacultad(Integer.parseInt(txtbuscado.getText()));
+        facultadDAO.delete(facultadAEliminar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        VendedorDAO vendedorDAO = new VendedorDAO();
-        Vendedor vendedorAInsertar = new Vendedor();
-        vendedorAInsertar.setNombreVendedor(txtNombre.getText());
-        vendedorAInsertar.setDireVendedor(txtDireccion.getText());
-        vendedorDAO.insert(vendedorAInsertar);
+        FacultadDAO facultadDAO = new FacultadDAO();
+        Facultad facultadAInsertar = new Facultad();
+        facultadAInsertar.setNombreFacultad(txtNombre.getText());
+        facultadAInsertar.setEstatusFacultad(txtEstatus.getText());
+        facultadDAO.insert(facultadAInsertar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        buscarVendedor();
+        buscarFacultad();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 //        // TODO add your handling code here:
-        VendedorDAO vendedorDAO = new VendedorDAO();
-        Vendedor vendedorAActualizar = new Vendedor();
-        vendedorAActualizar.setId_vendedor(Integer.parseInt(txtbuscado.getText()));
-        vendedorAActualizar.setNombreVendedor(txtNombre.getText());
-        vendedorAActualizar.setDireVendedor(txtDireccion.getText());
-        vendedorDAO.update(vendedorAActualizar);
+        FacultadDAO facultadDAO = new FacultadDAO();
+        Facultad facultadAActualizar = new Facultad();
+        facultadAActualizar.setCodigoFacultad(Integer.parseInt(txtbuscado.getText()));
+        facultadAActualizar.setNombreFacultad(txtNombre.getText());
+        facultadAActualizar.setEstatusFacultad(txtEstatus.getText());
+        facultadDAO.update(facultadAActualizar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         cbox_empleado.setSelectedIndex(0);
         txtNombre.setText("");
-        txtDireccion.setText("");
+        txtEstatus.setText("");
         txtbuscado.setText("");
         btnRegistrar.setEnabled(true);
         btnModificar.setEnabled(true);
@@ -364,8 +364,8 @@ public class MantenimientoVendedores extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lb;
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lbusu;
-    private javax.swing.JTable tablaVendedores;
-    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTable tablaAlumnos;
+    private javax.swing.JTextField txtEstatus;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables

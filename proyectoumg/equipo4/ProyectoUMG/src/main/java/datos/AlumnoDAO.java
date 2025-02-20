@@ -171,6 +171,7 @@ public class AlumnoDAO {
                 alumno.setNombreAlumno(nombreAlumno);
                 alumno.setDireccionAlumno(direccionAlumno);
                 alumno.setTelefonoAlumno(telefonoAlumno);
+                alumno.setEmailAlumno(emailAlumno);
                 alumno.setEstatusAlumno(estatusAlumno);
                 
                 //vendedores.add(vendedor); // Si se utiliza un ArrayList

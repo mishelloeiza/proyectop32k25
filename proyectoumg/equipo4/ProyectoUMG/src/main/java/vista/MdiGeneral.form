@@ -43,12 +43,21 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAlumnosActionPerformed"/>
                   </Events>
                 </MenuItem>
+<<<<<<< HEAD
                 <MenuItem class="javax.swing.JMenuItem" name="menuCarreras">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Mantenimiento Carreras"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCarrerasActionPerformed"/>
+=======
+                <MenuItem class="javax.swing.JMenuItem" name="menuFacultades">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Mantenimiento Facultades"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFacultadesActionPerformed"/>
+>>>>>>> f5be5679864142c48ce3a68d1ba42b23b9be8844
                   </Events>
                 </MenuItem>
               </SubComponents>

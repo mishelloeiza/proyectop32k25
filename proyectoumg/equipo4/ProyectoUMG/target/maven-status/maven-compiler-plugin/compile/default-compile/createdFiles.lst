@@ -1,12 +1,8 @@
 vista\MantenimientoVendedores$5.class
 datos\AlumnoDAO.class
-domain\Facultad.class
-vista\MantenimientoFacultades$4.class
 vista\Login$2.class
-vista\MantenimientoFacultades$1.class
 domain\Alumno.class
 vista\MdiGeneral.class
-<<<<<<< HEAD
 vista\MantenimientoCarreras.class
 vista\MantenimientoVendedores.class
 vista\MantenimientoCarreras$1.class
@@ -15,70 +11,39 @@ vista\MantenimientoVendedores$2.class
 vista\MantenimientoAlumnos$1.class
 vista\MantenimientoAlumnos$4.class
 vista\MantenimientoCarreras$4.class
-=======
-vista\MantenimientoVendedores.class
-vista\MantenimientoVendedores$2.class
-vista\MantenimientoFacultades$7.class
-vista\MantenimientoAlumnos$1.class
-vista\MantenimientoAlumnos$4.class
->>>>>>> f5be5679864142c48ce3a68d1ba42b23b9be8844
 vista\MdiGeneral$2.class
 vista\Login.class
 vista\MantenimientoVendedores$4.class
 vista\MantenimientoAlumnos.class
-<<<<<<< HEAD
-=======
-vista\MantenimientoFacultades$5.class
->>>>>>> f5be5679864142c48ce3a68d1ba42b23b9be8844
 vista\MantenimientoVendedores$1.class
 vista\MantenimientoAlumnos$7.class
 vista\MantenimientoAlumnos$3.class
 vista\MantenimientoVendedores$8.class
-<<<<<<< HEAD
 vista\MantenimientoCarreras$5.class
 vista\MantenimientoCarreras$8.class
-=======
-vista\MantenimientoFacultades$8.class
->>>>>>> f5be5679864142c48ce3a68d1ba42b23b9be8844
 datos\EmpleadoDAO.class
 domain\Vendedor.class
 vista\MantenimientoAlumnos$6.class
 domain\Empleado.class
-<<<<<<< HEAD
 vista\MantenimientoCarreras$2.class
 vista\MdiGeneral$1.class
 vista\MantenimientoCarreras$6.class
+vista\MdiGeneral$5.class
 vista\Login$3.class
 datos\CarreraDAO.class
 vista\MdiGeneral$4.class
-=======
-vista\MantenimientoFacultades$6.class
-vista\MdiGeneral$1.class
-vista\MantenimientoFacultades.class
-vista\MdiGeneral$5.class
-vista\Login$3.class
-vista\MdiGeneral$4.class
-vista\MantenimientoFacultades$2.class
->>>>>>> f5be5679864142c48ce3a68d1ba42b23b9be8844
 domain\Usuario.class
 datos\Conexion.class
 vista\MantenimientoVendedores$7.class
 vista\Login$1.class
 vista\MantenimientoVendedores$6.class
 datos\UsuarioDAO.class
-<<<<<<< HEAD
 vista\MantenimientoCarreras$3.class
 domain\Carrera.class
 vista\MantenimientoAlumnos$2.class
 datos\VendedorDAO.class
-=======
-vista\MantenimientoAlumnos$2.class
-datos\VendedorDAO.class
-datos\FacultadDAO.class
->>>>>>> f5be5679864142c48ce3a68d1ba42b23b9be8844
 vista\MantenimientoAlumnos$8.class
 vista\Login$4.class
 vista\MantenimientoVendedores$3.class
 vista\MantenimientoAlumnos$5.class
 vista\MdiGeneral$3.class
-vista\MantenimientoFacultades$3.class

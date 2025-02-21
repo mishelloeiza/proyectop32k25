@@ -41,11 +41,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         menuAlumnos = new javax.swing.JMenuItem();
-<<<<<<< HEAD
         menuCarreras = new javax.swing.JMenuItem();
-=======
-        menuFacultades = new javax.swing.JMenuItem();
->>>>>>> f5be5679864142c48ce3a68d1ba42b23b9be8844
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -89,7 +85,6 @@ public class MdiGeneral extends javax.swing.JFrame {
         });
         jMenu3.add(menuAlumnos);
 
-<<<<<<< HEAD
         menuCarreras.setText("Mantenimiento Carreras");
         menuCarreras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,15 +92,6 @@ public class MdiGeneral extends javax.swing.JFrame {
             }
         });
         jMenu3.add(menuCarreras);
-=======
-        menuFacultades.setText("Mantenimiento Facultades");
-        menuFacultades.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuFacultadesActionPerformed(evt);
-            }
-        });
-        jMenu3.add(menuFacultades);
->>>>>>> f5be5679864142c48ce3a68d1ba42b23b9be8844
 
         jMenu1.add(jMenu3);
 
@@ -150,24 +136,14 @@ public class MdiGeneral extends javax.swing.JFrame {
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_menuAlumnosActionPerformed
 
-<<<<<<< HEAD
     private void menuCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCarrerasActionPerformed
         // TODO add your handling code here:
         MantenimientoCarreras ventana = new MantenimientoCarreras();
-=======
-    private void menuFacultadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFacultadesActionPerformed
-        // TODO add your handling code here:
-        MantenimientoFacultades ventana = new MantenimientoFacultades();
->>>>>>> f5be5679864142c48ce3a68d1ba42b23b9be8844
         jDesktopPane1.add(ventana);
         Dimension desktopSize = jDesktopPane1.getSize();
         Dimension FrameSize = ventana.getSize();
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-<<<<<<< HEAD
     }//GEN-LAST:event_menuCarrerasActionPerformed
-=======
-    }//GEN-LAST:event_menuFacultadesActionPerformed
->>>>>>> f5be5679864142c48ce3a68d1ba42b23b9be8844
 
     /**
      * @param args the command line arguments
@@ -213,10 +189,6 @@ public class MdiGeneral extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem menuAlumnos;
-<<<<<<< HEAD
     private javax.swing.JMenuItem menuCarreras;
-=======
-    private javax.swing.JMenuItem menuFacultades;
->>>>>>> f5be5679864142c48ce3a68d1ba42b23b9be8844
     // End of variables declaration//GEN-END:variables
 }

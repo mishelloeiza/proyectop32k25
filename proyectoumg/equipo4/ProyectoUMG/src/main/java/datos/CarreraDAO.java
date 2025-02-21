@@ -5,7 +5,7 @@
  */
 package datos;
 
-import domain.Alumno;
+import domain.Carrera;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,42 +17,38 @@ import java.util.List;
  *
  * @author visitante
  */
-public class AlumnoDAO {
+public class CarreraDAO {
 
-    private static final String SQL_SELECT = "SELECT carnet_alumno, nombre_alumno, direccion_alumno, telefono_alumno, email_alumno, estatus_alumno FROM alumnos";
-    private static final String SQL_INSERT = "INSERT INTO alumnos(nombre_alumno, direccion_alumno, telefono_alumno, email_alumno, estatus_alumno) VALUES(?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE alumnos SET nombre_alumno=?, direccion_alumno=?, telefono_alumno=?, email_alumno=?, estatus_alumno=? WHERE carnet_alumno = ?";
-    private static final String SQL_DELETE = "DELETE FROM alumnos WHERE carnet_alumno=?";
-    private static final String SQL_QUERY = "SELECT carnet_alumno, nombre_alumno, direccion_alumno, telefono_alumno, email_alumno, estatus_alumno FROM alumnos WHERE carnet_alumno = ?";
+    private static final String SQL_SELECT = "SELECT codigo_carrera, nombre_carrera, codigo_facultad, estatus_carrera FROM carreras";
+    private static final String SQL_INSERT = "INSERT INTO carreras(nombre_carrera, codigo_facultad, estatus_carrera) VALUES(?, ?, ?)";
+    private static final String SQL_UPDATE = "UPDATE carreras SET nombre_carrera=?, codigo_facultad=?, estatus_carrera=? WHERE codigo_carrera = ?";
+    private static final String SQL_DELETE = "DELETE FROM carreras WHERE codigo_carrera=?";
+    private static final String SQL_QUERY = "SELECT codigo_carrera, nombre_carrera, codigo_facultad, estatus_carrera FROM carreras WHERE codigo_carrera = ?";
 
-    public List<Alumno> select() {
+    public List<Carrera> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Alumno alumno = null;
-        List<Alumno> alumnos = new ArrayList<Alumno>();
+        Carrera carrera = null;
+        List<Carrera> carreras = new ArrayList<Carrera>();
 
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int carnetAlumno = rs.getInt("carnet_alumno");
-                String nombreAlumno = rs.getString("nombre_alumno");
-                String direccionAlumno = rs.getString("direccion_alumno");
-                String telefonoAlumno = rs.getString("telefono_alumno");
-                String emailAlumno = rs.getString("email_alumno");
-                String estatusAlumno = rs.getString("estatus_alumno");
+                int codigoCarrera = rs.getInt("codigo_carrera");
+                String nombreCarrera = rs.getString("nombre_carrera");
+                int codigoFacultad = rs.getInt("codigo_facultad");
+                String estatusCarrera = rs.getString("estatus_carrera");
                 
-                alumno = new Alumno();
-                alumno.setCarnetAlumno(carnetAlumno);
-                alumno.setNombreAlumno(nombreAlumno);
-                alumno.setDireccionAlumno(direccionAlumno);
-                alumno.setTelefonoAlumno(telefonoAlumno);
-                alumno.setEmailAlumno(emailAlumno);
-                alumno.setEstatusAlumno(estatusAlumno);
+                carrera = new Carrera();
+                carrera.setCodigoCarrera(codigoCarrera);
+                carrera.setNombreCarrera(nombreCarrera);
+                carrera.setCodigoFacultad(codigoFacultad);
+                carrera.setEstatusCarrera(estatusCarrera);
                 
-                alumnos.add(alumno);
+                carreras.add(carrera);
             }
 
         } catch (SQLException ex) {
@@ -63,21 +59,19 @@ public class AlumnoDAO {
             Conexion.close(conn);
         }
 
-        return alumnos;
+        return carreras;
     }
 
-    public int insert(Alumno alumnos) {
+    public int insert(Carrera carreras) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, alumnos.getNombreAlumno());
-            stmt.setString(2, alumnos.getDireccionAlumno());
-            stmt.setString(3, alumnos.getTelefonoAlumno());
-            stmt.setString(4, alumnos.getEmailAlumno());
-            stmt.setString(5, alumnos.getEstatusAlumno());
+            stmt.setString(1, carreras.getNombreCarrera());
+            stmt.setInt(2, carreras.getCodigoFacultad());
+            stmt.setString(3, carreras.getEstatusCarrera());
 
             
             System.out.println("ejecutando query:" + SQL_INSERT);
@@ -93,7 +87,7 @@ public class AlumnoDAO {
         return rows;
     }
 
-    public int update(Alumno alumno) {
+    public int update(Carrera carrera) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -102,12 +96,10 @@ public class AlumnoDAO {
             conn = Conexion.getConnection();
             System.out.println("ejecutando query: " + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, alumno.getNombreAlumno());
-            stmt.setString(2, alumno.getDireccionAlumno());
-            stmt.setString(3, alumno.getTelefonoAlumno());
-            stmt.setString(4, alumno.getEmailAlumno());
-            stmt.setString(5, alumno.getEstatusAlumno());
-            stmt.setInt(6, alumno.getCarnetAlumno());
+            stmt.setString(1, carrera.getNombreCarrera());
+            stmt.setInt(2, carrera.getCodigoFacultad());
+            stmt.setString(3, carrera.getEstatusCarrera());
+            stmt.setInt(4, carrera.getCodigoCarrera());
             
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado:" + rows);
@@ -122,7 +114,7 @@ public class AlumnoDAO {
         return rows;
     }
 
-    public int delete(Alumno alumno) {
+    public int delete(Carrera carrera) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -131,7 +123,7 @@ public class AlumnoDAO {
             conn = Conexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_DELETE);
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(1, alumno.getCarnetAlumno());
+            stmt.setInt(1, carrera.getCodigoCarrera());
             rows = stmt.executeUpdate();
             System.out.println("Registros eliminados:" + rows);
         } catch (SQLException ex) {
@@ -145,34 +137,30 @@ public class AlumnoDAO {
     }
 
 //    public List<Persona> query(Persona vendedor) { // Si se utiliza un ArrayList
-    public Alumno query(Alumno alumno) {    
+    public Carrera query(Carrera carrera) {    
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Alumno> alumnos = new ArrayList<Alumno>();
+        List<Carrera> carreras = new ArrayList<Carrera>();
         int rows = 0;
 
         try {
             conn = Conexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_QUERY);
             stmt = conn.prepareStatement(SQL_QUERY);
-            stmt.setInt(1, alumno.getCarnetAlumno());
+            stmt.setInt(1, carrera.getCodigoCarrera());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int carnetAlumno = rs.getInt("carnet_alumno");
-                String nombreAlumno = rs.getString("nombre_alumno");
-                String direccionAlumno = rs.getString("direccion_alumno");
-                String telefonoAlumno = rs.getString("telefono_alumno");
-                String emailAlumno = rs.getString("email_alumno");
-                String estatusAlumno = rs.getString("estatus_alumno");
+                int codigoCarrera = rs.getInt("codigo_carrera");
+                String nombreCarrera = rs.getString("nombre_carrera");
+                int codigoFacultad = rs.getInt("codigo_facultad");
+                String estatusCarrera = rs.getString("estatus_carrera");
                 
-                alumno = new Alumno();
-                alumno.setCarnetAlumno(carnetAlumno);
-                alumno.setNombreAlumno(nombreAlumno);
-                alumno.setDireccionAlumno(direccionAlumno);
-                alumno.setTelefonoAlumno(telefonoAlumno);
-                alumno.setEmailAlumno(emailAlumno);
-                alumno.setEstatusAlumno(estatusAlumno);
+                carrera = new Carrera();
+                carrera.setCodigoCarrera(codigoCarrera);
+                carrera.setNombreCarrera(nombreCarrera);
+                carrera.setCodigoFacultad(codigoFacultad);
+                carrera.setEstatusCarrera(estatusCarrera);
                 
                 //vendedores.add(vendedor); // Si se utiliza un ArrayList
             }
@@ -186,7 +174,7 @@ public class AlumnoDAO {
         }
 
         //return vendedores;  // Si se utiliza un ArrayList
-        return alumno;
+        return carrera;
     }
         
 }

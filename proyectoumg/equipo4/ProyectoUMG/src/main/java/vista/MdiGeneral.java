@@ -41,6 +41,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         menuAlumnos = new javax.swing.JMenuItem();
+        menuCarreras = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -84,6 +85,14 @@ public class MdiGeneral extends javax.swing.JFrame {
         });
         jMenu3.add(menuAlumnos);
 
+        menuCarreras.setText("Mantenimiento Carreras");
+        menuCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCarrerasActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuCarreras);
+
         jMenu1.add(jMenu3);
 
         jMenuBar1.add(jMenu1);
@@ -126,6 +135,15 @@ public class MdiGeneral extends javax.swing.JFrame {
         Dimension FrameSize = ventana.getSize();
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_menuAlumnosActionPerformed
+
+    private void menuCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCarrerasActionPerformed
+        // TODO add your handling code here:
+        MantenimientoCarreras ventana = new MantenimientoCarreras();
+        jDesktopPane1.add(ventana);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_menuCarrerasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,5 +189,6 @@ public class MdiGeneral extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem menuAlumnos;
+    private javax.swing.JMenuItem menuCarreras;
     // End of variables declaration//GEN-END:variables
 }

@@ -45,7 +45,7 @@ public class MaestroDAO {
                 int codigo_maestro = rs.getInt("codigo_maestro");
                 String nombre_maestro = rs.getString("nombre_maestro");
                 String direccion_maestro = rs.getString("direccion_maestro");
-                String telefono_maestro  = rs.getString("telefono_maestro");
+                String telefono_maestro  = rs.getString("telefono_maetro");
                 String email_maestro = rs.getString("email_maestro");
                 String estatus_mestro = rs.getString("estatus_maestro");
                 
@@ -191,7 +191,7 @@ public class MaestroDAO {
                 int codigo_maestro = rs.getInt("codigo_maestro");
                 String nombre_maestro = rs.getString("nombre_maestro");
                 String direccion_maestro = rs.getString("direccion_maestro");
-                String telefono_maestro  = rs.getString("telefono_maestro");
+                String telefono_maestro  = rs.getString("telefono_maetro");
                 String email_maestro = rs.getString("email_maestro");
                 String estatus_mestro = rs.getString("estatus_maestro");
                 

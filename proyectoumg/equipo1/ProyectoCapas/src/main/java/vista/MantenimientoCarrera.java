@@ -349,9 +349,8 @@ public class MantenimientoCarrera extends javax.swing.JInternalFrame {
         CarreraDAO carreraDAO = new CarreraDAO();
         Carrera carreraAInsertar = new Carrera();
         carreraAInsertar.setNombre_carrera(txtNombre.getText());
+        carreraAInsertar.setCodigo_facultad(Integer.parseInt(txtFacultad.getText()));
         
-          int codigoFacultad = carreraAInsertar.getCodigo_facultad();
-        txtFacultad.setText(String.valueOf(codigoFacultad)); // or Integer.toString(codigoFacultad)
     
         
         carreraAInsertar.setEstatus_carrera(txtEstatus.getText());
@@ -372,8 +371,7 @@ public class MantenimientoCarrera extends javax.swing.JInternalFrame {
         carreraAActualizar.setCodigo_carrera(Integer.parseInt(txtbuscado.getText()));
         carreraAActualizar.setNombre_carrera(txtNombre.getText());
        
-        int codigoFacultad = carreraAActualizar.getCodigo_facultad();
-        txtFacultad.setText(String.valueOf(codigoFacultad)); // or Integer.toString(codigoFacultad)
+       carreraAActualizar.setCodigo_facultad(Integer.parseInt(txtFacultad.getText()));
     
         
         carreraAActualizar.setEstatus_carrera(txtEstatus.getText());

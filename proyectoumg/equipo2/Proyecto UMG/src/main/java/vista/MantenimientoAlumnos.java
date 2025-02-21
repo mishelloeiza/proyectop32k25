@@ -29,27 +29,18 @@ public class MantenimientoAlumnos extends javax.swing.JInternalFrame {
     }
 
     public void llenadoDeTablas() {
-        //modelo es la tabla que se esta creando
         DefaultTableModel modelo = new DefaultTableModel();
-        //titulos de tabla
         modelo.addColumn("ID Alumno");
         modelo.addColumn("nombre");
         modelo.addColumn("Dirección");
         modelo.addColumn("Telefono");
         modelo.addColumn("Email");
         modelo.addColumn("Estatus");
-        //creamos objeto alumnoDAO de clase AlumnoDAO e instanciamos
         AlumnoDAO alumnoDAO = new AlumnoDAO();
-        //creamos lista alumnos que es la que trae la info de objeto de la clase Alumno
-        //y llamamos al objeto que acabamos de crear y le colocamos el metodo select que nos trae el llenado de la lista
         List<Alumno> alumnos = alumnoDAO.select();
-        //le agregamos el modelo que es el llenado de titulos 
         tablaAlumnos.setModel(modelo);
-        //definimos vector
         String[] dato = new String[6];
-        //creamos un ciclo que va de 0 hasta que sea menos que la cantidad de filas de la lista alumnos
         for (int i = 0; i < alumnos.size(); i++) {
-            //el primer dato que es entera transforma lo que trae a int y con get trae el carnet
             dato[0] = Integer.toString(alumnos.get(i).getCarnetAlumno());
             dato[1] = alumnos.get(i).getNombreAlumno();
             dato[2] = alumnos.get(i).getDireccionAlumno();
@@ -63,14 +54,9 @@ public class MantenimientoAlumnos extends javax.swing.JInternalFrame {
     }
 
     public void buscarVendedor() {
-        //Creamos 2 objetos que tienen info de la estructura de la capa datos y tambien se instancia de los metodos de capa domain 
-        //creamos objeto alumnoAConsultar del tipo Alumno
         Alumno alumnoAConsultar = new Alumno();
-        //objeto alumnoDAO del tipo AlumnoDAO
         AlumnoDAO alumnoDAO = new AlumnoDAO();
-        //colocamos en objeto alumnoAConsultar el carnet y lo convierte a entero
         alumnoAConsultar.setCarnetAlumno(Integer.parseInt(txtbuscado.getText()));
-        //en alumnoDAO invocamos el metodo query y enviamos el alumnoAConsultar
         alumnoAConsultar = alumnoDAO.query(alumnoAConsultar);
         txtNombre.setText(alumnoAConsultar.getNombreAlumno());
         txtDireccion.setText(alumnoAConsultar.getDireccionAlumno());

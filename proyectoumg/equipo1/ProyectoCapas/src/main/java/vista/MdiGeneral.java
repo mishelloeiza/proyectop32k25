@@ -42,6 +42,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -85,6 +86,14 @@ public class MdiGeneral extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem4);
 
+        jMenuItem5.setText("Mantenimiento Maestros");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem5);
+
         jMenu1.add(jMenu3);
 
         jMenuBar1.add(jMenu1);
@@ -127,6 +136,16 @@ public class MdiGeneral extends javax.swing.JFrame {
         Dimension FrameSize = ventana.getSize();
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+         MantenimientoMaestro ventana = new MantenimientoMaestro();
+        jDesktopPane1.add(ventana);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,5 +191,6 @@ public class MdiGeneral extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     // End of variables declaration//GEN-END:variables
 }

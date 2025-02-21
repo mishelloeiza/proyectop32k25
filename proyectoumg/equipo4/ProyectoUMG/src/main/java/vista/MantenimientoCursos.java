@@ -6,9 +6,9 @@
 package vista;
 
 import datos.EmpleadoDAO;
-import datos.FacultadDAO;
+import datos.CursoDAO;
 import domain.Empleado;
-import domain.Facultad;
+import domain.Curso;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
@@ -17,7 +17,7 @@ import java.io.File;
  *
  * @author visitante
  */
-public class MantenimientoFacultades extends javax.swing.JInternalFrame {
+public class MantenimientoCursos extends javax.swing.JInternalFrame {
 
     public void llenadoDeCombos() {
         EmpleadoDAO empleadoDAO = new EmpleadoDAO();
@@ -30,32 +30,32 @@ public class MantenimientoFacultades extends javax.swing.JInternalFrame {
 
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID Facultad");
+        modelo.addColumn("ID Curso");
         modelo.addColumn("Nombre");
         modelo.addColumn("Estatus");
-        FacultadDAO facultadDAO = new FacultadDAO();
-        List<Facultad> facultades = facultadDAO.select();
-        tablaFacultades.setModel(modelo);
+        CursoDAO cursoDAO = new CursoDAO();
+        List<Curso> cursos = cursoDAO.select();
+        tablaCursos.setModel(modelo);
         String[] dato = new String[3];
-        for (int i = 0; i < facultades.size(); i++) {
-            dato[0] = Integer.toString(facultades.get(i).getCodigoFacultad());
-            dato[1] = facultades.get(i).getNombreFacultad();
-            dato[2] = facultades.get(i).getEstatusFacultad();
-            //System.out.println("facultad:" + facultades);
+        for (int i = 0; i < cursos.size(); i++) {
+            dato[0] = Integer.toString(cursos.get(i).getCodigoCurso());
+            dato[1] = cursos.get(i).getNombreCurso();
+            dato[2] = cursos.get(i).getEstatusCurso();
+            //System.out.println("curso:" + cursos);
             modelo.addRow(dato);
         }
     }
 
-    public void buscarFacultad() {
-        Facultad facultadAConsultar = new Facultad();
-        FacultadDAO facultadDAO = new FacultadDAO();
-        facultadAConsultar.setCodigoFacultad(Integer.parseInt(txtbuscado.getText()));
-        facultadAConsultar = facultadDAO.query(facultadAConsultar);
-        txtNombre.setText(facultadAConsultar.getNombreFacultad());
-        txtEstatus.setText(facultadAConsultar.getEstatusFacultad());
+    public void buscarCurso() {
+        Curso cursoAConsultar = new Curso();
+        CursoDAO cursoDAO = new CursoDAO();
+        cursoAConsultar.setCodigoCurso(Integer.parseInt(txtbuscado.getText()));
+        cursoAConsultar = cursoDAO.query(cursoAConsultar);
+        txtNombre.setText(cursoAConsultar.getNombreCurso());
+        txtEstatus.setText(cursoAConsultar.getEstatusCurso());
     }
 
-    public MantenimientoFacultades() {
+    public MantenimientoCursos() {
         initComponents();
         llenadoDeTablas();
         llenadoDeCombos();
@@ -82,7 +82,7 @@ public class MantenimientoFacultades extends javax.swing.JInternalFrame {
         txtNombre = new javax.swing.JTextField();
         btnLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaFacultades = new javax.swing.JTable();
+        tablaCursos = new javax.swing.JTable();
         cbox_empleado = new javax.swing.JComboBox<>();
         label4 = new javax.swing.JLabel();
         txtEstatus = new javax.swing.JTextField();
@@ -97,7 +97,7 @@ public class MantenimientoFacultades extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Mantenimiento Facultad");
+        setTitle("Mantenimiento Curso");
         setVisible(true);
 
         btnEliminar.setText("Eliminar");
@@ -122,7 +122,7 @@ public class MantenimientoFacultades extends javax.swing.JInternalFrame {
         });
 
         label1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label1.setText("Facultad");
+        label1.setText("Cursos");
 
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -144,8 +144,8 @@ public class MantenimientoFacultades extends javax.swing.JInternalFrame {
             }
         });
 
-        tablaFacultades.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        tablaFacultades.setModel(new javax.swing.table.DefaultTableModel(
+        tablaCursos.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tablaCursos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -161,7 +161,7 @@ public class MantenimientoFacultades extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tablaFacultades);
+        jScrollPane1.setViewportView(tablaCursos);
 
         cbox_empleado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         cbox_empleado.addActionListener(new java.awt.event.ActionListener() {
@@ -281,35 +281,35 @@ public class MantenimientoFacultades extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        FacultadDAO facultadDAO = new FacultadDAO();
-        Facultad facultadAEliminar = new Facultad();
-        facultadAEliminar.setCodigoFacultad(Integer.parseInt(txtbuscado.getText()));
-        facultadDAO.delete(facultadAEliminar);
+        CursoDAO cursoDAO = new CursoDAO();
+        Curso cursoAEliminar = new Curso();
+        cursoAEliminar.setCodigoCurso(Integer.parseInt(txtbuscado.getText()));
+        cursoDAO.delete(cursoAEliminar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        FacultadDAO facultadDAO = new FacultadDAO();
-        Facultad facultadAInsertar = new Facultad();
-        facultadAInsertar.setNombreFacultad(txtNombre.getText());
-        facultadAInsertar.setEstatusFacultad(txtEstatus.getText());
-        facultadDAO.insert(facultadAInsertar);
+        CursoDAO cursoDAO = new CursoDAO();
+        Curso cursoAInsertar = new Curso();
+        cursoAInsertar.setNombreCurso(txtNombre.getText());
+        cursoAInsertar.setEstatusCurso(txtEstatus.getText());
+        cursoDAO.insert(cursoAInsertar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        buscarFacultad();
+        buscarCurso();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 //        // TODO add your handling code here:
-        FacultadDAO facultadDAO = new FacultadDAO();
-        Facultad facultadAActualizar = new Facultad();
-        facultadAActualizar.setCodigoFacultad(Integer.parseInt(txtbuscado.getText()));
-        facultadAActualizar.setNombreFacultad(txtNombre.getText());
-        facultadAActualizar.setEstatusFacultad(txtEstatus.getText());
-        facultadDAO.update(facultadAActualizar);
+        CursoDAO cursoDAO = new CursoDAO();
+        Curso cursoAActualizar = new Curso();
+        cursoAActualizar.setCodigoCurso(Integer.parseInt(txtbuscado.getText()));
+        cursoAActualizar.setNombreCurso(txtNombre.getText());
+        cursoAActualizar.setEstatusCurso(txtEstatus.getText());
+        cursoDAO.update(cursoAActualizar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -364,7 +364,7 @@ public class MantenimientoFacultades extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lb;
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lbusu;
-    private javax.swing.JTable tablaFacultades;
+    private javax.swing.JTable tablaCursos;
     private javax.swing.JTextField txtEstatus;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtbuscado;

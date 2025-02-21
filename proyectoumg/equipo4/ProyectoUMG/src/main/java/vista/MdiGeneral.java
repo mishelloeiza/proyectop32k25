@@ -43,6 +43,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         menuAlumnos = new javax.swing.JMenuItem();
         menuCarreras = new javax.swing.JMenuItem();
         menuFacultades = new javax.swing.JMenuItem();
+        menuCursos = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -101,6 +102,14 @@ public class MdiGeneral extends javax.swing.JFrame {
             }
         });
         jMenu3.add(menuFacultades);
+
+        menuCursos.setText("Mantenimiento Cursos");
+        menuCursos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCursosActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuCursos);
 
         jMenu1.add(jMenu3);
 
@@ -163,6 +172,15 @@ public class MdiGeneral extends javax.swing.JFrame {
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_menuFacultadesActionPerformed
 
+    private void menuCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCursosActionPerformed
+        // TODO add your handling code here:
+        MantenimientoCursos ventana = new MantenimientoCursos();
+        jDesktopPane1.add(ventana);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_menuCursosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -208,6 +226,7 @@ public class MdiGeneral extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem menuAlumnos;
     private javax.swing.JMenuItem menuCarreras;
+    private javax.swing.JMenuItem menuCursos;
     private javax.swing.JMenuItem menuFacultades;
     // End of variables declaration//GEN-END:variables
 }

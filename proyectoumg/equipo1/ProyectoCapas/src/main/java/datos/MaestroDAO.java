@@ -19,11 +19,11 @@ import java.util.List;
  */
 public class MaestroDAO {
 
-    private static final String SQL_SELECT = "SELECT carnet_maestro, nombre_maestro, direccion_maestro, telefono_maestro, email_maestro, estatus_maestro FROM maestros";
+    private static final String SQL_SELECT = "SELECT codigo_maestro, nombre_maestro, direccion_maestro, telefono_maestro, email_maestro, estatus_maestro FROM maestros";
     private static final String SQL_INSERT = "INSERT INTO maestros( nombre_maestro, direccion_maestro, telefono_maestro, email_maestro, estatus_maestro) VALUES(?,?,?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE maestros SET nombre_maestro=?, direccion_maestro=?, telefono_maestro=?, email_maestro=?, estatus_maestro=? WHERE carnet_maestro = ?";
-    private static final String SQL_DELETE = "DELETE FROM maestros WHERE carnet_maestro=?";
-    private static final String SQL_QUERY = "SELECT carnet_maestro, nombre_maestro, direccion_maestro, telefono_maestro, email_maestro, estatus_maestro FROM maestros WHERE carnet_maestro = ?";
+    private static final String SQL_UPDATE = "UPDATE maestros SET nombre_maestro=?, direccion_maestro=?, telefono_maestro=?, email_maestro=?, estatus_maestro=? WHERE codigo_maestro = ?";
+    private static final String SQL_DELETE = "DELETE FROM maestros WHERE codigo_maestro=?";
+    private static final String SQL_QUERY = "SELECT carnet_maestro, nombre_maestro, direccion_maestro, telefono_maestro, email_maestro, estatus_maestro FROM maestros WHERE codigo_maestro = ?";
 // La lista tiene adetro la clase 
     public List<Maestro> select() {
         Connection conn = null;
@@ -39,7 +39,7 @@ public class MaestroDAO {
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int carnet_maestro = rs.getInt("carnet_maestro");
+                int carnet_maestro = rs.getInt("codigo_maestro");
                 String nombre_maestro = rs.getString("nombre_maestro");
                 String telefono_maestro = rs.getString("telefono_maestro");
                 String direccion_maestro = rs.getString("direccion_maestro");
@@ -160,7 +160,7 @@ public class MaestroDAO {
             stmt.setInt(1, maestro.getCarnet_maestro());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int carnet_maestro = rs.getInt("carnet_maestro");
+                int carnet_maestro = rs.getInt("codigo_maestro");
                 String nombre_maestro = rs.getString("nombre_maestro");
                 String telefono_maestro = rs.getString("telefono_maestro");
                 String direccion_maestro = rs.getString("direccion_maestro");

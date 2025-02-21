@@ -70,10 +70,8 @@ public class CarreraDAO {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
             stmt.setString(1, carreras.getNombreCarrera());
-            stmt.setString(2, carreras.getDireccionCarrera());
-            stmt.setString(3, carreras.getTelefonoCarrera());
-            stmt.setString(4, carreras.getEmailCarrera());
-            stmt.setString(5, carreras.getEstatusCarrera());
+            stmt.setInt(2, carreras.getCodigoFacultad());
+            stmt.setString(3, carreras.getEstatusCarrera());
 
             
             System.out.println("ejecutando query:" + SQL_INSERT);
@@ -99,11 +97,9 @@ public class CarreraDAO {
             System.out.println("ejecutando query: " + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
             stmt.setString(1, carrera.getNombreCarrera());
-            stmt.setString(2, carrera.getDireccionCarrera());
-            stmt.setString(3, carrera.getTelefonoCarrera());
-            stmt.setString(4, carrera.getEmailCarrera());
-            stmt.setString(5, carrera.getEstatusCarrera());
-            stmt.setInt(6, carrera.getCodigoCarrera());
+            stmt.setInt(2, carrera.getCodigoFacultad());
+            stmt.setString(3, carrera.getEstatusCarrera());
+            stmt.setInt(4, carrera.getCodigoCarrera());
             
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado:" + rows);
@@ -157,16 +153,13 @@ public class CarreraDAO {
             while (rs.next()) {
                 int codigoCarrera = rs.getInt("codigo_carrera");
                 String nombreCarrera = rs.getString("nombre_carrera");
-                String direccionCarrera = rs.getString("direccion_carrera");
-                String telefonoCarrera = rs.getString("telefono_carrera");
-                String emailCarrera = rs.getString("email_carrera");
+                int codigoFacultad = rs.getInt("codigo_facultad");
                 String estatusCarrera = rs.getString("estatus_carrera");
                 
                 carrera = new Carrera();
                 carrera.setCodigoCarrera(codigoCarrera);
                 carrera.setNombreCarrera(nombreCarrera);
-                carrera.setDireccionCarrera(direccionCarrera);
-                carrera.setTelefonoCarrera(telefonoCarrera);
+                carrera.setCodigoFacultad(codigoFacultad);
                 carrera.setEstatusCarrera(estatusCarrera);
                 
                 //vendedores.add(vendedor); // Si se utiliza un ArrayList

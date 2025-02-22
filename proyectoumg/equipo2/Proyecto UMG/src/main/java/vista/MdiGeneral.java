@@ -43,6 +43,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         menuFacultades = new javax.swing.JMenuItem();
         menuSedes = new javax.swing.JMenuItem();
+        MCarreras = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -101,6 +102,14 @@ public class MdiGeneral extends javax.swing.JFrame {
             }
         });
         jMenu3.add(menuSedes);
+
+        MCarreras.setText("Mantenimiento Carreras");
+        MCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MCarrerasActionPerformed(evt);
+            }
+        });
+        jMenu3.add(MCarreras);
 
         jMenu1.add(jMenu3);
 
@@ -165,6 +174,14 @@ public class MdiGeneral extends javax.swing.JFrame {
     
     }//GEN-LAST:event_menuFacultadesActionPerformed
 
+    private void MCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MCarrerasActionPerformed
+        MantenimientoCarreras ventana = new MantenimientoCarreras();
+        jDesktopPane1.add(ventana);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_MCarrerasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -201,6 +218,7 @@ public class MdiGeneral extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MCarreras;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;

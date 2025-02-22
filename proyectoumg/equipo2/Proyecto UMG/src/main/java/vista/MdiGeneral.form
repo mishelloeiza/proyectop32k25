@@ -59,6 +59,14 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuSedesActionPerformed"/>
                   </Events>
                 </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="MCarreras">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Mantenimiento Carreras"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MCarrerasActionPerformed"/>
+                  </Events>
+                </MenuItem>
               </SubComponents>
             </Menu>
           </SubComponents>

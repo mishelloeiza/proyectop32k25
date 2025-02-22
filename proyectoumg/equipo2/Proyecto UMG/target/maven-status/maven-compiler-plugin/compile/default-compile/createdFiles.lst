@@ -102,6 +102,7 @@ vista\MantenimientoAlumnos$9.class
 domain\Carreras.class
 vista\MdiGeneral$4.class
 datos\Conexion.class
+datos\MaestroDAO.class
 vista\MantenimientoCursos$6.class
 vista\MantenimientoJonradas$8.class
 vista\MantenimientoVendedores$7.class
@@ -115,6 +116,7 @@ datos\UsuarioDAO.class
 vista\MantenimientoCarreras$3.class
 vista\MantenimientoAlumnos$2.class
 vista\MdiGeneral$9.class
+vista\MdiGeneral$12.class
 vista\MantenimientoJonradas$1.class
 vista\MantenimientoJonradas$7.class
 vista\MantenimientoSeccion$8.class

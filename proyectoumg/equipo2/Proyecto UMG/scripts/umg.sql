@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS maestros(
     codigo_maestro INT NOT NULL auto_increment,
     nombre_maestro VARCHAR(45),
     direccion_maestro VARCHAR(45),
-    telefono_maetro VARCHAR(45),
+    telefono_maestro VARCHAR(45),
     email_maestro VARCHAR(20),
     estatus_maestro VARCHAR(1),
     PRIMARY KEY (codigo_maestro))

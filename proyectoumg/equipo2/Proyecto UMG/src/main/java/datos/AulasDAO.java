@@ -22,7 +22,7 @@ public class AulasDAO {
     private static final String SQL_SELECT = "SELECT codigo_aula, nombre_aula, estatus_aula FROM aulas";
     private static final String SQL_INSERT = "INSERT INTO aulas(nombre_aula, estatus_aula) VALUES(?, ?)";
     private static final String SQL_UPDATE = "UPDATE aulas SET nombre_aula=?, estatus_aula=? WHERE codigo_aula = ?";
-    private static final String SQL_DELETE = "DELETE FROM aula WHERE codigo_aula =?";
+    private static final String SQL_DELETE = "DELETE FROM aulas WHERE codigo_aula =?";
     private static final String SQL_QUERY = "SELECT codigo_aula, nombre_aula, estatus_aula FROM aulas WHERE codigo_aula = ?";
 
     public List<Aulas> select() {

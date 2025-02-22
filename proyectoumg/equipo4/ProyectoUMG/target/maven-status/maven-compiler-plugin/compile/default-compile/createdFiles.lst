@@ -1,5 +1,6 @@
 vista\MantenimientoVendedores$5.class
 datos\AlumnoDAO.class
+vista\MantenimientoJornadas$7.class
 vista\Login$2.class
 domain\Alumno.class
 vista\MantenimientoCursos$4.class
@@ -13,6 +14,7 @@ vista\MantenimientoCursos$1.class
 vista\MantenimientoVendedores$2.class
 vista\MantenimientoAlumnos$1.class
 vista\MantenimientoAlumnos$4.class
+vista\MantenimientoJornadas$4.class
 vista\MdiGeneral$7.class
 vista\MantenimientoCarreras$4.class
 vista\MdiGeneral$2.class
@@ -21,16 +23,22 @@ vista\MantenimientoVendedores$4.class
 vista\MantenimientoAlumnos.class
 vista\MantenimientoVendedores$1.class
 vista\MantenimientoAlumnos$7.class
+vista\MantenimientoJornadas$6.class
 vista\MantenimientoAlumnos$3.class
 vista\MantenimientoVendedores$8.class
 vista\MantenimientoCursos.class
+vista\MantenimientoJornadas$3.class
 vista\MantenimientoCarreras$5.class
 vista\MantenimientoCarreras$8.class
 datos\EmpleadoDAO.class
+domain\Jornada.class
 domain\Vendedor.class
 vista\MantenimientoCursos$7.class
 vista\MantenimientoAlumnos$6.class
+vista\MdiGeneral$8.class
 domain\Empleado.class
+vista\MantenimientoJornadas$2.class
+vista\MantenimientoJornadas$5.class
 vista\MantenimientoCarreras$2.class
 vista\MdiGeneral$1.class
 vista\MantenimientoCarreras$6.class
@@ -44,7 +52,10 @@ datos\Conexion.class
 vista\MantenimientoCursos$3.class
 vista\MantenimientoCursos$6.class
 vista\MantenimientoVendedores$7.class
+datos\JornadaDAO.class
 vista\MantenimientoCursos$5.class
+vista\MantenimientoJornadas$1.class
+vista\MantenimientoJornadas.class
 vista\Login$1.class
 vista\MantenimientoVendedores$6.class
 datos\UsuarioDAO.class
@@ -56,6 +67,7 @@ datos\VendedorDAO.class
 vista\MantenimientoCursos$2.class
 vista\MantenimientoAlumnos$8.class
 vista\MdiGeneral$6.class
+vista\MantenimientoJornadas$8.class
 vista\Login$4.class
 vista\MantenimientoVendedores$3.class
 vista\MantenimientoAlumnos$5.class

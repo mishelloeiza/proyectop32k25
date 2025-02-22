@@ -44,6 +44,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         menuCarreras = new javax.swing.JMenuItem();
         menuFacultades = new javax.swing.JMenuItem();
         menuCursos = new javax.swing.JMenuItem();
+        menuJornadas = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -110,6 +111,14 @@ public class MdiGeneral extends javax.swing.JFrame {
             }
         });
         jMenu3.add(menuCursos);
+
+        menuJornadas.setText("Mantenimiento Jornadas");
+        menuJornadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuJornadasActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuJornadas);
 
         jMenu1.add(jMenu3);
 
@@ -181,6 +190,15 @@ public class MdiGeneral extends javax.swing.JFrame {
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_menuCursosActionPerformed
 
+    private void menuJornadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuJornadasActionPerformed
+        // TODO add your handling code here:
+        MantenimientoJornadas ventana = new MantenimientoJornadas();
+        jDesktopPane1.add(ventana);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_menuJornadasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -228,5 +246,6 @@ public class MdiGeneral extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuCarreras;
     private javax.swing.JMenuItem menuCursos;
     private javax.swing.JMenuItem menuFacultades;
+    private javax.swing.JMenuItem menuJornadas;
     // End of variables declaration//GEN-END:variables
 }

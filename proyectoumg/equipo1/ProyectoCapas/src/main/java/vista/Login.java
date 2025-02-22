@@ -4,12 +4,17 @@
  * and open the template in the editor.
  */
 package vista;
-
+import java.awt.Color;
 import datos.UsuarioDAO;
 import domain.Usuario;
+import java.awt.Font;
 import java.awt.HeadlessException;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -23,7 +28,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
-        setSize(300, 200);
+        setSize(500, 200);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
@@ -45,14 +50,23 @@ public class Login extends javax.swing.JFrame {
         txtContraseña = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Gabriola", 1, 36)); // NOI18N
         jLabel1.setText("Seguridad del Sistema");
 
+        jLabel2.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
         jLabel2.setText("Usuario");
 
+        jLabel3.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
         jLabel3.setText("Contraseña");
 
+        txtUsuario.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtUsuario.setName("txtUsuario"); // NOI18N
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,6 +74,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        btnAceptar.setFont(new java.awt.Font("Showcard Gothic", 0, 12)); // NOI18N
         btnAceptar.setLabel("Aceptar");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,12 +82,16 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Showcard Gothic", 0, 12)); // NOI18N
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        txtContraseña.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        txtContraseña.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,41 +100,45 @@ public class Login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel1))
+                        .addGap(127, 127, 127)
+                        .addComponent(btnAceptar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
+                        .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAceptar)
+                                .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2))
-                            .addComponent(txtUsuario)
-                            .addComponent(txtContraseña))))
-                .addContainerGap(62, Short.MAX_VALUE))
+                                .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(2, 2, 2)))))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAceptar)
-                    .addComponent(jButton2))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addComponent(btnAceptar))
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -126,36 +149,57 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        // TODO add your handling code here:
+                                       
+    if (txtUsuario.getText().trim().isEmpty() || txtContraseña.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "NO PUEDEN HABER CAMPOS VACIOS", "ERROR", JOptionPane.ERROR_MESSAGE);
+    } else {
+        try {
+            Usuario usuarioAConsultar = new Usuario();
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            usuarioAConsultar.setUsername(txtUsuario.getText().trim());
+            usuarioAConsultar = usuarioDAO.query(usuarioAConsultar);
+//CAMBIO DE DISEÑO
+            if (txtContraseña.getText().equals(usuarioAConsultar.getPassword()) && 
+                txtUsuario.getText().equals(usuarioAConsultar.getUsername())) {
+                
+                // Cargar la imagen desde la ruta absoluta
+                ImageIcon icono = new ImageIcon("C:\\Users\\user\\Desktop\\OFFICIAL DE ENTREGA\\proyectop32k25\\proyectoumg\\equipo1\\ProyectoCapas\\src\\main\\java\\imagen\\progra.jpg");
+                
+                // Escalar la imagen para que no sea muy grande
+                Image imagen = icono.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                icono = new ImageIcon(imagen);
 
-        if (txtUsuario.getText().trim().isEmpty() || txtContraseña.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "NO PUEDEN HABER CAMPOS VACIOS", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } else {
-            try {
-                Usuario usuarioAConsultar = new Usuario();
-                UsuarioDAO usuarioDAO = new UsuarioDAO();
-                usuarioAConsultar.setUsername(txtUsuario.getText().trim());
-                // Recuperación de información a través de otro objeto
-                usuarioAConsultar = usuarioDAO.query(usuarioAConsultar);
+                // Crear el mensaje con imagen
+                JLabel mensaje = new JLabel("✅ ¡BIENVENIDO AL SISTEMA DEL GRUPO 1!");
+                mensaje.setFont(new Font("Arial", Font.BOLD, 14));
+                mensaje.setForeground(new Color(0, 102, 0)); // Verde oscuro
 
-                if (txtContraseña.getText().equals(usuarioAConsultar.getPassword()) && txtUsuario.getText().equals(usuarioAConsultar.getUsername())) {
-                    JOptionPane.showMessageDialog(null, "Bienvenido al SISTEMA\n", "Mensaje de bienvenida", JOptionPane.INFORMATION_MESSAGE);
+                // Crear un panel para combinar texto e imagen
+                JPanel panel = new JPanel();
+                panel.setBackground(new Color(230, 255, 230)); // Fondo verde claro
+                panel.add(new JLabel(icono)); // Agregar la imagen
+                panel.add(mensaje); // Agregar el mensaje
 
-                    MdiGeneral menuGeneral = new MdiGeneral();
-                    menuGeneral.setVisible(true);
-                    this.dispose();
+                // Mostrar el cuadro de diálogo con la imagen
+                JOptionPane.showMessageDialog(null, panel, "Mensaje de Bienvenida", JOptionPane.INFORMATION_MESSAGE);
 
-                } else {
-                    JOptionPane.showMessageDialog(this, "ERROR AL ENCONTRAR USUARIO o CONTRASEÑA", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    txtContraseña.setText("");
-                    txtUsuario.setText("");
-                }
-            } catch (HeadlessException e) {
+                // Abrir el menú principal y cerrar la ventana actual
+                MdiGeneral menuGeneral = new MdiGeneral();
+                menuGeneral.setVisible(true);
+                this.dispose();
+
+            } else {
                 JOptionPane.showMessageDialog(this, "ERROR AL ENCONTRAR USUARIO o CONTRASEÑA", "ERROR", JOptionPane.ERROR_MESSAGE);
                 txtContraseña.setText("");
                 txtUsuario.setText("");
             }
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, "ERROR AL ENCONTRAR USUARIO o CONTRASEÑA", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtContraseña.setText("");
+            txtUsuario.setText("");
         }
+    } 
+
 
     }//GEN-LAST:event_btnAceptarActionPerformed
 
@@ -163,6 +207,11 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        getContentPane().setBackground(Color.pink); 
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

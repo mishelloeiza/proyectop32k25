@@ -21,7 +21,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.setExtendedState(MdiGeneral.MAXIMIZED_BOTH);
-        this.setTitle("Ejemplo Capas");
+        this.setTitle("Capas Umg");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
@@ -64,6 +64,12 @@ public class MdiGeneral extends javax.swing.JFrame {
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 279, Short.MAX_VALUE)
         );
+
+        jMenuBar1.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                jMenuBar1ComponentAdded(evt);
+            }
+        });
 
         jMenu1.setText("Archivo");
 
@@ -157,6 +163,10 @@ public class MdiGeneral extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
+        // Cerrar otros JInternalFrame antes de abrir uno nuevo
+for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+    frame.dispose(); // Cierra cada ventana abierta
+}
         MantenimientoVendedores ventana = new MantenimientoVendedores();
         jDesktopPane1.add(ventana);
         Dimension desktopSize = jDesktopPane1.getSize();
@@ -166,6 +176,10 @@ public class MdiGeneral extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
+        // Cerrar otros JInternalFrame antes de abrir uno nuevo
+for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+    frame.dispose(); // Cierra cada ventana abierta
+}
         MantenimientoCarrera ventana = new MantenimientoCarrera();
         jDesktopPane1.add(ventana);
         Dimension desktopSize = jDesktopPane1.getSize();
@@ -175,6 +189,10 @@ public class MdiGeneral extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
+        // Cerrar otros JInternalFrame antes de abrir uno nuevo
+for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+    frame.dispose(); // Cierra cada ventana abierta
+}
          MantenimientoMaestro ventana = new MantenimientoMaestro();
         jDesktopPane1.add(ventana);
         Dimension desktopSize = jDesktopPane1.getSize();
@@ -184,6 +202,10 @@ public class MdiGeneral extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
+        // Cerrar otros JInternalFrame antes de abrir uno nuevo
+for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+    frame.dispose(); // Cierra cada ventana abierta
+}
          MantenimientoCurso ventana = new MantenimientoCurso();
         jDesktopPane1.add(ventana);
         Dimension desktopSize = jDesktopPane1.getSize();
@@ -193,6 +215,10 @@ public class MdiGeneral extends javax.swing.JFrame {
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         // TODO add your handling code here:
+        // Cerrar otros JInternalFrame antes de abrir uno nuevo
+for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+    frame.dispose(); // Cierra cada ventana abierta
+}
          MantenimientoSede ventana = new MantenimientoSede();
         jDesktopPane1.add(ventana);
         Dimension desktopSize = jDesktopPane1.getSize();
@@ -203,6 +229,10 @@ public class MdiGeneral extends javax.swing.JFrame {
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
+        // Cerrar otros JInternalFrame antes de abrir uno nuevo
+for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+    frame.dispose(); // Cierra cada ventana abierta
+}
          MantenimientoSeccion ventana = new MantenimientoSeccion();
         jDesktopPane1.add(ventana);
         Dimension desktopSize = jDesktopPane1.getSize();
@@ -213,6 +243,10 @@ public class MdiGeneral extends javax.swing.JFrame {
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         // TODO add your handling code here:
+        // Cerrar otros JInternalFrame antes de abrir uno nuevo
+for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+    frame.dispose(); // Cierra cada ventana abierta
+}
          MantenimientoAlumno ventana = new MantenimientoAlumno();
         jDesktopPane1.add(ventana);
         Dimension desktopSize = jDesktopPane1.getSize();
@@ -220,6 +254,10 @@ public class MdiGeneral extends javax.swing.JFrame {
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     
     }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuBar1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jMenuBar1ComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuBar1ComponentAdded
 
     /**
      * @param args the command line arguments

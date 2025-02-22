@@ -55,10 +55,12 @@ vista\MantenimientoAlumno.class
 vista\MantenimientoSeccion$6.class
 vista\Login$2.class
 domain\Alumno.class
+vista\MdiGeneral$10.class
 vista\MantenimientoMaestro$3.class
 vista\MantenimientoVendedores$2.class
 vista\MantenimientoCarrera$3.class
 vista\MantenimientoCurso$1.class
+vista\Login$5.class
 vista\MdiGeneral$7.class
 vista\MdiGeneral$2.class
 vista\MantenimientoAlumno$6.class

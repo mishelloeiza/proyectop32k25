@@ -46,6 +46,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         MCarreras = new javax.swing.JMenuItem();
         MantenimientoCursos = new javax.swing.JMenuItem();
         MenuJornadas = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -128,6 +129,14 @@ public class MdiGeneral extends javax.swing.JFrame {
             }
         });
         jMenu3.add(MenuJornadas);
+
+        jMenuItem5.setText("Mantenimiendo Secciones");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem5);
 
         jMenu1.add(jMenu3);
 
@@ -219,6 +228,14 @@ public class MdiGeneral extends javax.swing.JFrame {
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_MenuJornadasActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        MantenimientoSeccion ventana = new MantenimientoSeccion();
+        jDesktopPane1.add(ventana);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -266,6 +283,7 @@ public class MdiGeneral extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem menuFacultades;
     private javax.swing.JMenuItem menuSedes;
     // End of variables declaration//GEN-END:variables

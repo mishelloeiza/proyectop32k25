@@ -1,19 +1,31 @@
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\SedeDAO.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\vista\MdiGeneral.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\domain\Empleado.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\vista\MantenimientoAlumnos.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\FacultadDAO.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\vista\MantenimientoVendedores.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\EmpleadoDAO.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\domain\Vendedor.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\domain\Facultad.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\Conexion.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\VendedorDAO.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\domain\Usuario.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\UsuarioDAO.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\vista\Login.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\AlumnoDAO.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\domain\Sede.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\vista\MantenimientoFacultades.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\vista\MantenimientoSedes.java
-C:\Users\Home\Desktop\CicloEscolar2025\progra3\proyectoGrupo2\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\domain\Alumno.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\AlumnoDAO.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\CarrerasDAO.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\Conexion.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\CursoDAO.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\EmpleadoDAO.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\FacultadDAO.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\JornadaDAO.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\SeccionDAO.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\SedeDAO.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\UsuarioDAO.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\datos\VendedorDAO.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\domain\Alumno.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\domain\Carreras.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\domain\Curso.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\domain\Empleado.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\domain\Facultad.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\domain\Jornada.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\domain\Seccion.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\domain\Sede.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\domain\Usuario.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\domain\Vendedor.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\vista\Login.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\vista\MantenimientoAlumnos.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\vista\MantenimientoCarreras.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\vista\MantenimientoCursos.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\vista\MantenimientoFacultades.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\vista\MantenimientoJonradas.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\vista\MantenimientoSeccion.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\vista\MantenimientoSedes.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\vista\MantenimientoVendedores.java
+C:\Users\oskar\OneDrive\Escritorio\git prueba3\proyectop32k25\proyectoumg\equipo2\Proyecto UMG\src\main\java\vista\MdiGeneral.java

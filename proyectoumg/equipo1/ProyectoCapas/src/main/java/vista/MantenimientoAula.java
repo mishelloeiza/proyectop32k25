@@ -98,7 +98,7 @@ public class MantenimientoAula extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Mantenimiento Vendedor");
+        setTitle("Mantenimiento Aulas");
         setVisible(true);
 
         btnEliminar.setText("Eliminar");
@@ -300,6 +300,8 @@ public class MantenimientoAula extends javax.swing.JInternalFrame {
         aulaAEliminar.setCodigoAulas(Integer.parseInt(txtbuscado.getText()));
         aulaDAO.delete(aulaAEliminar);
         llenadoDeTablas();
+        String mensaje = "Aula eliminada: Código Aula " + txtbuscado.getText();
+domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -309,6 +311,8 @@ public class MantenimientoAula extends javax.swing.JInternalFrame {
         aulaAInsertar.setEstatusAula(txtEstatus.getText());
         aulaDAO.insert(aulaAInsertar);
         llenadoDeTablas();
+        String mensaje = "Aula Registrada: Código Aula " + txtbuscado.getText();
+domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -325,6 +329,8 @@ public class MantenimientoAula extends javax.swing.JInternalFrame {
         aulaAActualizar.setEstatusAula(txtEstatus.getText());
         aulaDAO.update(aulaAActualizar);
         llenadoDeTablas();
+        String mensaje = "Aula Modificada: Código Aula " + txtbuscado.getText();
+domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

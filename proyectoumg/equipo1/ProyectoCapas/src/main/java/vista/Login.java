@@ -100,7 +100,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
+                        .addGap(149, 149, 149)
                         .addComponent(btnAceptar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2))
@@ -135,9 +135,9 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(btnAceptar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAceptar)
+                    .addComponent(jButton2))
                 .addGap(27, 27, 27))
         );
 
@@ -170,7 +170,7 @@ public class Login extends javax.swing.JFrame {
                 icono = new ImageIcon(imagen);
 
                 // Crear el mensaje con imagen
-                JLabel mensaje = new JLabel("✅ ¡BIENVENIDO AL SISTEMA DEL GRUPO 1!");
+                JLabel mensaje = new JLabel("¡BIENVENIDO AL SISTEMA UNIVERSITARIO DEL GRUPO 1!");
                 mensaje.setFont(new Font("Arial", Font.BOLD, 14));
                 mensaje.setForeground(new Color(0, 102, 0)); // Verde oscuro
 

@@ -312,6 +312,8 @@ public class MantenimientoSede extends javax.swing.JInternalFrame {
         
         sedeDAO.insert(sedeAInsertar);
         llenadoDeTablas();
+         String mensaje = "Sedeliminada¡: Código Sede " + txtbuscado.getText();
+domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -322,6 +324,8 @@ public class MantenimientoSede extends javax.swing.JInternalFrame {
         
        sedeDAO.insert(sedeAInsertar);
         llenadoDeTablas();
+               String mensaje = "Sede Registrada¡: Código Sede " + txtbuscado.getText();
+domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -337,6 +341,8 @@ public class MantenimientoSede extends javax.swing.JInternalFrame {
         sedeAActualizar.setNombre_sede(txtNombre.getText());
         sedeDAO.update(sedeAActualizar);
         llenadoDeTablas();
+        String mensaje = "Sede Modificada¡: Código Sede " + txtbuscado.getText();
+domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

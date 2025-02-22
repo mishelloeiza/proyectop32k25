@@ -312,6 +312,8 @@ public class MantenimientoSeccion extends javax.swing.JInternalFrame {
         
         seccionDAO.insert(seccionAInsertar);
         llenadoDeTablas();
+          String mensaje = "Seccion eliminada¡: Código Seccion " + txtbuscado.getText();
+domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -322,6 +324,8 @@ public class MantenimientoSeccion extends javax.swing.JInternalFrame {
         
        seccionDAO.insert(seccionAInsertar);
         llenadoDeTablas();
+         String mensaje = "Seccion Registrada¡: Código Seccion " + txtbuscado.getText();
+domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -337,6 +341,8 @@ public class MantenimientoSeccion extends javax.swing.JInternalFrame {
         seccionAActualizar.setNombre_seccion(txtNombre.getText());
         seccionDAO.update(seccionAActualizar);
         llenadoDeTablas();
+         String mensaje = "Seccion Modificada¡: Código Seccion " + txtbuscado.getText();
+domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

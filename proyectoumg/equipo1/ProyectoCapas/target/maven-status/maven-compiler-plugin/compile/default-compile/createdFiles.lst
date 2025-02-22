@@ -19,6 +19,7 @@ vista\MantenimientoAlumno$8.class
 vista\MantenimientoJornadas$4.class
 datos\SeccionDAO.class
 vista\MantenimientoVendedores$4.class
+domain\Bitacora.class
 vista\MantenimientoVendedores$1.class
 vista\MantenimientoCurso$2.class
 vista\MantenimientoCurso$8.class

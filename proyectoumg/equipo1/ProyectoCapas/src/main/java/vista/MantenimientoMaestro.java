@@ -375,8 +375,8 @@ public class MantenimientoMaestro extends javax.swing.JInternalFrame {
         maestroAEliminar.setCarnet_maestro(Integer.parseInt(txtbuscado.getText()));
         maestroDAO.delete(maestroAEliminar);
         llenadoDeTablas();
-           String mensaje = "Maestro eliminado: Código Maestro " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+            String mensaje = "Maestro Eliminado: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -390,8 +390,8 @@ domain.Bitacora.registrarEvento(mensaje);
         
         maestroDAO.insert(maestroAInsertar);
         llenadoDeTablas();
-          String mensaje = "Maestro Registrado: Código Maestro " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+           String mensaje = "Maestro Registrado: " + txtNombre.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -411,8 +411,8 @@ domain.Bitacora.registrarEvento(mensaje);
         maestroAActualizar.setEstatus_maestro(txtEstatus.getText());
         maestroDAO.update(maestroAActualizar);
         llenadoDeTablas();
-          String mensaje = "Maestro Modificado: Código Maestro " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+           String mensaje = "Maestro Modificado: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

@@ -199,7 +199,8 @@ public class Login extends javax.swing.JFrame {
             txtUsuario.setText("");
         }
     } 
-
+  String mensaje = "Ingreso usuario : " + txtUsuario.getText();
+domain.Bitacora.registrarEvento(mensaje);
 
     }//GEN-LAST:event_btnAceptarActionPerformed
 

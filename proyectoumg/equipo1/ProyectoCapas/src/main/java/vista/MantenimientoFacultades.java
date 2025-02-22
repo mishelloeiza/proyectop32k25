@@ -279,8 +279,8 @@ public class MantenimientoFacultades extends javax.swing.JInternalFrame {
         facultadAEliminar.setCodigoFacultad(Integer.parseInt(txtbuscado.getText()));
         facultadesDAO.delete(facultadAEliminar);
         llenadoDeTablas();
-         String mensaje = "Facultad eliminado: Código Facultad " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+         String mensaje = "Facultad Eliminada: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -290,8 +290,8 @@ domain.Bitacora.registrarEvento(mensaje);
         facultadAInsertar.setEstatusFacultadString(txtEstatus.getText());
         facultadesDAO.insert(facultadAInsertar);
         llenadoDeTablas();
-           String mensaje = "Facultad Registrado: Código Facultad " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+            String mensaje = "Facultad Registrada: " + txtNombre.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -308,8 +308,8 @@ domain.Bitacora.registrarEvento(mensaje);
         facultadAActualizar.setEstatusFacultadString(txtEstatus.getText());
         facultadesDAO.update(facultadAActualizar);
         llenadoDeTablas();
-           String mensaje = "Facultad Modificada: Código Facultad " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+            String mensaje = "Facultad Modificada: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

@@ -363,7 +363,7 @@ public class MantenimientoAlumno extends javax.swing.JInternalFrame {
         alumnoDAO.insert(alumnoAInsertar);
         llenadoDeTablas();
           // Registrar el evento en la bitácora
-    String mensaje = " alumno eliminado: " + txtNombre.getText() + " | Tel: " + txtTel.getText();
+    String mensaje = " alumno eliminado: " + txtNombre.getText() + " | Carnet: " + txtbuscado.getText();
     domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -379,7 +379,7 @@ public class MantenimientoAlumno extends javax.swing.JInternalFrame {
         alumnoDAO.insert(alumnoAInsertar);
         llenadoDeTablas();
           // Registrar el evento en la bitácora
-    String mensaje = "Nuevo alumno registrado: " + txtNombre.getText() + " | Tel: " + txtTel.getText();
+    String mensaje = "Nuevo alumno registrado: " + txtNombre.getText();
     domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -401,7 +401,7 @@ public class MantenimientoAlumno extends javax.swing.JInternalFrame {
         alumnoDAO.update(alumnoAActualizar);
         llenadoDeTablas();
           // Registrar el evento en la bitácora
-    String mensaje = "alumno Modificado: " + txtNombre.getText() + " | Tel: " + txtTel.getText();
+    String mensaje = "alumno Modificado: " + txtNombre.getText() + " | Carnet: " + txtbuscado.getText();
     domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnModificarActionPerformed
 

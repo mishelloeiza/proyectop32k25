@@ -312,8 +312,8 @@ public class MantenimientoCurso extends javax.swing.JInternalFrame {
         
         cursoDAO.insert(cursoAInsertar);
         llenadoDeTablas();
-        String mensaje = "Curso eliminado: Código Curso " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+        String mensaje = "Curso Eliminado: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -324,8 +324,8 @@ domain.Bitacora.registrarEvento(mensaje);
         
        cursoDAO.insert(cursoAInsertar);
         llenadoDeTablas();
-         String mensaje = "Curso Registrado: Código Curso " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+         String mensaje = "Curso Registrado: " + txtNombre.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -341,8 +341,8 @@ domain.Bitacora.registrarEvento(mensaje);
         cursoAActualizar.setNombre_curso(txtNombre.getText());
         cursoDAO.update(cursoAActualizar);
         llenadoDeTablas();
-         String mensaje = "Curso modificado: Código Curso " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+         String mensaje = "Curso Modificado: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

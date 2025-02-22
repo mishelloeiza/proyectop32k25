@@ -30,7 +30,7 @@ public class Bitacora {
      */
     public static void registrarEvento(String mensaje) {
         String tiempo = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        String entrada = tiempo + " - " + mensaje;
+        String entrada =  " - " + mensaje;
   // Crear la carpeta logs si no existe
     File carpeta = new File("logs");
     if (!carpeta.exists()) {

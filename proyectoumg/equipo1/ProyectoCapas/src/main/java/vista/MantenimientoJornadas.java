@@ -299,8 +299,8 @@ public class MantenimientoJornadas extends javax.swing.JInternalFrame {
         jornadasAEliminar.setCodigo_jornada(Integer.parseInt(txtbuscado.getText()));
         jornadasDAO.delete(jornadasAEliminar);
         llenadoDeTablas();
-           String mensaje = "Jornada eliminada: Código Jornada " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+            String mensaje = "Jornada Eliminada: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -310,8 +310,8 @@ domain.Bitacora.registrarEvento(mensaje);
         jornadasAInsertar.setEstatus_jornada(txtEstatus.getText());
         jornadasDAO.insert(jornadasAInsertar);
         llenadoDeTablas();
-           String mensaje = "Jornada Registrada: Código Jornada " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+        String mensaje = "Jornada Registrada: " + txtNombre.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -328,8 +328,8 @@ domain.Bitacora.registrarEvento(mensaje);
         jornadasAActualizar.setEstatus_jornada(txtEstatus.getText());
         jornadasDAO.update(jornadasAActualizar);
         llenadoDeTablas();
-           String mensaje = "Jornada Modificada: Código Jornada " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+           String mensaje = "Jornada Modificada: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

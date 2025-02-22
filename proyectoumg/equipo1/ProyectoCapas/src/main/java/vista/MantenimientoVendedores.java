@@ -301,8 +301,8 @@ public class MantenimientoVendedores extends javax.swing.JInternalFrame {
         vendedorAEliminar.setId_vendedor(Integer.parseInt(txtbuscado.getText()));
         vendedorDAO.delete(vendedorAEliminar);
         llenadoDeTablas();
-        String mensaje = "Vendedor Eliminado¡: Código Vendedor " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+        String mensaje = "Vendedor Eliminado: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -312,8 +312,8 @@ domain.Bitacora.registrarEvento(mensaje);
         vendedorAInsertar.setDireVendedor(txtDireccion.getText());
         vendedorDAO.insert(vendedorAInsertar);
         llenadoDeTablas();
-         String mensaje = "Vendedor Registrado¡: Código Vendedor " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+          String mensaje = "Vendedor Registrado: " + txtNombre.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -330,8 +330,8 @@ domain.Bitacora.registrarEvento(mensaje);
         vendedorAActualizar.setDireVendedor(txtDireccion.getText());
         vendedorDAO.update(vendedorAActualizar);
         llenadoDeTablas();
-         String mensaje = "Vendedor Modificado¡: Código Vendedor " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+         String mensaje = "VendedorModificado: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

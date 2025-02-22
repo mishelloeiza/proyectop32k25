@@ -343,8 +343,8 @@ public class MantenimientoCarrera extends javax.swing.JInternalFrame {
         carreraAEliminar.setCodigo_carrera(Integer.parseInt(txtbuscado.getText()));
         carreraDAO.delete(carreraAEliminar);
         llenadoDeTablas();
-        String mensaje = "Carrera eliminada: Código Carrera " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+          String mensaje = "Carrera Modificada: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -359,8 +359,8 @@ domain.Bitacora.registrarEvento(mensaje);
         
         carreraDAO.insert(carreraAInsertar);
         llenadoDeTablas();
-        String mensaje = "Carrera Registrada: Código Carrera " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+         String mensaje = "Carrera Registrada: " + txtNombre.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -381,8 +381,8 @@ domain.Bitacora.registrarEvento(mensaje);
         carreraAActualizar.setEstatus_carrera(txtEstatus.getText());
         carreraDAO.update(carreraAActualizar);
         llenadoDeTablas();
-        String mensaje = "Carrra Modificada: Código Carrera " + txtbuscado.getText();
-domain.Bitacora.registrarEvento(mensaje);
+         String mensaje = "Carrera Modifidaca: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();
+    domain.Bitacora.registrarEvento(mensaje);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

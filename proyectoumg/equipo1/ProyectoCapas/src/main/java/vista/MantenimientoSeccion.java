@@ -306,11 +306,11 @@ public class MantenimientoSeccion extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
      SeccionDAO seccionDAO = new SeccionDAO();
-        Seccion seccionAInsertar = new Seccion();
-        seccionAInsertar.setNombre_seccion(txtNombre.getText());
-       seccionAInsertar.setEstatus_seccion(txtEstatus.getText());
+        Seccion seccionAEliminar = new Seccion();
+        seccionAEliminar.setNombre_seccion(txtNombre.getText());
+       seccionAEliminar.setEstatus_seccion(txtEstatus.getText());
         
-        seccionDAO.insert(seccionAInsertar);
+        seccionDAO.delete(seccionAEliminar);
         llenadoDeTablas();
           String mensaje = "Seccion Eliminada: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();
     domain.Bitacora.registrarEvento(mensaje);

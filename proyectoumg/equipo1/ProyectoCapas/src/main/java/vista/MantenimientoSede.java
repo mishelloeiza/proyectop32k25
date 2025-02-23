@@ -306,11 +306,11 @@ public class MantenimientoSede extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
      SedeDAO sedeDAO = new SedeDAO();
-        Sede sedeAInsertar = new Sede();
-        sedeAInsertar.setNombre_sede(txtNombre.getText());
-       sedeAInsertar.setEstatus_sede(txtEstatus.getText());
+        Sede sedeAEliminar = new Sede();
+        sedeAEliminar.setNombre_sede(txtNombre.getText());
+       sedeAEliminar.setEstatus_sede(txtEstatus.getText());
         
-        sedeDAO.insert(sedeAInsertar);
+        sedeDAO.delete(sedeAEliminar);
         llenadoDeTablas();
        String mensaje = "Sede Eliminada: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();
     domain.Bitacora.registrarEvento(mensaje);

@@ -306,11 +306,11 @@ public class MantenimientoCurso extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
      CursoDAO cursoDAO = new CursoDAO();
-        Curso cursoAInsertar = new Curso();
-        cursoAInsertar.setNombre_curso(txtNombre.getText());
-       cursoAInsertar.setEstatus_curso(txtEstatus.getText());
+        Curso cursoAEliminar = new Curso();
+        cursoAEliminar.setNombre_curso(txtNombre.getText());
+       cursoAEliminar.setEstatus_curso(txtEstatus.getText());
         
-        cursoDAO.insert(cursoAInsertar);
+        cursoDAO.delete(cursoAEliminar);
         llenadoDeTablas();
         String mensaje = "Curso Eliminado: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();
     domain.Bitacora.registrarEvento(mensaje);

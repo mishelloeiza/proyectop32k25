@@ -385,7 +385,7 @@ public class MantenimientoMaestro extends javax.swing.JInternalFrame {
         maestroAInsertar.setNombre_maestro(txtNombre.getText());
         maestroAInsertar.setDireccion_maestro(txtDireccion.getText());
         maestroAInsertar.setTelefono_maestro(txtTel.getText());
-        maestroAInsertar.setEmail_maestro(txtDireccion.getText());
+        maestroAInsertar.setEmail_maestro(txtMail.getText());
         maestroAInsertar.setEstatus_maestro(txtEstatus.getText());
         
         maestroDAO.insert(maestroAInsertar);
@@ -407,7 +407,7 @@ public class MantenimientoMaestro extends javax.swing.JInternalFrame {
         maestroAActualizar.setNombre_maestro(txtNombre.getText());
         maestroAActualizar.setDireccion_maestro(txtDireccion.getText());
         maestroAActualizar.setTelefono_maestro(txtTel.getText());
-        maestroAActualizar.setEmail_maestro(txtDireccion.getText());
+        maestroAActualizar.setEmail_maestro(txtMail.getText());
         maestroAActualizar.setEstatus_maestro(txtEstatus.getText());
         maestroDAO.update(maestroAActualizar);
         llenadoDeTablas();

@@ -353,14 +353,14 @@ public class MantenimientoAlumno extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
      AlumnoDAO alumnoDAO = new AlumnoDAO();
-        Alumno alumnoAInsertar = new Alumno();
-        alumnoAInsertar.setNombre_alumno(txtNombre.getText());
-        alumnoAInsertar.setDireccion_alumno(txtDireccion.getText());
-        alumnoAInsertar.setTelefono_alumno(txtTel.getText());
-        alumnoAInsertar.setEmail_alumno(txtDireccion.getText());
-        alumnoAInsertar.setEstatus_alumno(txtEstatus.getText());
+        Alumno alumnoAEliminar = new Alumno();
+        alumnoAEliminar.setNombre_alumno(txtNombre.getText());
+        alumnoAEliminar.setDireccion_alumno(txtDireccion.getText());
+        alumnoAEliminar.setTelefono_alumno(txtTel.getText());
+        alumnoAEliminar.setEmail_alumno(txtDireccion.getText());
+        alumnoAEliminar.setEstatus_alumno(txtEstatus.getText());
         
-        alumnoDAO.insert(alumnoAInsertar);
+        alumnoDAO.delete(alumnoAEliminar);
         llenadoDeTablas();
           // Registrar el evento en la bitácora
     String mensaje = " alumno eliminado: " + txtNombre.getText() + " | Carnet: " + txtbuscado.getText();
@@ -373,7 +373,7 @@ public class MantenimientoAlumno extends javax.swing.JInternalFrame {
         alumnoAInsertar.setNombre_alumno(txtNombre.getText());
         alumnoAInsertar.setDireccion_alumno(txtDireccion.getText());
         alumnoAInsertar.setTelefono_alumno(txtTel.getText());
-        alumnoAInsertar.setEmail_alumno(txtDireccion.getText());
+        alumnoAInsertar.setEmail_alumno(txtMail.getText());
         alumnoAInsertar.setEstatus_alumno(txtEstatus.getText());
         
         alumnoDAO.insert(alumnoAInsertar);
@@ -396,7 +396,7 @@ public class MantenimientoAlumno extends javax.swing.JInternalFrame {
         alumnoAActualizar.setNombre_alumno(txtNombre.getText());
         alumnoAActualizar.setDireccion_alumno(txtDireccion.getText());
         alumnoAActualizar.setTelefono_alumno(txtTel.getText());
-        alumnoAActualizar.setEmail_alumno(txtDireccion.getText());
+        alumnoAActualizar.setEmail_alumno(txtMail.getText());
         alumnoAActualizar.setEstatus_alumno(txtEstatus.getText());
         alumnoDAO.update(alumnoAActualizar);
         llenadoDeTablas();

@@ -23,7 +23,7 @@ public class MaestroDAO {
     private static final String SQL_INSERT = "INSERT INTO maestros( nombre_maestro, direccion_maestro, telefono_maestro, email_maestro, estatus_maestro) VALUES(?,?,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE maestros SET nombre_maestro=?, direccion_maestro=?, telefono_maestro=?, email_maestro=?, estatus_maestro=? WHERE codigo_maestro = ?";
     private static final String SQL_DELETE = "DELETE FROM maestros WHERE codigo_maestro=?";
-    private static final String SQL_QUERY = "SELECT carnet_maestro, nombre_maestro, direccion_maestro, telefono_maestro, email_maestro, estatus_maestro FROM maestros WHERE codigo_maestro = ?";
+    private static final String SQL_QUERY = "SELECT codigo_maestro, nombre_maestro, direccion_maestro, telefono_maestro, email_maestro, estatus_maestro FROM maestros WHERE codigo_maestro = ?";
 // La lista tiene adetro la clase 
     public List<Maestro> select() {
         Connection conn = null;

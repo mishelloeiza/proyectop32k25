@@ -3,3 +3,24 @@
  - Facultad Eliminada: Ingenieria Forence | Codigo: 3
  - Facultad Eliminada: Ingenieeria Fisica | Codigo: 4
  - Facultad Eliminada: INGENIERIA EN SISTEMAS Y CIENCIAS DE LA COMPU | Codigo: 5
+ - Ingreso usuario : Mishel
+ - Ingreso usuario : Mishel
+ - Ingreso usuario : 
+ - Ingreso usuario : Mishel
+ - Ingreso usuario : admin
+ - Ingreso usuario : Mishel
+ - Ingreso usuario : Mishel
+ - Maestro Modificado: DITHER CAL | Codigo: 9985
+ - Maestro Registrado: DITHER CAL
+ - Nuevo alumno registrado: Mishel Loeiza
+ - Ingreso usuario : Mishel
+ - alumno Modificado: Mishel Loeiza | Carnet: 9962
+ -  alumno eliminado: Mishel Loeiza | Carnet: 9962
+ - Ingreso usuario : Mishel
+ -  alumno eliminado: Mishel Loeiza | Carnet: 9963
+ -  alumno eliminado: Mishel Loeiza | Carnet: 9964
+ -  alumno eliminado: Mishel Loeiza | Carnet: 9965
+ - Ingreso usuario : Mishel
+ -  alumno eliminado: Mishel Loeiza | Carnet: 9966
+ - Ingreso usuario : Mishel
+ -  alumno eliminado: Mishel Loeiza | Carnet: 9967

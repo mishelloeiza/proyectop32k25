@@ -7,9 +7,11 @@ package vista;
 
 import datos.EmpleadoDAO;
 import datos.CursoDAO;
+import datos.SedeDAO;
 import datos.VendedorDAO;
 import domain.Empleado;
 import domain.Curso;
+import domain.Sede;
 import domain.Vendedor;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -306,10 +308,8 @@ public class MantenimientoCurso extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
      CursoDAO cursoDAO = new CursoDAO();
-        Curso cursoAEliminar = new Curso();
-        cursoAEliminar.setNombre_curso(txtNombre.getText());
-       cursoAEliminar.setEstatus_curso(txtEstatus.getText());
-        
+       Curso cursoAEliminar = new Curso();
+       cursoAEliminar.setCodigo_curso(Integer.parseInt(txtbuscado.getText()));
         cursoDAO.delete(cursoAEliminar);
         llenadoDeTablas();
         String mensaje = "Curso Eliminado: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();

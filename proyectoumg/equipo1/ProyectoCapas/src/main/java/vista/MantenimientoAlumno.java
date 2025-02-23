@@ -352,14 +352,9 @@ public class MantenimientoAlumno extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-     AlumnoDAO alumnoDAO = new AlumnoDAO();
+  AlumnoDAO alumnoDAO = new AlumnoDAO();
         Alumno alumnoAEliminar = new Alumno();
-        alumnoAEliminar.setNombre_alumno(txtNombre.getText());
-        alumnoAEliminar.setDireccion_alumno(txtDireccion.getText());
-        alumnoAEliminar.setTelefono_alumno(txtTel.getText());
-        alumnoAEliminar.setEmail_alumno(txtDireccion.getText());
-        alumnoAEliminar.setEstatus_alumno(txtEstatus.getText());
-        
+        alumnoAEliminar.setCarnet_alumno(Integer.parseInt(txtbuscado.getText()));
         alumnoDAO.delete(alumnoAEliminar);
         llenadoDeTablas();
           // Registrar el evento en la bitácora

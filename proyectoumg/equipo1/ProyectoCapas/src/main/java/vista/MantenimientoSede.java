@@ -305,11 +305,9 @@ public class MantenimientoSede extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-     SedeDAO sedeDAO = new SedeDAO();
+      SedeDAO sedeDAO = new SedeDAO();
         Sede sedeAEliminar = new Sede();
-        sedeAEliminar.setNombre_sede(txtNombre.getText());
-       sedeAEliminar.setEstatus_sede(txtEstatus.getText());
-        
+        sedeAEliminar.setCodigo_sede(Integer.parseInt(txtbuscado.getText()));
         sedeDAO.delete(sedeAEliminar);
         llenadoDeTablas();
        String mensaje = "Sede Eliminada: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();

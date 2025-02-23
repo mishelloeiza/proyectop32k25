@@ -7,9 +7,11 @@ package vista;
 
 import datos.EmpleadoDAO;
 import datos.SeccionDAO;
+import datos.SedeDAO;
 import datos.VendedorDAO;
 import domain.Empleado;
 import domain.Seccion;
+import domain.Sede;
 import domain.Vendedor;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -307,9 +309,7 @@ public class MantenimientoSeccion extends javax.swing.JInternalFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
      SeccionDAO seccionDAO = new SeccionDAO();
         Seccion seccionAEliminar = new Seccion();
-        seccionAEliminar.setNombre_seccion(txtNombre.getText());
-       seccionAEliminar.setEstatus_seccion(txtEstatus.getText());
-        
+       seccionAEliminar.setCodigo_seccion(Integer.parseInt(txtbuscado.getText()));
         seccionDAO.delete(seccionAEliminar);
         llenadoDeTablas();
           String mensaje = "Seccion Eliminada: " + txtNombre.getText() + " | Codigo: " + txtbuscado.getText();

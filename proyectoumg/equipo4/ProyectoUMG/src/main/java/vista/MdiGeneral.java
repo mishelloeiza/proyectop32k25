@@ -42,6 +42,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         menuAlumnos = new javax.swing.JMenuItem();
         menuCarreras = new javax.swing.JMenuItem();
+        mnuSedes = new javax.swing.JMenuItem();
         mnuAulas = new javax.swing.JMenuItem();
         menuFacultades = new javax.swing.JMenuItem();
         menuCursos = new javax.swing.JMenuItem();
@@ -97,6 +98,14 @@ public class MdiGeneral extends javax.swing.JFrame {
             }
         });
         jMenu3.add(menuCarreras);
+
+        mnuSedes.setText("Mantenimiento Sedes");
+        mnuSedes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuSedesActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuSedes);
 
         mnuAulas.setText("Mantenimiento Aulas");
         mnuAulas.addActionListener(new java.awt.event.ActionListener() {
@@ -243,6 +252,15 @@ public class MdiGeneral extends javax.swing.JFrame {
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_mnuAulasActionPerformed
 
+    private void mnuSedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSedesActionPerformed
+        // TODO add your handling code here:
+        MantenimientoSedes ventana = new MantenimientoSedes();
+        jDesktopPane1.add(ventana);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_mnuSedesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -293,5 +311,6 @@ public class MdiGeneral extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuFacultades;
     private javax.swing.JMenuItem menuJornadas;
     private javax.swing.JMenuItem mnuAulas;
+    private javax.swing.JMenuItem mnuSedes;
     // End of variables declaration//GEN-END:variables
 }

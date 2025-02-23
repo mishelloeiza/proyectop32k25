@@ -45,6 +45,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         menuFacultades = new javax.swing.JMenuItem();
         menuCursos = new javax.swing.JMenuItem();
         menuJornadas = new javax.swing.JMenuItem();
+        menuAsignacioncursosmaestros = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -119,6 +120,14 @@ public class MdiGeneral extends javax.swing.JFrame {
             }
         });
         jMenu3.add(menuJornadas);
+
+        menuAsignacioncursosmaestros.setText("Mantenimiento Asignacioncursosmaestros");
+        menuAsignacioncursosmaestros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAsignacioncursosmaestrosActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuAsignacioncursosmaestros);
 
         jMenu1.add(jMenu3);
 
@@ -199,6 +208,22 @@ public class MdiGeneral extends javax.swing.JFrame {
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_menuJornadasActionPerformed
 
+    private void menuAsignacioncursosmaestrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAsignacioncursosmaestrosActionPerformed
+        // TODO add your handling code here:
+        try {
+        MantenimientoAsignacioncursosmaestros ventana = new MantenimientoAsignacioncursosmaestros();
+        jDesktopPane1.add(ventana);
+        ventana.setVisible(true);  // Asegúrate de mostrar la ventana
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension frameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+        System.out.println("Ventana agregada y visible.");
+    } catch (Exception e) {
+        e.printStackTrace();
+        System.out.println("Error al mostrar la ventana: " + e.getMessage());
+    }
+    }//GEN-LAST:event_menuAsignacioncursosmaestrosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -243,6 +268,7 @@ public class MdiGeneral extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem menuAlumnos;
+    private javax.swing.JMenuItem menuAsignacioncursosmaestros;
     private javax.swing.JMenuItem menuCarreras;
     private javax.swing.JMenuItem menuCursos;
     private javax.swing.JMenuItem menuFacultades;

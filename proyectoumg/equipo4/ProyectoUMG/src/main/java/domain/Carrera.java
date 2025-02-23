@@ -16,7 +16,7 @@ public class Carrera {
 
     @Override
     public String toString() {
-        return "Alumno{" + "codigoCarrera=" + codigoCarrera + ", nombreCarrera=" + nombreCarrera + "codigoFacultad=" + codigoFacultad + ", estatusCarrera=" + estatusCarrera + '}';
+        return "Carrera{" + "codigoCarrera=" + codigoCarrera + ", nombreCarrera=" + nombreCarrera + "codigoFacultad=" + codigoFacultad + ", estatusCarrera=" + estatusCarrera + '}';
     }
 
     public int getCodigoCarrera() {

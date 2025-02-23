@@ -42,6 +42,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         menuAlumnos = new javax.swing.JMenuItem();
         menuCarreras = new javax.swing.JMenuItem();
+        mnuAulas = new javax.swing.JMenuItem();
         menuFacultades = new javax.swing.JMenuItem();
         menuCursos = new javax.swing.JMenuItem();
         menuJornadas = new javax.swing.JMenuItem();
@@ -96,6 +97,14 @@ public class MdiGeneral extends javax.swing.JFrame {
             }
         });
         jMenu3.add(menuCarreras);
+
+        mnuAulas.setText("Mantenimiento Aulas");
+        mnuAulas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAulasActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuAulas);
 
         menuFacultades.setText("Mantenimiento Facultades");
         menuFacultades.addActionListener(new java.awt.event.ActionListener() {
@@ -224,6 +233,16 @@ public class MdiGeneral extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_menuAsignacioncursosmaestrosActionPerformed
 
+    private void mnuAulasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAulasActionPerformed
+        // TODO add your handling code here:
+         // TODO add your handling code here:
+         MantenimientoAulas ventana = new MantenimientoAulas();
+        jDesktopPane1.add(ventana);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_mnuAulasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -273,5 +292,6 @@ public class MdiGeneral extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuCursos;
     private javax.swing.JMenuItem menuFacultades;
     private javax.swing.JMenuItem menuJornadas;
+    private javax.swing.JMenuItem mnuAulas;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,3 +3,89 @@
  - Facultad Eliminada: Ingenieria Forence | Codigo: 3
  - Facultad Eliminada: Ingenieeria Fisica | Codigo: 4
  - Facultad Eliminada: INGENIERIA EN SISTEMAS Y CIENCIAS DE LA COMPU | Codigo: 5
+ - Ingreso usuario : admin
+ - Ingreso usuario : admin
+ - Ingreso usuario : usuprueba
+ - Ingreso usuario : usuprueba
+ - Maestro Registrado: Roberto Castillo0000000
+ - Maestro Registrado: Roberto Castillo0000000
+ - Maestro Modificado: Laura Fernández000000 | Codigo: 2
+ - Ingreso usuario : usuprueba
+ - Carrera Modifidaca: Ing.Quimicaaaaaaaaaaa | Codigo: 1
+ - Carrera Modifidaca: Ing.Quimica | Codigo: 1
+ - Carrera Registrada: Ing.Quimicaaaaaa
+ - Carrera Modificada: Ing.Quimicaaaaaa | Codigo: 1
+ - Carrera Modificada: Ing.Quimicaaaaaa | Codigo: 28
+ - alumno Modificado: Juan Antoniooooooo | Carnet: 1
+ - alumno Modificado: Antoniooooooo | Carnet: 1
+ - alumno Modificado: Antoniooooooo | Carnet: 1
+ - Nuevo alumno registrado: JuAntonio
+ - Ingreso usuario : 
+ - Ingreso usuario : usuprueba
+ - alumno Modificado: Jn Antonio | Carnet: 1
+ - Ingreso usuario : usuprueba
+ - Maestro Modificado: Anaaaaaa Torres | Codigo: 4
+ - Maestro Modificado: Ana Torres | Codigo: 4
+ - Maestro Registrado: Ana Torres
+ - Maestro Eliminado: Ana Torres | Codigo: 8
+ - Ingreso usuario : usuprueba
+ - Carrera Modifidaca: Ing.Mecanicaaaaaaa | Codigo: 4
+ - Carrera Modifidaca: Ing.Mecanica | Codigo: 4
+ - Carrera Registrada: Ing.Mecanica
+ - Carrera Modificada: Ing.Mecanica | Codigo: 29
+ - Ingreso usuario : usuprueba
+ - Nuevo alumno registrado: Arnoldo Ramírez
+ -  alumno eliminado: Arnoldo Ramírez | Carnet: 9
+ - Ingreso usuario : 
+ - Ingreso usuario : usuprueba
+ - Maestro Registrado: Ana Torres
+ - Maestro Eliminado: Ana Torres | Codigo: 9
+ - Maestro Modificado: na Torres | Codigo: 4
+ - Maestro Modificado: Ana Torres | Codigo: 4
+ - Ingreso usuario : usuprueba
+ - Maestro Modificado: na Torres | Codigo: 4
+ - Maestro Modificado: ana Torres | Codigo: 4
+ - Maestro Modificado: Ana Torres | Codigo: 4
+ - Maestro Registrado: Ana Torres
+ - Maestro Eliminado: Ana Torres | Codigo: 10
+ - alumno Modificado: o Ramírez | Carnet: 10
+ -  alumno eliminado: o Ramírez | Carnet: 10
+ -  alumno eliminado: o Ramírez | Carnet: 10
+ -  alumno eliminado: o Ramírez | Carnet: 10
+ -  alumno eliminado: o Ramírez | Carnet: 10
+ - Ingreso usuario : usuprueba
+ -  alumno eliminado:  | Carnet: 10
+ - Ingreso usuario : usuprueba
+ -  alumno eliminado:  | Carnet: 10
+ - Ingreso usuario : usuprueba
+ - Nuevo alumno registrado: Arnoldo Ramírez
+ - alumno Modificado: o Ramírez | Carnet: 12
+ -  alumno eliminado: o Ramírez | Carnet: 12
+ - Maestro Registrado: Ana Torres
+ - Maestro Modificado:  Torres | Codigo: 4
+ - Maestro Modificado: Ana Torres | Codigo: 4
+ - Maestro Eliminado: Ana Torres | Codigo: 11
+ - Carrera Registrada: Ing.Mecanica
+ - Carrera Modifidaca: Ing.Mecanicaaaaaaaaa | Codigo: 30
+ - Carrera Modificada:  | Codigo: 30
+ - Ingreso usuario : usuprueba
+ - Nuevo alumno registrado: Arnoldo Ramírez
+ - alumno Modificado:  Ramírez | Carnet: 9
+ - alumno Modificado:  Arnoldo Ramírez | Carnet: 9
+ - alumno Modificado:   Ramírez | Carnet: 13
+ -  alumno eliminado:   Ramírez | Carnet: 13
+ - Nuevo alumno registrado:   Ramírez
+ - alumno Modificado:  aaa Ramírez | Carnet: 14
+ -  alumno eliminado:  | Carnet: 14
+ - Ingreso usuario : usuprueba
+ - Nuevo alumno registrado:  Arnoldo Ramírez
+ -  alumno eliminado:  Arnoldo Ramírez | Carnet: 15
+ - Ingreso usuario : usuprueba
+ - Nuevo alumno registrado:  Arnoldo Ramírez
+ - alumno Modificado:   Ramírez | Carnet: 16
+ -  alumno eliminado:   Ramírez | Carnet: 16
+ - Maestro Registrado: Ana Torres
+ - Maestro Eliminado: Ana Torres | Codigo: 12
+ - Nuevo alumno registrado:  Arnoldo Ramírez
+ - alumno Modificado:   Ramírez | Carnet: 17
+ -  alumno eliminado:   Ramírez | Carnet: 17

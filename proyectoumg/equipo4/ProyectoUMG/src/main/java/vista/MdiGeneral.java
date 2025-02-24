@@ -43,6 +43,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         menuAlumnos = new javax.swing.JMenuItem();
         menuCarreras = new javax.swing.JMenuItem();
         mnuSedes = new javax.swing.JMenuItem();
+        mnuAsignacionAlumnos = new javax.swing.JMenuItem();
         mnuAulas = new javax.swing.JMenuItem();
         menuFacultades = new javax.swing.JMenuItem();
         menuCursos = new javax.swing.JMenuItem();
@@ -106,6 +107,14 @@ public class MdiGeneral extends javax.swing.JFrame {
             }
         });
         jMenu3.add(mnuSedes);
+
+        mnuAsignacionAlumnos.setText("Mantenimiento Asignacioncursosalumnos");
+        mnuAsignacionAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAsignacionAlumnosActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuAsignacionAlumnos);
 
         mnuAulas.setText("Mantenimiento Aulas");
         mnuAulas.addActionListener(new java.awt.event.ActionListener() {
@@ -261,6 +270,23 @@ public class MdiGeneral extends javax.swing.JFrame {
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_mnuSedesActionPerformed
 
+    private void mnuAsignacionAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAsignacionAlumnosActionPerformed
+        // TODO add your handling code here:
+        try {
+        MantenimientoAsignacioncursosalumnos ventana = new MantenimientoAsignacioncursosalumnos();
+        jDesktopPane1.add(ventana);
+        ventana.setVisible(true);  // Asegúrate de mostrar la ventana
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension frameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+        System.out.println("Ventana agregada y visible.");
+    } catch (Exception e) {
+        e.printStackTrace();
+        System.out.println("Error al mostrar la ventana: " + e.getMessage());
+    }
+      
+    }//GEN-LAST:event_mnuAsignacionAlumnosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -310,6 +336,7 @@ public class MdiGeneral extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuCursos;
     private javax.swing.JMenuItem menuFacultades;
     private javax.swing.JMenuItem menuJornadas;
+    private javax.swing.JMenuItem mnuAsignacionAlumnos;
     private javax.swing.JMenuItem mnuAulas;
     private javax.swing.JMenuItem mnuSedes;
     // End of variables declaration//GEN-END:variables

@@ -36,6 +36,7 @@ domain\Jornada.class
 domain\Vendedor.class
 vista\MantenimientoAsignacioncursosmaestros.class
 vista\MantenimientoCursos$7.class
+vista\MdiGeneral$14.class
 vista\MantenimientoAlumnos$6.class
 domain\Empleado.class
 vista\MantenimientoAsignacioncursosalumnos$7.class

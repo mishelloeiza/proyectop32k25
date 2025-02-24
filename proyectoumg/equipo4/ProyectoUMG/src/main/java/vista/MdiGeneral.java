@@ -50,6 +50,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         menuJornadas = new javax.swing.JMenuItem();
         menuAsignacioncursosmaestros = new javax.swing.JMenuItem();
         mnuSecciones = new javax.swing.JMenuItem();
+        mnuMaestros = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -164,6 +165,14 @@ public class MdiGeneral extends javax.swing.JFrame {
             }
         });
         jMenu3.add(mnuSecciones);
+
+        mnuMaestros.setText("Mantenimiento Maestros");
+        mnuMaestros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMaestrosActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuMaestros);
 
         jMenu1.add(jMenu3);
 
@@ -305,6 +314,15 @@ public class MdiGeneral extends javax.swing.JFrame {
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_mnuSeccionesActionPerformed
 
+    private void mnuMaestrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMaestrosActionPerformed
+        // TODO add your handling code here:
+        MantenimientoMaestros ventana = new MantenimientoMaestros();
+        jDesktopPane1.add(ventana);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_mnuMaestrosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -356,6 +374,7 @@ public class MdiGeneral extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuJornadas;
     private javax.swing.JMenuItem mnuAsignacionAlumnos;
     private javax.swing.JMenuItem mnuAulas;
+    private javax.swing.JMenuItem mnuMaestros;
     private javax.swing.JMenuItem mnuSecciones;
     private javax.swing.JMenuItem mnuSedes;
     // End of variables declaration//GEN-END:variables

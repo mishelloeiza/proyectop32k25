@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class MaestroDAO {
 
-    private static final String SQL_SELECT = "SELECT codigo_maestro, nombre_maestro, direccion_maestro, telefono_maestro, email_maestro, estatus_maestro FROM maestro";
+    private static final String SQL_SELECT = "SELECT codigo_maestro, nombre_maestro, direccion_maestro, telefono_maestro, email_maestro, estatus_maestro FROM maestros";
     private static final String SQL_INSERT = "INSERT INTO maestros(nombre_maestro, direccion_maestro, telefono_maestro, email_maestro, estatus_maestro) VALUES(?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE maestros SET nombre_maestro=?, direccion_maestro=?, telefono_maestro=?, email_maestro=?, estatus_maestro=? WHERE codigo_maestro = ?";
     private static final String SQL_DELETE = "DELETE FROM maestros WHERE codigo_maestro =?";

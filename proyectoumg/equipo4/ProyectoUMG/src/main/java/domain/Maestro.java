@@ -16,19 +16,12 @@ public class Maestro {
     private String telefonoMaestro;
     private String emailMaestro;
     private String estatusMaestro;
-
-    public Maestro(int codigoMaestro, String nombreMaestro, String direccionMaestro, String telefonoMaestro, String emailMaestro, String estatusMaestro) {
-        this.codigoMaestro = codigoMaestro;
-        this.nombreMaestro = nombreMaestro;
-        this.direccionMaestro = direccionMaestro;
-        this.telefonoMaestro = telefonoMaestro;
-        this.emailMaestro = emailMaestro;
-        this.estatusMaestro = estatusMaestro;
+    
+    @Override
+    public String toString() {
+        return "Maestros{" + "codigoMaestro=" + codigoMaestro + ", nombreMaestro=" + nombreMaestro + ", direccionMaestro=" + direccionMaestro + ", telefonoMaestro=" + telefonoMaestro + ", emailMaestro=" + emailMaestro + ", estatusMaestro=" + estatusMaestro + '}';
     }
 
-    public Maestro() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     public int getCodigoMaestro() {
         return codigoMaestro;
@@ -77,10 +70,18 @@ public class Maestro {
     public void setEstatusMaestro(String estatusMaestro) {
         this.estatusMaestro = estatusMaestro;
     }
+    
+    public Maestro(int codigoMaestro, String nombreMaestro, String direccionMaestro, String telefonoMaestro, String emailMaestro, String estatusMaestro) {
+        this.codigoMaestro = codigoMaestro;
+        this.nombreMaestro = nombreMaestro;
+        this.direccionMaestro = direccionMaestro;
+        this.telefonoMaestro = telefonoMaestro;
+        this.emailMaestro = emailMaestro;
+        this.estatusMaestro = estatusMaestro;
+    }
 
-    @Override
-    public String toString() {
-        return "Maestros{" + "codigoMaestro=" + codigoMaestro + ", nombreMaestro=" + nombreMaestro + ", direccionMaestro=" + direccionMaestro + ", telefonoMaestro=" + telefonoMaestro + ", emailMaestro=" + emailMaestro + ", estatusMaestro=" + estatusMaestro + '}';
+    public Maestro() {
+        
     }
 
 

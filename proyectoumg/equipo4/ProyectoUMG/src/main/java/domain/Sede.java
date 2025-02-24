@@ -11,18 +11,13 @@ package domain;
  */
 public class Sede {
     
-    private int codigoSede;
+   private int codigoSede;
    private String nombreSede;
    private String estatusSede;
-
-    public Sede(int codigoSede, String nombreSede, String estatusSede) {
-        this.codigoSede = codigoSede;
-        this.nombreSede = nombreSede;
-        this.estatusSede = estatusSede;
-    }
-
-    public Sede() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+   
+   @Override
+    public String toString() {
+        return "Sede{" + "codigoSede=" + codigoSede + ", nombreSede=" + nombreSede + ", estatusSede=" + estatusSede + '}';
     }
 
     public int getCodigoSede() {
@@ -49,9 +44,13 @@ public class Sede {
         this.estatusSede = estatusSede;
     }
 
-    @Override
-    public String toString() {
-        return "Sedes{" + "codigoSede=" + codigoSede + ", nombreSede=" + nombreSede + ", estatusSede=" + estatusSede + '}';
+    public Sede(int codigoSede, String nombreSede, String estatusSede) {
+        this.codigoSede = codigoSede;
+        this.nombreSede = nombreSede;
+        this.estatusSede = estatusSede;
     }
    
+     public Sede() {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

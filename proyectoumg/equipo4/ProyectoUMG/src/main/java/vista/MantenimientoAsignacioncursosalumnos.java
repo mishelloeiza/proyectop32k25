@@ -38,10 +38,11 @@ public class MantenimientoAsignacioncursosalumnos extends javax.swing.JInternalF
         modelo.addColumn("ID Aula");
         modelo.addColumn("ID Curso");
         modelo.addColumn("ID Alumno");
+        modelo.addColumn("Nota Asig");
         AsignacioncursosalumnoDAO asignacioncursosalumnoDAO = new AsignacioncursosalumnoDAO();
         List<Asignacioncursosalumno> asignacioncursosalumnos = asignacioncursosalumnoDAO.select();
         tablaAsignacioncursosalumnos.setModel(modelo);
-        String[] dato = new String[7];
+        String[] dato = new String[8];
         for (int i = 0; i < asignacioncursosalumnos.size(); i++) {
             dato[0] = Integer.toString(asignacioncursosalumnos.get(i).getCodigoCarrera());
             dato[1] = Integer.toString(asignacioncursosalumnos.get(i).getCodigoSede());
@@ -50,13 +51,14 @@ public class MantenimientoAsignacioncursosalumnos extends javax.swing.JInternalF
             dato[4] = Integer.toString(asignacioncursosalumnos.get(i).getCodigoAula());
             dato[5] = Integer.toString(asignacioncursosalumnos.get(i).getCodigoCurso());
             dato[6] = Integer.toString(asignacioncursosalumnos.get(i).getCarnetAlumno());
+            dato[7] = Float.toString(asignacioncursosalumnos.get(i).getNotaAsignacioncursoalumno());
             //System.out.println("carrera:" + asignacioncursosmaestros);
             modelo.addRow(dato);
         }
         System.out.println("Llenado de tablas completado.");
     }
 
-    public void buscarAsignacioncursosmaestro() {
+    public void buscarAsignacioncursosalumno() {
         Asignacioncursosalumno asignacioncursosalumnoAConsultar = new Asignacioncursosalumno();
         AsignacioncursosalumnoDAO asignacioncursosalumnoDAO = new AsignacioncursosalumnoDAO();
         // Obtener el texto del campo txtbuscado y dividirlo en partes usando la coma como delimitador
@@ -82,6 +84,7 @@ public class MantenimientoAsignacioncursosalumnos extends javax.swing.JInternalF
             txtIdAula.setText(String.valueOf(asignacioncursosalumnoAConsultar.getCodigoAula()));
             txtIdCurso.setText(String.valueOf(asignacioncursosalumnoAConsultar.getCodigoCurso()));
             txtIdAlumno.setText(String.valueOf(asignacioncursosalumnoAConsultar.getCarnetAlumno()));
+            txtNotaAsig.setText(String.valueOf(asignacioncursosalumnoAConsultar.getNotaAsignacioncursoalumno()));
         } else {
         System.out.println("Error: El número de llaves no es correcto.");
         // Manejar el error según sea necesario
@@ -133,6 +136,8 @@ public class MantenimientoAsignacioncursosalumnos extends javax.swing.JInternalF
         txtIdAula = new javax.swing.JTextField();
         txtIdAlumno = new javax.swing.JTextField();
         label10 = new javax.swing.JLabel();
+        txtNotaAsig = new javax.swing.JTextField();
+        label11 = new javax.swing.JLabel();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -269,27 +274,18 @@ public class MantenimientoAsignacioncursosalumnos extends javax.swing.JInternalF
         label10.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label10.setText("Id Alumno");
 
+        txtNotaAsig.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtNotaAsig.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+
+        label11.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        label11.setText("NotaAsig");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,10 +311,29 @@ public class MantenimientoAsignacioncursosalumnos extends javax.swing.JInternalF
                             .addComponent(txtIdSeccion)
                             .addComponent(txtIdCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(label10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label10)
+                            .addComponent(label11))
                         .addGap(29, 29, 29)
-                        .addComponent(txtIdAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNotaAsig, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -327,23 +342,30 @@ public class MantenimientoAsignacioncursosalumnos extends javax.swing.JInternalF
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(label1)
-                        .addGap(294, 294, 294))))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(135, 135, 135)
-                .addComponent(label4)
-                .addGap(46, 46, 46)
-                .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+                        .addGap(294, 294, 294))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addGap(135, 135, 135)
+                        .addComponent(label4)
+                        .addGap(46, 46, 46)
+                        .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(label1)
                 .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(label4)
+                            .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2))
+                        .addContainerGap(20, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lb)
@@ -375,6 +397,10 @@ public class MantenimientoAsignacioncursosalumnos extends javax.swing.JInternalF
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtIdAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(label10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNotaAsig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnRegistrar)
@@ -384,13 +410,8 @@ public class MantenimientoAsignacioncursosalumnos extends javax.swing.JInternalF
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBuscar)
-                            .addComponent(btnLimpiar))))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label4)
-                    .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addContainerGap(20, Short.MAX_VALUE))
+                            .addComponent(btnLimpiar))
+                        .addGap(40, 40, 40))))
         );
 
         pack();
@@ -433,6 +454,7 @@ public class MantenimientoAsignacioncursosalumnos extends javax.swing.JInternalF
         asignacioncursosalumnoAInsertar.setCodigoAula(Integer.parseInt(txtIdAula.getText()));
         asignacioncursosalumnoAInsertar.setCodigoCurso(Integer.parseInt(txtIdCurso.getText()));
         asignacioncursosalumnoAInsertar.setCarnetAlumno(Integer.parseInt(txtIdAlumno.getText()));
+        asignacioncursosalumnoAInsertar.setNotaAsignacioncursoalumno(Float.parseFloat(txtNotaAsig.getText()));
         asignacioncursosalumnoDAO.insert(asignacioncursosalumnoAInsertar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
@@ -466,6 +488,7 @@ public class MantenimientoAsignacioncursosalumnos extends javax.swing.JInternalF
             AsignacioncursosalumnoAActualizar.setCodigoAula(Integer.parseInt(txtIdAula.getText()));
             AsignacioncursosalumnoAActualizar.setCodigoCurso(Integer.parseInt(txtIdCurso.getText()));
             AsignacioncursosalumnoAActualizar.setCarnetAlumno(Integer.parseInt(txtIdAlumno.getText()));
+            AsignacioncursosalumnoAActualizar.setNotaAsignacioncursoalumno(Float.parseFloat(txtNotaAsig.getText()));
             // Actualizar el registro usando el objeto DAO
             asignacioncursosalumnoDAO.update(AsignacioncursosalumnoAActualizar);
             // Actualizar la tabla
@@ -485,6 +508,7 @@ public class MantenimientoAsignacioncursosalumnos extends javax.swing.JInternalF
         txtIdAula.setText("");
         txtIdCurso.setText("");
         txtIdAlumno.setText("");
+        txtNotaAsig.setText("");
         txtbuscado.setText("");
         btnRegistrar.setEnabled(true);
         btnModificar.setEnabled(true);
@@ -531,6 +555,7 @@ public class MantenimientoAsignacioncursosalumnos extends javax.swing.JInternalF
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label10;
+    private javax.swing.JLabel label11;
     private javax.swing.JLabel label3;
     private javax.swing.JLabel label4;
     private javax.swing.JLabel label5;
@@ -549,10 +574,9 @@ public class MantenimientoAsignacioncursosalumnos extends javax.swing.JInternalF
     private javax.swing.JTextField txtIdJornada;
     private javax.swing.JTextField txtIdSeccion;
     private javax.swing.JTextField txtIdSede;
+    private javax.swing.JTextField txtNotaAsig;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables
 
-    private void buscarAsignacioncursosalumno() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 }

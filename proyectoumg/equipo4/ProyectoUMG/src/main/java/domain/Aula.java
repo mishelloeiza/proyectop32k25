@@ -11,18 +11,13 @@ package domain;
  */
 public class Aula {
     
-  private int codigoAula;
-  private String nombreAula;
-  private String estatusAula;
-
-    public Aula(int codigoAula, String nombreAula, String estatusAula) {
-        this.codigoAula = codigoAula;
-        this.nombreAula = nombreAula;
-        this.estatusAula = estatusAula;
-    }
-
-    public Aula() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private int codigoAula;
+    private String nombreAula;
+    private String estatusAula;
+    
+    @Override
+    public String toString() {
+        return "Aula{" + "codigoAula=" + codigoAula + ", nombreAula=" + nombreAula + ", estatusAula=" + estatusAula + '}';
     }
 
     public int getCodigoAula() {
@@ -49,10 +44,13 @@ public class Aula {
         this.estatusAula = estatusAula;
     }
 
-    @Override
-    public String toString() {
-        return "Aula{" + "codigoAula=" + codigoAula + ", nombreAula=" + nombreAula + ", estatusAula=" + estatusAula + '}';
+    public Aula(int codigoAula, String nombreAula, String estatusAula) {
+        this.codigoAula = codigoAula;
+        this.nombreAula = nombreAula;
+        this.estatusAula = estatusAula;
     }
-  
-  
+    
+    public Aula() {
+        
+    }
 }

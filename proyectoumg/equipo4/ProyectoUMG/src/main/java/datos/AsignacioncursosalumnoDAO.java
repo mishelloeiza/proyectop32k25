@@ -19,11 +19,11 @@ import java.util.List;
  */
 public class AsignacioncursosalumnoDAO {
 
-    private static final String SQL_SELECT = "SELECT codigo_carrera, codigo_sede, codigo_jornada, codigo_seccion, codigo_aula, codigo_curso, carnet_alumno FROM asignacioncursosalumno";
-    private static final String SQL_INSERT = "INSERT INTO asignacioncursosalumnos(codigo_carrera, codigo_sede, codigo_jornada, codigo_seccion, codigo_aula, codigo_curso, carnet_alumno) VALUES(?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE asignacioncursosalumnos SET codigo_carrera=?, codigo_sede=?, codigo_jornada=? , codigo_seccion=? , codigo_aula=? , codigo_curso=? , carnet_alumno =? WHERE codigo_carrera=? AND codigo_sede=? AND codigo_jornada=? AND codigo_seccion=? AND codigo_aula=? AND codigo_curso=? AND carnet_alumno=?";
+    private static final String SQL_SELECT = "SELECT codigo_carrera, codigo_sede, codigo_jornada, codigo_seccion, codigo_aula, codigo_curso, carnet_alumno, nota_asignacioncursoalumnos FROM asignacioncursosalumnos";
+    private static final String SQL_INSERT = "INSERT INTO asignacioncursosalumnos(codigo_carrera, codigo_sede, codigo_jornada, codigo_seccion, codigo_aula, codigo_curso, carnet_alumno, nota_asignacioncursoalumnos) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE = "UPDATE asignacioncursosalumnos SET codigo_carrera=?, codigo_sede=?, codigo_jornada=? , codigo_seccion=? , codigo_aula=? , codigo_curso=? , carnet_alumno =?, nota_asignacioncursoalumnos =? WHERE codigo_carrera=? AND codigo_sede=? AND codigo_jornada=? AND codigo_seccion=? AND codigo_aula=? AND codigo_curso=? AND carnet_alumno=?";
     private static final String SQL_DELETE = "DELETE FROM asignacioncursosalumnos WHERE codigo_carrera=? AND codigo_sede=? AND codigo_jornada=? AND codigo_seccion=? AND codigo_aula=? AND codigo_curso=? AND carnet_alumno=?";
-    private static final String SQL_QUERY = "SELECT codigo_carrera, codigo_sede, codigo_jornada, codigo_seccion, codigo_aula, codigo_curso, carnet_alumno FROM asignacioncursosalumnos WHERE codigo_carrera=? AND codigo_sede=? AND codigo_jornada=? AND codigo_seccion=? AND codigo_aula=? AND codigo_curso=? AND carnet_alumno=?";
+    private static final String SQL_QUERY = "SELECT codigo_carrera, codigo_sede, codigo_jornada, codigo_seccion, codigo_aula, codigo_curso, carnet_alumno, nota_asignacioncursoalumnos FROM asignacioncursosalumnos WHERE codigo_carrera=? AND codigo_sede=? AND codigo_jornada=? AND codigo_seccion=? AND codigo_aula=? AND codigo_curso=? AND carnet_alumno=?";
 
     public List<Asignacioncursosalumno> select() {
         Connection conn = null;
@@ -44,6 +44,7 @@ public class AsignacioncursosalumnoDAO {
                 int codigoAula = rs.getInt("codigo_aula");
                 int codigoCurso = rs.getInt("codigo_curso");
                 int carnetAlumno = rs.getInt("carnet_alumno");
+                float notaAsignacioncursoalumno = rs.getFloat("nota_asignacioncursoalumnos");
                 
                 asignacioncursosalumno = new Asignacioncursosalumno();
                 asignacioncursosalumno.setCodigoCarrera(codigoCarrera);
@@ -53,7 +54,7 @@ public class AsignacioncursosalumnoDAO {
                 asignacioncursosalumno.setCodigoAula(codigoAula);
                 asignacioncursosalumno.setCodigoCurso(codigoCurso);
                 asignacioncursosalumno.setCarnetAlumno(carnetAlumno);
-                
+                asignacioncursosalumno.setNotaAsignacioncursoalumno(notaAsignacioncursoalumno);
                 asignacioncursosalumnos.add(asignacioncursosalumno);
             }
 
@@ -82,6 +83,7 @@ public class AsignacioncursosalumnoDAO {
             stmt.setInt(5, asignacioncursosalumnos.getCodigoAula());
             stmt.setInt(6, asignacioncursosalumnos.getCodigoCurso());
             stmt.setInt(7, asignacioncursosalumnos.getCarnetAlumno());
+            stmt.setFloat(8, asignacioncursosalumnos.getNotaAsignacioncursoalumno());
             
             
             System.out.println("ejecutando query:" + SQL_INSERT);
@@ -113,6 +115,7 @@ public class AsignacioncursosalumnoDAO {
             stmt.setInt(5, asignacioncursosalumno.getCodigoAula());
             stmt.setInt(6, asignacioncursosalumno.getCodigoCurso());
             stmt.setInt(7, asignacioncursosalumno.getCarnetAlumno());
+            stmt.setFloat(8, asignacioncursosalumno.getNotaAsignacioncursoalumno());
             
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado:" + rows);
@@ -143,6 +146,7 @@ public class AsignacioncursosalumnoDAO {
             stmt.setInt(5, asignacioncursosalumno.getCodigoAula());
             stmt.setInt(6, asignacioncursosalumno.getCodigoCurso());
             stmt.setInt(7, asignacioncursosalumno.getCarnetAlumno());
+            stmt.setFloat(8, asignacioncursosalumno.getNotaAsignacioncursoalumno());
             rows = stmt.executeUpdate();
             System.out.println("Registros eliminados:" + rows);
         } catch (SQLException ex) {
@@ -180,6 +184,7 @@ public class AsignacioncursosalumnoDAO {
             stmt.setInt(5, asignacioncursosalumno.getCodigoAula());
             stmt.setInt(6, asignacioncursosalumno.getCodigoCurso());
             stmt.setInt(7, asignacioncursosalumno.getCarnetAlumno());
+            stmt.setFloat(8, asignacioncursosalumno.getNotaAsignacioncursoalumno());
             System.out.println("Parámetros establecidos para la consulta.");
             rs = stmt.executeQuery();
             if (rs != null) {
@@ -195,6 +200,7 @@ public class AsignacioncursosalumnoDAO {
                 int codigoAula = rs.getInt("codigo_aula");
                 int codigoCurso = rs.getInt("codigo_curso");
                 int carnetAlumno = rs.getInt("carnet_alumno");
+                float notaAsignacioncursoalumno = rs.getFloat("nota_asignacioncursoalumnos");
                 
                 asignacioncursosalumno = new Asignacioncursosalumno();
                 asignacioncursosalumno.setCodigoCarrera(codigoCarrera);
@@ -204,6 +210,7 @@ public class AsignacioncursosalumnoDAO {
                 asignacioncursosalumno.setCodigoAula(codigoAula);
                 asignacioncursosalumno.setCodigoCurso(codigoCurso);
                 asignacioncursosalumno.setCarnetAlumno(carnetAlumno);
+                asignacioncursosalumno.setNotaAsignacioncursoalumno(notaAsignacioncursoalumno);
                 
                 //vendedores.add(vendedor); // Si se utiliza un ArrayList
             }

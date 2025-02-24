@@ -39,14 +39,13 @@ public class SeccionDAO {
             while (rs.next()) {
                 int codigoSeccion = rs.getInt("codigo_seccion");
                 String nombreSeccion = rs.getString("nombre_seccion");
-                String estatusSeccion = rs.getString("estatusSeccion");
+                String estatusSeccion = rs.getString("estatus_seccion");
                 
                 seccion = new Seccion();
                 seccion.setCodigoSeccion(codigoSeccion);
                 seccion.setNombreSeccion(nombreSeccion);
                 seccion.setEstatusSeccion(estatusSeccion);
-                
-                seccion.add(seccion);
+                secciones.add(seccion);
             }
 
         } catch (SQLException ex) {
@@ -57,7 +56,7 @@ public class SeccionDAO {
             Conexion.close(conn);
         }
 
-        return (List<Seccion>) seccion;
+        return secciones;
     }
 
     public int insert(Seccion secciones) {

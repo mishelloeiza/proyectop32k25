@@ -17,19 +17,10 @@ public class Asignacioncursosalumno {
     private int codigoAula;
     private int codigoCurso;
     private int carnetAlumno;
-
-    public Asignacioncursosalumno(int codigoCarrera, int codigoSede, int codigoJornada, int codigoSeccion, int codigoAula, int codigoCurso, int carnetAlumno) {
-        this.codigoCarrera = codigoCarrera;
-        this.codigoSede = codigoSede;
-        this.codigoJornada = codigoJornada;
-        this.codigoSeccion = codigoSeccion;
-        this.codigoAula = codigoAula;
-        this.codigoCurso = codigoCurso;
-        this.carnetAlumno = carnetAlumno;
-    }
-
-    public Asignacioncursosalumno() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private float notaAsignacioncursoalumno;
+    @Override
+    public String toString() {
+        return "Asignacioncursosalumno{" + "codigoCarrera=" + codigoCarrera + ", codigoSede=" + codigoSede + ", codigoJornada=" + codigoJornada + ", codigoSeccion=" + codigoSeccion + ", codigoAula=" + codigoAula + ", codigoCurso=" + codigoCurso + ", carnetAlumno=" + carnetAlumno + '}';
     }
 
     public int getCodigoCarrera() {
@@ -87,10 +78,28 @@ public class Asignacioncursosalumno {
     public void setCarnetAlumno(int carnetAlumno) {
         this.carnetAlumno = carnetAlumno;
     }
+    
+    public float getNotaAsignacioncursoalumno() {
+        return notaAsignacioncursoalumno;
+    }
 
-    @Override
-    public String toString() {
-        return "Asignacioncursosalumno{" + "codigoCarrera=" + codigoCarrera + ", codigoSede=" + codigoSede + ", codigoJornada=" + codigoJornada + ", codigoSeccion=" + codigoSeccion + ", codigoAula=" + codigoAula + ", codigoCurso=" + codigoCurso + ", carnetAlumno=" + carnetAlumno + '}';
+    public void setNotaAsignacioncursoalumno(float notaAsignacioncursoalumno) {
+        this.notaAsignacioncursoalumno = notaAsignacioncursoalumno;
+    }
+    
+    public Asignacioncursosalumno(int codigoCarrera, int codigoSede, int codigoJornada, int codigoSeccion, int codigoAula, int codigoCurso, int carnetAlumno, float notaAsignacioncursoalumno) {
+        this.codigoCarrera = codigoCarrera;
+        this.codigoSede = codigoSede;
+        this.codigoJornada = codigoJornada;
+        this.codigoSeccion = codigoSeccion;
+        this.codigoAula = codigoAula;
+        this.codigoCurso = codigoCurso;
+        this.carnetAlumno = carnetAlumno;
+        this.notaAsignacioncursoalumno = notaAsignacioncursoalumno;
+    }
+
+    public Asignacioncursosalumno() {
+        
     }
 
 }

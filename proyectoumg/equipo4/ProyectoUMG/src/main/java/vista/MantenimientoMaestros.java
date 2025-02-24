@@ -6,9 +6,9 @@
 package vista;
 
 import datos.EmpleadoDAO;
-import datos.SedeDAO;
+import datos.MaestroDAO;
 import domain.Empleado;
-import domain.Sede;
+import domain.Maestro;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
@@ -17,7 +17,7 @@ import java.io.File;
  *
  * @author visitante
  */
-public class MantenimientoSedes extends javax.swing.JInternalFrame {
+public class MantenimientoMaestros extends javax.swing.JInternalFrame {
 
     public void llenadoDeCombos() {
         EmpleadoDAO empleadoDAO = new EmpleadoDAO();
@@ -30,32 +30,42 @@ public class MantenimientoSedes extends javax.swing.JInternalFrame {
 
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID Sede");
+        modelo.addColumn("ID Aula");
         modelo.addColumn("Nombre");
+        modelo.addColumn("Direccion");
+        modelo.addColumn("Telefono");
+        modelo.addColumn("Emaik");
         modelo.addColumn("Estatus");
-        SedeDAO sedesDAO = new SedeDAO();
-        List<Sede> sedes = sedesDAO.select();
-        tablaSedes.setModel(modelo);
+        MaestroDAO maestrosDAO = new MaestroDAO();
+        List<Maestro> maestros = maestrosDAO.select();
+        tablaAulas.setModel(modelo);
         String[] dato = new String[3];
-        for (int i = 0; i < sedes.size(); i++) {
-            dato[0] = Integer.toString(sedes.get(i).getCodigoSede());
-            dato[1] = sedes.get(i).getNombreSede();
-            dato[2] = sedes.get(i).getEstatusSede();
-            //System.out.println("vendedor:" + vendedores);
+        for (int i = 0; i < maestros.size(); i++) {
+            dato[0] = Integer.toString(maestros.get(i).getCodigoMaestro());
+            dato[1] = maestros.get(i).getNombreMaestro();
+            dato[2] = maestros.get(i).getDireccionMaestro();
+            dato[3] = maestros.get(i).getTelefonoMaestro();
+            dato[4] = maestros.get(i).getEmailMaestro();
+            dato[5] = maestros.get(i).getEstatusMaestro();
+
+//System.out.println("vendedor:" + vendedores);
             modelo.addRow(dato);
         }
     }
 
-    public void buscarVendedor() {
-        Sede sedeAConsultar = new Sede();
-        SedeDAO sedeDAO = new SedeDAO();
-        sedeAConsultar.setCodigoSede(Integer.parseInt(txtbuscado.getText()));
-        sedeAConsultar = sedeDAO.query(sedeAConsultar);
-        txtNombre.setText(sedeAConsultar.getNombreSede());
-        txtEstatus.setText(sedeAConsultar.getEstatusSede());
+    public void buscarMaestros() {
+        Maestro maestroAConsultar = new Maestro();
+        MaestroDAO maestroDAO = new MaestroDAO();
+        maestroAConsultar.setCodigoMaestro(Integer.parseInt(txtbuscado.getText()));
+        maestroAConsultar = maestroDAO.query(maestroAConsultar);
+        txtNombre.setText(maestroAConsultar.getNombreMaestro());
+        txtDireccion.setText(maestroAConsultar.getDireccionMaestro());
+        txtTelefono.setText(maestroAConsultar.getTelefonoMaestro());
+        txtEmail.setText(maestroAConsultar.getEmailMaestro());
+        txtDireccion.setText(maestroAConsultar.getEstatusMaestro());
     }
 
-    public MantenimientoSedes() {
+    public MantenimientoMaestros() {
         initComponents();
         llenadoDeTablas();
         llenadoDeCombos();
@@ -82,7 +92,7 @@ public class MantenimientoSedes extends javax.swing.JInternalFrame {
         txtCodigo = new javax.swing.JTextField();
         btnLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaSedes = new javax.swing.JTable();
+        tablaAulas = new javax.swing.JTable();
         cbox_empleado = new javax.swing.JComboBox<>();
         label4 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
@@ -91,7 +101,13 @@ public class MantenimientoSedes extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         label6 = new javax.swing.JLabel();
+        txtDireccion = new javax.swing.JTextField();
+        label7 = new javax.swing.JLabel();
+        label8 = new javax.swing.JLabel();
+        label9 = new javax.swing.JLabel();
         txtEstatus = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -100,7 +116,7 @@ public class MantenimientoSedes extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Mantenimiento Sede");
+        setTitle("Mantenimiento Maestro");
         setVisible(true);
 
         btnEliminar.setText("Eliminar");
@@ -125,7 +141,7 @@ public class MantenimientoSedes extends javax.swing.JInternalFrame {
         });
 
         label1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label1.setText("Sedes");
+        label1.setText("Maestros");
 
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -147,8 +163,8 @@ public class MantenimientoSedes extends javax.swing.JInternalFrame {
             }
         });
 
-        tablaSedes.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        tablaSedes.setModel(new javax.swing.table.DefaultTableModel(
+        tablaAulas.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tablaAulas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -164,7 +180,7 @@ public class MantenimientoSedes extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tablaSedes);
+        jScrollPane1.setViewportView(tablaAulas);
 
         cbox_empleado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         cbox_empleado.addActionListener(new java.awt.event.ActionListener() {
@@ -195,10 +211,28 @@ public class MantenimientoSedes extends javax.swing.JInternalFrame {
         });
 
         label6.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label6.setText("Estatus");
+        label6.setText("Direccion");
+
+        txtDireccion.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtDireccion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+
+        label7.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        label7.setText("Estatus");
+
+        label8.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        label8.setText("Email");
+
+        label9.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        label9.setText("Telefono");
 
         txtEstatus.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtEstatus.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+
+        txtEmail.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtEmail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+
+        txtTelefono.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtTelefono.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -226,18 +260,27 @@ public class MantenimientoSedes extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label3)
                             .addComponent(label5)
-                            .addComponent(label6))
+                            .addComponent(label6)
+                            .addComponent(label9)
+                            .addComponent(label8)
+                            .addComponent(label7))
                         .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-                            .addComponent(txtCodigo)
-                            .addComponent(txtEstatus))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtEmail)
+                                .addComponent(txtEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTelefono))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                                    .addComponent(txtCodigo)
+                                    .addComponent(txtDireccion))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -281,7 +324,22 @@ public class MantenimientoSedes extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(label6)
-                                    .addComponent(txtEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(label9)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(label8)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(label7))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnRegistrar)
@@ -308,35 +366,41 @@ public class MantenimientoSedes extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        SedeDAO sedeDAO = new SedeDAO();
-        Sede sedeAEliminar = new Sede();
-        sedeAEliminar.setCodigoSede(Integer.parseInt(txtbuscado.getText()));
-        sedeDAO.delete(sedeAEliminar);
+        MaestroDAO maestroDAO = new MaestroDAO();
+        Maestro maestroAEliminar = new Maestro();
+        maestroAEliminar.setCodigoMaestro(Integer.parseInt(txtbuscado.getText()));
+        maestroDAO.delete(maestroAEliminar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        SedeDAO sedeDAO = new SedeDAO();
-        Sede sedeAInsertar = new Sede();
-        sedeAInsertar.setNombreSede(txtNombre.getText());
-        sedeAInsertar.setEstatusSede(txtEstatus.getText());
-        sedeDAO.insert(sedeAInsertar);
+        MaestroDAO maestroDAO = new MaestroDAO();
+        Maestro maestroAInsertar = new Maestro();
+        maestroAInsertar.setNombreMaestro(txtNombre.getText());
+        maestroAInsertar.setDireccionMaestro(txtDireccion.getText());
+        maestroAInsertar.setTelefonoMaestro(txtTelefono.getText());
+        maestroAInsertar.setEmailMaestro(txtEmail.getText());
+        maestroAInsertar.setEstatusMaestro(txtEstatus.getText());
+        maestroDAO.insert(maestroAInsertar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        buscarVendedor();
+        buscarMaestros();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 //        // TODO add your handling code here:
-        SedeDAO sedeDAO = new SedeDAO();
-        Sede sedeAActualizar = new Sede();
-        sedeAActualizar.setCodigoSede(Integer.parseInt(txtbuscado.getText()));
-        sedeAActualizar.setNombreSede(txtNombre.getText());
-        sedeAActualizar.setEstatusSede(txtEstatus.getText());
-        sedeDAO.update(sedeAActualizar);
+        MaestroDAO maestroDAO = new MaestroDAO();
+        Maestro maestroAActualizar = new Maestro();
+        maestroAActualizar.setCodigoMaestro(Integer.parseInt(txtbuscado.getText()));
+        maestroAActualizar.setNombreMaestro(txtNombre.getText());
+        maestroAActualizar.setDireccionMaestro(txtDireccion.getText());
+        maestroAActualizar.setTelefonoMaestro(txtTelefono.getText());
+        maestroAActualizar.setEmailMaestro(txtEmail.getText());
+        maestroAActualizar.setEstatusMaestro(txtEstatus.getText());
+        maestroDAO.update(maestroAActualizar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -344,6 +408,9 @@ public class MantenimientoSedes extends javax.swing.JInternalFrame {
         cbox_empleado.setSelectedIndex(0);
         txtCodigo.setText("");
         txtNombre.setText("");
+        txtDireccion.setText("");
+        txtTelefono.setText("");
+        txtEmail.setText("");
         txtEstatus.setText("");
         txtbuscado.setText("");
         btnRegistrar.setEnabled(true);
@@ -391,13 +458,19 @@ public class MantenimientoSedes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel label4;
     private javax.swing.JLabel label5;
     private javax.swing.JLabel label6;
+    private javax.swing.JLabel label7;
+    private javax.swing.JLabel label8;
+    private javax.swing.JLabel label9;
     private javax.swing.JLabel lb;
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lbusu;
-    private javax.swing.JTable tablaSedes;
+    private javax.swing.JTable tablaAulas;
     private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEstatus;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables
 }

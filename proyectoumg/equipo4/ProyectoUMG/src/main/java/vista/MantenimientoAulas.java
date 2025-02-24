@@ -319,8 +319,8 @@ public class MantenimientoAulas extends javax.swing.JInternalFrame {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         AulaDAO aulaDAO = new AulaDAO();
         Aula aulaAInsertar = new Aula();
-        aulaAInsertar.setNombreAula(txtCodigo.getText());
-        aulaAInsertar.setEstatusAula(txtNombre.getText());
+        aulaAInsertar.setNombreAula(txtNombre.getText());
+        aulaAInsertar.setEstatusAula(txtEstatus.getText());
         aulaDAO.insert(aulaAInsertar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
@@ -335,8 +335,8 @@ public class MantenimientoAulas extends javax.swing.JInternalFrame {
         AulaDAO aulaDAO = new AulaDAO();
         Aula aulaAActualizar = new Aula();
         aulaAActualizar.setCodigoAula(Integer.parseInt(txtbuscado.getText()));
-        aulaAActualizar.setNombreAula(txtCodigo.getText());
-        aulaAActualizar.setEstatusAula(txtNombre.getText());
+        aulaAActualizar.setNombreAula(txtNombre.getText());
+        aulaAActualizar.setEstatusAula(txtEstatus.getText());
         aulaDAO.update(aulaAActualizar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnModificarActionPerformed

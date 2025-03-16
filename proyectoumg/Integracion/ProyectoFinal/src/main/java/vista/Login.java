@@ -10,12 +10,34 @@ import Controlador.Usuario;
 import java.awt.HeadlessException;
 
 import javax.swing.JOptionPane;
-
+  import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 /**
  *
  * @author visitante
  */
 public class Login extends javax.swing.JFrame {
+  
+
+
+    
+    // Método para cifrar la contraseña
+    public String cifrarContrasena(String contrasena) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] bytes = md.digest(contrasena.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : bytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 
     /**
      * Creates new form Login
@@ -126,8 +148,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        // TODO add your handling code here:
-
+      // Verificación de campos vacíos
         if (txtUsuario.getText().trim().isEmpty() || txtContraseña.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "NO PUEDEN HABER CAMPOS VACIOS", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -135,10 +156,17 @@ public class Login extends javax.swing.JFrame {
                 Usuario usuarioAConsultar = new Usuario();
                 UsuarioDAO usuarioDAO = new UsuarioDAO();
                 usuarioAConsultar.setUsername(txtUsuario.getText().trim());
+                
                 // Recuperación de información a través de otro objeto
                 usuarioAConsultar = usuarioDAO.query(usuarioAConsultar);
 
-                if (txtContraseña.getText().equals(usuarioAConsultar.getPassword()) && txtUsuario.getText().equals(usuarioAConsultar.getUsername())) {
+                // Cifrar la contraseña ingresada
+                String contrasenaCifradaIngresada = cifrarContrasena(txtContraseña.getText().trim());
+
+                // Verificar si el usuario y la contraseña cifrada coinciden
+                if (contrasenaCifradaIngresada != null &&
+                    contrasenaCifradaIngresada.equals(usuarioAConsultar.getPassword()) &&
+                    txtUsuario.getText().equals(usuarioAConsultar.getUsername())) {
                     JOptionPane.showMessageDialog(null, "Bienvenido al SISTEMA\n", "Mensaje de bienvenida", JOptionPane.INFORMATION_MESSAGE);
 
                     MdiGeneral menuGeneral = new MdiGeneral();
@@ -153,10 +181,9 @@ public class Login extends javax.swing.JFrame {
             } catch (HeadlessException e) {
                 JOptionPane.showMessageDialog(this, "ERROR AL ENCONTRAR USUARIO o CONTRASEÑA", "ERROR", JOptionPane.ERROR_MESSAGE);
                 txtContraseña.setText("");
-                txtUsuario.setText("");
-            }
-        }
-
+                txtUsuario.setText("");   
+  } 
+              } 
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -208,4 +235,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private String cifrarContrasena() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

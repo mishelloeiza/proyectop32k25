@@ -52,6 +52,10 @@ public class Usuario {
     public String toString() {
         return "Usuario{" + "id_usuario=" + id_usuario + ", username=" + username + ", password=" + password + '}';
     }
+
+    public void setid_Usuario(int parseInt) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
 }

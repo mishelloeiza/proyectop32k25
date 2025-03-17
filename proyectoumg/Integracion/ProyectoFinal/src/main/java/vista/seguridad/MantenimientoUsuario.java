@@ -1,7 +1,7 @@
 package vista.seguridad;
 
 import vista.*;
-import Controlador.Utilidades;
+import Controlador.seguridad.Utilidades;
 import Modelo.seguridad.UsuarioDAO;
 import Controlador.Usuario;
 import java.io.File;

@@ -1,5 +1,6 @@
-package Controlador;
+package Controlador.seguridad;
 
+import Controlador.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 

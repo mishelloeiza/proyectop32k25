@@ -5,9 +5,10 @@
  */
 package Modelo.seguridad;
 
-import Controlador.Perfil; 
+import Controlador.seguridad.Perfil; 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import Modelo.Conexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

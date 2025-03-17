@@ -19,22 +19,15 @@ import java.io.File;
  */
 public class MantenimientoPerfiles extends javax.swing.JInternalFrame {
 
-    public void llenadoDeCombos() {
-        EmpleadoDAO empleadoDAO = new EmpleadoDAO();
-        List<Empleado> empleados = empleadoDAO.select();
-        cbox_empleado.addItem("Seleccione una opción");
-        for (int i = 0; i < empleados.size(); i++) {
-            cbox_empleado.addItem(empleados.get(i).getNombreEmpleado());
-        }
-    }
-
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID Perfil");
         modelo.addColumn("Nombre");
         modelo.addColumn("Estatus");
+        
         PerfilDAO perfilDAO = new PerfilDAO();
         List<Perfil> perfil = perfilDAO.select();
+        
         tablaSedes.setModel(modelo);
         String[] dato = new String[3];
         for (int i = 0; i < perfil.size(); i++) {
@@ -57,7 +50,7 @@ public class MantenimientoPerfiles extends javax.swing.JInternalFrame {
     public MantenimientoPerfiles() {
         initComponents();
         llenadoDeTablas();
-        llenadoDeCombos();
+        //se quito el llena combos al no contar con empleados
     }
 
     /**

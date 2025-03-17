@@ -1,9 +1,9 @@
 package vista.seguridad;
 
 import vista.*;
-import Controlador.Utilidades;
-import Modelo.UsuarioDAO;
-import Controlador.Usuario;
+import Controlador.seguridad.Utilidades;
+import Modelo.seguridad.UsuarioDAO;
+import Controlador.seguridad.Usuario;
 import java.io.File;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;

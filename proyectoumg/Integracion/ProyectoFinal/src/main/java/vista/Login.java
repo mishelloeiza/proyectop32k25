@@ -6,7 +6,7 @@
 package vista;
 
 import Modelo.seguridad.UsuarioDAO;
-import Controlador.Usuario;
+import Controlador.seguridad.Usuario;
 import java.awt.HeadlessException;
 
 import javax.swing.JOptionPane;

@@ -6,7 +6,7 @@
 package Modelo.seguridad;
 
 import Modelo.*;
-import Controlador.Usuario;
+import Controlador.seguridad.Usuario;
 import Modelo.Conexion;
 import java.sql.*;
 import java.util.ArrayList;

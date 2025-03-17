@@ -1,6 +1,6 @@
 package Controlador.seguridad;
 
-import Controlador.*;
+
 
 public class Usuario {
     private int id_usuario;

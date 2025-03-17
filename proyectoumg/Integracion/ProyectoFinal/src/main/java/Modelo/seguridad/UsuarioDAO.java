@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo;
+package Modelo.seguridad;
 
+import Modelo.*;
 import Controlador.Usuario;
 import Modelo.Conexion;
 import java.sql.*;

@@ -5,7 +5,7 @@
  */
 package vista;
 
-import Modelo.UsuarioDAO;
+import Modelo.seguridad.UsuarioDAO;
 import Controlador.Usuario;
 import java.awt.HeadlessException;
 

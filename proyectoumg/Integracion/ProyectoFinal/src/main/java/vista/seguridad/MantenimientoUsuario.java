@@ -1,7 +1,8 @@
-package vista;
+package vista.seguridad;
 
+import vista.*;
 import Controlador.Utilidades;
-import Modelo.UsuarioDAO;
+import Modelo.seguridad.UsuarioDAO;
 import Controlador.Usuario;
 import java.io.File;
 import java.util.List;

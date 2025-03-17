@@ -6,6 +6,7 @@
 package vista;
 
 import java.awt.Dimension;
+import vista.seguridad.MantenimientoUsuario;
 
 /**
  *

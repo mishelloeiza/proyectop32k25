@@ -34,3 +34,10 @@ CREATE TABLE IF NOT EXISTS empleado (
   dire_empleado VARCHAR(25)NOT NULL,
   PRIMARY KEY (id_empleado) )
 ENGINE = InnoDB CHARACTER SET = latin1;
+
+CREATE TABLE perfiles(
+    id_perfil INT AUTO_INCREMENT,
+    nombre_perfil VARCHAR(85),
+    estatus_perfil VARCHAR (1),
+  	PRIMARY KEY (id_perfil)
+) ENGINE = INNODB CHARSET =latin1;

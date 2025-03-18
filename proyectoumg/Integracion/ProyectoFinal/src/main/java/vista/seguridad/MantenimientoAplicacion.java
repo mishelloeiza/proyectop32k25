@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista;
+package vista.seguridad;
 
 //import datos.EmpleadoDAO;
-import datos.AplicacionDAO;
+import Modelo.seguridad.AplicacionDAO;
 //import domain.Empleado;
 import domain.Aplicacion;
 import java.util.List;

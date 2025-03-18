@@ -46,7 +46,12 @@ public class MdiGeneral extends javax.swing.JFrame {
         MantenimientoUsuarios = new javax.swing.JMenuItem();
         MantenimientoAplicaciones = new javax.swing.JMenuItem();
         MantenimientoPerfiles = new javax.swing.JMenuItem();
+        mnuAsignaciones = new javax.swing.JMenu();
+        AsignacionesAplicacionesPerfil = new javax.swing.JMenuItem();
+        AsignacionAplicacionesUsuario = new javax.swing.JMenuItem();
+        AsignacionPerfilUsuario = new javax.swing.JMenuItem();
         Bitacora = new javax.swing.JMenu();
+        ConsultaBitacora = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -100,12 +105,49 @@ public class MdiGeneral extends javax.swing.JFrame {
 
         MenuGeneralSeguridad.add(MenuMantenimientos);
 
+        mnuAsignaciones.setText("Asignaciones");
+
+        AsignacionesAplicacionesPerfil.setText("Asignacion Aplicaciones a Perfil");
+        AsignacionesAplicacionesPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AsignacionesAplicacionesPerfilActionPerformed(evt);
+            }
+        });
+        mnuAsignaciones.add(AsignacionesAplicacionesPerfil);
+
+        AsignacionAplicacionesUsuario.setText("Asignacion Aplicaciones a Usuario");
+        AsignacionAplicacionesUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AsignacionAplicacionesUsuarioActionPerformed(evt);
+            }
+        });
+        mnuAsignaciones.add(AsignacionAplicacionesUsuario);
+
+        AsignacionPerfilUsuario.setText("Asignacion Perfil a Usuario");
+        AsignacionPerfilUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AsignacionPerfilUsuarioActionPerformed(evt);
+            }
+        });
+        mnuAsignaciones.add(AsignacionPerfilUsuario);
+
+        MenuGeneralSeguridad.add(mnuAsignaciones);
+
         Bitacora.setText("Bitacora");
         Bitacora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BitacoraActionPerformed(evt);
             }
         });
+
+        ConsultaBitacora.setText("Consulta Bitacora");
+        ConsultaBitacora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConsultaBitacoraActionPerformed(evt);
+            }
+        });
+        Bitacora.add(ConsultaBitacora);
+
         MenuGeneralSeguridad.add(Bitacora);
 
         jMenuBar1.add(MenuGeneralSeguridad);
@@ -160,12 +202,48 @@ public class MdiGeneral extends javax.swing.JFrame {
 
     private void BitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BitacoraActionPerformed
         // TODO add your handling code here:
+//       MantenimientoBitacora ventana = new MantenimientoBitacora();
+//       jDesktopPane1.add(ventana);
+//       Dimension desktopSize = jDesktopPane1.getSize();
+//       Dimension FrameSize = ventana.getSize();
+//       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_BitacoraActionPerformed
+
+    private void ConsultaBitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultaBitacoraActionPerformed
+        // TODO add your handling code here:
        MantenimientoBitacora ventana = new MantenimientoBitacora();
        jDesktopPane1.add(ventana);
        Dimension desktopSize = jDesktopPane1.getSize();
        Dimension FrameSize = ventana.getSize();
        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-    }//GEN-LAST:event_BitacoraActionPerformed
+    }//GEN-LAST:event_ConsultaBitacoraActionPerformed
+
+    private void AsignacionAplicacionesUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignacionAplicacionesUsuarioActionPerformed
+        // TODO add your handling code here:
+        //       MantenimientoBitacora ventana = new MantenimientoBitacora();
+//       jDesktopPane1.add(ventana);
+//       Dimension desktopSize = jDesktopPane1.getSize();
+//       Dimension FrameSize = ventana.getSize();
+//       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_AsignacionAplicacionesUsuarioActionPerformed
+
+    private void AsignacionPerfilUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignacionPerfilUsuarioActionPerformed
+        // TODO add your handling code here:
+//       MantenimientoBitacora ventana = new MantenimientoBitacora();
+//       jDesktopPane1.add(ventana);
+//       Dimension desktopSize = jDesktopPane1.getSize();
+//       Dimension FrameSize = ventana.getSize();
+//       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_AsignacionPerfilUsuarioActionPerformed
+
+    private void AsignacionesAplicacionesPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignacionesAplicacionesPerfilActionPerformed
+        // TODO add your handling code here:
+        //       MantenimientoBitacora ventana = new MantenimientoBitacora();
+//       jDesktopPane1.add(ventana);
+//       Dimension desktopSize = jDesktopPane1.getSize();
+//       Dimension FrameSize = ventana.getSize();
+//       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_AsignacionesAplicacionesPerfilActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,7 +281,11 @@ public class MdiGeneral extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem AsignacionAplicacionesUsuario;
+    private javax.swing.JMenuItem AsignacionPerfilUsuario;
+    private javax.swing.JMenuItem AsignacionesAplicacionesPerfil;
     private javax.swing.JMenu Bitacora;
+    private javax.swing.JMenuItem ConsultaBitacora;
     private javax.swing.JMenuItem MantenimientoAplicaciones;
     private javax.swing.JMenuItem MantenimientoPerfiles;
     private javax.swing.JMenuItem MantenimientoUsuarios;
@@ -213,5 +295,6 @@ public class MdiGeneral extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenu mnuAsignaciones;
     // End of variables declaration//GEN-END:variables
 }

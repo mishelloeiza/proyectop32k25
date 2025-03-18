@@ -53,6 +53,37 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
+            <Menu class="javax.swing.JMenu" name="mnuAsignaciones">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Asignaciones"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="AsignacionesAplicacionesPerfil">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Asignacion Aplicaciones a Perfil"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AsignacionesAplicacionesPerfilActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="AsignacionAplicacionesUsuario">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Asignacion Aplicaciones a Usuario"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AsignacionAplicacionesUsuarioActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="AsignacionPerfilUsuario">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Asignacion Perfil a Usuario"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AsignacionPerfilUsuarioActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
             <Menu class="javax.swing.JMenu" name="Bitacora">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Bitacora"/>
@@ -60,6 +91,16 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BitacoraActionPerformed"/>
               </Events>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="ConsultaBitacora">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Consulta Bitacora"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ConsultaBitacoraActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
             </Menu>
           </SubComponents>
         </Menu>

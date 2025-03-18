@@ -8,4 +8,4 @@ CREATE TABLE perfiles(
 INSERT INTO perfiles (`nombre_perfil`, `estatus_perfil`) VALUES
 ('Gerentes', '1'),
 ('Proveedores', '1'),
-('Inversores', '0');
+('Inversores', '1');

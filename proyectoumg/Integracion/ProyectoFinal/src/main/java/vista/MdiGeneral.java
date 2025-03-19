@@ -5,7 +5,13 @@
  */
 package vista;
 
+import Controlador.seguridad.Bitacora;
+import Controlador.seguridad.UsuarioConectado;
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import vista.seguridad.MantenimientoUsuario;
 import vista.seguridad.MantenimientoPerfiles;
 import vista.seguridad.MantenimientoAplicacion;
@@ -20,12 +26,14 @@ public class MdiGeneral extends javax.swing.JFrame {
     /**
      * Creates new form MdiGeneral
      */
+    final int APLICACION=99;
     public MdiGeneral() {
         initComponents();
         setLocationRelativeTo(null);
         this.setExtendedState(MdiGeneral.MAXIMIZED_BOTH);
         this.setTitle("Ejemplo Capas");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(EXIT_ON_CLOSE);
+        cerrar();
     }
 
     /**
@@ -39,6 +47,7 @@ public class MdiGeneral extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         MenuGeneralSeguridad = new javax.swing.JMenu();
@@ -52,18 +61,21 @@ public class MdiGeneral extends javax.swing.JFrame {
         AsignacionPerfilUsuario = new javax.swing.JMenuItem();
         Bitacora = new javax.swing.JMenu();
         ConsultaBitacora = new javax.swing.JMenuItem();
+        salirSistema = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
         jMenuItem2.setText("jMenuItem2");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jMenuItem3.setText("jMenuItem3");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 442, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,6 +162,14 @@ public class MdiGeneral extends javax.swing.JFrame {
 
         MenuGeneralSeguridad.add(Bitacora);
 
+        salirSistema.setText("Salir del Sistema");
+        salirSistema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirSistemaActionPerformed(evt);
+            }
+        });
+        MenuGeneralSeguridad.add(salirSistema);
+
         jMenuBar1.add(MenuGeneralSeguridad);
 
         setJMenuBar(jMenuBar1);
@@ -167,7 +187,33 @@ public class MdiGeneral extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public void cerrar(){
+        try 
+        {
+            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            addWindowListener(new WindowAdapter() 
+            {
+                public void windowClosing(WindowEvent e) 
+                {
+                    confirmarSalida();
+                }
+            });
+            this.setVisible(true);
+        } catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+    }    
+    public void confirmarSalida() 
+    {
+        int valor=JOptionPane.showConfirmDialog(this,"¿Està seguro de cerrar?", "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    if (valor==JOptionPane.YES_OPTION) 
+                    {
+                        JOptionPane.showMessageDialog(null, "Gracias por su visita, hasta pronto", "Gracias", JOptionPane.INFORMATION_MESSAGE);
+                        System.exit(0);
+                    }
+    }
+    
     private void MenuMantenimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuMantenimientosActionPerformed
         // TODO add your handling code here:
 
@@ -245,6 +291,17 @@ public class MdiGeneral extends javax.swing.JFrame {
 //       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_AsignacionesAplicacionesPerfilActionPerformed
 
+    private void salirSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirSistemaActionPerformed
+        // TODO add your handling code here:
+//        
+        int valor=JOptionPane.showConfirmDialog(this,"¿Està seguro de cerrar?", "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    if (valor==JOptionPane.YES_OPTION) 
+                    {
+                        JOptionPane.showMessageDialog(null, "Gracias por su visita, hasta pronto", "Gracias", JOptionPane.INFORMATION_MESSAGE);
+                        System.exit(0);
+                    }
+    }//GEN-LAST:event_salirSistemaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -295,6 +352,8 @@ public class MdiGeneral extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenu mnuAsignaciones;
+    private javax.swing.JMenuItem salirSistema;
     // End of variables declaration//GEN-END:variables
 }

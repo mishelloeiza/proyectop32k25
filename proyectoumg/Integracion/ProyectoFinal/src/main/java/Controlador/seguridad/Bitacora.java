@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Controlador.seguridad;
+import Modelo.seguridad.BitacoraDAO;
+import java.text.ParseException;
+import java.util.List;
 
 /**
  *
@@ -81,4 +84,15 @@ public class Bitacora {
     
     public Bitacora() {
     }
+    public int setIngresarBitacora(int codigoUsuario, int codigoAplicacion, String accion)
+    {
+        BitacoraDAO daoBitacora = new BitacoraDAO();
+        return daoBitacora.registrarAccionEnBitacora(codigoUsuario, codigoAplicacion, accion);
+    }
+    public List<Bitacora> getListadoBitacora(String primeraFecha, String segundaFecha) throws ParseException
+    {
+        BitacoraDAO daoBitacora = new BitacoraDAO();
+        List<Bitacora> listadoBitacora = daoBitacora.query(primeraFecha, segundaFecha);
+        return listadoBitacora;
+    } 
 }

@@ -15,7 +15,13 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.30</version>
-        </dependency>        
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.20.4</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>    
 <build>
     <finalName>capas</finalName>

@@ -5,8 +5,10 @@
  */
 package vista;
 
+import Controlador.seguridad.Bitacora;
 import Modelo.seguridad.UsuarioDAO;
 import Controlador.seguridad.Usuario;
+import Controlador.seguridad.UsuarioConectado;
 import java.awt.HeadlessException;
 
 import javax.swing.JOptionPane;
@@ -19,7 +21,8 @@ import java.security.NoSuchAlgorithmException;
 public class Login extends javax.swing.JFrame {
   
 
-
+    // Identificacion de la Aplicaciòn
+    final int APLICACION=1;
     
     // Método para cifrar la contraseña
     public String cifrarContrasena(String contrasena) {
@@ -168,7 +171,14 @@ public class Login extends javax.swing.JFrame {
                     contrasenaCifradaIngresada.equals(usuarioAConsultar.getPassword()) &&
                     txtUsuario.getText().equals(usuarioAConsultar.getUsername())) {
                     JOptionPane.showMessageDialog(null, "Bienvenido al SISTEMA\n", "Mensaje de bienvenida", JOptionPane.INFORMATION_MESSAGE);
-
+                    //Registro del usuario en sesiòn
+                    UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+                    usuarioEnSesion.setIdUsuario(usuarioAConsultar.getId_usuario());
+                    usuarioEnSesion.setUserName(usuarioAConsultar.getUsername());
+                    //Registro de Bitacora
+                    int resultadoBitacora=0;
+                    Bitacora bitacoraRegistro = new Bitacora();
+                    resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Inicio Sesion");
                     MdiGeneral menuGeneral = new MdiGeneral();
                     menuGeneral.setVisible(true);
                     this.dispose();

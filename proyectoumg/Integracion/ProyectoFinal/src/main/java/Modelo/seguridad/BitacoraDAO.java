@@ -25,13 +25,13 @@ public class BitacoraDAO {
 
     private static final String SQL_SELECT = "SELECT id_bitacora, id_usuario, id_aplicacion, fecha, ip , accion FROM bitacora";
     private static final String SQL_INSERT = "INSERT INTO bitacora(id_usuario, id_aplicacion, fecha, ip, accion) VALUES(?, ? , NOW(), ?, ?)";
-    private static final String SQL_QUERY = "SELECT id_bitacora, id_usuario, id_aplicacion, fecha, ip, accion FROM bitacora WHERE id_bitacora = ?";
+    private static final String SQL_QUERY = "SELECT id_bitacora, id_usuario, id_aplicacion, fecha, ip, accion FROM bitacora WHERE fecha BETWEEN ? AND ?";
     
     // Método para registrar una acción en la bitácora
-    public void registrarAccionEnBitacora(int idUsuario, int idAplicacion, String accion) {
+    public int registrarAccionEnBitacora(int idUsuario, int idAplicacion, String accion) {
         Connection conn = null;
         PreparedStatement stmt = null;
-
+        int rows = 0;
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
@@ -40,7 +40,7 @@ public class BitacoraDAO {
             stmt.setString(3, obtenerIP()); // IP de la computadora desde donde se realiza la acción
             stmt.setString(4, accion); // Descripción de la acción (e.g., "ins alum", "upd alum")
 
-            stmt.executeUpdate();
+            rows=stmt.executeUpdate();
 
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -48,6 +48,7 @@ public class BitacoraDAO {
             Conexion.close(stmt);
             Conexion.close(conn);
         }
+        return rows;
     }
 
     // Método para obtener la IP de la máquina
@@ -127,19 +128,22 @@ public class BitacoraDAO {
     }
 
 
-    public Bitacora query(Bitacora bitacora) {    
+    public List<Bitacora> query( String primeraFecha, String segundaFecha ) {    
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        Bitacora bitacora = null;
+        List<Bitacora> bitacoras = new ArrayList<Bitacora>();
         
         int rows = 0;
 
         try {
             conn = Conexion.getConnection();
-            System.out.println("Ejecutando query:" + SQL_QUERY);
             stmt = conn.prepareStatement(SQL_QUERY);
-            stmt.setInt(1, bitacora.getIdBitacora());
+            stmt.setString(1, primeraFecha);            
+            stmt.setString(2, segundaFecha);
             rs = stmt.executeQuery();
+            System.out.println("query : " + stmt);
             while (rs.next()) {
                 int idBitacora = rs.getInt("id_bitacora");
                 int idUsuario = rs.getInt("id_usuario");
@@ -155,7 +159,7 @@ public class BitacoraDAO {
                 bitacora.setFecha(Fecha);
                 bitacora.setIp(Ip);
                 bitacora.setAccion(Accion);
-                
+                bitacoras.add(bitacora);
             }
             //System.out.println("Registros buscado:" + vendedor);
         } catch (SQLException ex) {
@@ -167,7 +171,7 @@ public class BitacoraDAO {
         }
 
         //return vendedores;  // Si se utiliza un ArrayList
-        return bitacora;
+        return bitacoras;
     }
     
 }

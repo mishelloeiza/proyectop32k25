@@ -8,6 +8,8 @@ package vista;
 import java.awt.Dimension;
 import vista.seguridad.MantenimientoUsuario;
 import vista.seguridad.MantenimientoPerfiles;
+import vista.seguridad.MantenimientoAplicacion;
+import vista.seguridad.MantenimientoBitacora;
 
 /**
  *
@@ -39,12 +41,17 @@ public class MdiGeneral extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        mnuAlumnos = new javax.swing.JMenuItem();
-        manteniminetosUsuarios = new javax.swing.JMenuItem();
-        MenuPerfiles = new javax.swing.JMenuItem();
+        MenuGeneralSeguridad = new javax.swing.JMenu();
+        MenuMantenimientos = new javax.swing.JMenu();
+        MantenimientoUsuarios = new javax.swing.JMenuItem();
+        MantenimientoAplicaciones = new javax.swing.JMenuItem();
+        MantenimientoPerfiles = new javax.swing.JMenuItem();
+        mnuAsignaciones = new javax.swing.JMenu();
+        AsignacionesAplicacionesPerfil = new javax.swing.JMenuItem();
+        AsignacionAplicacionesUsuario = new javax.swing.JMenuItem();
+        AsignacionPerfilUsuario = new javax.swing.JMenuItem();
+        Bitacora = new javax.swing.JMenu();
+        ConsultaBitacora = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -63,50 +70,87 @@ public class MdiGeneral extends javax.swing.JFrame {
             .addGap(0, 279, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("Archivo");
+        MenuGeneralSeguridad.setText("Seguridad");
 
-        jMenu3.setText("Mantenimientos");
-        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+        MenuMantenimientos.setText("Mantenimientos");
+        MenuMantenimientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu3ActionPerformed(evt);
+                MenuMantenimientosActionPerformed(evt);
             }
         });
 
-        jMenuItem3.setText("Mantenimiento Vendedores");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        MantenimientoUsuarios.setText("Mantenimiento Usuarios");
+        MantenimientoUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                MantenimientoUsuariosActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem3);
+        MenuMantenimientos.add(MantenimientoUsuarios);
 
-        mnuAlumnos.setText("Mantenimiento Alumnos");
-        mnuAlumnos.addActionListener(new java.awt.event.ActionListener() {
+        MantenimientoAplicaciones.setText("Mantenimiento Aplicaciones");
+        MantenimientoAplicaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuAlumnosActionPerformed(evt);
+                MantenimientoAplicacionesActionPerformed(evt);
             }
         });
-        jMenu3.add(mnuAlumnos);
+        MenuMantenimientos.add(MantenimientoAplicaciones);
 
-        manteniminetosUsuarios.setText("Mantenimiento Usuarios");
-        manteniminetosUsuarios.addActionListener(new java.awt.event.ActionListener() {
+        MantenimientoPerfiles.setText("Mantenimiento Perfiles");
+        MantenimientoPerfiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manteniminetosUsuariosActionPerformed(evt);
+                MantenimientoPerfilesActionPerformed(evt);
             }
         });
-        jMenu3.add(manteniminetosUsuarios);
+        MenuMantenimientos.add(MantenimientoPerfiles);
 
-        MenuPerfiles.setText("Mantenimiento Perfiles");
-        MenuPerfiles.addActionListener(new java.awt.event.ActionListener() {
+        MenuGeneralSeguridad.add(MenuMantenimientos);
+
+        mnuAsignaciones.setText("Asignaciones");
+
+        AsignacionesAplicacionesPerfil.setText("Asignacion Aplicaciones a Perfil");
+        AsignacionesAplicacionesPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuPerfilesActionPerformed(evt);
+                AsignacionesAplicacionesPerfilActionPerformed(evt);
             }
         });
-        jMenu3.add(MenuPerfiles);
+        mnuAsignaciones.add(AsignacionesAplicacionesPerfil);
 
-        jMenu1.add(jMenu3);
+        AsignacionAplicacionesUsuario.setText("Asignacion Aplicaciones a Usuario");
+        AsignacionAplicacionesUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AsignacionAplicacionesUsuarioActionPerformed(evt);
+            }
+        });
+        mnuAsignaciones.add(AsignacionAplicacionesUsuario);
 
-        jMenuBar1.add(jMenu1);
+        AsignacionPerfilUsuario.setText("Asignacion Perfil a Usuario");
+        AsignacionPerfilUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AsignacionPerfilUsuarioActionPerformed(evt);
+            }
+        });
+        mnuAsignaciones.add(AsignacionPerfilUsuario);
+
+        MenuGeneralSeguridad.add(mnuAsignaciones);
+
+        Bitacora.setText("Bitacora");
+        Bitacora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BitacoraActionPerformed(evt);
+            }
+        });
+
+        ConsultaBitacora.setText("Consulta Bitacora");
+        ConsultaBitacora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConsultaBitacoraActionPerformed(evt);
+            }
+        });
+        Bitacora.add(ConsultaBitacora);
+
+        MenuGeneralSeguridad.add(Bitacora);
+
+        jMenuBar1.add(MenuGeneralSeguridad);
 
         setJMenuBar(jMenuBar1);
 
@@ -124,46 +168,82 @@ public class MdiGeneral extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+    private void MenuMantenimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuMantenimientosActionPerformed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_jMenu3ActionPerformed
+    }//GEN-LAST:event_MenuMantenimientosActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void MantenimientoUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MantenimientoUsuariosActionPerformed
         // TODO add your handling code here:
-//        MantenimientoVendedores ventana = new MantenimientoVendedores();
-//        jDesktopPane1.add(ventana);
-//        Dimension desktopSize = jDesktopPane1.getSize();
-//        Dimension FrameSize = ventana.getSize();
-//        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void mnuAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAlumnosActionPerformed
-        // TODO add your handling code here:
-//        MantenimientoAlumnos ventana = new MantenimientoAlumnos();
-//        jDesktopPane1.add(ventana);
-//        Dimension desktopSize = jDesktopPane1.getSize();
-//        Dimension FrameSize = ventana.getSize();
-//        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-    }//GEN-LAST:event_mnuAlumnosActionPerformed
-
-    private void manteniminetosUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manteniminetosUsuariosActionPerformed
-        // TODO add your handling code here:
-         MantenimientoUsuario ventana = new MantenimientoUsuario();
-       jDesktopPane1.add(ventana);
-       Dimension desktopSize = jDesktopPane1.getSize();
-       Dimension FrameSize = ventana.getSize();
-       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-    }//GEN-LAST:event_manteniminetosUsuariosActionPerformed
-
-    private void MenuPerfilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuPerfilesActionPerformed
-        // TODO add your handling code here:
-        MantenimientoPerfiles ventana = new MantenimientoPerfiles();
+        MantenimientoUsuario ventana = new MantenimientoUsuario();
         jDesktopPane1.add(ventana);
         Dimension desktopSize = jDesktopPane1.getSize();
         Dimension FrameSize = ventana.getSize();
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-    }//GEN-LAST:event_MenuPerfilesActionPerformed
+    }//GEN-LAST:event_MantenimientoUsuariosActionPerformed
+
+    private void MantenimientoAplicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MantenimientoAplicacionesActionPerformed
+        // TODO add your handling code here:
+        MantenimientoAplicacion ventana = new MantenimientoAplicacion();
+        jDesktopPane1.add(ventana);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_MantenimientoAplicacionesActionPerformed
+
+    private void MantenimientoPerfilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MantenimientoPerfilesActionPerformed
+        // TODO add your handling code here:
+       MantenimientoPerfiles ventana = new MantenimientoPerfiles();
+       jDesktopPane1.add(ventana);
+       Dimension desktopSize = jDesktopPane1.getSize();
+       Dimension FrameSize = ventana.getSize();
+       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_MantenimientoPerfilesActionPerformed
+
+    private void BitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BitacoraActionPerformed
+        // TODO add your handling code here:
+//       MantenimientoBitacora ventana = new MantenimientoBitacora();
+//       jDesktopPane1.add(ventana);
+//       Dimension desktopSize = jDesktopPane1.getSize();
+//       Dimension FrameSize = ventana.getSize();
+//       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_BitacoraActionPerformed
+
+    private void ConsultaBitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultaBitacoraActionPerformed
+        // TODO add your handling code here:
+       MantenimientoBitacora ventana = new MantenimientoBitacora();
+       jDesktopPane1.add(ventana);
+       Dimension desktopSize = jDesktopPane1.getSize();
+       Dimension FrameSize = ventana.getSize();
+       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_ConsultaBitacoraActionPerformed
+
+    private void AsignacionAplicacionesUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignacionAplicacionesUsuarioActionPerformed
+        // TODO add your handling code here:
+        //       MantenimientoBitacora ventana = new MantenimientoBitacora();
+//       jDesktopPane1.add(ventana);
+//       Dimension desktopSize = jDesktopPane1.getSize();
+//       Dimension FrameSize = ventana.getSize();
+//       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_AsignacionAplicacionesUsuarioActionPerformed
+
+    private void AsignacionPerfilUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignacionPerfilUsuarioActionPerformed
+        // TODO add your handling code here:
+//       MantenimientoBitacora ventana = new MantenimientoBitacora();
+//       jDesktopPane1.add(ventana);
+//       Dimension desktopSize = jDesktopPane1.getSize();
+//       Dimension FrameSize = ventana.getSize();
+//       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_AsignacionPerfilUsuarioActionPerformed
+
+    private void AsignacionesAplicacionesPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignacionesAplicacionesPerfilActionPerformed
+        // TODO add your handling code here:
+        //       MantenimientoBitacora ventana = new MantenimientoBitacora();
+//       jDesktopPane1.add(ventana);
+//       Dimension desktopSize = jDesktopPane1.getSize();
+//       Dimension FrameSize = ventana.getSize();
+//       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_AsignacionesAplicacionesPerfilActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,15 +281,20 @@ public class MdiGeneral extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem MenuPerfiles;
+    private javax.swing.JMenuItem AsignacionAplicacionesUsuario;
+    private javax.swing.JMenuItem AsignacionPerfilUsuario;
+    private javax.swing.JMenuItem AsignacionesAplicacionesPerfil;
+    private javax.swing.JMenu Bitacora;
+    private javax.swing.JMenuItem ConsultaBitacora;
+    private javax.swing.JMenuItem MantenimientoAplicaciones;
+    private javax.swing.JMenuItem MantenimientoPerfiles;
+    private javax.swing.JMenuItem MantenimientoUsuarios;
+    private javax.swing.JMenu MenuGeneralSeguridad;
+    private javax.swing.JMenu MenuMantenimientos;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem manteniminetosUsuarios;
-    private javax.swing.JMenuItem mnuAlumnos;
+    private javax.swing.JMenu mnuAsignaciones;
     // End of variables declaration//GEN-END:variables
 }

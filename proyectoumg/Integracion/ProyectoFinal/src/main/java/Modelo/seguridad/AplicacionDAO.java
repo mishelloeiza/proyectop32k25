@@ -21,7 +21,7 @@ import java.util.List;
 public class AplicacionDAO {
 
     private static final String SQL_SELECT = "SELECT id_aplicacion, nombre_aplicacion, estatus_aplicacion FROM aplicacion";
-    private static final String SQL_INSERT = "INSERT INTO aplicacion(nombre_aplicacion, estatus_aplicacion) VALUES(?, ?)";
+    private static final String SQL_INSERT = "INSERT INTO aplicacion(id_aplicacion,nombre_aplicacion, estatus_aplicacion) VALUES(?,?,?)";
     private static final String SQL_UPDATE = "UPDATE aplicacion SET  nombre_aplicacion=?, estatus_aplicacion=? WHERE id_aplicacion = ?";
     private static final String SQL_DELETE = "DELETE FROM aplicacion WHERE id_aplicacion=?";
     private static final String SQL_QUERY = "SELECT id_aplicacion, nombre_aplicacion, estatus_aplicacion FROM aplicacion WHERE id_aplicacion = ?";
@@ -70,6 +70,7 @@ public class AplicacionDAO {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
+            stmt.setInt(1, aplicacion.getId_aplicacion());
             stmt.setString(1, aplicacion.getNombre_aplicacion());
             stmt.setString(2, aplicacion.getEstatus_aplicacion());
          

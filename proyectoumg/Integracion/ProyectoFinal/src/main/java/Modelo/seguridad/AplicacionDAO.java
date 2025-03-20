@@ -5,8 +5,8 @@
  */
 package Modelo.seguridad;
 
-import Modelo.Conexion;
 import Controlador.seguridad.Aplicacion;
+import Modelo.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -71,8 +71,8 @@ public class AplicacionDAO {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
             stmt.setInt(1, aplicacion.getId_aplicacion());
-            stmt.setString(1, aplicacion.getNombre_aplicacion());
-            stmt.setString(2, aplicacion.getEstatus_aplicacion());
+            stmt.setString(2, aplicacion.getNombre_aplicacion());
+            stmt.setString(3, aplicacion.getEstatus_aplicacion());
          
 
 
@@ -180,5 +180,5 @@ public class AplicacionDAO {
         //return vendedores;  // Si se utiliza un ArrayList
         return aplicacion;
     }
-        
+            
 }

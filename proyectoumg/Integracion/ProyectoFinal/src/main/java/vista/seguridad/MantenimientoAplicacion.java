@@ -19,6 +19,7 @@ import java.io.File;
  */
 public class MantenimientoAplicacion extends javax.swing.JInternalFrame {
 
+    
     public void llenadoDeCombos() {
         AplicacionDAO aplicacionDAO = new AplicacionDAO();
         List<Aplicacion> salon = aplicacionDAO.select();
@@ -27,6 +28,7 @@ public class MantenimientoAplicacion extends javax.swing.JInternalFrame {
             cbox_empleado.addItem(salon.get(i).getNombre_aplicacion());
         }
     }
+    
 
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -39,6 +41,7 @@ public class MantenimientoAplicacion extends javax.swing.JInternalFrame {
         String[] dato = new String[3];
         for (int i = 0; i < aulas.size(); i++) {
             dato[0] = Integer.toString(aulas.get(i).getId_aplicacion());
+            //dato[0] = aulas.get(i).getId_aplicacion();
             dato[1] = aulas.get(i).getNombre_aplicacion();
             dato[2] = aulas.get(i).getEstatus_aplicacion();
             //System.out.println("vendedor:" + vendedores);
@@ -90,6 +93,8 @@ public class MantenimientoAplicacion extends javax.swing.JInternalFrame {
         lb = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        label6 = new javax.swing.JLabel();
+        txtid = new javax.swing.JTextField();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -196,6 +201,12 @@ public class MantenimientoAplicacion extends javax.swing.JInternalFrame {
             }
         });
 
+        label6.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        label6.setText("Id_Aplic");
+
+        txtid.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtid.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -218,16 +229,21 @@ public class MantenimientoAplicacion extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(358, 358, 358)
+                        .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label3)
-                            .addComponent(label5))
+                            .addComponent(label5)
+                            .addComponent(label6))
                         .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtEstatus, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-                            .addComponent(txtNombre))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtEstatus)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -261,17 +277,19 @@ public class MantenimientoAplicacion extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(lb)
+                                .addGap(32, 32, 32)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(label6)
+                                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(45, 45, 45)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(label3))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(label5)))
-                                    .addComponent(lb))
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label3))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnRegistrar)
@@ -308,6 +326,7 @@ public class MantenimientoAplicacion extends javax.swing.JInternalFrame {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         AplicacionDAO aplicacionDAO = new AplicacionDAO();
         Aplicacion aplicacionAInsertar = new Aplicacion();
+        aplicacionAInsertar.setId_aplicacion(Integer.parseInt(txtid.getText()));
         aplicacionAInsertar.setNombre_aplicacion(txtNombre.getText());
         aplicacionAInsertar.setEstatus_aplicacion(txtEstatus.getText());
         aplicacionDAO.insert(aplicacionAInsertar);
@@ -386,6 +405,7 @@ public class MantenimientoAplicacion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel label3;
     private javax.swing.JLabel label4;
     private javax.swing.JLabel label5;
+    private javax.swing.JLabel label6;
     private javax.swing.JLabel lb;
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lbusu;
@@ -393,5 +413,6 @@ public class MantenimientoAplicacion extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtEstatus;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtbuscado;
+    private javax.swing.JTextField txtid;
     // End of variables declaration//GEN-END:variables
 }

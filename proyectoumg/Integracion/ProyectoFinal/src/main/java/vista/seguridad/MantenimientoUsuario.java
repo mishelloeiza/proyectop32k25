@@ -66,13 +66,13 @@ public void registrarUsuario() {
     public void buscarUsuario() {
         try {
             // Verificar si el campo de búsqueda no está vacío
-            if (txtbuscado.getText().isEmpty()) {
+            if (txtUpdate.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Por favor ingrese un ID de usuario.");
                 return; // Salir si el campo está vacío
             }
 
             // Intentar convertir el texto a número
-            int idUsuario = Integer.parseInt((String) txtbuscado.getText());
+            int idUsuario = Integer.parseInt((String) txtUpdate.getText());
 
             // Crear el objeto usuario a consultar
             Usuario usuarioAconsultar = new Usuario();
@@ -112,7 +112,45 @@ public void registrarUsuario() {
             JOptionPane.showMessageDialog(null, "Error al encriptar la contraseña.");
         }
     }
+    
+    
+    
+    public void buscarUsuario2(){
+    try {
+    
 
+    int idUsuario = Integer.parseInt(txtbuscado.getText());
+
+    Usuario usuarioAconsultar = new Usuario();
+    usuarioAconsultar.setId_usuario(idUsuario);
+
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    usuarioAconsultar = usuarioDAO.query2(usuarioAconsultar);
+
+    if (usuarioAconsultar != null) {
+        // Rellenar campos directamente con los datos obtenidos
+        txtNombre.setText(usuarioAconsultar.getUsername());
+        txtPassword.setText(usuarioAconsultar.getPassword());  // Contraseña cifrada
+    } else {
+        txtNombre.setText("");
+        txtPassword.setText("");
+        JOptionPane.showMessageDialog(null, "Usuario no encontrado");
+    }
+} catch (NumberFormatException e) {
+    JOptionPane.showMessageDialog(null, "Formato de ID inválido. Use solo números");
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(null, "Error inesperado: " + e.getMessage());
+}
+    
+    
+    
+    
+    
+    }
+    
+    
+    
+    
     // Constructor de la clase
     public MantenimientoUsuario() {
         initComponents();
@@ -135,7 +173,7 @@ public void registrarUsuario() {
         label1 = new javax.swing.JLabel();
         btnModificar = new javax.swing.JButton();
         lblNombre = new javax.swing.JLabel();
-        txtbuscado = new javax.swing.JTextField();
+        txtUpdate = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         btnLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -146,6 +184,7 @@ public void registrarUsuario() {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        txtbuscado = new javax.swing.JTextField();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -262,11 +301,14 @@ public void registrarUsuario() {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(107, 107, 107)
+                                        .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -329,15 +371,17 @@ public void registrarUsuario() {
                                     .addComponent(btnModificar))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnBuscar)
-                                    .addComponent(btnLimpiar))))
+                                    .addComponent(btnLimpiar))
+                                .addGap(18, 18, 18)
+                                .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(jButton2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -347,7 +391,7 @@ public void registrarUsuario() {
         // TODO add your handling code here:
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         Usuario usuarioAEliminar = new Usuario();
-        usuarioAEliminar.setId_usuario(Integer.parseInt(txtbuscado.getText()));
+        usuarioAEliminar.setId_usuario(Integer.parseInt(txtUpdate.getText()));
         usuarioDAO.delete(usuarioAEliminar);
         llenadoDeTablas();
         UsuarioConectado usuarioEnSesion = new UsuarioConectado();
@@ -401,7 +445,7 @@ public void registrarUsuario() {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-      buscarUsuario();
+     buscarUsuario2();
        
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -409,7 +453,7 @@ public void registrarUsuario() {
 //        // TODO add your handling code here:
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         Usuario usuarioAActualizar = new Usuario();
-        usuarioAActualizar.setId_usuario(Integer.parseInt(txtbuscado.getText()));
+        usuarioAActualizar.setId_usuario(Integer.parseInt(txtUpdate.getText()));
         usuarioAActualizar.setUsername(txtNombre.getText());
         usuarioAActualizar.setPassword(txtPassword.getText());
         
@@ -425,7 +469,7 @@ public void registrarUsuario() {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         txtNombre.setText("");
         txtPassword.setText("");
-        txtbuscado.setText("");
+        txtUpdate.setText("");
         
        
         btnRegistrar.setEnabled(true);
@@ -472,6 +516,7 @@ public void registrarUsuario() {
     private javax.swing.JTable tablaUsuario;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtUpdate;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables
 }

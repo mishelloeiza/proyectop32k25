@@ -171,6 +171,10 @@ public class Login extends javax.swing.JFrame {
                     contrasenaCifradaIngresada.equals(usuarioAConsultar.getPassword()) &&
                     txtUsuario.getText().equals(usuarioAConsultar.getUsername())) {
                     JOptionPane.showMessageDialog(null, "Bienvenido al SISTEMA\n", "Mensaje de bienvenida", JOptionPane.INFORMATION_MESSAGE);
+                    
+
+
+
                     //Registro del usuario en sesiòn
                     UsuarioConectado usuarioEnSesion = new UsuarioConectado();
                     usuarioEnSesion.setIdUsuario(usuarioAConsultar.getId_usuario());

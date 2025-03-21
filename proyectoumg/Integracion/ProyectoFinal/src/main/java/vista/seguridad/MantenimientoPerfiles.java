@@ -12,12 +12,19 @@ import Controlador.seguridad.Perfil;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
+import Controlador.seguridad.Bitacora;
+import Controlador.seguridad.UsuarioConectado;
 
 /**
  *
  * @author visitante
  */
 public class MantenimientoPerfiles extends javax.swing.JInternalFrame {
+    
+    final int APLICACION201=201;
+    final int APLICACION202=202;
+    final int APLICACION203=203;
+    final int APLICACION204=204;
 
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -45,6 +52,10 @@ public class MantenimientoPerfiles extends javax.swing.JInternalFrame {
         perfilAConsultar = perfilDAO.query(perfilAConsultar);
         txtNombre.setText(perfilAConsultar.getNombre_perfil());
         txtEstatus.setText(perfilAConsultar.getEstatus_perfil());
+        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION202,  "Consulta Datos Perfiles");
     }
 
     public MantenimientoPerfiles() {
@@ -293,6 +304,10 @@ public class MantenimientoPerfiles extends javax.swing.JInternalFrame {
         perfilAEliminar.setId_perfil(Integer.parseInt(txtbuscado.getText()));
         perfilDAO.delete(perfilAEliminar);
         llenadoDeTablas();
+        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION204,  "Borrar Datos Perfiles");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -300,8 +315,11 @@ public class MantenimientoPerfiles extends javax.swing.JInternalFrame {
         Perfil perfilAInsertar = new Perfil();
         perfilAInsertar.setNombre_perfil(txtNombre.getText());
         perfilAInsertar.setEstatus_perfil(txtEstatus.getText());
-        
         perfilDAO.insert(perfilAInsertar);
+        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION201,  "Ingreso Datos Perfiles");
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -317,9 +335,12 @@ public class MantenimientoPerfiles extends javax.swing.JInternalFrame {
         perfilAActualizar.setId_perfil(Integer.parseInt(txtbuscado.getText()));
         perfilAActualizar.setNombre_perfil(txtNombre.getText());
         perfilAActualizar.setEstatus_perfil(txtEstatus.getText());
-        
         perfilDAO.update(perfilAActualizar);
         llenadoDeTablas();
+        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION203,  "Actualizacion Datos Perfiles");
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

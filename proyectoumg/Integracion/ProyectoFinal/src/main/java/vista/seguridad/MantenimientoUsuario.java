@@ -9,10 +9,16 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import java.security.NoSuchAlgorithmException;
+import Controlador.seguridad.Bitacora;
+import Controlador.seguridad.UsuarioConectado;
 
 public class MantenimientoUsuario extends javax.swing.JInternalFrame {
+     final int APLICACION100=100;  
+    
+    
+    
 
-    // Método para llenar la tabla de usuarios
+  // Método para llenar la tabla de usuarios
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Id_Usuario");
@@ -344,10 +350,14 @@ public void registrarUsuario() {
         usuarioAEliminar.setId_usuario(Integer.parseInt(txtbuscado.getText()));
         usuarioDAO.delete(usuarioAEliminar);
         llenadoDeTablas();
+        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION100,  "Borrar Datos Usuarios");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-                                                 
+                                           
     try {
         // Crear una instancia del DAO para usuario
         UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -367,15 +377,26 @@ public void registrarUsuario() {
         // Insertar el usuario en la base de datos
         usuarioDAO.insert(usuarioAInsertar);
         
+        // Registrar en la bitácora
+        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        Bitacora bitacoraRegistro = new Bitacora();
+        int resultadoBitacora = bitacoraRegistro.setIngresarBitacora(
+            usuarioEnSesion.getIdUsuario(), 
+            APLICACION100,  
+            "Ingreso Datos Usuario"
+        );
+
         // Recargar la tabla de usuarios
         llenadoDeTablas();
         
         // Mensaje de éxito
         JOptionPane.showMessageDialog(null, "Usuario registrado con éxito.");
+        
     } catch (NoSuchAlgorithmException e) {
         // Manejo de error si ocurre un problema en la encriptación
         JOptionPane.showMessageDialog(null, "Error al encriptar la contraseña.");
- } 
+    }
+ 
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -395,6 +416,10 @@ public void registrarUsuario() {
         
         usuarioDAO.update(usuarioAActualizar);
         llenadoDeTablas();
+         UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION100,  "Actualizacion Datos Usuarios");
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

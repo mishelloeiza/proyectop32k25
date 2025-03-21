@@ -5,7 +5,7 @@
  */
 package Modelo.seguridad;
 
-import domain.Aplicacion;
+import Controlador.seguridad.Aplicacion;
 import Modelo.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +21,7 @@ import java.util.List;
 public class AplicacionDAO {
 
     private static final String SQL_SELECT = "SELECT id_aplicacion, nombre_aplicacion, estatus_aplicacion FROM aplicacion";
-    private static final String SQL_INSERT = "INSERT INTO aplicacion(nombre_aplicacion, estatus_aplicacion) VALUES(?, ?)";
+    private static final String SQL_INSERT = "INSERT INTO aplicacion(id_aplicacion,nombre_aplicacion, estatus_aplicacion) VALUES(?,?,?)";
     private static final String SQL_UPDATE = "UPDATE aplicacion SET  nombre_aplicacion=?, estatus_aplicacion=? WHERE id_aplicacion = ?";
     private static final String SQL_DELETE = "DELETE FROM aplicacion WHERE id_aplicacion=?";
     private static final String SQL_QUERY = "SELECT id_aplicacion, nombre_aplicacion, estatus_aplicacion FROM aplicacion WHERE id_aplicacion = ?";
@@ -70,8 +70,9 @@ public class AplicacionDAO {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, aplicacion.getNombre_aplicacion());
-            stmt.setString(2, aplicacion.getEstatus_aplicacion());
+            stmt.setInt(1, aplicacion.getId_aplicacion());
+            stmt.setString(2, aplicacion.getNombre_aplicacion());
+            stmt.setString(3, aplicacion.getEstatus_aplicacion());
          
 
 
@@ -179,5 +180,5 @@ public class AplicacionDAO {
         //return vendedores;  // Si se utiliza un ArrayList
         return aplicacion;
     }
-        
+            
 }

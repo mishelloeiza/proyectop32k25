@@ -221,6 +221,10 @@ public class MdiGeneral extends javax.swing.JFrame {
 
     private void MantenimientoUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MantenimientoUsuariosActionPerformed
         // TODO add your handling code here:
+         // Cerrar otros JInternalFrame antes de abrir uno nuevo//MISHEL
+for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+    frame.dispose(); // Cierra cada ventana abierta
+    }
         MantenimientoUsuario ventana = new MantenimientoUsuario();
         jDesktopPane1.add(ventana);
         Dimension desktopSize = jDesktopPane1.getSize();
@@ -230,6 +234,10 @@ public class MdiGeneral extends javax.swing.JFrame {
 
     private void MantenimientoAplicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MantenimientoAplicacionesActionPerformed
         // TODO add your handling code here:
+         // Cerrar otros JInternalFrame antes de abrir uno nuevo//MISHEL
+for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+    frame.dispose(); // Cierra cada ventana abierta
+}
         MantenimientoAplicacion ventana = new MantenimientoAplicacion();
         jDesktopPane1.add(ventana);
         Dimension desktopSize = jDesktopPane1.getSize();
@@ -239,6 +247,10 @@ public class MdiGeneral extends javax.swing.JFrame {
 
     private void MantenimientoPerfilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MantenimientoPerfilesActionPerformed
         // TODO add your handling code here:
+                 // Cerrar otros JInternalFrame antes de abrir uno nuevo//MISHEL
+for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+    frame.dispose(); // Cierra cada ventana abierta
+}
        MantenimientoPerfiles ventana = new MantenimientoPerfiles();
        jDesktopPane1.add(ventana);
        Dimension desktopSize = jDesktopPane1.getSize();
@@ -257,6 +269,10 @@ public class MdiGeneral extends javax.swing.JFrame {
 
     private void ConsultaBitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultaBitacoraActionPerformed
         // TODO add your handling code here:
+                 // Cerrar otros JInternalFrame antes de abrir uno nuevo//MISHEL
+for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+    frame.dispose(); // Cierra cada ventana abierta
+}
        MantenimientoBitacora ventana = new MantenimientoBitacora();
        jDesktopPane1.add(ventana);
        Dimension desktopSize = jDesktopPane1.getSize();
@@ -293,6 +309,10 @@ public class MdiGeneral extends javax.swing.JFrame {
 
     private void salirSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirSistemaActionPerformed
         // TODO add your handling code here:
+                 // Cerrar otros JInternalFrame antes de abrir uno nuevo//MISHEL
+for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+    frame.dispose(); // Cierra cada ventana abierta
+}
 //        
         int valor=JOptionPane.showConfirmDialog(this,"¿Està seguro de cerrar?", "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                     if (valor==JOptionPane.YES_OPTION) 

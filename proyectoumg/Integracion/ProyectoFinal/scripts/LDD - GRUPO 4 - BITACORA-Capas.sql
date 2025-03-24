@@ -5,5 +5,6 @@ CREATE TABLE `bitacora` (
   `fecha` datetime NOT NULL,
   `ip` varchar(45) DEFAULT NULL,
   `accion` varchar(50) DEFAULT NULL,
+  `nombre_pc` varchar(50) DEFAULT NULL,
   primary key (id_bitacora)
 ) ENGINE = InnoDB DEFAULT CHARSET=latin1;

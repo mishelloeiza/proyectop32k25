@@ -23,9 +23,9 @@ import java.util.List;
  */
 public class BitacoraDAO {
 
-    private static final String SQL_SELECT = "SELECT id_bitacora, id_usuario, id_aplicacion, fecha, ip , accion FROM bitacora";
-    private static final String SQL_INSERT = "INSERT INTO bitacora(id_usuario, id_aplicacion, fecha, ip, accion) VALUES(?, ? , NOW(), ?, ?)";
-    private static final String SQL_QUERY = "SELECT id_bitacora, id_usuario, id_aplicacion, fecha, ip, accion FROM bitacora WHERE fecha BETWEEN ? AND ?";
+    private static final String SQL_SELECT = "SELECT id_bitacora, id_usuario, id_aplicacion, fecha, ip, accion, nombre_pc FROM bitacora";
+    private static final String SQL_INSERT = "INSERT INTO bitacora(id_usuario, id_aplicacion, fecha, ip, accion, nombre_pc) VALUES(?, ? , NOW(), ?, ?, ?)";
+    private static final String SQL_QUERY = "SELECT id_bitacora, id_usuario, id_aplicacion, fecha, ip, accion, nombre_pc FROM bitacora WHERE DATE(fecha) BETWEEN ? AND ?";
     
     // Método para registrar una acción en la bitácora
     public int registrarAccionEnBitacora(int idUsuario, int idAplicacion, String accion) {
@@ -39,6 +39,7 @@ public class BitacoraDAO {
             stmt.setInt(2, idAplicacion);
             stmt.setString(3, obtenerIP()); // IP de la computadora desde donde se realiza la acción
             stmt.setString(4, accion); // Descripción de la acción (e.g., "ins alum", "upd alum")
+            stmt.setString(5, obtenerNombrePC()); // Agregar el nombre de la PC
 
             rows=stmt.executeUpdate();
 
@@ -61,6 +62,16 @@ public class BitacoraDAO {
         }
     }
     
+    // Método para obtener el nombre de la PC
+    public String obtenerNombrePC() {
+        try {
+            return InetAddress.getLocalHost().getHostName(); // Obtiene el nombre del host
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            return "Desconocido"; // Valor por defecto si no se puede obtener el nombre de la PC
+        }
+    }
+    
     public List<Bitacora> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -79,6 +90,7 @@ public class BitacoraDAO {
                 String Fecha = rs.getString("fecha");
                 String Ip = rs.getString("ip");
                 String Accion = rs.getString("accion");
+                String nombrePc = rs.getString("nombre_pc");
                 
                 bitacora = new Bitacora();
                 bitacora.setIdBitacora(idBitacora);
@@ -87,6 +99,7 @@ public class BitacoraDAO {
                 bitacora.setFecha(Fecha);
                 bitacora.setIp(Ip);
                 bitacora.setAccion(Accion);
+                bitacora.setNombrePc(nombrePc);
                 
                 bitacoras.add(bitacora);
             }
@@ -113,6 +126,7 @@ public class BitacoraDAO {
             stmt.setInt(2, bitacoras.getIdAplicacion());
             stmt.setString(3, bitacoras.getIp()); // Recibe la IP directamente desde la capa vista
             stmt.setString(4, bitacoras.getAccion());
+            stmt.setString(5, bitacoras.getNombrePc()); // Integrar el nombre de la PC
 
             System.out.println("ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
@@ -151,6 +165,7 @@ public class BitacoraDAO {
                 String Fecha = rs.getString("fecha");
                 String Ip = rs.getString("ip");
                 String Accion = rs.getString("accion");
+                String nombrePc = rs.getString("nombre_pc");
                 
                 bitacora = new Bitacora();
                 bitacora.setIdBitacora(idBitacora);
@@ -160,6 +175,7 @@ public class BitacoraDAO {
                 bitacora.setIp(Ip);
                 bitacora.setAccion(Accion);
                 bitacoras.add(bitacora);
+                bitacora.setNombrePc(nombrePc);
             }
             //System.out.println("Registros buscado:" + vendedor);
         } catch (SQLException ex) {

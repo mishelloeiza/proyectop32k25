@@ -12,12 +12,16 @@ import Controlador.seguridad.Aplicacion;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
+import Controlador.seguridad.Bitacora;
+import Controlador.seguridad.UsuarioConectado;
+
 
 /**
  *
  * @author visitante
  */
 public class MantenimientoAplicacion extends javax.swing.JInternalFrame {
+int APLICACION=301;
 
     
     public void llenadoDeCombos() {
@@ -56,6 +60,10 @@ public class MantenimientoAplicacion extends javax.swing.JInternalFrame {
         aplicacionAConsultar = aplicacionDAO.query(aplicacionAConsultar);
         txtNombre.setText(aplicacionAConsultar.getNombre_aplicacion());
         txtEstatus.setText(aplicacionAConsultar.getEstatus_aplicacion());
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Buscar Datos Aplicacion");    
+   
     }
 
     public MantenimientoAplicacion() {
@@ -321,6 +329,11 @@ public class MantenimientoAplicacion extends javax.swing.JInternalFrame {
         aplicacionAEliminar.setId_aplicacion(Integer.parseInt(txtbuscado.getText()));
         aplicacionDAO.delete(aplicacionAEliminar);
         llenadoDeTablas();
+         UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Eliminar Datos Aplicacion");
+    
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -331,6 +344,10 @@ public class MantenimientoAplicacion extends javax.swing.JInternalFrame {
         aplicacionAInsertar.setEstatus_aplicacion(txtEstatus.getText());
         aplicacionDAO.insert(aplicacionAInsertar);
         llenadoDeTablas();
+        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Insertar Datos Aplicacion");
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -347,16 +364,24 @@ public class MantenimientoAplicacion extends javax.swing.JInternalFrame {
         aplicacionAActualizar.setEstatus_aplicacion(txtEstatus.getText());
         aplicacionDAO.update(aplicacionAActualizar);
         llenadoDeTablas();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Modificar Datos Aplicacion");    
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         cbox_empleado.setSelectedIndex(0);
+        txtid.setText("");
         txtNombre.setText("");
         txtEstatus.setText("");
         txtbuscado.setText("");
         btnRegistrar.setEnabled(true);
         btnModificar.setEnabled(true);
         btnEliminar.setEnabled(true);
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Limpiar Datos Aplicacion");    
+   
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed

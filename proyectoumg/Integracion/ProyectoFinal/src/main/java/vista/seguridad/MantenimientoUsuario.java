@@ -13,9 +13,9 @@ import Controlador.seguridad.Bitacora;
 import Controlador.seguridad.UsuarioConectado;
 
 public class MantenimientoUsuario extends javax.swing.JInternalFrame {
-     final int APLICACION100=100;
-    final int APLICACION101=101;
-    final int APLICACION102=102;
+     final int APLICACION100=100;  
+    
+    
     
 
   // Método para llenar la tabla de usuarios
@@ -397,7 +397,7 @@ public void registrarUsuario() {
         UsuarioConectado usuarioEnSesion = new UsuarioConectado();
         int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION102,  "Borrar Datos Usuarios");
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION100,  "Borrar Datos Usuarios");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -463,7 +463,7 @@ public void registrarUsuario() {
          UsuarioConectado usuarioEnSesion = new UsuarioConectado();
         int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION101,  "Actualizacion Datos Usuarios");
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION100,  "Actualizacion Datos Usuarios");
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

@@ -21,7 +21,7 @@ import java.util.List;
 public class PerfilDAO {
 
     private static final String SQL_SELECT = "SELECT id_perfil, nombre_perfil, estatus_perfil FROM perfiles";
-    private static final String SQL_INSERT = "INSERT INTO perfiles(nombre_perfil, estatus_perfil) VALUES(?, ?)";
+    private static final String SQL_INSERT = "INSERT INTO perfiles(id_perfil, nombre_perfil, estatus_perfil) VALUES(?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE perfiles SET nombre_perfil=?, estatus_perfil=? WHERE id_perfil = ?";
     private static final String SQL_DELETE = "DELETE FROM perfiles WHERE id_perfil=?";
     private static final String SQL_QUERY = "SELECT id_perfil, nombre_perfil, estatus_perfil FROM perfiles WHERE id_perfil = ?";
@@ -69,7 +69,8 @@ public class PerfilDAO {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
             stmt.setString(1, perfil.getNombre_perfil());
-            stmt.setString(2, perfil.getEstatus_perfil());
+            stmt.setString(2, perfil.getNombre_perfil());
+            stmt.setString(3, perfil.getEstatus_perfil());
 
             System.out.println("ejecutando query: " + SQL_INSERT);
             rows = stmt.executeUpdate();

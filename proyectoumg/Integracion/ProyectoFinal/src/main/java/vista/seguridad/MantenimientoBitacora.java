@@ -42,10 +42,10 @@ public class MantenimientoBitacora extends javax.swing.JInternalFrame {
         modelo.addColumn("ID ");
         modelo.addColumn("Fecha");
         modelo.addColumn("Accion");
-         modelo.addColumn("Id Usuario");
-          modelo.addColumn("Id Aplicacion");
-           modelo.addColumn("IP");
-            modelo.addColumn("Nombre PC");
+        modelo.addColumn("Id Usuario");
+        modelo.addColumn("Id Aplicacion");
+        modelo.addColumn("IP");
+        modelo.addColumn("Nombre PC");
         BitacoraDAO aplicacionDAO = new BitacoraDAO();
         List<Bitacora> aplicaciones = aplicacionDAO.select();
         tablaAplicaciones.setModel(modelo);
@@ -57,7 +57,7 @@ public class MantenimientoBitacora extends javax.swing.JInternalFrame {
                dato[3] = Integer.toString(aplicaciones.get(i).getIdUsuario());
                dato[4] = Integer.toString(aplicaciones.get(i).getIdAplicacion());
                dato[5] = aplicaciones.get(i).getIp();
-                dato[6] = " "; //aplicaciones.get(i).getNombrePcBitacora();
+               dato[6] = aplicaciones.get(i).getNombrePc();
             //System.out.println("vendedor:" + vendedores);
             modelo.addRow(dato);
         }
@@ -66,6 +66,11 @@ public class MantenimientoBitacora extends javax.swing.JInternalFrame {
     public void buscaraplicacion() {
 
     }
+    // Método de validación
+    private boolean validarFecha(String fecha) {
+        return fecha.matches("\\d{4}-\\d{2}-\\d{2}"); // Verifica formato yyyy-MM-dd
+    }
+    
       public void buscarfechas() throws ParseException {
           String Primerafecha= txtNombre.getText();
           String Segundafecha= txtEstado.getText();
@@ -74,10 +79,10 @@ public class MantenimientoBitacora extends javax.swing.JInternalFrame {
         modelo.addColumn("ID ");
         modelo.addColumn("Fecha");
         modelo.addColumn("Accion");
-         modelo.addColumn("Id Usuario");
-          modelo.addColumn("Id Aplicacion");
-           modelo.addColumn("IP");
-            modelo.addColumn("Nombre PC");
+        modelo.addColumn("Id Usuario");
+        modelo.addColumn("Id Aplicacion");
+        modelo.addColumn("IP");
+        modelo.addColumn("Nombre PC");
         Bitacora bitacora = new Bitacora();
         //VendedorDAO vendedorDAO = new VendedorDAO();
         List<Bitacora> aplicaciones = bitacora.getListadoBitacora(Primerafecha, Segundafecha);
@@ -87,10 +92,10 @@ public class MantenimientoBitacora extends javax.swing.JInternalFrame {
             dato[0] = Integer.toString(aplicaciones.get(i).getIdBitacora());
             dato[1] = aplicaciones.get(i).getFecha();
             dato[2] = aplicaciones.get(i). getAccion();
-               dato[3] = Integer.toString(aplicaciones.get(i).getIdUsuario());
-               dato[4] = Integer.toString(aplicaciones.get(i).getIdAplicacion());
-               dato[5] = aplicaciones.get(i).getIp();
-                dato[6] = " "; //aplicaciones.get(i).getNombrePcBitacora();
+            dato[3] = Integer.toString(aplicaciones.get(i).getIdUsuario());
+            dato[4] = Integer.toString(aplicaciones.get(i).getIdAplicacion());
+            dato[5] = aplicaciones.get(i).getIp();
+            dato[6] = aplicaciones.get(i).getNombrePc();
             //System.out.println("vendedor:" + vendedores);
             modelo.addRow(dato);
         }
@@ -282,8 +287,12 @@ public class MantenimientoBitacora extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         try {
-            // TODO add your handling code here:
-            buscarfechas();
+            if (validarFecha(txtNombre.getText()) && validarFecha(txtEstado.getText())) {
+            buscarfechas(); // Llama al método para buscar entre las fechas
+            } else {
+            // Muestra un mensaje si las fechas no están en el formato correcto
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor ingrese las fechas en el formato correcto (yyyy-MM-dd)");
+            }
         } catch (ParseException ex) {
             Logger.getLogger(MantenimientoBitacora.class.getName()).log(Level.SEVERE, null, ex);
         }

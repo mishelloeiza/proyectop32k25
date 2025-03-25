@@ -18,10 +18,11 @@ public class Bitacora {
     private String Fecha;
     private String Ip;
     private String Accion;
+    private String nombrePc;
 
     @Override
     public String toString() {
-        return "Bitacora{" + "idBitacora=" + idBitacora + ", idUsuario=" + idUsuario + ", idAplicacion=" + idAplicacion + ", Fecha=" + Fecha +  ", Ip=" + Ip + ", Accion=" + Accion + '}';
+        return "Bitacora{" + "idBitacora=" + idBitacora + ", idUsuario=" + idUsuario + ", idAplicacion=" + idAplicacion + ", Fecha=" + Fecha +  ", Ip=" + Ip + ", Accion=" + Accion + ", nombrePc=" + nombrePc + '}';
     }
 
     public int getIdBitacora() {
@@ -72,14 +73,23 @@ public class Bitacora {
     public void setAccion(String Accion) {
         this.Accion = Accion;
     }
+    
+    public String getNombrePc() {
+        return nombrePc;
+    }
 
-    public Bitacora(int idBitacora, int idUsuario, int idAplicacion, String Fecha, String Ip, String Accion) {
+    public void setNombrePc(String nombrePc) {
+        this.nombrePc = nombrePc;
+    }
+
+    public Bitacora(int idBitacora, int idUsuario, int idAplicacion, String Fecha, String Ip, String Accion, String nombrePc) {
         this.idBitacora = idBitacora;
         this.idUsuario = idUsuario;
         this.idAplicacion = idAplicacion;
         this.Fecha = Fecha;
         this.Ip = Ip;
         this.Accion = Accion;
+        this.nombrePc = nombrePc;
     }
     
     public Bitacora() {

@@ -9,6 +9,7 @@ package vista.seguridad;
 import Modelo.seguridad.PerfilDAO;
 //import domain.Empleado;
 import Controlador.seguridad.Perfil;
+
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;

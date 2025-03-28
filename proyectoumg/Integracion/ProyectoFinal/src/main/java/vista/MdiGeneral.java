@@ -16,6 +16,7 @@ import vista.seguridad.MantenimientoUsuario;
 import vista.seguridad.MantenimientoPerfiles;
 import vista.seguridad.MantenimientoAplicacion;
 import vista.seguridad.MantenimientoBitacora;
+import vista.seguridad.AplicacionAUsuarios;
 
 /**
  *
@@ -55,6 +56,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         MantenimientoUsuarios = new javax.swing.JMenuItem();
         MantenimientoAplicaciones = new javax.swing.JMenuItem();
         MantenimientoPerfiles = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         mnuAsignaciones = new javax.swing.JMenu();
         AsignacionesAplicacionesPerfil = new javax.swing.JMenuItem();
         AsignacionAplicacionesUsuario = new javax.swing.JMenuItem();
@@ -114,6 +116,14 @@ public class MdiGeneral extends javax.swing.JFrame {
             }
         });
         MenuMantenimientos.add(MantenimientoPerfiles);
+
+        jMenuItem4.setText("AplicacionAUsuarios");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        MenuMantenimientos.add(jMenuItem4);
 
         MenuGeneralSeguridad.add(MenuMantenimientos);
 
@@ -283,10 +293,14 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
     private void AsignacionAplicacionesUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignacionAplicacionesUsuarioActionPerformed
         // TODO add your handling code here:
         //       MantenimientoBitacora ventana = new MantenimientoBitacora();
-//       jDesktopPane1.add(ventana);
-//       Dimension desktopSize = jDesktopPane1.getSize();
-//       Dimension FrameSize = ventana.getSize();
-//       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+       for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+            frame.dispose(); 
+       }
+       AplicacionAUsuarios ventana = new AplicacionAUsuarios();
+       jDesktopPane1.add(ventana);
+       Dimension desktopSize = jDesktopPane1.getSize();
+       Dimension FrameSize = ventana.getSize();
+       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_AsignacionAplicacionesUsuarioActionPerformed
 
     private void AsignacionPerfilUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignacionPerfilUsuarioActionPerformed
@@ -321,6 +335,15 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
                         System.exit(0);
                     }
     }//GEN-LAST:event_salirSistemaActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        AplicacionAUsuarios ventana = new AplicacionAUsuarios();
+//       jDesktopPane1.add(ventana);
+//       Dimension desktopSize = jDesktopPane1.getSize();
+//       Dimension FrameSize = ventana.getSize();
+//       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -373,6 +396,7 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenu mnuAsignaciones;
     private javax.swing.JMenuItem salirSistema;
     // End of variables declaration//GEN-END:variables

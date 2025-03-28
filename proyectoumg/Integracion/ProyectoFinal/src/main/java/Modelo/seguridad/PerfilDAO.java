@@ -68,7 +68,7 @@ public class PerfilDAO {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, perfil.getNombre_perfil());
+            stmt.setInt(1, perfil.getId_perfil());
             stmt.setString(2, perfil.getNombre_perfil());
             stmt.setString(3, perfil.getEstatus_perfil());
 

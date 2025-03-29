@@ -16,8 +16,8 @@ public class AsingnacionPerfilDAO {
 
     private static final String SQL_SELECT = "SELECT * FROM usuario_perfil";
     private static final String SQL_INSERT = "INSERT INTO usuario_perfil (id_asignacion,id_usuario,id_perfil,fecha_asignacion) VALUES (?,?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE usuario_perfil SET id_asignacion=?, id_usuario=?,id_perfil=?,fecha_asignacion=? WHERE id_asignacion =?";
-    private static final String SQL_DELETE = "DELETE FROM usuario_perfil WHERE id_asignacion =?";
+  //  private static final String SQL_UPDATE = "UPDATE usuario_perfil SET id_asignacion=?, id_usuario=?,id_perfil=?,fecha_asignacion=? WHERE id_asignacion =?";
+   // private static final String SQL_DELETE = "DELETE FROM usuario_perfil WHERE id_asignacion =?";
     private static final String SQL_QUERY = "SELECT *FROM usuario_perfil WHERE id_asignacion =?";
 
     public List<AsignacionPerfil> select() {
@@ -25,27 +25,27 @@ public class AsingnacionPerfilDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         AsignacionPerfil asignacionPerfil = null;
-        List<AsignacionPerfil> asignacionPerfils = new ArrayList<AsignacionPerfil>();
+        List<AsignacionPerfil> asignacionPerfiles = new ArrayList<AsignacionPerfil>();
 
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int id_asignacion = rs.getInt("id_asignacion");
+                
                 int id_usuario = rs.getInt("id_usuario");
                 int id_perfil = rs.getInt("id_perfil");
-                Timestamp fecha_asignacion = rs.getTimestamp("fecha_asignacion");
+               
                 
                 
                 asignacionPerfil = new AsignacionPerfil();
-                asignacionPerfil.setId_asignacion(id_asignacion);
+                
                 asignacionPerfil.setId_usuario(id_usuario);
                 asignacionPerfil.setId_perfil(id_perfil);
-                asignacionPerfil.setFecha_Asignacion(fecha_asignacion);
                 
                 
-                asignacionPerfils.add(asignacionPerfil);
+                
+                asignacionPerfiles.add(asignacionPerfil);
             }
 
         } catch (SQLException ex) {
@@ -56,7 +56,7 @@ public class AsingnacionPerfilDAO {
             Conexion.close(conn);
         }
 
-        return asignacionPerfils;
+        return asignacionPerfiles;
     }
 
     public int insert(AsignacionPerfil asignacionPerfil) { 
@@ -68,7 +68,7 @@ public class AsingnacionPerfilDAO {
             stmt = conn.prepareStatement(SQL_INSERT);
             stmt.setString(1, String.valueOf(asignacionPerfil.getId_usuario()));
             stmt.setString(2, String.valueOf(asignacionPerfil.getId_perfil()));
-            stmt.setTimestamp(3, asignacionPerfil.getFecha_Asignacion());
+           
 
 
            
@@ -85,7 +85,7 @@ public class AsingnacionPerfilDAO {
 
         return rows;
     }
-
+/*
     public int update(AsignacionPerfil asignacionPerfil) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -134,32 +134,30 @@ public class AsingnacionPerfilDAO {
 
         return rows;
     }
-
+*/
     public AsignacionPerfil query(AsignacionPerfil asignacionPerfil) {    
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<AsignacionPerfil> asignacionPerfils = new ArrayList<AsignacionPerfil>();
+        List<AsignacionPerfil> asignacionPerfiles = new ArrayList<AsignacionPerfil>();
         int rows = 0;
  try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_QUERY);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int id_asignacion = rs.getInt("id_asignacion");
+            
                 int id_usuario = rs.getInt("id_usuario");
                 int id_perfil = rs.getInt("id_perfil");
-                Timestamp fecha_asignacion = rs.getTimestamp("fecha_asignacion");
+               
                 
                 
                 asignacionPerfil = new AsignacionPerfil();
-                asignacionPerfil.setId_perfil(id_asignacion);
-                asignacionPerfil.setId_asignacion(id_usuario);
+                asignacionPerfil.setId_perfil(id_usuario);
                 asignacionPerfil.setId_perfil(id_perfil);
-                asignacionPerfil.setFecha_Asignacion(fecha_asignacion);
                 
                 
-                asignacionPerfils.add(asignacionPerfil);
+            
             }
 
         } catch (SQLException ex) {

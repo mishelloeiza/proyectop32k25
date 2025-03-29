@@ -16,7 +16,7 @@ import vista.seguridad.MantenimientoUsuario;
 import vista.seguridad.MantenimientoPerfiles;
 import vista.seguridad.MantenimientoAplicacion;
 import vista.seguridad.MantenimientoBitacora;
-import vista.seguridad.AplicacionAUsuarios;
+import vista.seguridad.AplicacionaUsuarios;
 
 /**
  *
@@ -296,7 +296,7 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
        for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
             frame.dispose(); 
        }
-       AplicacionAUsuarios ventana = new AplicacionAUsuarios();
+       AplicacionaUsuarios ventana = new AplicacionaUsuarios();
        jDesktopPane1.add(ventana);
        Dimension desktopSize = jDesktopPane1.getSize();
        Dimension FrameSize = ventana.getSize();
@@ -338,7 +338,7 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        AplicacionAUsuarios ventana = new AplicacionAUsuarios();
+        AplicacionaUsuarios ventana = new AplicacionaUsuarios();
 //       jDesktopPane1.add(ventana);
 //       Dimension desktopSize = jDesktopPane1.getSize();
 //       Dimension FrameSize = ventana.getSize();

@@ -7,6 +7,7 @@ package Modelo.seguridad;
 
 import Modelo.Conexion;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 
 import java.sql.ResultSet;
@@ -38,6 +39,35 @@ import javax.swing.JOptionPane;
                    }
                } catch (SQLException e) {
                    JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+               }
+           }
+           
+           
+           public int obtenerIdPorNombre(String tabla, String columnaNombre, String columnaId, String nombre) throws SQLException {
+               String sql = "SELECT " + columnaId + " FROM " + tabla + " WHERE " + columnaNombre + " = ?";
+
+               try (Connection conexion = Conexion.getConnection(); PreparedStatement pst = conexion.prepareStatement(sql)) {
+
+                   pst.setString(1, nombre);
+                   ResultSet rs = pst.executeQuery();
+
+                   if (rs.next()) {
+                       return rs.getInt(columnaId);
+                   } else {
+                       throw new SQLException("Registro no encontrado para: " + nombre);
+                   }
+               }
+            }
+           public boolean eliminarAsignacion(int idUsuario, int idPerfil) throws SQLException {
+               String sql = "DELETE FROM usuario_perfil WHERE id_usuario = ? AND id_perfil = ?";
+
+               try (Connection conexion = Conexion.getConnection(); PreparedStatement pst = conexion.prepareStatement(sql)) {
+
+                   pst.setInt(1, idUsuario);
+                   pst.setInt(2, idPerfil);
+                   int filasAfectadas = pst.executeUpdate();
+
+                   return filasAfectadas > 0; // True si se eliminó, False si no existía
                }
            }
        }

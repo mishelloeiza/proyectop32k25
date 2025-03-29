@@ -17,8 +17,8 @@ public class AsingnacionPerfilDAO {
     private static final String SQL_SELECT = "SELECT * FROM usuario_perfil";
     private static final String SQL_INSERT = "INSERT INTO usuario_perfil (id_asignacion,id_usuario,id_perfil,fecha_asignacion) VALUES (?,?,?,?)";
   //  private static final String SQL_UPDATE = "UPDATE usuario_perfil SET id_asignacion=?, id_usuario=?,id_perfil=?,fecha_asignacion=? WHERE id_asignacion =?";
-   // private static final String SQL_DELETE = "DELETE FROM usuario_perfil WHERE id_asignacion =?";
-    private static final String SQL_QUERY = "SELECT *FROM usuario_perfil WHERE id_asignacion =?";
+  //  private static final String SQL_DELETE = "DELETE FROM usuario_perfil WHERE id_asignacion =? ";
+   // private static final String SQL_QUERY = "SELECT *FROM usuario_perfil WHERE id_asignacion =?";
 
     public List<AsignacionPerfil> select() {
         Connection conn = null;
@@ -112,7 +112,8 @@ public class AsingnacionPerfilDAO {
 
         return rows;
     }
-
+*/
+    /*
     public int delete(AsignacionPerfil asignacionPerfil) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -122,7 +123,7 @@ public class AsingnacionPerfilDAO {
             conn = Conexion.getConnection();
             System.out.println("Ejecutando query: " + SQL_DELETE);
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(1, asignacionPerfil.getId_asignacion());
+            stmt.setInt(1, asignacionPerfil.getId_perfil());
             rows = stmt.executeUpdate();
             System.out.println("Registros eliminados: " + rows);
         } catch (SQLException ex) {
@@ -133,8 +134,9 @@ public class AsingnacionPerfilDAO {
         }
 
         return rows;
-    }
-*/
+    }*/
+
+    /*
     public AsignacionPerfil query(AsignacionPerfil asignacionPerfil) {    
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -170,6 +172,6 @@ public class AsingnacionPerfilDAO {
 
         return asignacionPerfil; 
     }
-        
+      */  
 }
 

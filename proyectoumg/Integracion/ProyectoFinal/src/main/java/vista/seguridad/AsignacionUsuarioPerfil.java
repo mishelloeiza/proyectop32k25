@@ -14,9 +14,13 @@ import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import Controlador.seguridad.Bitacora;
 import Controlador.seguridad.UsuarioConectado;
+import Modelo.Conexion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -65,7 +69,19 @@ int APLICACION=101;
             modelo.addRow(dato);
         }
  }
- 
+ private void insertarAsignacion(int idUsuario, int idPerfil) throws SQLException {
+    String sql = "INSERT INTO usuario_perfil (id_usuario, id_perfil) VALUES (?, ?)";
+    
+    try (Connection conexion = Conexion.getConnection();
+         PreparedStatement pst = conexion.prepareStatement(sql)) {
+        
+        pst.setInt(1, idUsuario);
+        pst.setInt(2, idPerfil);
+        pst.executeUpdate();
+        
+        JOptionPane.showMessageDialog(null, "Asignación guardada exitosamente");
+    }
+}
  
     public AsignacionUsuarioPerfil() {
        
@@ -86,9 +102,9 @@ int APLICACION=101;
     }
         
         
-    {
+    
 
-    }
+    
     }
 
 
@@ -124,6 +140,7 @@ int APLICACION=101;
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaUsuarioAplicacion = new javax.swing.JTable();
         btnAgregar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -177,6 +194,13 @@ int APLICACION=101;
             }
         });
 
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,7 +220,10 @@ int APLICACION=101;
                                 .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(54, 54, 54)
-                        .addComponent(btnAgregar)))
+                        .addComponent(btnAgregar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(btnEliminar)))
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)
                 .addGap(143, 143, 143))
@@ -215,11 +242,13 @@ int APLICACION=101;
                             .addComponent(jLabel2)
                             .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(54, 54, 54)
-                        .addComponent(btnAgregar))
+                        .addComponent(btnAgregar)
+                        .addGap(54, 54, 54)
+                        .addComponent(btnEliminar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -238,11 +267,69 @@ int APLICACION=101;
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
+        
+        try {
+        // 1. Obtener nombres seleccionados
+        String nombreUsuario = cboUsuario.getSelectedItem().toString();
+        String nombrePerfil = cboPerfil.getSelectedItem().toString();
+        
+        // 2. Validar que no sean la opción por defecto
+        if ("Seleccione una opción".equals(nombreUsuario) || "Seleccione una opción".equals(nombrePerfil)) {
+            JOptionPane.showMessageDialog(null, "Seleccione un usuario y un perfil válidos");
+            return;
+        }
+        
+        // 3. Obtener IDs correspondientes
+        RellenarCombos re = new RellenarCombos();
+        int idUsuario = re.obtenerIdPorNombre("usuario", "username", "id_usuario", nombreUsuario);
+        int idPerfil = re.obtenerIdPorNombre("perfiles", "nombre_perfil", "id_perfil", nombrePerfil);
+        
+        // 4. Insertar en la tabla usuario_perfil
+        insertarAsignacion(idUsuario, idPerfil);
+        
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+        
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        
+        
+         try {
+        // 1. Obtener nombres seleccionados
+        String nombreUsuario = cboUsuario.getSelectedItem().toString();
+        String nombrePerfil = cboPerfil.getSelectedItem().toString();
+        
+        // 2. Validar selección
+        if ("Seleccione una opción".equals(nombreUsuario) || "Seleccione una opción".equals(nombrePerfil)) {
+            JOptionPane.showMessageDialog(null, "Seleccione un usuario y un perfil válidos");
+            return;
+        }
+        
+        // 3. Obtener IDs
+        RellenarCombos re = new RellenarCombos();
+        int idUsuario = re.obtenerIdPorNombre("usuario", "username", "id_usuario", nombreUsuario);
+        int idPerfil = re.obtenerIdPorNombre("perfiles", "nombre_perfil", "id_perfil", nombrePerfil);
+        
+        // 4. Eliminar asignación
+        if (re.eliminarAsignacion(idUsuario, idPerfil)) {
+            JOptionPane.showMessageDialog(null, "Asignación eliminada correctamente");
+        } else {
+            JOptionPane.showMessageDialog(null, "La asignación no existe", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JComboBox<String> cboPerfil;
     private javax.swing.JComboBox<String> cboUsuario;
     private javax.swing.JLabel jLabel1;

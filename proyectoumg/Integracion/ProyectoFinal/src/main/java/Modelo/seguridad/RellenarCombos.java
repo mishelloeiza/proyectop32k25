@@ -70,5 +70,26 @@ import javax.swing.JOptionPane;
                    return filasAfectadas > 0; // True si se eliminó, False si no existía
                }
            }
+           public void cargarPerfilesAsignados(int idUsuario, JComboBox<String> comboPerfilesAsignados) throws SQLException {
+               String sql = "SELECT p.nombre_perfil "
+                       + "FROM usuario_perfil up "
+                       + "JOIN perfiles p ON up.id_perfil = p.id_perfil "
+                       + "WHERE up.id_usuario = ?";
+
+               comboPerfilesAsignados.removeAllItems(); // Limpiar ComboBox
+               comboPerfilesAsignados.addItem("Seleccione un perfil asignado");
+
+               try (Connection conexion = Conexion.getConnection(); PreparedStatement pst = conexion.prepareStatement(sql)) {
+
+                   pst.setInt(1, idUsuario);
+                   ResultSet rs = pst.executeQuery();
+
+                   while (rs.next()) {
+                       comboPerfilesAsignados.addItem(rs.getString("nombre_perfil"));
+                   }
+               } catch (SQLException e) {
+                   JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+               }
+}
        }
 

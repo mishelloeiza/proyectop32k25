@@ -5,7 +5,6 @@
  */
 package Modelo.seguridad;
 
-import Modelo.*;
 import Controlador.seguridad.Usuario;
 import Modelo.Conexion;
 import java.sql.*;

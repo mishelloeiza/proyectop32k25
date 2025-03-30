@@ -15,7 +15,7 @@ import java.util.Set;
 public class AsingnacionPerfilDAO {
 
     private static final String SQL_SELECT = "SELECT * FROM usuario_perfil";
-    private static final String SQL_INSERT = "INSERT INTO usuario_perfil (id_asignacion,id_usuario,id_perfil,fecha_asignacion) VALUES (?,?,?,?)";
+   // private static final String SQL_INSERT = "INSERT INTO usuario_perfil (id_asignacion,id_usuario,id_perfil,fecha_asignacion) VALUES (?,?,?,?)";
   //  private static final String SQL_UPDATE = "UPDATE usuario_perfil SET id_asignacion=?, id_usuario=?,id_perfil=?,fecha_asignacion=? WHERE id_asignacion =?";
   //  private static final String SQL_DELETE = "DELETE FROM usuario_perfil WHERE id_asignacion =? ";
    // private static final String SQL_QUERY = "SELECT *FROM usuario_perfil WHERE id_asignacion =?";
@@ -58,7 +58,7 @@ public class AsingnacionPerfilDAO {
 
         return asignacionPerfiles;
     }
-
+/*
     public int insert(AsignacionPerfil asignacionPerfil) { 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -84,7 +84,7 @@ public class AsingnacionPerfilDAO {
         }
 
         return rows;
-    }
+    }*/
 /*
     public int update(AsignacionPerfil asignacionPerfil) {
         Connection conn = null;

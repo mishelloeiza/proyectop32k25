@@ -1,96 +1,98 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-package Controlador.seguridad;
+package Controlador;
 
 /**
  *
- * @author cdavi
+ * @author visitante
  */
 public class RelPerfApl {
+ 
+    int aplicacion_codigo;
+    int perfil_codigo;
+    String consultar_rpa;
+    String actualizar_rpa;
+    String eliminar_rpa;
+    String imprimir_rpa;
+    String insertar_rpa;
 
-        public RelPerfApl(int aplicacion_codigo,int perfil_codigo,String consultar, String actualizar,String eliminar,String imprimir,String insertar) {
+    @Override
+    public String toString() {
+        return "RelPerfApl{" + "aplicacion_codigo=" + aplicacion_codigo + ", perfil_codigo=" + perfil_codigo + ", consultar_rpa=" + consultar_rpa + ", actualizar_rpa=" + actualizar_rpa + ", eliminar_rpa=" + eliminar_rpa + ", imprimir_rpa=" + imprimir_rpa + ", insertar_rpa=" + insertar_rpa + '}';
+    }
+
+    public void setAplicacion_codigo(int aplicacion_codigo) {
         this.aplicacion_codigo = aplicacion_codigo;
+    }
+
+    public void setPerfil_codigo(int perfil_codigo) {
         this.perfil_codigo = perfil_codigo;
-        this.consultar = consultar;
-        this.actualizar = actualizar;
-        this.eliminar = eliminar;
-        this.imprimir = imprimir;
-        this.insertar = insertar;
+    }
+
+    public void setConsultar_rpa(String consultar_rpa) {
+        this.consultar_rpa = consultar_rpa;
+    }
+
+    public void setActualizar_rpa(String actualizar_rpa) {
+        this.actualizar_rpa = actualizar_rpa;
+    }
+
+    public void setEliminar_rpa(String eliminar_rpa) {
+        this.eliminar_rpa = eliminar_rpa;
+    }
+
+    public void setImprimir_rpa(String imprimir_rpa) {
+        this.imprimir_rpa = imprimir_rpa;
+    }
+
+    public void setInsertar_rpa(String insertar_rpa) {
+        this.insertar_rpa = insertar_rpa;
     }
 
     public int getAplicacion_codigo() {
         return aplicacion_codigo;
     }
-    
+
     public int getPerfil_codigo() {
         return perfil_codigo;
     }
 
-    public String getConsultar() {
-        return consultar;
+    public String getConsultar_rpa() {
+        return consultar_rpa;
     }
 
-    public String getActualizar() {
-        return actualizar;
-    }
-    
-     public String getEliminar() {
-        return eliminar;
-    }
-     
-      public String getImprimir() {
-        return imprimir;
-    }
-      
-       public String getInsertar() {
-        return insertar;
+    public String getActualizar_rpa() {
+        return actualizar_rpa;
     }
 
-    public void setAplicacion_codigo (int aplicacion_codigo) {
+    public String getEliminar_rpa() {
+        return eliminar_rpa;
+    }
+
+    public String getImprimir_rpa() {
+        return imprimir_rpa;
+    }
+
+    public String getInsertar_rpa() {
+        return insertar_rpa;
+    }
+
+    public RelPerfApl(int aplicacion_codigo, int perfil_codigo, String consultar_rpa, String actualizar_rpa, String eliminar_rpa, String imprimir_rpa, String insertar_rpa) {
         this.aplicacion_codigo = aplicacion_codigo;
-    }
-    
-    public void setPerfil_codigo (int perfil_codigo) {
         this.perfil_codigo = perfil_codigo;
+        this.consultar_rpa = consultar_rpa;
+        this.actualizar_rpa = actualizar_rpa;
+        this.eliminar_rpa = eliminar_rpa;
+        this.imprimir_rpa = imprimir_rpa;
+        this.insertar_rpa = insertar_rpa;
     }
-
-    public void setConsultar(String consultar) {
-        this.consultar = consultar;
-    }
-
-    public void setActualizar(String actualizar) {
-        this.actualizar = actualizar;
-    }
-    
-     public void setEliminar(String eliminar) {
-        this.eliminar = eliminar;
-    }
-     
-      public void setImprimir(String imprimir) {
-        this.imprimir = imprimir;
-    }
-      
-       public void setInsertar(String insertar) {
-        this.insertar = insertar;
-    }
-
-    @Override
-    public String toString() {
-        return "RelPerfApl{" + "aplicacion_codigo=" + aplicacion_codigo + ", perfil_codigo=" + perfil_codigo + ", consultar=" + consultar + ", actualizar=" + actualizar + ", eliminar=" + eliminar + ", imprimir=" + imprimir + ", insertar=" + insertar + '}';
-    }
-    
-    int aplicacion_codigo;
-    int perfil_codigo;
-    String consultar;
-    String actualizar;
-    String eliminar;
-    String imprimir;
-    String insertar;
     
     public RelPerfApl() { //no contiene nada
     }
-
     
+    
+
 }

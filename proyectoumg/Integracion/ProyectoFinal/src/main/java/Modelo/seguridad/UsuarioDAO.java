@@ -160,4 +160,8 @@ public class UsuarioDAO {
         //return personas;  // Si se utiliza un ArrayList
         return usuario;
     }
+
+    public Usuario query2(Usuario usuarioAconsultar) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

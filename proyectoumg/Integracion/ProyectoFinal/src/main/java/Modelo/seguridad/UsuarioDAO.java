@@ -23,6 +23,7 @@ public class UsuarioDAO {
     private static final String SQL_UPDATE = "UPDATE usuario SET username=?, password=? WHERE id_usuario = ?";
     private static final String SQL_DELETE = "DELETE FROM usuario WHERE id_usuario=?";
     private static final String SQL_QUERY = "SELECT id_usuario, username, password FROM usuario WHERE username = ?";
+    private static final String SQL_QUERY2 = "SELECT id_usuario, username, password FROM usuario WHERE id_usuario = ?";
 
     public List<Usuario> select() {
         Connection conn = null;
@@ -160,8 +161,36 @@ public class UsuarioDAO {
         //return personas;  // Si se utiliza un ArrayList
         return usuario;
     }
+    public Usuario query2(Usuario usuario) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = Conexion.getConnection();
+            System.out.println("Ejecutando query:" + SQL_QUERY2);
+            stmt = conn.prepareStatement(SQL_QUERY2);
+            stmt.setInt(1, usuario.getId_usuario());
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                int id_usuario = rs.getInt("id_usuario");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
 
-    public Usuario query2(Usuario usuarioAconsultar) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                usuario = new Usuario();
+                usuario.setId_usuario(id_usuario);
+                usuario.setUsername(username);
+                usuario.setPassword(password);
+            }
+            //System.out.println("Registros buscado:" + persona);
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+
+        //return personas;  // Si se utiliza un ArrayList
+        return usuario;
     }
 }

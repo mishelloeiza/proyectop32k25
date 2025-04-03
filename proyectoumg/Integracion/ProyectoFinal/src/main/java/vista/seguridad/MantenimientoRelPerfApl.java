@@ -99,7 +99,7 @@ lstAplicA.addListSelectionListener(new ListSelectionListener() {
 
 public void llenadoperfilesaplicaciones(){
 // 1. Obtener todas las aplicaciones disponibles
-/*
+
 AplicacionDAO aplicacionDAO = new AplicacionDAO();
 List<Aplicacion> aplicaciones = aplicacionDAO.select();
 
@@ -146,7 +146,7 @@ cboperfil.addActionListener(e -> {
         JOptionPane.showMessageDialog(null, "Error al cargar aplicaciones: " + ex.getMessage());
     }
 });
-*/
+
 }
 
 
@@ -210,7 +210,7 @@ lstAplicA.setModel(modelo);
     }
     
     public void vaciarlistaUnoaUno() {
-    /*
+    
     int indice = lstAplicA.getSelectedIndex();
     if (indice != -1) {
         ((DefaultListModel<String>) lstAplicA.getModel()).remove(indice);
@@ -230,7 +230,7 @@ lstAplicA.setModel(modelo);
         initComponents(); 
         llenadoDeCombos(); 
         llenadoperfilesaplicaciones();
-        */
+        
     }
     
     /**
@@ -652,7 +652,7 @@ lstAplicA.setModel(modelo2);
     
     private void bntconfirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntconfirActionPerformed
         // TODO add your handling code here:
-    /*    
+        
 
 RelPerfAplDAO relPerfAplDAO = new RelPerfAplDAO();
 RelPerfApl relPerfAplAconfirmar = new RelPerfApl();
@@ -740,7 +740,7 @@ int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
         resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Ingreso De RelAplPerf");    
 
-*/
+
     }//GEN-LAST:event_bntconfirActionPerformed
 
     private void lstAplicDComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_lstAplicDComponentAdded

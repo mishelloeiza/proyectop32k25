@@ -5,9 +5,10 @@
  */
 package vista.seguridad;
 
-//import datos.EmpleadoDAO;
+
+import Controlador.seguridad.RelPerfApl;
+import Modelo.seguridad.RelPerfAplDAO;
 import Modelo.seguridad.AplicacionDAO;
-//import domain.Empleado;
 import Controlador.seguridad.Aplicacion;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -15,6 +16,18 @@ import java.io.File;
 import Controlador.seguridad.Bitacora;
 import Controlador.seguridad.UsuarioConectado;
 import org.jfree.base.log.LogConfiguration;
+import java.sql.*;
+import Modelo.seguridad.PerfilDAO;
+import Controlador.seguridad.Perfil;
+import java.util.Set;
+import javax.swing.DefaultListModel;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 
 /**
@@ -24,60 +37,202 @@ import org.jfree.base.log.LogConfiguration;
 public class MantenimientoRelPerfApl extends javax.swing.JInternalFrame {
 int APLICACION=301;
 
-    
-    public void llenadoDeCombos() {
-        /*
-        AplicacionDAO aplicacionDAO = new AplicacionDAO();
-        List<Aplicacion> salon = aplicacionDAO.select();
-        cbox_empleado.addItem("Seleccione una opción");
+
+public void llenadoDeCombos() {
+         
+        PerfilDAO perfilDAO = new PerfilDAO();
+        List<Perfil> salon = perfilDAO.select();
+        cboperfil.addItem("Seleccione un Id");
         for (int i = 0; i < salon.size(); i++) {
-            cbox_empleado.addItem(salon.get(i).getNombre_aplicacion());
+            cboperfil.addItem(String.valueOf(salon.get(i).getId_perfil()));
+            cboperfil.addActionListener(e -> {
+    // mandamos a traer el ID
+    String idSelec = cboperfil.getSelectedItem().toString();
+    int idSeleccionado = Integer.parseInt(idSelec);
+    // Busca el perfil en la lista
+    for (Perfil perfil : salon) {
+        if (perfil.getId_perfil() == idSeleccionado) {
+            txtper.setText(perfil.getNombre_perfil());
+            
+            break;
         }
-        */
+    }});
+            
+    }
+    AplicacionDAO aplicacionDAO = new AplicacionDAO();
+    List<Aplicacion> aplicaciones = aplicacionDAO.select(); 
+    DefaultListModel<String> modelo = new DefaultListModel<>();
+    DefaultListModel<String> modelo2 = new DefaultListModel<>();
+    //Recorre la lista :v
+    for (Aplicacion app : aplicaciones) {
+    modelo.addElement(app.getNombre_aplicacion()); 
+}
+lstAplicD.setModel(modelo);
+lstAplicA.setModel(modelo2);
+
+// Listener para detectar la selección del usuario
+lstAplicA.addListSelectionListener(new ListSelectionListener() {
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (!e.getValueIsAdjusting()) { // Evita doble evento
+            String nombreAppSeleccionada = lstAplicA.getSelectedValue();
+            
+            if (nombreAppSeleccionada != null) {
+                // Buscar el ID de la aplicación seleccionada
+                for (Aplicacion app : aplicaciones) {
+                    if (app.getNombre_aplicacion().equals(nombreAppSeleccionada)) {
+                        int idAppSeleccionada = app.getId_aplicacion();
+                        System.out.println("ID seleccionado: " + idAppSeleccionada); // Opcional: para debug
+                        txtidApl.setText(String.valueOf(idAppSeleccionada)); // Asignar el ID a un campo
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}); 
+
+    }
+
+
+
+
+public void llenadoperfilesaplicaciones(){
+// 1. Obtener todas las aplicaciones disponibles
+/*
+AplicacionDAO aplicacionDAO = new AplicacionDAO();
+List<Aplicacion> aplicaciones = aplicacionDAO.select();
+
+// 2. Modelos para las listas
+DefaultListModel<String> modelo = new DefaultListModel<>(); // Para listAplicD (todas las apps)
+DefaultListModel<String> modelo2 = new DefaultListModel<>(); // Para listAplicA (apps del perfil)
+
+// 3. Llenar listAplicD con TODAS las aplicaciones
+for (Aplicacion aplicacion : aplicaciones) {
+    modelo.addElement(aplicacion.getNombre_aplicacion());
+}
+lstAplicD.setModel(modelo);
+
+// 4. Listener para cuando seleccionen un perfil
+cboperfil.addActionListener(e -> {
+    // Limpiar modelo2 antes de agregar nuevos elementos
+    modelo2.clear();
+    
+    try {
+        // Obtener perfil seleccionado
+        String idSelec = cboperfil.getSelectedItem().toString();
+        int idSeleccionado = Integer.parseInt(idSelec);
+        
+        // Obtener relaciones perfil-aplicación
+        RelPerfAplDAO relPerfAplDAO = new RelPerfAplDAO();
+        List<RelPerfApl> relaciones = relPerfAplDAO.select();
+        
+        // Filtrar aplicaciones del perfil seleccionado
+        for (RelPerfApl relacion : relaciones) {
+            if (relacion.getPerfil_codigo() == idSeleccionado) {
+                // Buscar la aplicación por ID
+                for (Aplicacion app : aplicaciones) {
+                    if (app.getId_aplicacion()== relacion.getAplicacion_codigo()) {
+                        modelo2.addElement(app.getNombre_aplicacion());
+                        break; // Salir del for interno
+                    }
+                }
+            }
+        }
+        
+        lstAplicA.setModel(modelo2);
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al cargar aplicaciones: " + ex.getMessage());
+    }
+});
+*/
+}
+
+
+    public void llenarlistaUnoaUno() {
+    int indice=0;
+    String cadena; 
+     
+    indice = lstAplicD.getSelectedIndex();
+    if (indice != -1) {
+        
+    cadena = (String) lstAplicD.getSelectedValue();
+    DefaultListModel<String> modeloAplA;
+    
+    if (lstAplicA.getModel() == null) {
+        modeloAplA = new DefaultListModel<>();
+        lstAplicA.setModel(modeloAplA);
+        
+    } else {
+        
+        modeloAplA = (DefaultListModel<String>) lstAplicA.getModel();
+                
+    }
+    modeloAplA.addElement(cadena);
+    } else {
+        JOptionPane.showMessageDialog(this, "Selecciona una Aplicacion", "ERROR", JOptionPane.ERROR_MESSAGE);
     }
     
-
-    public void llenadoDeTablas() {
-        /*
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("id_aplicacion");
-        modelo.addColumn("nombre_aplicacion");
-        modelo.addColumn("estatus_aplicacion");
-        AplicacionDAO aulaDAO = new AplicacionDAO();
-        List<Aplicacion> aulas = aulaDAO.select();
-        tablaAula.setModel(modelo);
-        String[] dato = new String[3];
-        for (int i = 0; i < aulas.size(); i++) {
-            dato[0] = Integer.toString(aulas.get(i).getId_aplicacion());
-            //dato[0] = aulas.get(i).getId_aplicacion();
-            dato[1] = aulas.get(i).getNombre_aplicacion();
-            dato[2] = aulas.get(i).getEstatus_aplicacion();
-            //System.out.println("vendedor:" + vendedores);
-            modelo.addRow(dato);
-        }
-        */
-    }
-
-    public void buscarVendedor() {
-        /*
-        Aplicacion aplicacionAConsultar = new Aplicacion();
-        AplicacionDAO aplicacionDAO = new AplicacionDAO();
-        aplicacionAConsultar.setId_aplicacion(Integer.parseInt(txtbuscado.getText()));
-        aplicacionAConsultar = aplicacionDAO.query(aplicacionAConsultar);
-        txtNombre.setText(aplicacionAConsultar.getNombre_aplicacion());
-        txtEstatus.setText(aplicacionAConsultar.getEstatus_aplicacion());
         int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Buscar Datos Aplicacion");    
-   */
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Asignar Una Aplicaciones");    
+   
     }
-
+    
+    public void llenarlista() {
+    AplicacionDAO aplicacionDAO = new AplicacionDAO();
+    List<Aplicacion> aplicaciones = aplicacionDAO.select(); 
+    DefaultListModel<String> modelo = new DefaultListModel<>(); 
+    //Recorre la lista :v
+    for (Aplicacion app : aplicaciones) {
+    modelo.addElement(app.getNombre_aplicacion()); 
+}
+lstAplicA.setModel(modelo);
+        
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Asignar Todas Las Aplicaciones");    
+   
+    }
+    
+    public void vaciarlista() {
+ 
+    DefaultListModel<String> modelo = new DefaultListModel<>();
+    
+    modelo.clear();
+    lstAplicA.setModel(modelo);
+      
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Eliminar Todas Las Aplicaciones");    
+   
+    }
+    
+    public void vaciarlistaUnoaUno() {
+    /*
+    int indice = lstAplicA.getSelectedIndex();
+    if (indice != -1) {
+        ((DefaultListModel<String>) lstAplicA.getModel()).remove(indice);
+    } else {
+        JOptionPane.showMessageDialog(this, "Selecciona una Aplicacion", "ERROR", JOptionPane.ERROR_MESSAGE);
+    }
+    
+     
+    
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Eliminar una Aplicacion");    
+   
+    }
+    
     public MantenimientoRelPerfApl() {
-        initComponents();
-        llenadoDeTablas();
-        llenadoDeCombos();
+        initComponents(); 
+        llenadoDeCombos(); 
+        llenadoperfilesaplicaciones();
+        */
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,26 +244,25 @@ int APLICACION=301;
 
         lb2 = new javax.swing.JLabel();
         lbusu = new javax.swing.JLabel();
-        btnEliminar = new javax.swing.JButton();
-        btnRegistrar = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
+        btnAsignarT = new javax.swing.JButton();
+        btnAsignarU = new javax.swing.JButton();
+        btnEliminarT = new javax.swing.JButton();
         label3 = new javax.swing.JLabel();
-        btnLimpiar = new javax.swing.JButton();
+        btnEliminarU = new javax.swing.JButton();
         label4 = new javax.swing.JLabel();
         label5 = new javax.swing.JLabel();
         lb = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         label6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        cboperfil = new javax.swing.JComboBox<>();
+        txtper = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        lstAplicA = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        lstAplicD = new javax.swing.JList<>();
         label7 = new javax.swing.JLabel();
         label8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         permisos = new javax.swing.JPanel();
         cbins = new javax.swing.JCheckBox();
         cbrd = new javax.swing.JCheckBox();
@@ -116,6 +270,11 @@ int APLICACION=301;
         cbdel = new javax.swing.JCheckBox();
         cbpr = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
+        bntconfir = new javax.swing.JButton();
+        txtidApl = new javax.swing.JTextField();
+        label9 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        fecha = new javax.swing.JTextField();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -128,46 +287,38 @@ int APLICACION=301;
         setTitle("MantenimientoAplicacion");
         setVisible(true);
 
-        btnEliminar.setBackground(new java.awt.Color(153, 153, 255));
-        btnEliminar.setText("▶▶");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+        btnAsignarT.setBackground(new java.awt.Color(153, 153, 255));
+        btnAsignarT.setText("▶▶");
+        btnAsignarT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
+                btnAsignarTActionPerformed(evt);
             }
         });
 
-        btnRegistrar.setBackground(new java.awt.Color(153, 153, 255));
-        btnRegistrar.setText("▶");
-        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+        btnAsignarU.setBackground(new java.awt.Color(153, 153, 255));
+        btnAsignarU.setText("▶");
+        btnAsignarU.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarActionPerformed(evt);
+                btnAsignarUActionPerformed(evt);
             }
         });
 
-        btnBuscar.setBackground(new java.awt.Color(204, 255, 204));
-        btnBuscar.setText("Limpia Perfil");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminarT.setBackground(new java.awt.Color(153, 153, 255));
+        btnEliminarT.setText("◀◀️");
+        btnEliminarT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
-        btnModificar.setBackground(new java.awt.Color(153, 153, 255));
-        btnModificar.setText("◀◀️");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
+                btnEliminarTActionPerformed(evt);
             }
         });
 
         label3.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label3.setText("Aplicaciones Asignadas");
 
-        btnLimpiar.setBackground(new java.awt.Color(153, 153, 255));
-        btnLimpiar.setText("◀️");
-        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminarU.setBackground(new java.awt.Color(153, 153, 255));
+        btnEliminarU.setText("◀️");
+        btnEliminarU.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarActionPerformed(evt);
+                btnEliminarUActionPerformed(evt);
             }
         });
 
@@ -180,22 +331,48 @@ int APLICACION=301;
         lb.setForeground(new java.awt.Color(204, 204, 204));
         lb.setText(".");
 
-        jButton2.setBackground(new java.awt.Color(153, 153, 255));
-        jButton2.setText("✎");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setBackground(new java.awt.Color(153, 153, 255));
+        btnEditar.setText("✎");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
 
         label6.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label6.setText("Aplicaciones Disponibles");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0001", "0002", "0003" }));
+        cboperfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboperfilActionPerformed(evt);
+            }
+        });
 
-        jScrollPane2.setViewportView(jList1);
+        txtper.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtper.setEnabled(false);
+        txtper.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtperActionPerformed(evt);
+            }
+        });
 
-        jScrollPane3.setViewportView(jList2);
+        jScrollPane2.setViewportView(lstAplicA);
+
+        lstAplicD.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                lstAplicDComponentAdded(evt);
+            }
+        });
+        lstAplicD.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                lstAplicDAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jScrollPane3.setViewportView(lstAplicD);
 
         label7.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label7.setText("Quitar");
@@ -203,8 +380,13 @@ int APLICACION=301;
         label8.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label8.setText("Editar");
 
-        jButton1.setBackground(new java.awt.Color(255, 153, 153));
-        jButton1.setText("Salir");
+        btnSalir.setBackground(new java.awt.Color(255, 153, 153));
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         permisos.setBackground(new java.awt.Color(255, 255, 255));
         permisos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -262,30 +444,48 @@ int APLICACION=301;
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Permisos a conceder: ");
 
+        bntconfir.setBackground(new java.awt.Color(153, 255, 204));
+        bntconfir.setText("Confirmar ");
+        bntconfir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntconfirActionPerformed(evt);
+            }
+        });
+
+        txtidApl.setEnabled(false);
+
+        label9.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        label9.setText("Aplicacion Seleccionada");
+
+        jLabel2.setText("Fecha:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(label8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
+                        .addComponent(btnSalir)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnEliminarU, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnEliminarT, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(label7)
@@ -295,30 +495,37 @@ int APLICACION=301;
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(btnAsignarT, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btnAsignarU, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(33, 33, 33)
                                         .addComponent(label5)))
                                 .addGap(24, 24, 24)))
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(28, Short.MAX_VALUE))))
+                        .addContainerGap(16, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(96, 96, 96)
+                .addGap(69, 69, 69)
+                .addComponent(cboperfil, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtper, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label6)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(label3)
-                        .addGap(96, 96, 96))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtidApl, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label3)
+                            .addComponent(label9))
+                        .addGap(72, 72, 72))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(permisos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bntconfir, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -328,10 +535,10 @@ int APLICACION=301;
                         .addGap(78, 78, 78)
                         .addComponent(label4)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(permisos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(152, 152, 152))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(92, 92, 92)
+                .addComponent(label6)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,185 +548,268 @@ int APLICACION=301;
                         .addGap(20, 20, 20)
                         .addComponent(lb)
                         .addGap(8, 8, 8)
-                        .addComponent(label4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(label4)
+                            .addComponent(label9))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(40, 40, 40)
+                            .addComponent(cboperfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtidApl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(label6)
                             .addComponent(label3))
-                        .addGap(18, 18, 18)
+                        .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSalir))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnBuscar)
-                                    .addComponent(jButton1)))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel2)
+                                    .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(172, 172, 172)
                         .addComponent(label5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEliminar)
+                        .addComponent(btnAsignarT)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRegistrar)
+                        .addComponent(btnAsignarU)
                         .addGap(30, 30, 30)
                         .addComponent(label7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnModificar)
+                        .addComponent(btnEliminarT)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnLimpiar)
+                        .addComponent(btnEliminarU)
                         .addGap(48, 48, 48)
                         .addComponent(label8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(btnEditar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(permisos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(permisos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(bntconfir)
+                        .addGap(45, 45, 45))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    
+    
+    private void btnAsignarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarTActionPerformed
         // TODO add your handling code here:
-        /*
-        AplicacionDAO aplicacionDAO = new AplicacionDAO();
-        Aplicacion aplicacionAEliminar = new Aplicacion();
-        aplicacionAEliminar.setId_aplicacion(Integer.parseInt(txtbuscado.getText()));
-        aplicacionDAO.delete(aplicacionAEliminar);
-        llenadoDeTablas();
-         UsuarioConectado usuarioEnSesion = new UsuarioConectado();
-        int resultadoBitacora=0;
-        Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Eliminar Datos Aplicacion");
-    */
-    }//GEN-LAST:event_btnEliminarActionPerformed
+   llenarlista();
+    }//GEN-LAST:event_btnAsignarTActionPerformed
 
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        /*
-        AplicacionDAO aplicacionDAO = new AplicacionDAO();
-        Aplicacion aplicacionAInsertar = new Aplicacion();
-        aplicacionAInsertar.setId_aplicacion(Integer.parseInt(txtid.getText()));
-        aplicacionAInsertar.setNombre_aplicacion(txtNombre.getText());
-        aplicacionAInsertar.setEstatus_aplicacion(txtEstatus.getText());
-        aplicacionDAO.insert(aplicacionAInsertar);
-        llenadoDeTablas();
-        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
-        int resultadoBitacora=0;
-        Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Insertar Datos Aplicacion");
-        */
-    }//GEN-LAST:event_btnRegistrarActionPerformed
+    private void btnAsignarUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarUActionPerformed
+    llenarlistaUnoaUno();
+    }//GEN-LAST:event_btnAsignarUActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-        buscarVendedor();
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+    private void btnEliminarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTActionPerformed
 //        // TODO add your handling code here:
-/*
-        AplicacionDAO aplicacionDAO = new AplicacionDAO();
-        Aplicacion aplicacionAActualizar = new Aplicacion();
-        aplicacionAActualizar.setId_aplicacion(Integer.parseInt(txtbuscado.getText()));
-        aplicacionAActualizar.setNombre_aplicacion(txtNombre.getText());
-        aplicacionAActualizar.setEstatus_aplicacion(txtEstatus.getText());
-        aplicacionDAO.update(aplicacionAActualizar);
-        llenadoDeTablas();
-        int resultadoBitacora=0;
-        Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Modificar Datos Aplicacion");    
-*/
-    }//GEN-LAST:event_btnModificarActionPerformed
+vaciarlista();
+txtidApl.setText(" "); 
+DefaultListModel<String> modelo2 = new DefaultListModel<>();
+lstAplicA.setModel(modelo2);
+    }//GEN-LAST:event_btnEliminarTActionPerformed
 
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        /*
-        cbox_empleado.setSelectedIndex(0);
-        txtid.setText("");
-        txtNombre.setText("");
-        txtEstatus.setText("");
-        txtbuscado.setText("");
-        btnRegistrar.setEnabled(true);
-        btnModificar.setEnabled(true);
-        btnEliminar.setEnabled(true);
-        int resultadoBitacora=0;
-        Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Limpiar Datos Aplicacion");    
-*/   
+    private void btnEliminarUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUActionPerformed
+        vaciarlistaUnoaUno();
+        txtidApl.setText(" ");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarUActionPerformed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLimpiarActionPerformed
-/*
-     // TODO add your handling code here:
-        MantenimientoAula ventana = new MantenimientoAula();
-        jDesktopPane1.add(ventana);
-        Dimension desktopSize = jDesktopPane1.getSize();
-        Dimension FrameSize = ventana.getSize();
-        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-    */
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        /*try {
-            if ((new File("src\\main\\java\\ayudas\\ProcesoMayor.chm")).exists()) {
-                Process p = Runtime
-                        .getRuntime()
-                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\ProcesoMayor.chm");
-                p.waitFor();
-            } else {
-                System.out.println("La ayuda no Fue encontrada");
-            }
-            System.out.println("Correcto");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }*/
+       
         cbins.setEnabled(rootPaneCheckingEnabled);
         cbpr.setEnabled(rootPaneCheckingEnabled);
         cbrd.setEnabled(rootPaneCheckingEnabled);
         cbdel.setEnabled(rootPaneCheckingEnabled);
         cbupd.setEnabled(rootPaneCheckingEnabled);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Asignacion DE Permiso a Perfil");    
+   
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void cbinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbinsActionPerformed
         // TODO add your handling code here:
         
     }//GEN-LAST:event_cbinsActionPerformed
 
+ 
+    
+    private void bntconfirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntconfirActionPerformed
+        // TODO add your handling code here:
+    /*    
+
+RelPerfAplDAO relPerfAplDAO = new RelPerfAplDAO();
+RelPerfApl relPerfAplAconfirmar = new RelPerfApl();
+
+// Obtener fecha actual
+java.util.Date fechaActual = new java.util.Date();
+// Formatear la fecha (puedes ajustar el formato según necesites)
+java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
+String fechaFormateada = sdf.format(fechaActual);
+
+// Asignar fecha al JTextField
+fecha.setText(fechaFormateada);
+
+// Asignación de valores de checkboxes (versión con if-else completo)
+String Checkingre;
+if (cbins.isSelected()) {
+    Checkingre = "1";
+} else {
+    Checkingre = "0";
+}
+relPerfAplAconfirmar.setInsertar_rpa(Checkingre);
+
+String Checkleer;
+if (cbrd.isSelected()) {
+    Checkleer = "1";
+} else {
+    Checkleer = "0";
+}
+relPerfAplAconfirmar.setConsultar_rpa(Checkleer);
+
+String Checkactu;
+if (cbupd.isSelected()) {
+    Checkactu = "1";
+} else {
+    Checkactu = "0";
+}
+relPerfAplAconfirmar.setActualizar_rpa(Checkactu);
+
+String Checkborrar;
+if (cbdel.isSelected()) {
+    Checkborrar = "1";
+} else {
+    Checkborrar = "0";
+}
+relPerfAplAconfirmar.setEliminar_rpa(Checkborrar);
+
+String Checkimpri;
+if (cbpr.isSelected()) {
+    Checkimpri = "1";
+} else {
+    Checkimpri = "0";
+}
+relPerfAplAconfirmar.setImprimir_rpa(Checkimpri);
+
+// Asignar la fecha al objeto
+relPerfAplAconfirmar.setFecha_rpa(fechaFormateada);
+
+// Conversión de txtapli.getText() a int (con manejo de errores)
+try {
+    int codigoAplicacion = Integer.parseInt(txtidApl.getText());
+    relPerfAplAconfirmar.setAplicacion_codigo(codigoAplicacion);
+} catch (NumberFormatException e) {
+    JOptionPane.showMessageDialog(this, "Selecciona un Id Aplicacion", "ERROR", JOptionPane.ERROR_MESSAGE);
+    return; // Detener la ejecución si hay un error
+}
+
+// Conversión del ítem seleccionado en cboperfil a int (con manejo de errores)
+try {
+    Object itemSeleccionado = cboperfil.getSelectedItem();
+    if (itemSeleccionado != null) {
+        int codigoPerfil = Integer.parseInt(itemSeleccionado.toString());
+        relPerfAplAconfirmar.setPerfil_codigo(codigoPerfil);
+        JOptionPane.showMessageDialog(this, "Felicidades Asignacion Exitosa", "Anuncio", JOptionPane.INFORMATION_MESSAGE);
+    } 
+} catch (NumberFormatException e) {
+    JOptionPane.showMessageDialog(this, "Selecciona un Perfil", "Advertencia", JOptionPane.ERROR_MESSAGE);
+}
+
+relPerfAplDAO.insert(relPerfAplAconfirmar);
+
+
+txtidApl.setText(" "); 
+
+int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Ingreso De RelAplPerf");    
+
+*/
+    }//GEN-LAST:event_bntconfirActionPerformed
+
+    private void lstAplicDComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_lstAplicDComponentAdded
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_lstAplicDComponentAdded
+
+    private void lstAplicDAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_lstAplicDAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lstAplicDAncestorAdded
+
+    private void cboperfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboperfilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboperfilActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        int valor=JOptionPane.showConfirmDialog(this,"¿Està seguro de salir del Mantenimiento?", "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    if (valor==JOptionPane.YES_OPTION) 
+                    {
+                     this.dispose();
+                        
+                    }
+    int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Salio de Mantenimiento RelAplPerf");    
+
+        
+        
+        
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void txtperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtperActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtperActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnLimpiar;
-    private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton bntconfir;
+    private javax.swing.JButton btnAsignarT;
+    private javax.swing.JButton btnAsignarU;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminarT;
+    private javax.swing.JButton btnEliminarU;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JCheckBox cbdel;
     private javax.swing.JCheckBox cbins;
+    private javax.swing.JComboBox<String> cboperfil;
     private javax.swing.JCheckBox cbpr;
     private javax.swing.JCheckBox cbrd;
     private javax.swing.JCheckBox cbupd;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTextField fecha;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel label3;
     private javax.swing.JLabel label4;
     private javax.swing.JLabel label5;
     private javax.swing.JLabel label6;
     private javax.swing.JLabel label7;
     private javax.swing.JLabel label8;
+    private javax.swing.JLabel label9;
     private javax.swing.JLabel lb;
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lbusu;
+    private javax.swing.JList<String> lstAplicA;
+    private javax.swing.JList<String> lstAplicD;
     private javax.swing.JPanel permisos;
+    private javax.swing.JTextField txtidApl;
+    private javax.swing.JTextField txtper;
     // End of variables declaration//GEN-END:variables
 }

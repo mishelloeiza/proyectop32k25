@@ -25,7 +25,9 @@ import javax.swing.JList;
 
 public class MantenimientoRelPerfUsu extends javax.swing.JInternalFrame {
     int APLICACION = 101;
-
+private DefaultListModel<String> modelPerfD = new DefaultListModel<>();
+    private DefaultListModel<String> modelPerfA = new DefaultListModel<>();
+    
     public void llenadoDeCombos() {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         List<Usuario> salon = usuarioDAO.select();
@@ -52,6 +54,20 @@ public class MantenimientoRelPerfUsu extends javax.swing.JInternalFrame {
         for (Perfil app : perfiles) {
             modelo.addElement(app.getNombre_perfil()); 
         }
+        
+          
+    modelPerfD.clear(); // Limpiar modelo existente
+    
+    for (Perfil app : perfiles) {
+        modelPerfD.addElement(app.getNombre_perfil()); 
+    }
+    
+    // Asignar modelos a los JList
+    lstPerfD.setModel(modelPerfD);
+    lstPerfA.setModel(modelPerfA);
+        
+        
+        
         lstPerfD.setModel(modelo);
     }
 
@@ -84,6 +100,31 @@ public class MantenimientoRelPerfUsu extends javax.swing.JInternalFrame {
         e.printStackTrace();  // Para obtener más detalles del error
     }
 }
+    private void eliminarAsignacion(int idUsuario, int idPerfil) throws SQLException {
+        String sql = "DELETE FROM usuario_perfil WHERE id_usuario = ? AND id_perfil = ?";
+
+        // Mensaje de depuración
+        System.out.println("Eliminando asignación - idUsuario: " + idUsuario + ", idPerfil: " + idPerfil);
+
+        try (Connection conexion = Conexion.getConnection(); PreparedStatement pst = conexion.prepareStatement(sql)) {
+            pst.setInt(1, idUsuario);
+            pst.setInt(2, idPerfil);
+            int filasAfectadas = pst.executeUpdate();
+
+            // Mensaje de depuración
+            System.out.println("Filas afectadas: " + filasAfectadas);
+
+            if (filasAfectadas > 0) {
+                JOptionPane.showMessageDialog(null, "Asignación eliminada exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la asignación para eliminar");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar la asignación: " + e.getMessage());
+            e.printStackTrace();  
+            throw e;  
+        }
+    }
 
 
    private int obtenerIdPerfil(String nombrePerfil) throws SQLException {
@@ -107,19 +148,64 @@ public class MantenimientoRelPerfUsu extends javax.swing.JInternalFrame {
         llenadoDeTablas();
         llenadoDeCombos();
         
-       btnAgregarU.addActionListener(e -> {
+        btnAgregarU.addActionListener(e -> {
             try {
+                // --- Parte 1: Validaciones iniciales ---
                 String usuarioSeleccionado = cbousuario.getSelectedItem().toString();
-                String nombrePerfil = lstPerfD.getSelectedValue();
-                if (!usuarioSeleccionado.equals("Seleccione una opción") && nombrePerfil != null) {
-                    int idUsuario = Integer.parseInt(usuarioSeleccionado);
-                    int idPerfil = obtenerIdPerfil(nombrePerfil);
-                    insertarAsignacion(idUsuario, idPerfil);
-                } else {
+                int selectedIndex = lstPerfD.getSelectedIndex();
+
+                if (usuarioSeleccionado.equals("Seleccione una opción") || selectedIndex == -1) {
                     JOptionPane.showMessageDialog(null, "Seleccione un usuario y un perfil");
+                    return;
                 }
+
+                // --- Parte 2: Obtener datos ---
+                String nombrePerfil = modelPerfD.getElementAt(selectedIndex);
+                int idUsuario = Integer.parseInt(usuarioSeleccionado);
+                int idPerfil = obtenerIdPerfil(nombrePerfil);
+
+                // --- Parte 3: Lógica de base de datos ---
+                insertarAsignacion(idUsuario, idPerfil);
+
+                // --- Parte 4: Movimiento visual entre JList ---
+                modelPerfA.addElement(nombrePerfil);
+                modelPerfD.remove(selectedIndex);
+
+                JOptionPane.showMessageDialog(null, "Perfil asignado correctamente");
+
             } catch (NumberFormatException | SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al asignar perfil: " + ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+            }
+        }
+                    
+    );
+        btnEliminarU.addActionListener(e -> {
+            try {
+                // --- Parte 1: Validaciones iniciales ---
+                String usuarioSeleccionado = cbousuario.getSelectedItem().toString();
+                int selectedIndex = lstPerfA.getSelectedIndex();
+
+                if (usuarioSeleccionado.equals("Seleccione una opción") || selectedIndex == -1) {
+                    JOptionPane.showMessageDialog(null, "Seleccione un usuario y un perfil asignado");
+                    return;
+                }
+
+                // --- Parte 2: Obtener datos ---
+                String nombrePerfil = modelPerfA.getElementAt(selectedIndex);
+                int idUsuario = Integer.parseInt(usuarioSeleccionado);
+                int idPerfil = obtenerIdPerfil(nombrePerfil);
+
+                // --- Parte 3: Lógica de base de datos (eliminación) ---
+                eliminarAsignacion(idUsuario, idPerfil);
+
+                // --- Parte 4: Movimiento visual entre JList ---
+                modelPerfD.addElement(nombrePerfil);
+                modelPerfA.remove(selectedIndex);
+
+                JOptionPane.showMessageDialog(null, "Perfil retirado correctamente");
+
+            } catch (NumberFormatException | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
             }
         });
     }
@@ -153,8 +239,8 @@ public class MantenimientoRelPerfUsu extends javax.swing.JInternalFrame {
         btnAgregarU = new javax.swing.JButton();
         btnEliminarU = new javax.swing.JButton();
         txtusu = new javax.swing.JTextField();
-        btnEliminar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
+        btnAsignarTodo = new javax.swing.JButton();
+        btnRetirarTodo = new javax.swing.JButton();
         label3 = new javax.swing.JLabel();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
@@ -211,19 +297,19 @@ public class MantenimientoRelPerfUsu extends javax.swing.JInternalFrame {
         txtusu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtusu.setEnabled(false);
 
-        btnEliminar.setBackground(new java.awt.Color(153, 153, 255));
-        btnEliminar.setText("▶▶");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+        btnAsignarTodo.setBackground(new java.awt.Color(153, 153, 255));
+        btnAsignarTodo.setText("▶▶");
+        btnAsignarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
+                btnAsignarTodoActionPerformed(evt);
             }
         });
 
-        btnModificar.setBackground(new java.awt.Color(153, 153, 255));
-        btnModificar.setText("◀◀️");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+        btnRetirarTodo.setBackground(new java.awt.Color(153, 153, 255));
+        btnRetirarTodo.setText("◀◀️");
+        btnRetirarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
+                btnRetirarTodoActionPerformed(evt);
             }
         });
 
@@ -239,7 +325,10 @@ public class MantenimientoRelPerfUsu extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtusu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(txtusu, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbousuario, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,9 +338,9 @@ public class MantenimientoRelPerfUsu extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(32, 32, 32)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btnAsignarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(btnAgregarU, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btnRetirarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(btnEliminarU, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(78, 78, 78)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -259,13 +348,11 @@ public class MantenimientoRelPerfUsu extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbousuario, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(87, 87, 87)
                                 .addComponent(jLabel2)))
-                        .addGap(108, 108, 108)
+                        .addGap(145, 145, 145)
                         .addComponent(jLabel3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -298,13 +385,13 @@ public class MantenimientoRelPerfUsu extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(btnEliminar)
+                        .addComponent(btnAsignarTodo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAgregarU)
                         .addGap(41, 41, 41)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnModificar)
+                        .addComponent(btnRetirarTodo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEliminarU))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -378,6 +465,7 @@ public class MantenimientoRelPerfUsu extends javax.swing.JInternalFrame {
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Error inesperado: " + e.getMessage());
     }
+    
 
     }//GEN-LAST:event_btnAgregarUActionPerformed
 
@@ -415,7 +503,7 @@ public class MantenimientoRelPerfUsu extends javax.swing.JInternalFrame {
      }
     }//GEN-LAST:event_btnEliminarUActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void btnAsignarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarTodoActionPerformed
        // TODO add your handling code here:
         /*
         AplicacionDAO aplicacionDAO = new AplicacionDAO();
@@ -428,9 +516,9 @@ public class MantenimientoRelPerfUsu extends javax.swing.JInternalFrame {
         Bitacora bitacoraRegistro = new Bitacora();
         resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Eliminar Datos Aplicacion");
     */
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    }//GEN-LAST:event_btnAsignarTodoActionPerformed
 
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+    private void btnRetirarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarTodoActionPerformed
                                                   
     try {
         // Obtener el ID del usuario seleccionado
@@ -463,15 +551,15 @@ public class MantenimientoRelPerfUsu extends javax.swing.JInternalFrame {
         JOptionPane.showMessageDialog(null, "Error al modificar la relación: " + e.getMessage());
     }
 
-    }//GEN-LAST:event_btnModificarActionPerformed
+    }//GEN-LAST:event_btnRetirarTodoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarU;
+    private javax.swing.JButton btnAsignarTodo;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminarU;
-    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnRetirarTodo;
     private javax.swing.JComboBox<String> cbousuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

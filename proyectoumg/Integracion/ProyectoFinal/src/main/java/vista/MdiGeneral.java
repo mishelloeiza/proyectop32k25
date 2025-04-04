@@ -17,7 +17,7 @@ import vista.seguridad.MantenimientoPerfiles;
 import vista.seguridad.MantenimientoAplicacion;
 import vista.seguridad.MantenimientoBitacora;
 import vista.seguridad.AplicacionaUsuarios;
-
+//import vista.seguridad.MantenimientoRelPerfUsu;
 
 /**
  *
@@ -302,6 +302,23 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
 //       Dimension desktopSize = jDesktopPane1.getSize();
 //       Dimension FrameSize = ventana.getSize();
 //       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+
+/*
+for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+    frame.dispose(); // Cierra cada ventana abierta
+}
+       MantenimientoRelPerfUsu ventana = new MantenimientoRelPerfUsu();
+       jDesktopPane1.add(ventana);
+       Dimension desktopSize = jDesktopPane1.getSize();
+       Dimension FrameSize = ventana.getSize();
+       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+
+
+
+*/
+
+
+
     }//GEN-LAST:event_AsignacionPerfilUsuarioActionPerformed
 
     private void AsignacionesAplicacionesPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignacionesAplicacionesPerfilActionPerformed

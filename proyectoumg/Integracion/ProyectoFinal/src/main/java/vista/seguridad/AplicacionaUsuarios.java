@@ -6,8 +6,11 @@
 package vista.seguridad;
 import Modelo.seguridad.UsuarioDAO;
 import Controlador.seguridad.Usuario;
+import Modelo.seguridad.AplicacionDAO; //Pablo Palencia: Para llenado de lista
+import Controlador.seguridad.Aplicacion; //Pablo Palencia: Para llenado de lista
 import java.awt.Dimension;
 import java.util.List;
+import javax.swing.DefaultListModel;
 import vista.seguridad.MantenimientoDerecho;
 
 /**
@@ -18,10 +21,17 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
     public void llenadoDeCombos() {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         List<Usuario> usuarios = usuarioDAO.select();
-        jComboBox1.addItem("Seleccione una opción");
         for (int i = 0; i < usuarios.size(); i++) {
-            jComboBox1.addItem(usuarios.get(i).getUsername());
+            jComboBox1.addItem(String.valueOf(usuarios.get(i).getId_usuario()));
         }
+        //Pablo Palencia - 736: Llenado de las aplicaciones disponibles para la lista #1
+        AplicacionDAO aplicacionDAO = new AplicacionDAO();//crea objeto 
+        List<Aplicacion> aplicaciones = aplicacionDAO.select(); //crea una lista
+         DefaultListModel<String> modelo = new DefaultListModel<>();//crea un modelo para la lista
+        for (Aplicacion app : aplicaciones) { //recorre la lista aplicaciones
+            modelo.addElement(app.getNombre_aplicacion()); //agrega los nombres de aplicaciones 
+        }
+        jList1.setModel(modelo);//manda el modelo a la lista (visualmente)
     }
 
 
@@ -74,6 +84,12 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
         setToolTipText("");
         setVisible(true);
 
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Aplicaciones Disponibles");
 
@@ -93,6 +109,11 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
         jButton1.setText("Limpiar Usuario");
 
         jButton2.setText("Salir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setText("Quitar");
@@ -255,6 +276,22 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        //Pablo Palencia 736: Envio de username segun id seleccionado
+        String seleccionado = (String) jComboBox1.getSelectedItem(); //conversion a string
+          Usuario usuarioAConsultar = new Usuario(); //crea objeto
+          UsuarioDAO usuarioDAO = new UsuarioDAO(); //crea objeto
+          usuarioAConsultar.setId_usuario(Integer.valueOf(seleccionado)); //toma el id seleccionado
+          usuarioAConsultar = usuarioDAO.query2(usuarioAConsultar); //realiza una busqueda
+          jTextField1.setText(usuarioAConsultar.getUsername()); //captura el username y lo manda
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

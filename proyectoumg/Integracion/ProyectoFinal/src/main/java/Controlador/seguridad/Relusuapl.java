@@ -17,9 +17,24 @@ public class Relusuapl {
     String der_insertar;
     String der_editar;
     String der_eliminar;
+    //Modificacion de fecha en Relusuapl Hecho por Kathia Contreras
+    String Fecha_relusuapl;
+
+    @Override
+    public String toString() {
+        return "Relusuapl{" + "id_relusuapl=" + id_relusuapl + ", id_aplicacion=" + id_aplicacion + ", id_usuario=" + id_usuario + ", der_insertar=" + der_insertar + ", der_editar=" + der_editar + ", der_eliminar=" + der_eliminar + ", Fecha_relusuapl=" + Fecha_relusuapl + ", der_imprimir=" + der_imprimir + '}';
+    }
+    public void setFecha_relusuapl(String Fecha_relusuapl) {
+        this.Fecha_relusuapl = Fecha_relusuapl;
+    }
     String der_imprimir;
 
-    public Relusuapl(int id_relusuapl, int id_aplicacion, int id_usuario, String der_insertar, String der_editar, String der_eliminar, String der_imprimir) {
+    public String getFecha_relusuapl() {
+        return Fecha_relusuapl;
+    }
+    
+
+    public Relusuapl(int id_relusuapl, int id_aplicacion, int id_usuario, String der_insertar, String der_editar, String der_eliminar, String der_imprimir,String Fecha_relusuapl) {
         this.id_relusuapl = id_relusuapl;
         this.id_aplicacion = id_aplicacion;
         this.id_usuario = id_usuario;
@@ -27,12 +42,11 @@ public class Relusuapl {
         this.der_editar = der_editar;
         this.der_eliminar = der_eliminar;
         this.der_imprimir = der_imprimir;
+        this.Fecha_relusuapl= Fecha_relusuapl;
     }
 
-    @Override
-    public String toString() {
-        return "Relusuapl{" + "id_relusuapl=" + id_relusuapl + ", id_aplicacion=" + id_aplicacion + ", id_usuario=" + id_usuario + ", der_insertar=" + der_insertar + ", der_editar=" + der_editar + ", der_eliminar=" + der_eliminar + ", der_imprimir=" + der_imprimir + '}';
-    }
+    
+    
 
     public int getId_relusuapl() {
         return id_relusuapl;

@@ -145,6 +145,11 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel4.setText("Usuario Seleccionado");
 
+        lst2App.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lst2AppMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(lst2App);
 
         jButton1.setText("Limpiar Usuario");
@@ -337,9 +342,9 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
                                 .addGap(0, 3, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jCheckBox1)
-                                            .addComponent(jCheckBox3))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jCheckBox3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jCheckBox1))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jCheckBox4)
@@ -382,7 +387,9 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-
+        //HECHO POR ALISSON LÓPEZ
+        modelo.remove(lst2App.getSelectedIndex());
+        lst2App.setModel(modelo);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -434,6 +441,16 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
         modelo.clear();
         lst2App.setModel(modelo);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void lst2AppMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lst2AppMouseClicked
+        //HECHO ALISSON LÓPEZ
+        String seleccionado = (String) lst2App.getSelectedValue();
+          Aplicacion aplicacionAConsultar = new Aplicacion();
+          AplicacionDAO aplicacionDAO = new AplicacionDAO();
+          aplicacionAConsultar.setNombre_aplicacion(seleccionado);
+          aplicacionAConsultar = aplicacionDAO.query(aplicacionAConsultar);
+          jTextField2.setText(String.valueOf(aplicacionAConsultar.getId_aplicacion()));
+    }//GEN-LAST:event_lst2AppMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

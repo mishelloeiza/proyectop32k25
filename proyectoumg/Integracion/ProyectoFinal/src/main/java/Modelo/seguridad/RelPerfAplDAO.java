@@ -5,10 +5,6 @@
  */
 
 
-
-
-
-
 package Modelo.seguridad;
 
 
@@ -27,11 +23,11 @@ import java.util.List;
  */
 public class RelPerfAplDAO {
 
-    private static final String SQL_SELECT = "SELECT aplicacion_codigo, perfil_codigo, consultar_rpa,actualizar_rpa,eliminar_rpa,imprimir_rpa,insertar_rpa FROM relperfapl";
-    private static final String SQL_INSERT = "INSERT INTO relperfapl(aplicacion_codigo, perfil_codigo,consultar_rpa,actualizar_rpa,eliminar_rpa,imprimir_rpa,insertar_rpa) VALUES(?,?,?,?,?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE relperfapl SET consultar_rpa=?,actualizar_rpa=?,eliminar_rpa=?,imprimir_rpa=?,insertar_rpa=? WHERE aplicacion_codigo=?,perfil_codigo=?";
+    private static final String SQL_SELECT = "SELECT aplicacion_codigo, perfil_codigo, consultar_rpa,actualizar_rpa,eliminar_rpa,imprimir_rpa,insertar_rpa,fecha_rpa FROM relperfapl";
+    private static final String SQL_INSERT = "INSERT INTO relperfapl(aplicacion_codigo, perfil_codigo,consultar_rpa,actualizar_rpa,eliminar_rpa,imprimir_rpa,insertar_rpa,fecha_rpa) VALUES(?,?,?,?,?,?,?,?)";
+    private static final String SQL_UPDATE = "UPDATE relperfapl SET consultar_rpa=?,actualizar_rpa=?,eliminar_rpa=?,imprimir_rpa=?,insertar_rpa=?,fecha_rpa=? WHERE aplicacion_codigo=?,perfil_codigo=?";
     private static final String SQL_DELETE = "DELETE FROM relperfapl WHERE aplicacion_codigo=?,perfil_codigo=?";
-    private static final String SQL_QUERY = "SELECT aplicacion_codigo, perfil_codigo, consultar_rpa,actualizar_rpa,eliminar_rpa,imprimir_rpa,insertar_rpa FROM relperfapl WHERE aplicacion_codigo= ?,perfil_codigo=?";
+    private static final String SQL_QUERY = "SELECT aplicacion_codigo, perfil_codigo, consultar_rpa,actualizar_rpa,eliminar_rpa,imprimir_rpa,insertar_rpa,fecha_rpa FROM relperfapl WHERE aplicacion_codigo= ?,perfil_codigo=?";
 
     public List<RelPerfApl> select() {
         Connection conn = null;
@@ -52,6 +48,7 @@ public class RelPerfAplDAO {
                 String eliminar_rpa = rs.getString("eliminar_rpa");
                 String imprimir_rpa = rs.getString("imprimir_rpa");
                 String insertar_rpa = rs.getString("insertar_rpa");
+                String fecha_rpa = rs.getString("fecha_rpa");
                 
                 relPerfApl = new RelPerfApl();
                 relPerfApl.setAplicacion_codigo(aplicacion_codigo);
@@ -61,6 +58,7 @@ public class RelPerfAplDAO {
                 relPerfApl.setEliminar_rpa(eliminar_rpa);
                 relPerfApl.setImprimir_rpa(imprimir_rpa);
                 relPerfApl.setInsertar_rpa(insertar_rpa);
+                relPerfApl.setFecha_rpa(fecha_rpa);
               
                 
                 list_relPerfApl.add(relPerfApl);
@@ -92,6 +90,7 @@ public class RelPerfAplDAO {
             stmt.setString(5, relPerfApl.getEliminar_rpa());
             stmt.setString(6, relPerfApl.getImprimir_rpa());
             stmt.setString(7, relPerfApl.getInsertar_rpa());
+            stmt.setString(8, relPerfApl.getFecha_rpa());
          
 
 
@@ -122,10 +121,10 @@ public class RelPerfAplDAO {
             stmt.setString(3, relPerfApl.getEliminar_rpa());
             stmt.setString(4, relPerfApl.getImprimir_rpa());
             stmt.setString(5, relPerfApl.getInsertar_rpa());
-         
-            //comodin del where
-            stmt.setInt(6,relPerfApl.getAplicacion_codigo());
-            stmt.setInt(7,relPerfApl.getPerfil_codigo());
+            stmt.setString(6, relPerfApl.getFecha_rpa());
+            
+            stmt.setInt(7,relPerfApl.getAplicacion_codigo());
+            stmt.setInt(8,relPerfApl.getPerfil_codigo());
            
 
             rows = stmt.executeUpdate();
@@ -187,6 +186,7 @@ public class RelPerfAplDAO {
                 String eliminar_rpa = rs.getString("eliminar_rpa");
                 String imprimir_rpa = rs.getString("imprimir_rpa");
                 String insertar_rpa = rs.getString("insertar_rpa");
+                String fecha_rpa = rs.getString("fecha_rpa");
                 
                 relPerfApl = new RelPerfApl();
                 relPerfApl.setAplicacion_codigo(aplicacion_codigo);
@@ -196,6 +196,7 @@ public class RelPerfAplDAO {
                 relPerfApl.setEliminar_rpa(eliminar_rpa);
                 relPerfApl.setImprimir_rpa(imprimir_rpa);
                 relPerfApl.setInsertar_rpa(insertar_rpa);
+                relPerfApl.setFecha_rpa(fecha_rpa);
               
                 
                

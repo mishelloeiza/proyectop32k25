@@ -20,11 +20,11 @@ import java.util.List;
  */
 public class RelusuaplDAO {
     //Modificacion de fecha en RelusuaplDAO Hecho por Kathia Contreras
-    private static final String SQL_SELECT = "SELECT id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_ eliminar, der_imprimir, fecha FROM relusuapl";
-    private static final String SQL_INSERT = "INSERT INTO relusuapl(id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_ eliminar, der_imprimir,fecha) VALUES(?, ?, ?, ?, ?, ?, ?,?)";
-    private static final String SQL_UPDATE = "UPDATE relusuapl SET id_aplicacion=?, id_usuario=?, der_insertar=?, der_editar=?, der_ eliminar=?, der_imprimir=?, fecha =? WHERE id_relusuapl = ?";
+    private static final String SQL_SELECT = "SELECT id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_eliminar, der_imprimir, fecha FROM relusuapl";
+    private static final String SQL_INSERT = "INSERT INTO relusuapl(id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_eliminar, der_imprimir,fecha) VALUES(?, ?, ?, ?, ?, ?, ?,?)";
+    private static final String SQL_UPDATE = "UPDATE relusuapl SET id_aplicacion=?, id_usuario=?, der_insertar=?, der_editar=?, der_eliminar=?, der_imprimir=?, fecha =? WHERE id_relusuapl = ?";
     private static final String SQL_DELETE = "DELETE FROM relusuapl WHERE id_relusuapl=?";
-    private static final String SQL_QUERY = "SELECT id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_ eliminar, der_imprimir, fecha FROM relusuapl WHERE id_relusuapl = ?";
+    private static final String SQL_QUERY = "SELECT id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_eliminar, der_imprimir, fecha FROM relusuapl WHERE id_relusuapl = ?";
 
     public List<Relusuapl> select() {
         Connection conn = null;
@@ -55,6 +55,7 @@ public class RelusuaplDAO {
                 relusuapl.setDer_eliminar(derEliminar);
                 relusuapl.setDer_imprimir(derImprimir);
                 relusuapl.setFecha_relusuapl(fechaRelUsuApl);
+                
                 relusuaples.add(relusuapl);
             }
 

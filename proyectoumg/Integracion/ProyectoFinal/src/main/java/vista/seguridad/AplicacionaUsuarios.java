@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package vista.seguridad;
+//agregado para tabla relusuapl Hecho por Pablo Palencia
+import Modelo.seguridad.RelusuaplDAO; //Pablo Palencia: Para boton asignar
+import Controlador.seguridad.Relusuapl; //Pablo Palencia: Para boton asignar
+
 import Modelo.seguridad.UsuarioDAO; 
 import Modelo.seguridad.PerfilDAO; //se quitará
 import Controlador.seguridad.Usuario;
@@ -16,6 +20,7 @@ import javax.swing.DefaultListModel;
 import vista.seguridad.MantenimientoDerecho;
 import Modelo.seguridad.BitacoraDAO; //Kathia Contreras : Para bitacora en asignacion de usuario a apl
 import Controlador.seguridad.Bitacora;//Kathia Contreras : Para bitacora en asignacion de usuario a apl
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -83,14 +88,18 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
         initComponents();
         llenadoDeCombos();
         //HECHO POR KATHIA CONTRERAS OCULTAMIENDO DE DERECHOS
-       jCheckBox1.setVisible(false); 
-       jCheckBox2.setVisible(false); 
-       jCheckBox3.setVisible(false); 
-       jCheckBox4.setVisible(false); 
+       ins.setVisible(false); 
+       impr.setVisible(false); 
+       elim.setVisible(false); 
+       edit.setVisible(false); 
        
        jLabel8.setVisible(false);
       
        jButton8.setVisible(false);
+       
+       //agregado extra Pablo Palencia: para ID relusuapl
+       jTextField4.setVisible(false);
+       jLabel7.setVisible(false);
     }
     
 
@@ -125,16 +134,18 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        edit = new javax.swing.JCheckBox();
+        ins = new javax.swing.JCheckBox();
+        impr = new javax.swing.JCheckBox();
+        elim = new javax.swing.JCheckBox();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -245,13 +256,13 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        jCheckBox4.setText("Editar");
+        edit.setText("Editar");
 
-        jCheckBox1.setText("Insertar");
+        ins.setText("Insertar");
 
-        jCheckBox2.setText("Imprimir");
+        impr.setText("Imprimir");
 
-        jCheckBox3.setText("Eliminar");
+        elim.setText("Eliminar");
 
         jLabel8.setText("Derechos");
 
@@ -273,12 +284,14 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel7.setText("ID:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -332,20 +345,28 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel9)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jCheckBox1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jCheckBox4)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCheckBox2))
-                            .addComponent(jLabel8))
-                        .addGap(33, 33, 33)
-                        .addComponent(jButton8)
-                        .addGap(21, 21, 21)))
+                                .addComponent(jLabel8)
+                                .addGap(21, 21, 21))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(ins)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(elim)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(edit)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(impr)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButton8)))
+                                .addGap(48, 48, 48)))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -395,28 +416,25 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton1)
-                                    .addComponent(jButton2))
-                                .addGap(17, 17, 17))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton8)
-                                .addGap(43, 43, 43))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2))
+                        .addGap(17, 17, 17))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jCheckBox3))
+                            .addComponent(ins)
+                            .addComponent(elim)
+                            .addComponent(jLabel7)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCheckBox4)
-                            .addComponent(jCheckBox2))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(edit)
+                            .addComponent(impr)
+                            .addComponent(jButton8))
+                        .addGap(0, 9, Short.MAX_VALUE))))
         );
 
         pack();
@@ -424,14 +442,18 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
          //HECHO POR KATHIA CONTRERAS OCULTAMIENDO DE DERECHOS
-       jCheckBox1.setVisible(true); 
-       jCheckBox2.setVisible(true); 
-       jCheckBox3.setVisible(true); 
-       jCheckBox4.setVisible(true); 
+       ins.setVisible(true); 
+       impr.setVisible(true); 
+       elim.setVisible(true); 
+       edit.setVisible(true); 
       
        jLabel8.setVisible(true);
      
        jButton8.setVisible(true);
+       
+       //agregado Pablo Palencia para ID
+       jTextField4.setVisible(true);
+       jLabel7.setVisible(true);
         /*        for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
             frame.dispose(); 
        }
@@ -453,6 +475,7 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
+        //hecho por Pablo Palencia
           //String id_busca = (String) jComboBox1.getSelectedItem();
           String seleccionado = (String) jComboBox1.getSelectedItem(); //conversion a string
           Usuario usuarioAConsultar = new Usuario(); //crea objeto
@@ -523,22 +546,43 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_lst2AppMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //HECHO POR PABLO PALENCIA
+        //Boton para cerrar la ventana, hecho por Pablo Palencia 
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-       //
-        /* if ( jTextField3.equals("") && (lst2App.getSelectedIndex()==-1)){
-            jTextField2.setText("si funcion");
-        }else{
-            
-        }*/
+        //HECHO POR ALISSON LÓPEZ
+        if (jTextField3.getText().trim().isEmpty() || lst2App.getSelectedValue() == null || jTextField4.getText().trim().isEmpty()){
+        JOptionPane.showMessageDialog( null,"Por favor llene los valores faltantes","Error", 
+        JOptionPane.ERROR_MESSAGE);
+        }
+       else {
+            //Hecho por Pablo Palencia 736: Validacion y llenado de datos
+            RelusuaplDAO relusuaplDAO = new RelusuaplDAO();//crea objeto 
+            Relusuapl relusuaplAInsertar = new Relusuapl();//crea objeto
+            relusuaplAInsertar.setId_relusuapl(Integer.valueOf(jTextField4.getText())); //autoincrement?
+            relusuaplAInsertar.setId_aplicacion(Integer.valueOf(jTextField2.getText()));//enviamos id ap
+            relusuaplAInsertar.setId_usuario(Integer.valueOf((String) jComboBox1.getSelectedItem()));//enviamos id usu
+            //los checkbox seleccionados mandan "1", de lo contrario, "0"
+            relusuaplAInsertar.setDer_insertar(ins.isSelected() ? "1" : "0");
+            relusuaplAInsertar.setDer_editar(edit.isSelected() ? "1" : "0");
+            relusuaplAInsertar.setDer_eliminar(elim.isSelected() ? "1" : "0");
+            relusuaplAInsertar.setDer_imprimir(impr.isSelected() ? "1" : "0");
+            //manda fecha
+            relusuaplAInsertar.setFecha_relusuapl(jTextField3.getText());
+            //inserta a la tabla
+            relusuaplDAO.insert(relusuaplAInsertar);
+            JOptionPane.showMessageDialog(this, "Asignacion Exitosa", "Anuncio", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButton8ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JCheckBox edit;
+    private javax.swing.JCheckBox elim;
+    private javax.swing.JCheckBox impr;
+    private javax.swing.JCheckBox ins;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -547,10 +591,6 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -559,6 +599,7 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -566,6 +607,7 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lbusu;
     private javax.swing.JList<String> lst1App;

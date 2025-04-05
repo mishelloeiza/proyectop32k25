@@ -533,7 +533,8 @@ lstPerfA.setModel(modelo);
     private void btnEliminarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTActionPerformed
      vaciarlista(); // Limpia visualmente la lista de perfiles asignados
     txtidPerf.setText("");
-
+    
+    
     // Validar si se seleccionó un usuario válido
     Object itemSeleccionado = cbousuario.getSelectedItem();
     if (itemSeleccionado == null || itemSeleccionado.toString().equals("Seleccione una opción")) {

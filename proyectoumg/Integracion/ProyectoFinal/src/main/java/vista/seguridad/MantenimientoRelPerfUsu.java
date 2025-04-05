@@ -125,7 +125,7 @@ private DefaultListModel<String> modelPerfD = new DefaultListModel<>();
             throw e;  
         }
     }
-
+    
 
    private int obtenerIdPerfil(String nombrePerfil) throws SQLException {
     int idPerfil = -1;
@@ -139,15 +139,52 @@ private DefaultListModel<String> modelPerfD = new DefaultListModel<>();
             idPerfil = rs.getInt("id_perfil");
         }
     }
+    
+    
     return idPerfil;
 }
+    private void consultarAsignacion(int idUsuario) throws SQLException {
+        String sql = "SELECT p.nombre_perfil FROM usuario_perfil up "
+                + "JOIN perfiles p ON up.id_perfil = p.id_perfil "
+                + "WHERE up.id_usuario = ?";
 
+        System.out.println("Consultando asignaciones para idUsuario: " + idUsuario);
+
+        try (Connection conexion = Conexion.getConnection(); PreparedStatement pst = conexion.prepareStatement(sql)) {
+
+            pst.setInt(1, idUsuario);
+            ResultSet rs = pst.executeQuery();
+
+            modelPerfA.clear(); // Usa el modelo de clase en lugar de crear uno nuevo
+            boolean tieneRegistros = false;
+
+            while (rs.next()) {
+                tieneRegistros = true;
+                String nombrePerfil = rs.getString("nombre_perfil");
+                modelPerfA.addElement(nombrePerfil); // Agrega directamente al modelo existente
+            }
+
+            if (!tieneRegistros) {
+                JOptionPane.showMessageDialog(null, "El usuario no tiene asignaciones registradas");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al consultar asignaciones: " + e.getMessage());
+            throw e;
+        }
+    }
 
     public MantenimientoRelPerfUsu() {
         initComponents();
         llenadoDeTablas();
         llenadoDeCombos();
-        
+         modelPerfD.clear(); // Usa el modelo declarado como variable de clase
+    PerfilDAO perfilDAO = new PerfilDAO();
+    List<Perfil> perfiles = perfilDAO.select(); 
+    
+    for (Perfil app : perfiles) {
+        modelPerfD.addElement(app.getNombre_perfil()); 
+    }
         btnAgregarU.addActionListener(e -> {
             try {
                 // --- Parte 1: Validaciones iniciales ---
@@ -181,7 +218,6 @@ private DefaultListModel<String> modelPerfD = new DefaultListModel<>();
     );
         btnEliminarU.addActionListener(e -> {
             try {
-                // --- Parte 1: Validaciones iniciales ---
                 String usuarioSeleccionado = cbousuario.getSelectedItem().toString();
                 int selectedIndex = lstPerfA.getSelectedIndex();
 
@@ -190,21 +226,17 @@ private DefaultListModel<String> modelPerfD = new DefaultListModel<>();
                     return;
                 }
 
-                // --- Parte 2: Obtener datos ---
                 String nombrePerfil = modelPerfA.getElementAt(selectedIndex);
                 int idUsuario = Integer.parseInt(usuarioSeleccionado);
                 int idPerfil = obtenerIdPerfil(nombrePerfil);
 
-                // --- Parte 3: Lógica de base de datos (eliminación) ---
                 eliminarAsignacion(idUsuario, idPerfil);
 
-                // --- Parte 4: Movimiento visual entre JList ---
+                // Actualización visual
                 modelPerfD.addElement(nombrePerfil);
                 modelPerfA.remove(selectedIndex);
 
-                JOptionPane.showMessageDialog(null, "Perfil retirado correctamente");
-
-            } catch (NumberFormatException | SQLException ex) {
+            } catch (SQLException | NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
             }
         });
@@ -408,26 +440,32 @@ private DefaultListModel<String> modelPerfD = new DefaultListModel<>();
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        try {
-        // 1. Obtener nombre del usuario seleccionado
-        String nombreUsuario = cbousuario.getSelectedItem().toString();
-        
-        // 2. Validar que no sea la opción por defecto
-        if ("Perfiles de usuario son".equals(nombreUsuario)) {
-            JOptionPane.showMessageDialog(null, "Seleccione un usuario válido");
-            return;
-        }
-        
-        // 3. Obtener id_usuario
-        RellenarCombos re = new RellenarCombos();
-        int idUsuario = re.obtenerIdPorNombre("usuario", "username", "id_usuario", nombreUsuario);
-        
-        // 4. Cargar perfiles asignados en el nuevo ComboBox
-//        re.cargarPerfilesAsignados(idUsuario, cboPerfilesAsignados); // Asume que tienes un JComboBox llamado cboPerfilesAsignados
-        
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+   try {
+    // 1. Obtener nombre del usuario desde el JTextField
+    String nombreUsuario = txtusu.getText().trim();
+    
+    // 2. Validar que no esté vacío
+    if (nombreUsuario.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "El campo de usuario está vacío");
+        lstPerfA.setModel(new DefaultListModel<>()); // Limpiar el JList
+        return;
     }
+    
+    // 3. Obtener id_usuario
+    RellenarCombos re = new RellenarCombos();
+    int idUsuario = re.obtenerIdPorNombre("usuario", "username", "id_usuario", nombreUsuario);
+    
+    // 4. Ejecutar consulta de asignaciones usando el método existente
+    consultarAsignacion(idUsuario);
+    
+} catch (SQLException ex) {
+    JOptionPane.showMessageDialog(null, "Error de base de datos: " + ex.getMessage(), 
+                               "Error", JOptionPane.ERROR_MESSAGE);
+    ex.printStackTrace();
+} catch (Exception ex) {
+    JOptionPane.showMessageDialog(null, "Error inesperado: " + ex.getMessage(), 
+                               "Error", JOptionPane.ERROR_MESSAGE);
+}
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarUActionPerformed

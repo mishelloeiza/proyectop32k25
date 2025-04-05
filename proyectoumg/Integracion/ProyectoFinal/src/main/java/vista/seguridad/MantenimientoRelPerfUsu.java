@@ -603,11 +603,12 @@ lstPerfA.setModel(modelo);
     }//GEN-LAST:event_bntconfirActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+// Muestra un cuadro de diálogo de confirmación para salir del mantenimiento.        
+// Devuelve un valor según la opción seleccionada por el usuario (Sí o No)..
         int valor=JOptionPane.showConfirmDialog(this,"¿Està seguro de salir del Mantenimiento?", "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (valor==JOptionPane.YES_OPTION)
         {
-            this.dispose();
+            this.dispose(); // Cierra la ventana del mantenimiento.
 
         }
         int resultadoBitacora=0;

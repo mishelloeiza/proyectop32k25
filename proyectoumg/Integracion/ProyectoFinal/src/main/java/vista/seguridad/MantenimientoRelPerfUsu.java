@@ -560,7 +560,7 @@ lstPerfA.setModel(modelo);
     }//GEN-LAST:event_btnEliminarTActionPerformed
 
     private void bntconfirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntconfirActionPerformed
-        // TODO add your handling code here:
+  // TODO add your handling code here:
         Object itemSeleccionado = cbousuario.getSelectedItem();
     if (itemSeleccionado == null || itemSeleccionado.toString().equals("Seleccione una opción")) {
         JOptionPane.showMessageDialog(this, "Selecciona un Usuario válido", "Advertencia", JOptionPane.ERROR_MESSAGE);

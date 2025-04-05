@@ -27,11 +27,12 @@ import java.util.List;
  */
 public class RelPerfUsuDAO {
 
-    private static final String SQL_SELECT = "SELECT usuario_codigo, perfil_codigo FROM relperfusu";
-    private static final String SQL_INSERT = "INSERT INTO relperfusu(usuario_codigo, perfil_codigo) VALUES(?,?)";
-    //private static final String SQL_UPDATE = "UPDATE relperfusu SET consultar_rpa=? WHERE usuario_codigo=?,perfil_codigo=?";
-    //private static final String SQL_DELETE = "DELETE FROM relperfusu WHERE usuario_codigo=?,perfil_codigo=?";
-    private static final String SQL_QUERY = "SELECT usuario_codigo, perfil_codigo FROM relperfusu WHERE usuario_codigo= ?,perfil_codigo=?";
+    private static final String SQL_SELECT = "SELECT id_usuario, id_perfil FROM relperfusu";
+    private static final String SQL_INSERT = "INSERT INTO relperfusu(id_usuario, id_perfil) VALUES(?,?)";
+    //private static final String SQL_UPDATE = "UPDATE relperfusu SET consultar_rpa=? WHERE id_usuario=?,id_perfil=?";
+    private static final String SQL_DELETE = "DELETE FROM relperfusu WHERE id_usuario = ? AND id_perfil = ?";
+    private static final String SQL_DELETE_BY_USER = "DELETE FROM relperfusu WHERE id_usuario = ?";
+    private static final String SQL_QUERY = "SELECT id_usuario, id_perfil FROM relperfusu WHERE id_usuario= ?,id_perfil=?";
 
     public List<RelPerfUsu> select() {
         Connection conn = null;
@@ -45,12 +46,12 @@ public class RelPerfUsuDAO {
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int usuario_codigo = rs.getInt("aplicacion_codigo");
-                int perfil_codigo = rs.getInt("perfil_codigo");
+                int id_usuario = rs.getInt("id_usuario");
+                int id_perfil = rs.getInt("id_perfil");
                 
                 relPerfUsu = new RelPerfUsu();
-                relPerfUsu.setUsuario_codigo(usuario_codigo);
-                relPerfUsu.setPerfil_codigo(perfil_codigo);
+                relPerfUsu.setUsuario_codigo(id_usuario);
+                relPerfUsu.setPerfil_codigo(id_perfil);
                 
               
                 list_relPerfUsu.add(relPerfUsu);
@@ -90,41 +91,9 @@ public class RelPerfUsuDAO {
 
         return rows;
     }
-/*
-    public int update(RelPerfUsu relPerfUsu) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        int rows = 0;
 
-        try {
-            conn = Conexion.getConnection();
-            System.out.println("ejecutando query: " + SQL_UPDATE);
-            stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, relPerfUsu.getConsultar_rpa());
-            stmt.setString(2, relPerfUsu.getActualizar_rpa());
-            stmt.setString(3, relPerfUsu.getEliminar_rpa());
-            stmt.setString(4, relPerfUsu.getImprimir_rpa());
-            stmt.setString(5, relPerfUsu.getInsertar_rpa());
-         
-            //comodin del where
-            stmt.setInt(6,relPerfUsu.getAplicacion_codigo());
-            stmt.setInt(7,relPerfUsu.getPerfil_codigo());
-           
 
-            rows = stmt.executeUpdate();
-            System.out.println("Registros actualizado:" + rows);
-
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        } finally {
-            Conexion.close(stmt);
-            Conexion.close(conn);
-        }
-
-        return rows;
-    }*/
-
-    /*public int delete(RelPerfUsu relPerfUsu) {
+    public int delete(RelPerfUsu relPerfUsu) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -133,7 +102,7 @@ public class RelPerfUsuDAO {
             conn = Conexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_DELETE);
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(1, relPerfUsu.getAplicacion_codigo());
+            stmt.setInt(1, relPerfUsu.getUsuario_codigo());
             stmt.setInt(2, relPerfUsu.getPerfil_codigo());
             rows = stmt.executeUpdate();
             System.out.println("Registros eliminados:" + rows);
@@ -145,35 +114,51 @@ public class RelPerfUsuDAO {
         }
 
         return rows;
-    }*/
-
-//    public List<Persona> query(Persona vendedor) { // Si se utiliza un ArrayList
-    public RelPerfUsu query(RelPerfUsu relPerfUsu) {    
+    }
+    
+    // Nuevo método para eliminar todas las relaciones de un usuario
+    public int deleteByUserId(int usuarioId) {
         Connection conn = null;
         PreparedStatement stmt = null;
-        ResultSet rs = null;
-        List<RelPerfUsu> list_relPerfUsu = new ArrayList<RelPerfUsu>();
         int rows = 0;
 
         try {
             conn = Conexion.getConnection();
-            System.out.println("Ejecutando query:" + SQL_QUERY);
+            stmt = conn.prepareStatement(SQL_DELETE_BY_USER);
+            stmt.setInt(1, usuarioId);
+
+            System.out.println("Ejecutando query: " + SQL_DELETE_BY_USER);
+            rows = stmt.executeUpdate();
+            System.out.println("Registros eliminados: " + rows);
+
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+
+        return rows;
+    }
+
+// Método para realizar una consulta específica
+    public RelPerfUsu query(RelPerfUsu relPerfUsu) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_QUERY);
             stmt.setInt(1, relPerfUsu.getUsuario_codigo());
             stmt.setInt(2, relPerfUsu.getPerfil_codigo());
             rs = stmt.executeQuery();
-            while (rs.next()) {
-             int usuario_codigo = rs.getInt("usuario_codigo");
-                int perfil_codigo = rs.getInt("perfil_codigo");
-                
-                relPerfUsu = new RelPerfUsu();
-                relPerfUsu.setUsuario_codigo(usuario_codigo);
-                relPerfUsu.setPerfil_codigo(perfil_codigo);
-                
-                
-                
+
+            if (rs.next()) {
+                relPerfUsu.setUsuario_codigo(rs.getInt("id_usuario"));
+                relPerfUsu.setPerfil_codigo(rs.getInt("id_perfil"));
             }
-            //System.out.println("Registros buscado:" + vendedor);
+
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -182,8 +167,6 @@ public class RelPerfUsuDAO {
             Conexion.close(conn);
         }
 
-       
         return relPerfUsu;
     }
-            
 }

@@ -11,35 +11,34 @@ package Controlador.seguridad;
  */
 public class RelPerfUsu {
  
-    int usuario_codigo;
-    int perfil_codigo;
+    int id_usuario;
+    int id_perfil;
     
 
     @Override
     public String toString() {
-        return "RelPerfApl{" + "usuario_codigo=" + usuario_codigo + ", perfil_codigo=" + perfil_codigo + '}';
+        return "RelPerfApl{" + "id_usuario=" + id_usuario + ", id_perfil=" + id_perfil + '}';
     }
-
-    public void setUsuario_codigo(int usuario_codigo) {
-        this.usuario_codigo = usuario_codigo;
-    }
-
-    public void setPerfil_codigo(int perfil_codigo) {
-        this.perfil_codigo = perfil_codigo;
-    }
-
-    public int getUsuario_codigo() {
-        return usuario_codigo;
+    
+        public int getUsuario_codigo() {
+        return id_usuario;
     }
 
     public int getPerfil_codigo() {
-        return perfil_codigo;
+        return id_perfil;
     }
 
+    public void setUsuario_codigo(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
 
-    public RelPerfUsu(int usuario_codigo, int perfil_codigo) {
-        this.usuario_codigo = usuario_codigo;
-        this.perfil_codigo = perfil_codigo;
+    public void setPerfil_codigo(int id_perfil) {
+        this.id_perfil = id_perfil;
+    }
+
+    public RelPerfUsu(int id_usuario, int id_perfil) {
+        this.id_usuario = id_usuario;
+        this.id_perfil = id_perfil;
     }
     
     public RelPerfUsu() { //no contiene nada

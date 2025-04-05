@@ -137,7 +137,7 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="impr" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="jButton8" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ASIGNAR" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
@@ -226,7 +226,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="edit" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="impr" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton8" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ASIGNAR" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
                   </Group>
@@ -462,12 +462,12 @@
         <Property name="text" type="java.lang.String" value="C&#xf3;digo Aplicaci&#xf3;n"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton8">
+    <Component class="javax.swing.JButton" name="ASIGNAR">
       <Properties>
         <Property name="text" type="java.lang.String" value="ASIGNAR"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ASIGNARActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">

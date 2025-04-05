@@ -95,7 +95,7 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
        
        jLabel8.setVisible(false);
       
-       jButton8.setVisible(false);
+       ASIGNAR.setVisible(false);
        
        //agregado extra Pablo Palencia: para ID relusuapl
        jTextField4.setVisible(false);
@@ -143,7 +143,7 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
         jTextField3 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jButton8 = new javax.swing.JButton();
+        ASIGNAR = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
 
@@ -277,10 +277,10 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel10.setText("Código Aplicación");
 
-        jButton8.setText("ASIGNAR");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        ASIGNAR.setText("ASIGNAR");
+        ASIGNAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                ASIGNARActionPerformed(evt);
             }
         });
 
@@ -365,7 +365,7 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(impr)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton8)))
+                                        .addComponent(ASIGNAR)))
                                 .addGap(48, 48, 48)))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -433,7 +433,7 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(edit)
                             .addComponent(impr)
-                            .addComponent(jButton8))
+                            .addComponent(ASIGNAR))
                         .addGap(0, 9, Short.MAX_VALUE))))
         );
 
@@ -449,7 +449,7 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
       
        jLabel8.setVisible(true);
      
-       jButton8.setVisible(true);
+       ASIGNAR.setVisible(true);
        
        //agregado Pablo Palencia para ID
        jTextField4.setVisible(true);
@@ -550,7 +550,7 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void ASIGNARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ASIGNARActionPerformed
         //HECHO POR ALISSON LÓPEZ
         if (jTextField3.getText().trim().isEmpty() || lst2App.getSelectedValue() == null || jTextField4.getText().trim().isEmpty()){
         JOptionPane.showMessageDialog( null,"Por favor llene los valores faltantes","Error", 
@@ -573,11 +573,28 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
             //inserta a la tabla
             relusuaplDAO.insert(relusuaplAInsertar);
             JOptionPane.showMessageDialog(this, "Asignacion Exitosa", "Anuncio", JOptionPane.INFORMATION_MESSAGE);
+            //Hecho por ALISSON LÓPEZ 7225 : Reinicio del ciclo 
+            ins.setVisible(false); 
+            impr.setVisible(false); 
+            elim.setVisible(false); 
+            edit.setVisible(false);      
+            jLabel8.setVisible(false);     
+            ASIGNAR.setVisible(false);
+            jTextField4.setVisible(false);
+            jLabel7.setVisible(false);
+            
+            jTextField1.setText(" ");
+            jTextField2.setText(" ");
+            jTextField3.setText(" ");
+            jTextField4.setText(" ");
+            
+            lst2App.clearSelection();
         }
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_ASIGNARActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ASIGNAR;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox edit;
     private javax.swing.JCheckBox elim;
@@ -590,7 +607,6 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

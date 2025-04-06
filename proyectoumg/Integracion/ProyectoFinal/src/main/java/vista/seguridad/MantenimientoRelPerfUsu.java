@@ -549,7 +549,7 @@ lstPerfA.setModel(modelo);
         RelPerfUsuDAO relPerfUsuDAO = new RelPerfUsuDAO();
         int registrosEliminados = relPerfUsuDAO.deleteByUserId(codigoUsuario);
 
-        // Confirmar éxito
+        // Confirmar el éxito 
         JOptionPane.showMessageDialog(this, "Se eliminaron " + registrosEliminados + " perfiles del usuario seleccionado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Error al procesar el usuario seleccionado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

@@ -125,6 +125,7 @@ cbousuario.addActionListener(e -> {
             // Filtrar aplicaciones del perfil seleccionado
             for (RelPerfUsu relacion : relaciones) {
                 if (relacion.getUsuario_codigo() == idSeleccionado) {
+                    
                     // Buscar la aplicación por ID
                     for (Perfil perfil : perfiles) {
                         if (perfil.getId_perfil() == relacion.getPerfil_codigo()) {
@@ -235,6 +236,7 @@ lstPerfA.setModel(modelo);
             }
 
             if (idPerfil != -1) {
+                
                 // Eliminar la relación de la base de datos
                 RelPerfUsuDAO relPerfUsuDAO = new RelPerfUsuDAO();
                 RelPerfUsu relPerfUsu = new RelPerfUsu();

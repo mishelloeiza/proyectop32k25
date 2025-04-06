@@ -38,7 +38,7 @@ public class MantenimientoUsuario extends javax.swing.JInternalFrame {
             modelo.addRow(dato);
         }
     }
-    //M
+    //Mishel loeiza - metodo completo de cifrado SHA
 public void registrarUsuario() {
     try {
         String username = txtNombre.getText();

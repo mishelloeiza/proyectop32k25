@@ -233,11 +233,13 @@ lstPerfA.setModel(modelo);
                     break;
                 }
             }
-
+// Verificar si el ID del perfil es válido (diferente de -1)
             if (idPerfil != -1) {
-                // Eliminar la relación de la base de datos
+                // Crear instancia del DAO para manejar operaciones de base de datos de la relación Perfil-Usuario
                 RelPerfUsuDAO relPerfUsuDAO = new RelPerfUsuDAO();
+                // Crear objeto de relación Perfil-Usuario
                 RelPerfUsu relPerfUsu = new RelPerfUsu();
+                // Establecer código de usuario para la relación (probablemente obtenido del contexto actual)
                 relPerfUsu.setUsuario_codigo(codigoUsuario);
                 relPerfUsu.setPerfil_codigo(idPerfil);
                 relPerfUsuDAO.delete(relPerfUsu);

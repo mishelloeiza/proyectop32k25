@@ -535,7 +535,7 @@ lstPerfA.setModel(modelo);
     txtidPerf.setText("");
     
     
-    // Validar si se seleccionó un usuario válido
+    // Validar si se seleccionó un usuario que sea válido
     Object itemSeleccionado = cbousuario.getSelectedItem();
     if (itemSeleccionado == null || itemSeleccionado.toString().equals("Seleccione una opción")) {
         JOptionPane.showMessageDialog(this, "Selecciona un Usuario válido antes de eliminar perfiles", "Advertencia", JOptionPane.ERROR_MESSAGE);
@@ -550,7 +550,7 @@ lstPerfA.setModel(modelo);
         RelPerfUsuDAO relPerfUsuDAO = new RelPerfUsuDAO();
         int registrosEliminados = relPerfUsuDAO.deleteByUserId(codigoUsuario);
 
-        // Confirmar éxito
+        // Confirmar que hubo éxito
         JOptionPane.showMessageDialog(this, "Se eliminaron " + registrosEliminados + " perfiles del usuario seleccionado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Error al procesar el usuario seleccionado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

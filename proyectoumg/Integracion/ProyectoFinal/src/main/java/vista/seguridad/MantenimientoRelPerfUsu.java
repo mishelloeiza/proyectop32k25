@@ -534,7 +534,7 @@ lstPerfA.setModel(modelo);
      vaciarlista(); // Limpia visualmente la lista de perfiles asignados
     txtidPerf.setText("");
 
-    // Validar si se seleccionó un usuario válido
+    // Validar si se seleccionó un usuario valido
     Object itemSeleccionado = cbousuario.getSelectedItem();
     if (itemSeleccionado == null || itemSeleccionado.toString().equals("Seleccione una opción")) {
         JOptionPane.showMessageDialog(this, "Selecciona un Usuario válido antes de eliminar perfiles", "Advertencia", JOptionPane.ERROR_MESSAGE);
@@ -542,10 +542,10 @@ lstPerfA.setModel(modelo);
     }
 
     try {
-        // Obtener el ID del usuario seleccionado
+        //Obtener el ID del usuario seleccionado  
         int codigoUsuario = Integer.parseInt(itemSeleccionado.toString());
 
-        // Instanciar el DAO para eliminar relaciones
+        // Instanciar el DAO para la eliminacion de relaciones
         RelPerfUsuDAO relPerfUsuDAO = new RelPerfUsuDAO();
         int registrosEliminados = relPerfUsuDAO.deleteByUserId(codigoUsuario);
 

@@ -205,9 +205,13 @@ lstPerfA.setModel(modelo);
     }
     
     public void vaciarlistaUnoaUno() {
+        // Obtener el índice del elemento seleccionado en la lista lstPerfA
     int indice = lstPerfA.getSelectedIndex();
+    // Verificar si hay un elemento seleccionado (índice válido)
     if (indice != -1) {
+        // Obtener el valor del elemento seleccionado como String
         String perfilSeleccionado = lstPerfA.getSelectedValue();
+        // Obtener el modelo de la lista para manipular sus datos
         DefaultListModel<String> modeloAsignados = (DefaultListModel<String>) lstPerfA.getModel();
         modeloAsignados.remove(indice);
 

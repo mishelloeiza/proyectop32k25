@@ -17,7 +17,7 @@ public class MantenimientoUsuario extends javax.swing.JInternalFrame {
     
     
     
-  //G
+
   // Método para llenar la tabla de usuarios
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -38,7 +38,6 @@ public class MantenimientoUsuario extends javax.swing.JInternalFrame {
             modelo.addRow(dato);
         }
     }
-    //Mishel loeiza - metodo completo de cifrado SHA
 public void registrarUsuario() {
     try {
         String username = txtNombre.getText();
@@ -63,7 +62,6 @@ public void registrarUsuario() {
     }
 }
 
-//R
     // Método para buscar usuario
     public void buscarUsuario() {
         try {
@@ -115,7 +113,7 @@ public void registrarUsuario() {
         }
     }
     
-    //A
+    
     
     public void buscarUsuario2(){
     try {

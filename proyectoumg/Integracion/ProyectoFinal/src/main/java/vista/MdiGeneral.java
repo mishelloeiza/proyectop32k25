@@ -16,8 +16,7 @@ import vista.seguridad.MantenimientoUsuario;
 import vista.seguridad.MantenimientoPerfiles;
 import vista.seguridad.MantenimientoAplicacion;
 import vista.seguridad.MantenimientoBitacora;
-import vista.seguridad.AplicacionaUsuarios;
-
+import vista.seguridad.AplicacionaUsuariosDEF;
 
 
 /**
@@ -289,7 +288,7 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
        for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
             frame.dispose(); 
        }
-       AplicacionaUsuarios ventana = new AplicacionaUsuarios();
+       AplicacionaUsuariosDEF ventana = new AplicacionaUsuariosDEF();
        jDesktopPane1.add(ventana);
        Dimension desktopSize = jDesktopPane1.getSize();
        Dimension FrameSize = ventana.getSize();
@@ -298,12 +297,11 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
 
     private void AsignacionPerfilUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignacionPerfilUsuarioActionPerformed
         // TODO add your handling code here:
-        //       MantenimientoBitacora ventana = new MantenimientoBitacora();
+//       MantenimientoBitacora ventana = new MantenimientoBitacora();
 //       jDesktopPane1.add(ventana);
 //       Dimension desktopSize = jDesktopPane1.getSize();
 //       Dimension FrameSize = ventana.getSize();
 //       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        
     }//GEN-LAST:event_AsignacionPerfilUsuarioActionPerformed
 
     private void AsignacionesAplicacionesPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignacionesAplicacionesPerfilActionPerformed

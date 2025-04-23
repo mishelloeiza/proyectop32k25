@@ -20,11 +20,11 @@ import java.util.List;
  */
 public class RelusuaplDAO {
 
-    private static final String SQL_SELECT = "SELECT id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_ eliminar, der_imprimir FROM relusuapl";
-    private static final String SQL_INSERT = "INSERT INTO relusuapl(id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_ eliminar, der_imprimir) VALUES(?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE relusuapl SET id_aplicacion=?, id_usuario=?, der_insertar=?, der_editar=?, der_ eliminar=?, der_imprimir=? WHERE id_relusuapl = ?";
+    private static final String SQL_SELECT = "SELECT id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_ eliminar, der_imprimir,  Fecha_relusuapl FROM relusuapl";
+    private static final String SQL_INSERT = "INSERT INTO relusuapl(id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_ eliminar, der_imprimir, Fecha_relusuapl) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE = "UPDATE relusuapl SET id_aplicacion=?, id_usuario=?, der_insertar=?, der_editar=?, der_ eliminar=?, der_imprimir=?, Fecha_relusuapl=? WHERE id_relusuapl = ?";
     private static final String SQL_DELETE = "DELETE FROM relusuapl WHERE id_relusuapl=?";
-    private static final String SQL_QUERY = "SELECT id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_ eliminar, der_imprimir FROM relusuapl WHERE id_relusuapl = ?";
+    private static final String SQL_QUERY = "SELECT id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_ eliminar, der_imprimir, Fecha_relusuapl FROM relusuapl WHERE id_relusuapl = ?";
 
     public List<Relusuapl> select() {
         Connection conn = null;
@@ -45,6 +45,7 @@ public class RelusuaplDAO {
                 String derEditar = rs.getString("der_editar");
                 String derEliminar = rs.getString("der_ eliminar");
                 String derImprimir = rs.getString("der_imprimir");
+                String Fecharelusuapl = rs.getString("Fecha_relusuapl");
                 
                 relusuapl = new Relusuapl();
                 relusuapl.setId_relusuapl(idDerechosusuapl);
@@ -54,6 +55,7 @@ public class RelusuaplDAO {
                 relusuapl.setDer_editar(derEditar);
                 relusuapl.setDer_eliminar(derEliminar);
                 relusuapl.setDer_imprimir(derImprimir);
+                relusuapl.setFecha_relusuapl(Fecharelusuapl);
                 
                 relusuaples.add(relusuapl);
             }
@@ -82,6 +84,7 @@ public class RelusuaplDAO {
             stmt.setString(4, relusuapl.getDer_editar());
             stmt.setString(5, relusuapl.getDer_eliminar());
             stmt.setString(6, relusuapl.getDer_imprimir());
+            stmt.setString(7, relusuapl.getFecha_relusuapl());
 
             System.out.println("ejecutando query: " + SQL_INSERT);
             rows = stmt.executeUpdate();
@@ -112,7 +115,8 @@ public class RelusuaplDAO {
             stmt.setString(4, relusuapl.getDer_editar());
             stmt.setString(5, relusuapl.getDer_eliminar());
             stmt.setString(6, relusuapl.getDer_imprimir());
-            stmt.setInt(7, relusuapl.getId_relusuapl());
+            stmt.setString(7, relusuapl.getFecha_relusuapl());
+            stmt.setInt(8, relusuapl.getId_relusuapl());
             
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado: " + rows);
@@ -170,6 +174,7 @@ public class RelusuaplDAO {
                 String derEditar = rs.getString("der_editar");
                 String derEliminar = rs.getString("der_ eliminar");
                 String derImprimir = rs.getString("der_imprimir");
+                String Fecharelusuapl = rs.getString("Fecha_relusuapl");
                 
                 relusuapl = new Relusuapl();
                 relusuapl.setId_relusuapl(idDerechosusuapl);
@@ -179,6 +184,7 @@ public class RelusuaplDAO {
                 relusuapl.setDer_editar(derEditar);
                 relusuapl.setDer_eliminar(derEliminar);
                 relusuapl.setDer_imprimir(derImprimir);
+                relusuapl.setFecha_relusuapl(Fecharelusuapl);
 
             }
 

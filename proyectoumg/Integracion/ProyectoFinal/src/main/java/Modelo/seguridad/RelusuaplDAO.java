@@ -19,12 +19,12 @@ import java.util.List;
  * @author visitante
  */
 public class RelusuaplDAO {
-
-    private static final String SQL_SELECT = "SELECT id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_ eliminar, der_imprimir,  Fecha_relusuapl FROM relusuapl";
-    private static final String SQL_INSERT = "INSERT INTO relusuapl(id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_ eliminar, der_imprimir, Fecha_relusuapl) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE relusuapl SET id_aplicacion=?, id_usuario=?, der_insertar=?, der_editar=?, der_ eliminar=?, der_imprimir=?, Fecha_relusuapl=? WHERE id_relusuapl = ?";
+    //Modificacion de fecha en RelusuaplDAO Hecho por Kathia Contreras
+    private static final String SQL_SELECT = "SELECT id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_eliminar, der_imprimir, fecha FROM relusuapl";
+    private static final String SQL_INSERT = "INSERT INTO relusuapl(id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_eliminar, der_imprimir,fecha) VALUES(?, ?, ?, ?, ?, ?, ?,?)";
+    private static final String SQL_UPDATE = "UPDATE relusuapl SET id_aplicacion=?, id_usuario=?, der_insertar=?, der_editar=?, der_eliminar=?, der_imprimir=?, fecha =? WHERE id_relusuapl = ?";
     private static final String SQL_DELETE = "DELETE FROM relusuapl WHERE id_relusuapl=?";
-    private static final String SQL_QUERY = "SELECT id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_ eliminar, der_imprimir, Fecha_relusuapl FROM relusuapl WHERE id_relusuapl = ?";
+    private static final String SQL_QUERY = "SELECT id_relusuapl, id_aplicacion, id_usuario, der_insertar, der_editar, der_eliminar, der_imprimir, fecha FROM relusuapl WHERE id_relusuapl = ?";
 
     public List<Relusuapl> select() {
         Connection conn = null;
@@ -45,8 +45,7 @@ public class RelusuaplDAO {
                 String derEditar = rs.getString("der_editar");
                 String derEliminar = rs.getString("der_ eliminar");
                 String derImprimir = rs.getString("der_imprimir");
-                String Fecharelusuapl = rs.getString("Fecha_relusuapl");
-                
+                String fechaRelUsuApl = rs.getString("fecha");
                 relusuapl = new Relusuapl();
                 relusuapl.setId_relusuapl(idDerechosusuapl);
                 relusuapl.setId_aplicacion(idAplicacion);
@@ -55,7 +54,7 @@ public class RelusuaplDAO {
                 relusuapl.setDer_editar(derEditar);
                 relusuapl.setDer_eliminar(derEliminar);
                 relusuapl.setDer_imprimir(derImprimir);
-                relusuapl.setFecha_relusuapl(Fecharelusuapl);
+                relusuapl.setFecha_relusuapl(fechaRelUsuApl);
                 
                 relusuaples.add(relusuapl);
             }
@@ -78,14 +77,14 @@ public class RelusuaplDAO {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setInt(1, relusuapl.getId_aplicacion());
-            stmt.setInt(2, relusuapl.getId_usuario());
-            stmt.setString(3, relusuapl.getDer_insertar());
-            stmt.setString(4, relusuapl.getDer_editar());
-            stmt.setString(5, relusuapl.getDer_eliminar());
-            stmt.setString(6, relusuapl.getDer_imprimir());
-            stmt.setString(7, relusuapl.getFecha_relusuapl());
-
+            stmt.setInt(1, relusuapl.getId_relusuapl());
+            stmt.setInt(2, relusuapl.getId_aplicacion());
+            stmt.setInt(3, relusuapl.getId_usuario());
+            stmt.setString(4, relusuapl.getDer_insertar());
+            stmt.setString(5, relusuapl.getDer_editar());
+            stmt.setString(6, relusuapl.getDer_eliminar());
+            stmt.setString(7, relusuapl.getDer_imprimir());
+            stmt.setString(8, relusuapl.getFecha_relusuapl());
             System.out.println("ejecutando query: " + SQL_INSERT);
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados: " + rows);
@@ -116,7 +115,6 @@ public class RelusuaplDAO {
             stmt.setString(5, relusuapl.getDer_eliminar());
             stmt.setString(6, relusuapl.getDer_imprimir());
             stmt.setString(7, relusuapl.getFecha_relusuapl());
-            stmt.setInt(8, relusuapl.getId_relusuapl());
             
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado: " + rows);
@@ -174,8 +172,7 @@ public class RelusuaplDAO {
                 String derEditar = rs.getString("der_editar");
                 String derEliminar = rs.getString("der_ eliminar");
                 String derImprimir = rs.getString("der_imprimir");
-                String Fecharelusuapl = rs.getString("Fecha_relusuapl");
-                
+                String fechaRelUsuApl = rs.getString("fecha");
                 relusuapl = new Relusuapl();
                 relusuapl.setId_relusuapl(idDerechosusuapl);
                 relusuapl.setId_aplicacion(idAplicacion);
@@ -184,8 +181,7 @@ public class RelusuaplDAO {
                 relusuapl.setDer_editar(derEditar);
                 relusuapl.setDer_eliminar(derEliminar);
                 relusuapl.setDer_imprimir(derImprimir);
-                relusuapl.setFecha_relusuapl(Fecharelusuapl);
-
+                relusuapl.setFecha_relusuapl(fechaRelUsuApl);
             }
 
         } catch (SQLException ex) {

@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS relusuapl(
     der_editar VARCHAR(1) NOT NULL,
     der_eliminar VARCHAR(1) NOT NULL,
     der_imprimir VARCHAR(1) NOT NULL,
+    fecha_relusuapl datetime;
     PRIMARY KEY (id_relusuapl),
     FOREIGN KEY (id_aplicacion) references aplicacion(id_aplicacion),
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)

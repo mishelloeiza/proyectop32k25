@@ -40,7 +40,7 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
         }
     }*/
 //--------------------------------------------------------------------------prueba
-    public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
+    public class AplicacionaUsuariosDEF extends javax.swing.JInternalFrame {
     public void llenadoDeCombos() {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         List<Usuario> usuarios = usuarioDAO.select();
@@ -84,7 +84,7 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
 });
     }
     
-    public AplicacionaUsuarios() {
+    public AplicacionaUsuariosDEF() {
         initComponents();
         llenadoDeCombos();
         //HECHO POR KATHIA CONTRERAS OCULTAMIENDO DE DERECHOS

@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo.seguridad;
+package Modelo.bancos;
 
-import Controlador.seguridad.Aplicacion;
+import Modelo.bancos.*;
+import Controlador.bancos.bancos;
 import Modelo.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,44 +15,35 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author visitante
- */
-public class AplicacionDAO {
+public class BancoDAO {
 
-    private static final String SQL_SELECT = "SELECT id_aplicacion, nombre_aplicacion, estatus_aplicacion FROM aplicacion";
-    private static final String SQL_INSERT = "INSERT INTO aplicacion(id_aplicacion,nombre_aplicacion, estatus_aplicacion) VALUES(?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE aplicacion SET  nombre_aplicacion=?, estatus_aplicacion=? WHERE id_aplicacion = ?";
-    private static final String SQL_DELETE = "DELETE FROM aplicacion WHERE id_aplicacion=?";
-    private static final String SQL_QUERY = "SELECT id_aplicacion, nombre_aplicacion, estatus_aplicacion FROM aplicacion WHERE id_aplicacion = ?";
+    private static final String SQL_SELECT = "SELECT id_banco, nombre FROM bancos";
+    private static final String SQL_INSERT = "INSERT INTO bancos(nombre) VALUES(?)";
+    private static final String SQL_UPDATE = "UPDATE bancos SET nombre = ? WHERE id_banco = ?";
+    private static final String SQL_DELETE = "DELETE FROM bancos WHERE id_banco = ?";
+    private static final String SQL_QUERY = "SELECT id_banco, nombre FROM bancos WHERE id_banco = ?";
 
-    public List<Aplicacion> select() {
+    public List<bancos> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Aplicacion aplicacion = null;
-        List<Aplicacion> list_aplicaciones = new ArrayList<Aplicacion>();
+        bancos banco = null;
+        List<bancos> list_bancos = new ArrayList<>();
 
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int id_aplicacion = rs.getInt("id_aplicacion");
-                String nombre_aplicacion = rs.getString("nombre_aplicacion");
-                String estatus_aplicacion = rs.getString("estatus_aplicacion");
+                int id_banco = rs.getInt("id_banco");
+                String nombre = rs.getString("nombre");
                 
-                aplicacion = new Aplicacion();
-                aplicacion.setId_aplicacion(id_aplicacion);
-                aplicacion.setNombre_aplicacion(nombre_aplicacion);
-                aplicacion.setEstatus_aplicacion(estatus_aplicacion);
-              
+                banco = new bancos();
+                banco.setId_banco(id_banco);
+                banco.setNombre(nombre);
                 
-                list_aplicaciones.add(aplicacion);
-              
+                list_bancos.add(banco);
             }
-
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -60,25 +52,19 @@ public class AplicacionDAO {
             Conexion.close(conn);
         }
 
-        return list_aplicaciones;
+        return list_bancos;
     }
 
-    public int insert(Aplicacion aplicacion) {
+    public int insert(bancos banco) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setInt(1, aplicacion.getId_aplicacion());
-            stmt.setString(2, aplicacion.getNombre_aplicacion());
-            stmt.setString(3, aplicacion.getEstatus_aplicacion());
-         
+            stmt.setString(1, banco.getNombre());
 
-
-            System.out.println("ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
-            System.out.println("Registros afectados:" + rows);
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -89,24 +75,18 @@ public class AplicacionDAO {
         return rows;
     }
 
-    public int update(Aplicacion aplicacion) {
+    public int update(bancos banco) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
 
         try {
             conn = Conexion.getConnection();
-            System.out.println("ejecutando query: " + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, aplicacion.getNombre_aplicacion());
-            stmt.setString(2, aplicacion.getEstatus_aplicacion());
-            //comodin del where
-            stmt.setInt(3,aplicacion.getId_aplicacion());
-           
+            stmt.setString(1, banco.getNombre());
+            stmt.setInt(2, banco.getId_banco());
 
             rows = stmt.executeUpdate();
-            System.out.println("Registros actualizado:" + rows);
-
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -117,18 +97,16 @@ public class AplicacionDAO {
         return rows;
     }
 
-    public int delete(Aplicacion aplicacion) {
+    public int delete(bancos banco) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
 
         try {
             conn = Conexion.getConnection();
-            System.out.println("Ejecutando query:" + SQL_DELETE);
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(1, aplicacion.getId_aplicacion());
+            stmt.setInt(1, banco.getId_banco());
             rows = stmt.executeUpdate();
-            System.out.println("Registros eliminados:" + rows);
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -139,36 +117,23 @@ public class AplicacionDAO {
         return rows;
     }
 
-//    public List<Persona> query(Persona vendedor) { // Si se utiliza un ArrayList
-    public Aplicacion query(Aplicacion aplicacion) {    
+    public bancos query(bancos banco) {    
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Aplicacion> list_aplicacion = new ArrayList<Aplicacion>();
-        int rows = 0;
 
         try {
             conn = Conexion.getConnection();
-            System.out.println("Ejecutando query:" + SQL_QUERY);
             stmt = conn.prepareStatement(SQL_QUERY);
-            stmt.setInt(1, aplicacion.getId_aplicacion());
+            stmt.setInt(1, banco.getId_banco());
             rs = stmt.executeQuery();
-            while (rs.next()) {
-             int id_aplicacion = rs.getInt("id_aplicacion");
-                String nombre_aplicacion = rs.getString("nombre_aplicacion");
-                String estatus_aplicacion = rs.getString("estatus_aplicacion");
+            if (rs.next()) {
+                int id_banco = rs.getInt("id_banco");
+                String nombre = rs.getString("nombre");
                 
-                aplicacion = new Aplicacion();
-                aplicacion.setId_aplicacion(id_aplicacion);
-                aplicacion.setNombre_aplicacion(nombre_aplicacion);
-                aplicacion.setEstatus_aplicacion(estatus_aplicacion);
-              
-                
-               
-                
-                //vendedores.add(vendedor); // Si se utiliza un ArrayList
+                banco.setId_banco(id_banco);
+                banco.setNombre(nombre);
             }
-            //System.out.println("Registros buscado:" + vendedor);
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -177,8 +142,6 @@ public class AplicacionDAO {
             Conexion.close(conn);
         }
 
-        //return vendedores;  // Si se utiliza un ArrayList
-        return aplicacion;
+        return banco;
     }
-            
 }

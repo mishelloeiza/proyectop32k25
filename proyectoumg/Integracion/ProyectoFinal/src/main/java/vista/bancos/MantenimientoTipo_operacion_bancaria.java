@@ -14,13 +14,14 @@ import java.io.File;
 import Controlador.seguridad.Bitacora;
 import Controlador.seguridad.UsuarioConectado;
 
+//MANTENIMINETO CREADO POR Anderson Cristofer Rodríguez Pivaral 
 
 /**
  *
  * @author visitante
  */
 public class MantenimientoTipo_operacion_bancaria extends javax.swing.JInternalFrame {
-int APLICACION=500;
+int APLICACION=104;
 
     
     public void llenadoDeCombos() {

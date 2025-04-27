@@ -72,12 +72,6 @@ public class MdiGeneral extends javax.swing.JFrame {
         MantenimientoBancos = new javax.swing.JMenuItem();
         MantenimientoAplicaciones1 = new javax.swing.JMenuItem();
         MantenimientoTipoOperacionBancaria = new javax.swing.JMenuItem();
-        mnuAsignaciones1 = new javax.swing.JMenu();
-        AsignacionesAplicacionesPerfil1 = new javax.swing.JMenuItem();
-        AsignacionAplicacionesUsuario1 = new javax.swing.JMenuItem();
-        AsignacionPerfilUsuario1 = new javax.swing.JMenuItem();
-        Bitacora1 = new javax.swing.JMenu();
-        ConsultaBitacora1 = new javax.swing.JMenuItem();
         salirSistema1 = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
@@ -187,6 +181,8 @@ public class MdiGeneral extends javax.swing.JFrame {
         });
         MenuGeneralSeguridad.add(salirSistema);
 
+        jMenuBar1.add(MenuGeneralSeguridad);
+
         MenuGeneralSeguridad1.setText("BANCOS");
 
         MenuMantenimientos1.setText("Mantenimientos");
@@ -222,51 +218,6 @@ public class MdiGeneral extends javax.swing.JFrame {
 
         MenuGeneralSeguridad1.add(MenuMantenimientos1);
 
-        mnuAsignaciones1.setText("Asignaciones");
-
-        AsignacionesAplicacionesPerfil1.setText("Asignacion Aplicaciones a Perfil");
-        AsignacionesAplicacionesPerfil1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AsignacionesAplicacionesPerfil1ActionPerformed(evt);
-            }
-        });
-        mnuAsignaciones1.add(AsignacionesAplicacionesPerfil1);
-
-        AsignacionAplicacionesUsuario1.setText("Asignacion Aplicaciones a Usuario");
-        AsignacionAplicacionesUsuario1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AsignacionAplicacionesUsuario1ActionPerformed(evt);
-            }
-        });
-        mnuAsignaciones1.add(AsignacionAplicacionesUsuario1);
-
-        AsignacionPerfilUsuario1.setText("Asignacion Perfil a Usuario");
-        AsignacionPerfilUsuario1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AsignacionPerfilUsuario1ActionPerformed(evt);
-            }
-        });
-        mnuAsignaciones1.add(AsignacionPerfilUsuario1);
-
-        MenuGeneralSeguridad1.add(mnuAsignaciones1);
-
-        Bitacora1.setText("Bitacora");
-        Bitacora1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Bitacora1ActionPerformed(evt);
-            }
-        });
-
-        ConsultaBitacora1.setText("Consulta Bitacora");
-        ConsultaBitacora1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConsultaBitacora1ActionPerformed(evt);
-            }
-        });
-        Bitacora1.add(ConsultaBitacora1);
-
-        MenuGeneralSeguridad1.add(Bitacora1);
-
         salirSistema1.setText("Salir del Sistema");
         salirSistema1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,9 +226,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         });
         MenuGeneralSeguridad1.add(salirSistema1);
 
-        MenuGeneralSeguridad.add(MenuGeneralSeguridad1);
-
-        jMenuBar1.add(MenuGeneralSeguridad);
+        jMenuBar1.add(MenuGeneralSeguridad1);
 
         setJMenuBar(jMenuBar1);
 
@@ -468,26 +417,6 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
         // TODO add your handling code here:
     }//GEN-LAST:event_MenuMantenimientos1ActionPerformed
 
-    private void AsignacionesAplicacionesPerfil1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignacionesAplicacionesPerfil1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AsignacionesAplicacionesPerfil1ActionPerformed
-
-    private void AsignacionAplicacionesUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignacionAplicacionesUsuario1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AsignacionAplicacionesUsuario1ActionPerformed
-
-    private void AsignacionPerfilUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignacionPerfilUsuario1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AsignacionPerfilUsuario1ActionPerformed
-
-    private void ConsultaBitacora1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultaBitacora1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ConsultaBitacora1ActionPerformed
-
-    private void Bitacora1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bitacora1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Bitacora1ActionPerformed
-
     private void salirSistema1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirSistema1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_salirSistema1ActionPerformed
@@ -529,15 +458,10 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AsignacionAplicacionesUsuario;
-    private javax.swing.JMenuItem AsignacionAplicacionesUsuario1;
     private javax.swing.JMenuItem AsignacionPerfilUsuario;
-    private javax.swing.JMenuItem AsignacionPerfilUsuario1;
     private javax.swing.JMenuItem AsignacionesAplicacionesPerfil;
-    private javax.swing.JMenuItem AsignacionesAplicacionesPerfil1;
     private javax.swing.JMenu Bitacora;
-    private javax.swing.JMenu Bitacora1;
     private javax.swing.JMenuItem ConsultaBitacora;
-    private javax.swing.JMenuItem ConsultaBitacora1;
     private javax.swing.JMenuItem MantenimientoAplicaciones;
     private javax.swing.JMenuItem MantenimientoAplicaciones1;
     private javax.swing.JMenuItem MantenimientoBancos;
@@ -554,7 +478,6 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenu mnuAsignaciones;
-    private javax.swing.JMenu mnuAsignaciones1;
     private javax.swing.JMenuItem salirSistema;
     private javax.swing.JMenuItem salirSistema1;
     // End of variables declaration//GEN-END:variables

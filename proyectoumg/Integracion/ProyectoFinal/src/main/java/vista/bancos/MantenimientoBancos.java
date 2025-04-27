@@ -2,6 +2,8 @@ package vista.bancos;
 
 import Modelo.bancos.BancoDAO;
 import Controlador.bancos.bancos;
+import Controlador.seguridad.Bitacora;
+import Controlador.seguridad.UsuarioConectado;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -11,8 +13,9 @@ import java.io.File;
  *
  * @author visitante
  */
-public class MantenimientoBancos extends javax.swing.JInternalFrame {
 
+public class MantenimientoBancos extends javax.swing.JInternalFrame {
+int APLICACION=103;
     public void llenadoDeCombos() {
         BancoDAO bancoDAO = new BancoDAO();
         List<bancos> banco = bancoDAO.select();
@@ -21,7 +24,7 @@ public class MantenimientoBancos extends javax.swing.JInternalFrame {
             cbox_empleado.addItem(banco.get(i).getNombre());
         }
     }
-
+//CREADO POR MISHEL LOEIZA 9959-23-3457
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID Banco");
@@ -43,6 +46,9 @@ public class MantenimientoBancos extends javax.swing.JInternalFrame {
         bancoAConsultar.setId_banco(Integer.parseInt(txtbuscado.getText()));
         bancoAConsultar = bancoDAO.query(bancoAConsultar);
         txtNombre.setText(bancoAConsultar.getNombre());
+         int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Buscar Banco");    
     }
 
     public MantenimientoBancos() {
@@ -131,17 +137,18 @@ public class MantenimientoBancos extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID Sede", "Nombre", "Estatus"
+                "ID Banco", "Nombre Banco"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tablaVendedores.setDragEnabled(true);
         jScrollPane1.setViewportView(tablaVendedores);
 
         cbox_empleado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -203,28 +210,28 @@ public class MantenimientoBancos extends javax.swing.JInternalFrame {
                                 .addComponent(label5)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(label1)
                         .addGap(294, 294, 294))))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(401, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(70, 70, 70))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton2)
-                        .addGap(135, 135, 135)))
-                .addComponent(label4)
-                .addGap(46, 46, 46)
-                .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+                        .addGap(135, 135, 135)
+                        .addComponent(label4)
+                        .addGap(46, 46, 46)
+                        .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(480, 480, 480))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,6 +281,10 @@ public class MantenimientoBancos extends javax.swing.JInternalFrame {
     bancoAEliminar.setId_banco(Integer.parseInt(txtbuscado.getText()));
     bancoDAO.delete(bancoAEliminar);
     llenadoDeTablas();
+      UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Eliminar Banco");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -283,6 +294,10 @@ public class MantenimientoBancos extends javax.swing.JInternalFrame {
     bancoAInsertar.setNombre(txtNombre.getText());
     bancoDAO.insert(bancoAInsertar);
     llenadoDeTablas();
+    UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Insertar Banco");
 
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -299,6 +314,9 @@ public class MantenimientoBancos extends javax.swing.JInternalFrame {
     bancoAActualizar.setNombre(txtNombre.getText());
     bancoDAO.update(bancoAActualizar);
     llenadoDeTablas();
+     int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Modificar Banco");  
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -308,6 +326,9 @@ public class MantenimientoBancos extends javax.swing.JInternalFrame {
     btnRegistrar.setEnabled(true);
     btnModificar.setEnabled(true);
     btnEliminar.setEnabled(true);
+     int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Limpiar Banco");    
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed

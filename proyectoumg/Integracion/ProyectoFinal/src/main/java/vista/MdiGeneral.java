@@ -13,6 +13,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import vista.bancos.MantenimientoBancos;
+import vista.bancos.MantenimientoTipo_moneda;
 import vista.bancos.MantenimientoTipo_operacion_bancaria;
 import vista.seguridad.MantenimientoUsuario;
 import vista.seguridad.MantenimientoPerfiles;
@@ -72,6 +73,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         MantenimientoBancos = new javax.swing.JMenuItem();
         MantenimientoAplicaciones1 = new javax.swing.JMenuItem();
         MantenimientoTipoOperacionBancaria = new javax.swing.JMenuItem();
+        MantenimientoTipoMoneda = new javax.swing.JMenuItem();
         salirSistema1 = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
@@ -215,6 +217,14 @@ public class MdiGeneral extends javax.swing.JFrame {
             }
         });
         MenuMantenimientos1.add(MantenimientoTipoOperacionBancaria);
+
+        MantenimientoTipoMoneda.setText("Mantenimiento Tipo de Moneda");
+        MantenimientoTipoMoneda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MantenimientoTipoMonedaActionPerformed(evt);
+            }
+        });
+        MenuMantenimientos1.add(MantenimientoTipoMoneda);
 
         MenuGeneralSeguridad1.add(MenuMantenimientos1);
 
@@ -421,6 +431,19 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
         // TODO add your handling code here:
     }//GEN-LAST:event_salirSistema1ActionPerformed
 
+    private void MantenimientoTipoMonedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MantenimientoTipoMonedaActionPerformed
+        // TODO add your handling code here:
+         // TODO add your handling code here:
+        for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+            frame.dispose(); 
+       }
+       MantenimientoTipo_moneda ventana = new MantenimientoTipo_moneda();
+       jDesktopPane1.add(ventana);
+       Dimension desktopSize = jDesktopPane1.getSize();
+       Dimension FrameSize = ventana.getSize();
+       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_MantenimientoTipoMonedaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -466,6 +489,7 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
     private javax.swing.JMenuItem MantenimientoAplicaciones1;
     private javax.swing.JMenuItem MantenimientoBancos;
     private javax.swing.JMenuItem MantenimientoPerfiles;
+    private javax.swing.JMenuItem MantenimientoTipoMoneda;
     private javax.swing.JMenuItem MantenimientoTipoOperacionBancaria;
     private javax.swing.JMenuItem MantenimientoUsuarios;
     private javax.swing.JMenu MenuGeneralSeguridad;

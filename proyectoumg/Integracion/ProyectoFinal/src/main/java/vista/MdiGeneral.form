@@ -144,12 +144,12 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MantenimientoAplicaciones1ActionPerformed"/>
                       </Events>
                     </MenuItem>
-                    <MenuItem class="javax.swing.JMenuItem" name="MantenimientoPerfiles1">
+                    <MenuItem class="javax.swing.JMenuItem" name="MantenimientoTipoOperacionBancaria">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Mantenimiento Tipo de operaci&#xf2;n bancaria"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MantenimientoPerfiles1ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MantenimientoTipoOperacionBancariaActionPerformed"/>
                       </Events>
                     </MenuItem>
                   </SubComponents>

@@ -13,6 +13,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import vista.bancos.MantenimientoBancos;
+import vista.bancos.MantenimientoTipo_operacion_bancaria;
 import vista.seguridad.MantenimientoUsuario;
 import vista.seguridad.MantenimientoPerfiles;
 import vista.seguridad.MantenimientoAplicacion;
@@ -70,7 +71,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         MenuMantenimientos1 = new javax.swing.JMenu();
         MantenimientoBancos = new javax.swing.JMenuItem();
         MantenimientoAplicaciones1 = new javax.swing.JMenuItem();
-        MantenimientoPerfiles1 = new javax.swing.JMenuItem();
+        MantenimientoTipoOperacionBancaria = new javax.swing.JMenuItem();
         mnuAsignaciones1 = new javax.swing.JMenu();
         AsignacionesAplicacionesPerfil1 = new javax.swing.JMenuItem();
         AsignacionAplicacionesUsuario1 = new javax.swing.JMenuItem();
@@ -211,13 +212,13 @@ public class MdiGeneral extends javax.swing.JFrame {
         });
         MenuMantenimientos1.add(MantenimientoAplicaciones1);
 
-        MantenimientoPerfiles1.setText("Mantenimiento Tipo de operaciòn bancaria");
-        MantenimientoPerfiles1.addActionListener(new java.awt.event.ActionListener() {
+        MantenimientoTipoOperacionBancaria.setText("Mantenimiento Tipo de operaciòn bancaria");
+        MantenimientoTipoOperacionBancaria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MantenimientoPerfiles1ActionPerformed(evt);
+                MantenimientoTipoOperacionBancariaActionPerformed(evt);
             }
         });
-        MenuMantenimientos1.add(MantenimientoPerfiles1);
+        MenuMantenimientos1.add(MantenimientoTipoOperacionBancaria);
 
         MenuGeneralSeguridad1.add(MenuMantenimientos1);
 
@@ -451,9 +452,17 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
         // TODO add your handling code here:
     }//GEN-LAST:event_MantenimientoAplicaciones1ActionPerformed
 
-    private void MantenimientoPerfiles1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MantenimientoPerfiles1ActionPerformed
+    private void MantenimientoTipoOperacionBancariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MantenimientoTipoOperacionBancariaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_MantenimientoPerfiles1ActionPerformed
+        for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+            frame.dispose(); 
+       }
+       MantenimientoTipo_operacion_bancaria ventana = new MantenimientoTipo_operacion_bancaria();
+       jDesktopPane1.add(ventana);
+       Dimension desktopSize = jDesktopPane1.getSize();
+       Dimension FrameSize = ventana.getSize();
+       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_MantenimientoTipoOperacionBancariaActionPerformed
 
     private void MenuMantenimientos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuMantenimientos1ActionPerformed
         // TODO add your handling code here:
@@ -533,7 +542,7 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
     private javax.swing.JMenuItem MantenimientoAplicaciones1;
     private javax.swing.JMenuItem MantenimientoBancos;
     private javax.swing.JMenuItem MantenimientoPerfiles;
-    private javax.swing.JMenuItem MantenimientoPerfiles1;
+    private javax.swing.JMenuItem MantenimientoTipoOperacionBancaria;
     private javax.swing.JMenuItem MantenimientoUsuarios;
     private javax.swing.JMenu MenuGeneralSeguridad;
     private javax.swing.JMenu MenuGeneralSeguridad1;

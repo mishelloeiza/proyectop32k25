@@ -6,15 +6,14 @@ CREATE TABLE IF NOT EXISTS perfiles(
 ) ENGINE = INNODB CHARSET =latin1;
 
 CREATE TABLE IF NOT EXISTS relusuapl(
-    id_relusuapl INT(10) NOT NULL,
-    id_aplicacion VARCHAR (25) NOT NULL,
-    id_usuario VARCHAR (1) NOT NULL,
-    der_insertar VARCHAR(1) NOT NULL,
-    der_editar VARCHAR(1) NOT NULL,
-    der_eliminar VARCHAR(1) NOT NULL,
-    der_imprimir VARCHAR(1) NOT NULL,
-    fecha_relusuapl datetime;
+  id_relusuapl int(10) NOT NULL,
+  id_aplicacion int(5) NOT NULL,
+  id_usuario int(11) NOT NULL,
+  der_insertar varchar(1) NOT NULL,
+  der_editar varchar(1) NOT NULL,
+  der_eliminar varchar(1) NOT NULL,
+  der_imprimir varchar(1) NOT NULL,
+  fecha varchar(50) NOT NULL,
     PRIMARY KEY (id_relusuapl),
-    FOREIGN KEY (id_aplicacion) references aplicacion(id_aplicacion),
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+    FOREIGN KEY (id_aplicacion) references aplicacion(id_aplicacion)
 ) ENGINE = INNODB CHARSET =latin1;

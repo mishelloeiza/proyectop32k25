@@ -18,7 +18,6 @@ import vista.seguridad.MantenimientoAplicacion;
 import vista.seguridad.MantenimientoBitacora;
 import vista.seguridad.AplicacionaUsuariosDEF;
 import vista.seguridad.MantenimientoRelPerfApl;
-import vista.seguridad.AsignacionUsuarioPerfil;
 import vista.seguridad.MantenimientoRelPerfUsu;
 
 /**

@@ -19,6 +19,7 @@ import vista.seguridad.MantenimientoBitacora;
 import vista.seguridad.AplicacionaUsuariosDEF;
 import vista.seguridad.MantenimientoRelPerfApl;
 import vista.seguridad.AsignacionUsuarioPerfil;
+import vista.seguridad.MantenimientoRelPerfUsu;
 
 /**
  *
@@ -298,7 +299,7 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
 
     private void AsignacionPerfilUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignacionPerfilUsuarioActionPerformed
         // TODO add your handling code here:
-        AsignacionUsuarioPerfil ventana = new AsignacionUsuarioPerfil();
+       MantenimientoRelPerfUsu ventana = new MantenimientoRelPerfUsu();
        jDesktopPane1.add(ventana);
       Dimension desktopSize = jDesktopPane1.getSize();
       Dimension FrameSize = ventana.getSize();

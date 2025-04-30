@@ -5,6 +5,8 @@
  */
 package Controlador.compras_cxp;
 
+import java.time.LocalDateTime;
+
 /**
  *
  * @author visitante
@@ -18,9 +20,9 @@ public class Proveedor {
     String email_proveedor;
     int saldo_proveedor;
     int estatus_proveedor;
-    String fecha_registo; 
+ 
 
-    public Proveedor(int id_proveedor, String nombre_proveedor, String direccion_proveedor, String telefono_proveedor, String email_proveedor, int saldo_proveedor, int estatus_proveedor, String fecha_registo) {
+    public Proveedor(int id_proveedor, String nombre_proveedor, String direccion_proveedor, String telefono_proveedor, String email_proveedor, int saldo_proveedor, int estatus_proveedor, LocalDateTime fecha_registro) {
         this.id_proveedor = id_proveedor;
         this.nombre_proveedor = nombre_proveedor;
         this.direccion_proveedor = direccion_proveedor;
@@ -28,12 +30,13 @@ public class Proveedor {
         this.email_proveedor = email_proveedor;
         this.saldo_proveedor = saldo_proveedor;
         this.estatus_proveedor = estatus_proveedor;
-        this.fecha_registo = fecha_registo;
+        this.fecha_registro = fecha_registro;
+      
     }
 
     @Override
     public String toString() {
-        return "Proveedor{" + "id_proveedor=" + id_proveedor + ", nombre_proveedor=" + nombre_proveedor + ", direccion_proveedor=" + direccion_proveedor + ", telefono_proveedor=" + telefono_proveedor + ", email_proveedor=" + email_proveedor + ", saldo_proveedor=" + saldo_proveedor + ", estatus_proveedor=" + estatus_proveedor + ", fecha_registo=" + fecha_registo + '}';
+        return "Proveedor{" + "id_proveedor=" + id_proveedor + ", nombre_proveedor=" + nombre_proveedor + ", direccion_proveedor=" + direccion_proveedor + ", telefono_proveedor=" + telefono_proveedor + ", email_proveedor=" + email_proveedor + ", saldo_proveedor=" + saldo_proveedor + ", estatus_proveedor=" + estatus_proveedor + ", fecha_registro=" + fecha_registro + '}';
     }
 
     public int getId_proveedor() {
@@ -92,13 +95,16 @@ public class Proveedor {
         this.estatus_proveedor = estatus_proveedor;
     }
 
-    public String getFecha_registo() {
-        return fecha_registo;
-    }
+    private LocalDateTime fecha_registro;
 
-    public void setFecha_registo(String fecha_registo) {
-        this.fecha_registo = fecha_registo;
-    }
+public LocalDateTime getFecha_registro() {
+    return fecha_registro;
+}
+
+public void setFecha_registro(LocalDateTime fecha_registro) {
+    this.fecha_registro = fecha_registro;
+}
+
       
     public Proveedor() {
     }

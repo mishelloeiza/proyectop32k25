@@ -19,6 +19,7 @@ import vista.seguridad.MantenimientoBitacora;
 import vista.seguridad.AplicacionaUsuariosDEF;
 import vista.seguridad.MantenimientoRelPerfApl;
 import vista.seguridad.MantenimientoRelPerfUsu;
+import vista.compras_cxp.MantenimientoProveedores;
 
 /**
  *
@@ -58,6 +59,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         MantenimientoUsuarios = new javax.swing.JMenuItem();
         MantenimientoAplicaciones = new javax.swing.JMenuItem();
         MantenimientoPerfiles = new javax.swing.JMenuItem();
+        MProveedores = new javax.swing.JMenuItem();
         mnuAsignaciones = new javax.swing.JMenu();
         AsignacionesAplicacionesPerfil = new javax.swing.JMenuItem();
         AsignacionAplicacionesUsuario = new javax.swing.JMenuItem();
@@ -117,6 +119,14 @@ public class MdiGeneral extends javax.swing.JFrame {
             }
         });
         MenuMantenimientos.add(MantenimientoPerfiles);
+
+        MProveedores.setText("Mantenimiento Proveedores");
+        MProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MProveedoresActionPerformed(evt);
+            }
+        });
+        MenuMantenimientos.add(MProveedores);
 
         MenuGeneralSeguridad.add(MenuMantenimientos);
 
@@ -330,6 +340,14 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
                     }
     }//GEN-LAST:event_salirSistemaActionPerformed
 
+    private void MProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MProveedoresActionPerformed
+        MantenimientoProveedores ventana = new MantenimientoProveedores();
+       jDesktopPane1.add(ventana);
+      Dimension desktopSize = jDesktopPane1.getSize();
+      Dimension FrameSize = ventana.getSize();
+     ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_MProveedoresActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -371,6 +389,7 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
     private javax.swing.JMenuItem AsignacionesAplicacionesPerfil;
     private javax.swing.JMenu Bitacora;
     private javax.swing.JMenuItem ConsultaBitacora;
+    private javax.swing.JMenuItem MProveedores;
     private javax.swing.JMenuItem MantenimientoAplicaciones;
     private javax.swing.JMenuItem MantenimientoPerfiles;
     private javax.swing.JMenuItem MantenimientoUsuarios;

@@ -1,11 +1,11 @@
-CREATE TABLE IF NOT EXISTS proveedor(
-    id_proveedor INT,
+CREATE TABLE IF NOT EXISTS proveedor (
+    id_proveedor INT AUTO_INCREMENT,
     nombre_proveedor VARCHAR(60),
-    direccion_proveedor VARCHAR(60),
+    direccion_proveedor VARCHAR(100),
     telefono_proveedor VARCHAR(20),
-    email_proveedor VARCHAR(60),
+    email_proveedor VARCHAR(100),
     saldo_proveedor INT,
     estatus_proveedor INT,
-    fecha_registro DATETIME,
+    fecha_registro VARCHAR(20),
     PRIMARY KEY (id_proveedor)
 )ENGINE=InnoDB CHARACTER SET = latin1;

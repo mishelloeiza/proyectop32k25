@@ -7,12 +7,20 @@ package Controlador.compras_cxp;
 
 import Controlador.compras_cxp.Proveedor;
 import Modelo.Conexion;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class ProveedorDAO {
 
@@ -41,7 +49,7 @@ public class ProveedorDAO {
                 proveedor.setEmail_proveedor(rs.getString("email_proveedor"));
                 proveedor.setSaldo_proveedor(rs.getInt("saldo_proveedor"));
                 proveedor.setEstatus_proveedor(rs.getInt("estatus_proveedor"));
-                proveedor.setFecha_registro(rs.getTimestamp("fecha_registro").toLocalDateTime());
+                proveedor.setFecha_registro(rs.getString("fecha_registro"));
 
                 list_proveedores.add(proveedor);
             }
@@ -72,7 +80,7 @@ public class ProveedorDAO {
             stmt.setString(5, proveedor.getEmail_proveedor());
             stmt.setInt(6, proveedor.getSaldo_proveedor());
             stmt.setInt(7, proveedor.getEstatus_proveedor());
-            stmt.setTimestamp(8, java.sql.Timestamp.valueOf(proveedor.getFecha_registro()));
+            stmt.setString(8, proveedor.getFecha_registro());
 
             rows = stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -99,7 +107,7 @@ public class ProveedorDAO {
             stmt.setString(4, proveedor.getEmail_proveedor());
             stmt.setInt(5, proveedor.getSaldo_proveedor());
             stmt.setInt(6, proveedor.getEstatus_proveedor());
-            stmt.setTimestamp(7, java.sql.Timestamp.valueOf(proveedor.getFecha_registro()));
+            stmt.setString(7, proveedor.getFecha_registro());
             stmt.setInt(8, proveedor.getId_proveedor());
 
             rows = stmt.executeUpdate();
@@ -151,9 +159,11 @@ public class ProveedorDAO {
                 proveedor.setEmail_proveedor(rs.getString("email_proveedor"));
                 proveedor.setSaldo_proveedor(rs.getInt("saldo_proveedor"));
                 proveedor.setEstatus_proveedor(rs.getInt("estatus_proveedor"));
-                proveedor.setFecha_registro(rs.getTimestamp("fecha_registro").toLocalDateTime());
+                proveedor.setFecha_registro(rs.getString("fecha_registro"));
+                
             }
 
+            
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -161,7 +171,28 @@ public class ProveedorDAO {
             Conexion.close(stmt);
             Conexion.close(conn);
         }
-
+        
         return proveedor;
+        
+    }
+     
+    public void imprimirReporte() {
+        Connection conn = null;
+        Map p = new HashMap();
+        JasperReport report;
+        JasperPrint print;
+
+        try {
+            conn = Conexion.getConnection();
+            report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
+                    + "/src/main/java/reportes/"+ "ReporteVendedor.jrxml");
+            print = JasperFillManager.fillReport(report, p, conn);
+            JasperViewer view = new JasperViewer(print, false);
+            view.setTitle("Reporte de Vendedores");
+            view.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

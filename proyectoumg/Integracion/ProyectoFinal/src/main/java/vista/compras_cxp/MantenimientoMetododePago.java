@@ -9,12 +9,17 @@ import Modelo.compras_cxp.MetododepagoDAO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
+//Bitacora Implemenrada por Oscar Morales
+import Controlador.seguridad.Bitacora;
+import Controlador.seguridad.UsuarioConectado;
 /**
  *
  * @author visitante
  */
 //Mantenimiento Realizado por Alisson Rocio Abigail López Ortíz
 public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
+    
+    final int APLICACION=203;
 
     public void llenadoDeCombos() {
         MetododepagoDAO metododepagoDAO = new MetododepagoDAO();
@@ -50,6 +55,11 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
         metodoAConsultar = metododepagoDAO.query(metodoAConsultar);
         txtNombre.setText(metodoAConsultar.getNombreMetodoPago());
         txtDireccion.setText(metodoAConsultar.getEstatusMetodoPago());
+        
+        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Consulta Datos MetodoDePago");
     }
 
     public MantenimientoMetododePago() {
@@ -309,6 +319,10 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
         metodoAEliminar.setId_metodoPago(Integer.parseInt(txtbuscado.getText()));
         metododepagoDAO.delete(metodoAEliminar);
         llenadoDeTablas();
+        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Borrar Datos MetodoDePago");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -317,6 +331,10 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
         metodoAInsertar.setNombreMetodoPago(txtNombre.getText());
         metodoAInsertar.setEstatusMetodoPago(txtDireccion.getText());
         metododepagoDAO.insert(metodoAInsertar);
+        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Ingreso Datos MetodoDePego");
         llenadoDeTablas();
         
     }//GEN-LAST:event_btnRegistrarActionPerformed
@@ -335,6 +353,10 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
         metodoAActualizar.setEstatusMetodoPago(txtDireccion.getText());
         metododepagoDAO.update(metodoAActualizar);
         llenadoDeTablas();
+        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Actualizacion Datos MetodoDePago");
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

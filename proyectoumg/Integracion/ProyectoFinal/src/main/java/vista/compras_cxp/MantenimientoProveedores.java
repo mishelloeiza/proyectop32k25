@@ -9,12 +9,17 @@ import java.util.HashMap;
 import java.util.Map;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+//Bitacora Implemenrada por Oscar Morales
+import Controlador.seguridad.Bitacora;
+import Controlador.seguridad.UsuarioConectado;
 /**
  *
  * @author visitante
  */
 
 public class MantenimientoProveedores extends javax.swing.JInternalFrame {
+    
+    final int APLICACION=202;
 
     public void llenadoDeCombos() {
         ProveedorDAO proveedorDAO = new ProveedorDAO();
@@ -66,6 +71,10 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         txtSaldo.setText(String.valueOf(proveedorAConsultar.getSaldo_proveedor()));
         txtEstatus.setText(String.valueOf(proveedorAConsultar.getEstatus_proveedor()));
         txtFechaRegistro.setText(proveedorAConsultar.getFecha_registro());
+        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Consulta Datos Proveedores");
         
     }
        
@@ -381,6 +390,10 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         proveedorAEliminar.setId_proveedor(Integer.parseInt(txtbuscado.getText()));
         proveedorDAO.delete(proveedorAEliminar);
         llenadoDeTablas();
+        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Borrar Datos Proveedores");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     
@@ -396,6 +409,10 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         proveedorAInsertar.setEstatus_proveedor(Integer.parseInt(txtEstatus.getText()));
         proveedorAInsertar.setFecha_registro(txtFechaRegistro.getText());
         proveedorDAO.insert(proveedorAInsertar);
+        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Ingreso Datos Proveedores");
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -421,6 +438,10 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         proveedorAActualizar.setFecha_registro(txtFechaRegistro.getText());
         proveedorDAO.update(proveedorAActualizar);
         llenadoDeTablas();
+        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Actualizacion Datos Proveedores");
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

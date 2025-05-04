@@ -20,6 +20,7 @@ import vista.seguridad.AplicacionaUsuariosDEF;
 import vista.seguridad.MantenimientoRelPerfApl;
 import vista.seguridad.MantenimientoRelPerfUsu;
 import vista.compras_cxp.MantenimientoProveedores;
+import vista.compras_cxp.MantenimientoMetododePago;
 
 /**
  *
@@ -60,6 +61,7 @@ public class MdiGeneral extends javax.swing.JFrame {
         MantenimientoAplicaciones = new javax.swing.JMenuItem();
         MantenimientoPerfiles = new javax.swing.JMenuItem();
         MProveedores = new javax.swing.JMenuItem();
+        MantenimientoMetododepago = new javax.swing.JMenuItem();
         mnuAsignaciones = new javax.swing.JMenu();
         AsignacionesAplicacionesPerfil = new javax.swing.JMenuItem();
         AsignacionAplicacionesUsuario = new javax.swing.JMenuItem();
@@ -127,6 +129,14 @@ public class MdiGeneral extends javax.swing.JFrame {
             }
         });
         MenuMantenimientos.add(MProveedores);
+
+        MantenimientoMetododepago.setText("Mantenimiento Metodo de pago");
+        MantenimientoMetododepago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MantenimientoMetododepagoActionPerformed(evt);
+            }
+        });
+        MenuMantenimientos.add(MantenimientoMetododepago);
 
         MenuGeneralSeguridad.add(MenuMantenimientos);
 
@@ -348,6 +358,14 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
      ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_MProveedoresActionPerformed
 
+    private void MantenimientoMetododepagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MantenimientoMetododepagoActionPerformed
+    MantenimientoMetododePago ventana = new MantenimientoMetododePago();
+       jDesktopPane1.add(ventana);
+      Dimension desktopSize = jDesktopPane1.getSize();
+      Dimension FrameSize = ventana.getSize();
+     ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_MantenimientoMetododepagoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -391,6 +409,7 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
     private javax.swing.JMenuItem ConsultaBitacora;
     private javax.swing.JMenuItem MProveedores;
     private javax.swing.JMenuItem MantenimientoAplicaciones;
+    private javax.swing.JMenuItem MantenimientoMetododepago;
     private javax.swing.JMenuItem MantenimientoPerfiles;
     private javax.swing.JMenuItem MantenimientoUsuarios;
     private javax.swing.JMenu MenuGeneralSeguridad;

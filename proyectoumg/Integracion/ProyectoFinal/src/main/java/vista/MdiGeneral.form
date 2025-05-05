@@ -138,12 +138,12 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MantenimientoBancosActionPerformed"/>
                   </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="MantenimientoAplicaciones1">
+                <MenuItem class="javax.swing.JMenuItem" name="MantenimientoTipo_cuenta">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Mantenimiento Tipo de Cuenta"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MantenimientoAplicaciones1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MantenimientoTipo_cuentaActionPerformed"/>
                   </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="MantenimientoTipoOperacionBancaria">
@@ -160,22 +160,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MantenimientoTipoMonedaActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="mnuTasaCambioDiario">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Mantenimineto Tasa Cambio Diario"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuTasaCambioDiarioActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="MantenimientoTipoPago">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Mantenimiento Tipo de Pago"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MantenimientoTipoPagoActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

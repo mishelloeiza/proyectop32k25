@@ -183,8 +183,8 @@ public class Login extends javax.swing.JFrame {
                     int resultadoBitacora=0;
                     Bitacora bitacoraRegistro = new Bitacora();
                     resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Inicio Sesion");
-                    MdiGeneral menuGeneral = new MdiGeneral();
-                    menuGeneral.setVisible(true);
+                    MdiBancos menuBancos = new MdiBancos();
+                    menuBancos.setVisible(true);
                     this.dispose();
 
                 } else {

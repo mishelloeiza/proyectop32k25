@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelo.bancos;
-
-import Modelo.bancos.*;
+//MISHEL LOEIZA 9959-23-3457
 import Controlador.bancos.bancos;
 import Modelo.Conexion;
 import java.sql.Connection;
@@ -17,17 +11,16 @@ import java.util.List;
 
 public class BancoDAO {
 
-    private static final String SQL_SELECT = "SELECT id_banco, nombre FROM bancos";
-    private static final String SQL_INSERT = "INSERT INTO bancos(nombre) VALUES(?)";
-    private static final String SQL_UPDATE = "UPDATE bancos SET nombre = ? WHERE id_banco = ?";
-    private static final String SQL_DELETE = "DELETE FROM bancos WHERE id_banco = ?";
-    private static final String SQL_QUERY = "SELECT id_banco, nombre FROM bancos WHERE id_banco = ?";
+    private static final String SQL_SELECT = "SELECT id_banco, nombre, sede, direccion, telefono, email, status FROM banco";
+    private static final String SQL_INSERT = "INSERT INTO banco(nombre, sede, direccion, telefono, email, status) VALUES(?, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE = "UPDATE banco SET nombre = ?, sede = ?, direccion = ?, telefono = ?, email = ?, status = ? WHERE id_banco = ?";
+    private static final String SQL_DELETE = "DELETE FROM banco WHERE id_banco = ?";
+    private static final String SQL_QUERY = "SELECT id_banco, nombre, sede, direccion, telefono, email, status FROM banco WHERE id_banco = ?";
 
     public List<bancos> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        bancos banco = null;
         List<bancos> list_bancos = new ArrayList<>();
 
         try {
@@ -35,13 +28,14 @@ public class BancoDAO {
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int id_banco = rs.getInt("id_banco");
-                String nombre = rs.getString("nombre");
-                
-                banco = new bancos();
-                banco.setId_banco(id_banco);
-                banco.setNombre(nombre);
-                
+                bancos banco = new bancos();
+                banco.setId_banco(rs.getInt("id_banco"));
+                banco.setNombre(rs.getString("nombre"));
+                banco.setSede(rs.getString("sede"));
+                banco.setDireccion(rs.getString("direccion"));
+                banco.setTelefono(rs.getString("telefono"));
+                banco.setEmail(rs.getString("email"));
+                banco.setStatus(rs.getString("status"));
                 list_bancos.add(banco);
             }
         } catch (SQLException ex) {
@@ -59,11 +53,16 @@ public class BancoDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
+
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
             stmt.setString(1, banco.getNombre());
-
+            stmt.setString(2, banco.getSede());
+            stmt.setString(3, banco.getDireccion());
+            stmt.setString(4, banco.getTelefono());
+            stmt.setString(5, banco.getEmail());
+            stmt.setString(6, banco.getStatus());
             rows = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -84,8 +83,12 @@ public class BancoDAO {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
             stmt.setString(1, banco.getNombre());
-            stmt.setInt(2, banco.getId_banco());
-
+            stmt.setString(2, banco.getSede());
+            stmt.setString(3, banco.getDireccion());
+            stmt.setString(4, banco.getTelefono());
+            stmt.setString(5, banco.getEmail());
+            stmt.setString(6, banco.getStatus());
+            stmt.setInt(7, banco.getId_banco());
             rows = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -117,7 +120,7 @@ public class BancoDAO {
         return rows;
     }
 
-    public bancos query(bancos banco) {    
+    public bancos query(bancos banco) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -128,11 +131,12 @@ public class BancoDAO {
             stmt.setInt(1, banco.getId_banco());
             rs = stmt.executeQuery();
             if (rs.next()) {
-                int id_banco = rs.getInt("id_banco");
-                String nombre = rs.getString("nombre");
-                
-                banco.setId_banco(id_banco);
-                banco.setNombre(nombre);
+                banco.setNombre(rs.getString("nombre"));
+                banco.setSede(rs.getString("sede"));
+                banco.setDireccion(rs.getString("direccion"));
+                banco.setTelefono(rs.getString("telefono"));
+                banco.setEmail(rs.getString("email"));
+                banco.setStatus(rs.getString("status"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

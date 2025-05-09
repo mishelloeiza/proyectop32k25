@@ -207,14 +207,25 @@ public class Login extends javax.swing.JFrame {
                     
                     switch (areaSeleccionada) {
                         case "Seguridad":
-                        try {
-                            MdiGeneral menu = new MdiGeneral();
-                            menu.setVisible(true);
-                            this.dispose();
-                        } catch (Exception e) {
-                            System.out.println(e);
-                        }   
-                        break;
+                            try {
+                                 MdiGeneral menu = new MdiGeneral();
+                                menu.setVisible(true);
+                                this.dispose();
+                            } catch (Exception e) {
+                                System.out.println(e);
+                            }   
+                            break;
+
+                        case "Compras":
+                            try {
+                               MdiCompras menu2 = new MdiCompras();
+                                menu2.setVisible(true);
+                                this.dispose();
+                            } catch (Exception e) {
+                                System.out.println(e);
+                            }   
+                            break;
+
                         default:
                             break;
                     }

@@ -206,6 +206,11 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
         label6.setText("Estatus");
 
         Reporte.setText("Reporte");
+        Reporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReporteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -394,6 +399,11 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void ReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteActionPerformed
+        MetododepagoDAO metododepagoDAO = new MetododepagoDAO();
+        metododepagoDAO.imprimirReporte(); 
+    }//GEN-LAST:event_ReporteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

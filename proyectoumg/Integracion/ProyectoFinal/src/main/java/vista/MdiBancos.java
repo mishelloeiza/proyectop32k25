@@ -16,8 +16,8 @@ import vista.bancos.MantenimientoBancos;
 import vista.bancos.MantenimientoTipo_moneda;
 import vista.bancos.MantenimientoTipo_operacion_bancaria;
 import vista.bancos.MantenimientoTasa_cambio_diario;
-import vista.bancos.MantenimientoTipo_cuenta;
 import vista.bancos.MantenimientoTipo_pago;
+import vista.bancos.TransacionalMovimiento_bancario;
 import vista.seguridad.MantenimientoUsuario;
 import vista.seguridad.MantenimientoPerfiles;
 import vista.seguridad.MantenimientoAplicacion;
@@ -75,6 +75,7 @@ public class MdiBancos extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        btnMoviminetoBancario = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -181,7 +182,6 @@ public class MdiBancos extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 51, 51));
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Desktop\\OSCAR Y MISHEL AJAJ PROOOY\\APARTADOPROYECTO\\proyectoumg\\Integracion\\ProyectoFinal\\src\\main\\java\\vista\\collection.png")); // NOI18N
         jButton1.setText("TIPO DE CUENTA");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,7 +197,6 @@ public class MdiBancos extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("SimSun", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 51, 51));
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Desktop\\APARDOPROYECTO2003\\APARTADOPROYECTO\\proyectoumg\\Integracion\\ProyectoFinal\\src\\main\\java\\vista\\home.png")); // NOI18N
         jButton2.setText("BANCO");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,7 +208,6 @@ public class MdiBancos extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("SimSun", 1, 18)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 51, 51));
-        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Desktop\\OSCAR Y MISHEL AJAJ PROOOY\\APARTADOPROYECTO\\proyectoumg\\Integracion\\ProyectoFinal\\src\\main\\java\\vista\\collection.png")); // NOI18N
         jButton3.setText("TIPO DE PAGO");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -219,7 +217,6 @@ public class MdiBancos extends javax.swing.JFrame {
 
         jButton4.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(0, 51, 51));
-        jButton4.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Desktop\\OSCAR Y MISHEL AJAJ PROOOY\\APARTADOPROYECTO\\proyectoumg\\Integracion\\ProyectoFinal\\src\\main\\java\\vista\\collection.png")); // NOI18N
         jButton4.setText("TASA DE CAMBIO D/R");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,7 +226,6 @@ public class MdiBancos extends javax.swing.JFrame {
 
         jButton5.setFont(new java.awt.Font("SimSun", 1, 18)); // NOI18N
         jButton5.setForeground(new java.awt.Color(0, 51, 51));
-        jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Desktop\\OSCAR Y MISHEL AJAJ PROOOY\\APARTADOPROYECTO\\proyectoumg\\Integracion\\ProyectoFinal\\src\\main\\java\\vista\\collection.png")); // NOI18N
         jButton5.setText("MONEDA");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,7 +235,6 @@ public class MdiBancos extends javax.swing.JFrame {
 
         jButton6.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
         jButton6.setForeground(new java.awt.Color(0, 51, 51));
-        jButton6.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Desktop\\OSCAR Y MISHEL AJAJ PROOOY\\APARTADOPROYECTO\\proyectoumg\\Integracion\\ProyectoFinal\\src\\main\\java\\vista\\collection.png")); // NOI18N
         jButton6.setText("OPERACIÒN BANCARIA");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,6 +252,15 @@ public class MdiBancos extends javax.swing.JFrame {
         });
 
         jLabel7.setText("💰");
+
+        btnMoviminetoBancario.setFont(new java.awt.Font("SimSun", 1, 18)); // NOI18N
+        btnMoviminetoBancario.setForeground(new java.awt.Color(0, 51, 51));
+        btnMoviminetoBancario.setText("Movimiento Bancario");
+        btnMoviminetoBancario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoviminetoBancarioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -280,7 +284,8 @@ public class MdiBancos extends javax.swing.JFrame {
                             .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnMoviminetoBancario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(59, 59, 59)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -322,6 +327,8 @@ public class MdiBancos extends javax.swing.JFrame {
                 .addComponent(jButton5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMoviminetoBancario)
                 .addContainerGap(381, Short.MAX_VALUE))
         );
 
@@ -329,8 +336,6 @@ public class MdiBancos extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("BIENVENIDO AL SISTEMA BANCARIO");
-
-        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Desktop\\APARDOPROYECTO2003\\APARTADOPROYECTO\\proyectoumg\\Integracion\\ProyectoFinal\\src\\main\\java\\vista\\about.png")); // NOI18N
 
         jDesktopPane1.setLayer(jPanel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -392,28 +397,25 @@ public class MdiBancos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-// Cierra todas las ventanas internas abiertas
-for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
-    frame.dispose();
-}
+        // TODO add your handling code here:
+        // Cierra todas las ventanas internas abiertas
+       // for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+        //    frame.dispose();
+        //}
 
-// Crea y muestra la nueva ventana
-MantenimientoTipo_cuenta ventana = new MantenimientoTipo_cuenta();
-jDesktopPane1.add(ventana);
-ventana.setVisible(true); // Primero mostrar
+        // Crea y muestra la nueva ventana
+        //Tipo_de_cuenta ventana = new Tipo_de_cuenta();
+       // jDesktopPane1.add(ventana);
 
-// Asegúrate de que el tamaño esté establecido antes de centrar
-ventana.pack(); // O usa ventana.setSize(ancho, alto) 
+        // Centra la ventana dentro del JDesktopPane
+        //Dimension desktopSize = jDesktopPane1.getSize();
+        //Dimension FrameSize = ventana.getSize();
+        //ventana.setLocation(
+            //(desktopSize.width - FrameSize.width) / 2,
+            //(desktopSize.height - FrameSize.height) / 2
+       // );
 
-// Ahora céntralo
-Dimension desktopSize = jDesktopPane1.getSize();
-Dimension frameSize = ventana.getSize();
-ventana.setLocation(
-    (desktopSize.width - frameSize.width) / 2,
-    (desktopSize.height - frameSize.height) / 2
-);
-
-
+        //ventana.setVisible(true); // 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -560,6 +562,29 @@ ventana.setLocation(
         // TODO add your handling code here:
 
     }//GEN-LAST:event_jDesktopPane1AncestorAdded
+
+    private void btnMoviminetoBancarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoviminetoBancarioActionPerformed
+        // TODO add your handling code here:
+        
+           for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+            frame.dispose();
+        }
+
+        // Crea y muestra la nueva ventana
+        TransacionalMovimiento_bancario ventana = new TransacionalMovimiento_bancario();
+        jDesktopPane1.add(ventana);
+
+        // Centra la ventana dentro del JDesktopPane
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation(
+            (desktopSize.width - FrameSize.width) / 2,
+            (desktopSize.height - FrameSize.height) / 2
+        );
+
+        
+        
+    }//GEN-LAST:event_btnMoviminetoBancarioActionPerformed
     public void cerrar(){
         try 
         {
@@ -608,8 +633,6 @@ public static void main(String args[]) {
     }
     //</editor-fold>
     //</editor-fold>
-    //</editor-fold>
-    //</editor-fold>
 
     // ✅ Aquí cambias el fondo por defecto de los JDesktopPane a blanco
     javax.swing.UIManager.put("Desktop.background", java.awt.Color.WHITE);
@@ -624,6 +647,7 @@ public static void main(String args[]) {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnMoviminetoBancario;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

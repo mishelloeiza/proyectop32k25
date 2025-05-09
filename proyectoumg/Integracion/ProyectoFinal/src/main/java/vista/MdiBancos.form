@@ -278,6 +278,7 @@
                                   <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jButton6" alignment="0" pref="230" max="32767" attributes="0"/>
                                   <Component id="jButton4" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="btnMoviminetoBancario" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -333,6 +334,8 @@
                       <Component id="jButton5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButton7" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnMoviminetoBancario" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="381" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -346,9 +349,6 @@
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="0" type="rgb"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\user\Desktop\OSCAR Y MISHEL AJAJ PROOOY\APARTADOPROYECTO\proyectoumg\Integracion\ProyectoFinal\src\main\java\vista\collection.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="TIPO DE CUENTA"/>
               </Properties>
@@ -382,9 +382,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="0" type="rgb"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\user\Desktop\APARDOPROYECTO2003\APARTADOPROYECTO\proyectoumg\Integracion\ProyectoFinal\src\main\java\vista\home.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="BANCO"/>
               </Properties>
               <Events>
@@ -404,9 +401,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="0" type="rgb"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\user\Desktop\OSCAR Y MISHEL AJAJ PROOOY\APARTADOPROYECTO\proyectoumg\Integracion\ProyectoFinal\src\main\java\vista\collection.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="TIPO DE PAGO"/>
               </Properties>
               <Events>
@@ -420,9 +414,6 @@
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="0" type="rgb"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\user\Desktop\OSCAR Y MISHEL AJAJ PROOOY\APARTADOPROYECTO\proyectoumg\Integracion\ProyectoFinal\src\main\java\vista\collection.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="TASA DE CAMBIO D/R"/>
               </Properties>
@@ -438,9 +429,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="0" type="rgb"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\user\Desktop\OSCAR Y MISHEL AJAJ PROOOY\APARTADOPROYECTO\proyectoumg\Integracion\ProyectoFinal\src\main\java\vista\collection.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="MONEDA"/>
               </Properties>
               <Events>
@@ -454,9 +442,6 @@
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="0" type="rgb"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\user\Desktop\OSCAR Y MISHEL AJAJ PROOOY\APARTADOPROYECTO\proyectoumg\Integracion\ProyectoFinal\src\main\java\vista\collection.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="OPERACI&#xd2;N BANCARIA"/>
               </Properties>
@@ -483,6 +468,20 @@
                 <Property name="text" type="java.lang.String" value="\ud83d\udcb0" containsInvalidXMLChars="true"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JButton" name="btnMoviminetoBancario">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SimSun" size="18" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="33" green="33" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Movimiento Bancario"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMoviminetoBancarioActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel6">
@@ -498,11 +497,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\user\Desktop\APARDOPROYECTO2003\APARTADOPROYECTO\proyectoumg\Integracion\ProyectoFinal\src\main\java\vista\about.png"/>
-            </Property>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

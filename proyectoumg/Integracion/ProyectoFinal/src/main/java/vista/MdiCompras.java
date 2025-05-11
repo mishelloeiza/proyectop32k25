@@ -109,7 +109,6 @@ public class MdiCompras extends javax.swing.JFrame {
 
         panel1.setBackground(new java.awt.Color(255, 255, 102));
 
-        MetodoDePago.setBackground(new java.awt.Color(255, 255, 255));
         MetodoDePago.setFont(new java.awt.Font("Barlow Condensed ExtraLight", 1, 24)); // NOI18N
         MetodoDePago.setText("Método de Pago");
         MetodoDePago.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +146,6 @@ public class MdiCompras extends javax.swing.JFrame {
 
         panel4.setBackground(new java.awt.Color(255, 255, 102));
 
-        Proveedores.setBackground(new java.awt.Color(255, 255, 255));
         Proveedores.setFont(new java.awt.Font("Barlow Condensed ExtraLight", 1, 24)); // NOI18N
         Proveedores.setText("Proveedores");
         Proveedores.addActionListener(new java.awt.event.ActionListener() {
@@ -185,7 +183,6 @@ public class MdiCompras extends javax.swing.JFrame {
 
         panel5.setBackground(new java.awt.Color(255, 255, 102));
 
-        Bitacora.setBackground(new java.awt.Color(255, 255, 255));
         Bitacora.setFont(new java.awt.Font("Barlow Condensed ExtraLight", 1, 24)); // NOI18N
         Bitacora.setText("Consulta Bitacora");
         Bitacora.addActionListener(new java.awt.event.ActionListener() {
@@ -224,7 +221,6 @@ public class MdiCompras extends javax.swing.JFrame {
 
         panel10.setBackground(new java.awt.Color(255, 255, 102));
 
-        Sistema.setBackground(new java.awt.Color(255, 255, 255));
         Sistema.setFont(new java.awt.Font("Barlow Condensed ExtraLight", 1, 24)); // NOI18N
         Sistema.setText("Salir del Sistema");
         Sistema.addActionListener(new java.awt.event.ActionListener() {

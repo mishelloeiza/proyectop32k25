@@ -183,9 +183,6 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="MetodoDePago">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Barlow Condensed ExtraLight" size="24" style="1"/>
                 </Property>
@@ -245,9 +242,6 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="Proveedores">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Barlow Condensed ExtraLight" size="24" style="1"/>
                 </Property>
@@ -310,9 +304,6 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="Bitacora">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Barlow Condensed ExtraLight" size="24" style="1"/>
                 </Property>
@@ -375,9 +366,6 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="Sistema">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Barlow Condensed ExtraLight" size="24" style="1"/>
                 </Property>

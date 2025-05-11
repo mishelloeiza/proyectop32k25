@@ -583,4 +583,18 @@ private Connection connectio = null;
     private javax.swing.JTextField txtIidCuenta;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables
+
+    private static class conciliacion_bancariaDAO {
+
+        public conciliacion_bancariaDAO() {
+        }
+
+        private void delete(conciliacion_bancaria conciliacionEliminar) {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+
+        private void update(conciliacion_bancaria conciliacionActualizar) {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+    }
 }

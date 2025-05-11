@@ -227,6 +227,11 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         });
 
         txtAyuda.setText("Ayudas");
+        txtAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAyudaActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel6.setText("Fecha Registro");
@@ -469,6 +474,24 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
     private void txtReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReporteActionPerformed
         
     }//GEN-LAST:event_txtReporteActionPerformed
+
+    private void txtAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAyudaActionPerformed
+ //ayuda implementada por Alisson López
+        
+        try {
+            if ((new File("src\\main\\java\\ayudas\\ayudasComprasyCuentasPorPagar.chm")).exists()) {
+                Process p = Runtime
+                        .getRuntime()
+                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\ayudasComprasyCuentasPorPagar.chm");
+                p.waitFor();
+            } else {
+                System.out.println("La ayuda no Fue encontrada");
+            }
+            System.out.println("Correcto");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }  
+    }//GEN-LAST:event_txtAyudaActionPerformed
 
     
 

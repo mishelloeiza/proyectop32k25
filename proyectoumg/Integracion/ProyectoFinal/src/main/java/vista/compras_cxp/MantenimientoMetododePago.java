@@ -380,12 +380,12 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbox_empleadoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        try {
-            if ((new File("src\\main\\java\\ayudas\\ProcesoMayor.chm")).exists()) {
+        // Ayuda Implementada por Alisson López
+       try {
+            if ((new File("src\\main\\java\\ayudas\\ayudasComprasyCuentasPorPagar.chm")).exists()) {
                 Process p = Runtime
                         .getRuntime()
-                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\ProcesoMayor.chm");
+                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\ayudasComprasyCuentasPorPagar.chm");
                 p.waitFor();
             } else {
                 System.out.println("La ayuda no Fue encontrada");
@@ -393,7 +393,7 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
             System.out.println("Correcto");
         } catch (Exception ex) {
             ex.printStackTrace();
-        }
+        }  
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed

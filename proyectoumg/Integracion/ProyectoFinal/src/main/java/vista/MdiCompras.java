@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import vista.seguridad.MantenimientoUsuario;
@@ -72,6 +73,8 @@ public class MdiCompras extends javax.swing.JFrame {
         panel10 = new java.awt.Panel();
         Sistema = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        Ayudabtn = new javax.swing.JButton();
+        reportebtn = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         jMenuItem1.setText("jMenuItem1");
@@ -257,11 +260,31 @@ public class MdiCompras extends javax.swing.JFrame {
                 .addGap(19, 19, 19))
         );
 
+        Ayudabtn.setBackground(new java.awt.Color(255, 255, 255));
+        Ayudabtn.setFont(new java.awt.Font("Barlow Condensed ExtraLight", 1, 24)); // NOI18N
+        Ayudabtn.setText("Ayuda");
+        Ayudabtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AyudabtnActionPerformed(evt);
+            }
+        });
+
+        reportebtn.setBackground(new java.awt.Color(255, 255, 255));
+        reportebtn.setFont(new java.awt.Font("Barlow Condensed ExtraLight", 1, 24)); // NOI18N
+        reportebtn.setText("Reporte");
+        reportebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportebtnActionPerformed(evt);
+            }
+        });
+
         jDesktopPane1.setLayer(panel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(panel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(panel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(panel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(panel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(Ayudabtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(reportebtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -269,13 +292,20 @@ public class MdiCompras extends javax.swing.JFrame {
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(panel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(1375, Short.MAX_VALUE))
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(panel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(Ayudabtn)
+                        .addGap(33, 33, 33)
+                        .addComponent(reportebtn)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,7 +319,11 @@ public class MdiCompras extends javax.swing.JFrame {
                 .addComponent(panel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Ayudabtn)
+                    .addComponent(reportebtn))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(255, 204, 0));
@@ -363,6 +397,27 @@ public class MdiCompras extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_SistemaActionPerformed
+
+    private void AyudabtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AyudabtnActionPerformed
+        // Ayuda Implementada por Alisson López
+             try {
+            if ((new File("src\\main\\java\\ayudas\\ayudasComprasyCuentasPorPagar.chm")).exists()) {
+                Process p = Runtime
+                        .getRuntime()
+                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\ayudasComprasyCuentasPorPagar.chm");
+                p.waitFor();
+            } else {
+                System.out.println("La ayuda no Fue encontrada");
+            }
+            System.out.println("Correcto");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }  
+    }//GEN-LAST:event_AyudabtnActionPerformed
+
+    private void reportebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportebtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reportebtnActionPerformed
     public void cerrar(){
         try 
         {
@@ -441,6 +496,7 @@ public class MdiCompras extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Ayudabtn;
     private javax.swing.JButton Bitacora;
     private javax.swing.JButton MetodoDePago;
     private javax.swing.JButton Proveedores;
@@ -460,5 +516,6 @@ public class MdiCompras extends javax.swing.JFrame {
     private java.awt.Panel panel2;
     private java.awt.Panel panel4;
     private java.awt.Panel panel5;
+    private javax.swing.JButton reportebtn;
     // End of variables declaration//GEN-END:variables
 }

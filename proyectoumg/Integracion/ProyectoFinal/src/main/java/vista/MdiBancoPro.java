@@ -417,6 +417,26 @@ public class MdiBancoPro extends javax.swing.JFrame {
 
     private void btnMoviminetoBancario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoviminetoBancario1ActionPerformed
         // TODO add your handling code here:
+                // TODO add your handling code here:
+        
+           for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+            frame.dispose();
+        }
+
+        // Crea y muestra la nueva ventana
+        TransacionalMovimiento_bancario ventana = new   TransacionalMovimiento_bancario();
+        jDesktopPane1.add(ventana);
+
+        // Centra la ventana dentro del JDesktopPane
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation(
+            (desktopSize.width - FrameSize.width) / 2,
+            (desktopSize.height - FrameSize.height) / 2
+        );
+
+        
+        
     }//GEN-LAST:event_btnMoviminetoBancario1ActionPerformed
     public void cerrar(){
         try 

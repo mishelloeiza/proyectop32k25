@@ -81,6 +81,11 @@ public class MdiVentas_CC extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Contenedor");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
         jMenuItem6.setText("Mantenimiento vendedores");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
@@ -202,6 +207,10 @@ public class MdiVentas_CC extends javax.swing.JFrame {
                         System.exit(0);
                     }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1ActionPerformed
 
     /**
      * @param args the command line arguments

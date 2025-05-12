@@ -185,7 +185,7 @@ public class ProveedorDAO {
         try {
             conn = Conexion.getConnection();
             report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
-                    + "/src/main/java/reportes/"+ "ReporteVendedor.jrxml");
+                    + "/src/main/java/ReporteProveedores_cxp/"+ "Reporte.Proveedor.jrxml");
             print = JasperFillManager.fillReport(report, p, conn);
             JasperViewer view = new JasperViewer(print, false);
             view.setTitle("Reporte de Vendedores");

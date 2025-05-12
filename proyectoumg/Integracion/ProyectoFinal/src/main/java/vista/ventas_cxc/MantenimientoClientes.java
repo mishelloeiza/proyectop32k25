@@ -11,6 +11,15 @@ import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import Controlador.seguridad.Bitacora;
 import Controlador.seguridad.UsuarioConectado;
+import Modelo.Conexion;
+import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -293,6 +302,11 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         label12.setText("Dias Credito");
 
         jButton3.setText("Reportes");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -550,10 +564,10 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         try {
-            if ((new File("src\\main\\java\\ayudas\\ProcesoMayor.chm")).exists()) {
+            if ((new File("src\\main\\java\\ayudas\\AyudaVentas.chm")).exists()) {
                 Process p = Runtime
                         .getRuntime()
-                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\ProcesoMayor.chm");
+                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\AyudaVentas.chm");
                 p.waitFor();
             } else {
                 System.out.println("La ayuda no Fue encontrada");
@@ -571,6 +585,28 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Map p = new HashMap();
+        JasperReport report;
+        JasperPrint print;
+        
+        try {
+            Connection connectio = Conexion.getConnection();
+            report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
+            + "/src/main/java/reporte/reporteclientes.jrxml");
+            
+            print = JasperFillManager.fillReport(report, p, connectio);
+            
+            JasperViewer view = new JasperViewer(print, false);
+            
+            view.setTitle("Prueba reporte");
+            view.setVisible(true);
+        } catch (Exception e) {
+        }
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

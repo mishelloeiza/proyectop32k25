@@ -595,7 +595,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         try {
             Connection connectio = Conexion.getConnection();
             report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
-            + "/src/main/java/reporte/reporteclientes.jrxml");
+            + "/src/main/java/Reportes_VentasCC/reporteclientes.jrxml");
             
             print = JasperFillManager.fillReport(report, p, connectio);
             

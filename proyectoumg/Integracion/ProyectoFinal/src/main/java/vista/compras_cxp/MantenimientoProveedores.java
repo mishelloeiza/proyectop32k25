@@ -7,11 +7,10 @@ import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 //Bitacora Implemenrada por Oscar Morales
 import Controlador.seguridad.Bitacora;
 import Controlador.seguridad.UsuarioConectado;
+
 /**
  *
  * @author visitante
@@ -472,7 +471,8 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbox_proveedorActionPerformed
 
     private void txtReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReporteActionPerformed
-        
+             ProveedorDAO proveedorDAO = new ProveedorDAO();
+        proveedorDAO.imprimirReporte(); 
     }//GEN-LAST:event_txtReporteActionPerformed
 
     private void txtAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAyudaActionPerformed

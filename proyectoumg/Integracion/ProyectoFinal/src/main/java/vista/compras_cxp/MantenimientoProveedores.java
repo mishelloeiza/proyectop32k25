@@ -64,7 +64,7 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         proveedorAConsultar = proveedorDAO.query(proveedorAConsultar);
         
         txtNombre.setText(proveedorAConsultar.getNombre_proveedor());
-        dire.setText(proveedorAConsultar.getDireccion_proveedor());
+        txtDireccion.setText(proveedorAConsultar.getDireccion_proveedor());
         txtTelefono.setText(proveedorAConsultar.getTelefono_proveedor());
         txtEmail.setText(proveedorAConsultar.getEmail_proveedor());
         txtSaldo.setText(String.valueOf(proveedorAConsultar.getSaldo_proveedor()));
@@ -388,7 +388,6 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
         ProveedorDAO proveedorDAO = new ProveedorDAO();
         Proveedor proveedorAEliminar = new Proveedor();
         proveedorAEliminar.setId_proveedor(Integer.parseInt(txtbuscado.getText()));

@@ -3,66 +3,70 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista.compras_cxp;
-import Controlador.compras_cxp.Metododepago;
-import Modelo.compras_cxp.MetododepagoDAO;
+package vista.bancos;
+
+import vista.seguridad.*;
+import Modelo.bancos.tipo_operacion_bancariaDAO;
+import Controlador.bancos.tipo_operacion_bancaria;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
-//Bitacora Implemenrada por Oscar Morales
 import Controlador.seguridad.Bitacora;
 import Controlador.seguridad.UsuarioConectado;
+
+//MANTENIMINETO CREADO POR Anderson Cristofer Rodríguez Pivaral 
+
 /**
  *
  * @author visitante
  */
-//Mantenimiento Realizado por Alisson Rocio Abigail López Ortíz
-public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
-    
-    final int APLICACION=203;
+public class MantenimientoTipo_operacion_bancaria extends javax.swing.JInternalFrame {
+int APLICACION=104;
 
+    
     public void llenadoDeCombos() {
-        MetododepagoDAO metododepagoDAO = new MetododepagoDAO();
-        List<Metododepago> metododepagos = metododepagoDAO.select();
+        tipo_operacion_bancariaDAO tipo_operacion_bancariaDAO = new tipo_operacion_bancariaDAO();
+        List<tipo_operacion_bancaria> salon = tipo_operacion_bancariaDAO.select();
         cbox_empleado.addItem("Seleccione una opción");
-        for (int i = 0; i < metododepagos.size(); i++) {
-            cbox_empleado.addItem(metododepagos.get(i).getNombreMetodoPago());
+        for (int i = 0; i < salon.size(); i++) {
+            cbox_empleado.addItem(salon.get(i).getTipo_operacion());
         }
     }
+    
 
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID Metodo de Pago");
-        modelo.addColumn("Nombre Metodo de Pago");
-        modelo.addColumn("Estatus");
-        MetododepagoDAO metododepagoDAO = new MetododepagoDAO();
-        List<Metododepago> metododepago = metododepagoDAO.select();
-        tablaVendedores.setModel(modelo);
+        modelo.addColumn("id_tipo_operacion");
+        modelo.addColumn("tipo_operacion");
+        modelo.addColumn("descripcion");
+        tipo_operacion_bancariaDAO tipo_operacion_bancariaDAO = new tipo_operacion_bancariaDAO();
+        List<tipo_operacion_bancaria> tipo_operaciones_bancarias = tipo_operacion_bancariaDAO.select();
+        tablaTipo_operacion_bancaria.setModel(modelo);
         String[] dato = new String[3];
-        for (int i = 0; i < metododepago.size(); i++) {
-            dato[0] = Integer.toString(metododepago.get(i).getId_metodoPago());
-            dato[1] = metododepago.get(i).getNombreMetodoPago();
-            dato[2] = metododepago.get(i).getEstatusMetodoPago();
+        for (int i = 0; i < tipo_operaciones_bancarias.size(); i++) {
+            dato[0] = Integer.toString(tipo_operaciones_bancarias.get(i).getId_tipo_operacion());
+            //dato[0] = tipo_operaciones_bancarias.get(i).getId_tipo_operacion();
+            dato[1] = tipo_operaciones_bancarias.get(i).getTipo_operacion();
+            dato[2] = tipo_operaciones_bancarias.get(i).getDescripcion();
             //System.out.println("vendedor:" + vendedores);
             modelo.addRow(dato);
         }
     }
 
-    public void buscarMetododepago() {
-        Metododepago metodoAConsultar = new Metododepago();
-        MetododepagoDAO metododepagoDAO = new MetododepagoDAO();
-        metodoAConsultar.setId_metodoPago(Integer.parseInt(txtbuscado.getText()));
-        metodoAConsultar = metododepagoDAO.query(metodoAConsultar);
-        txtNombre.setText(metodoAConsultar.getNombreMetodoPago());
-        txtDireccion.setText(metodoAConsultar.getEstatusMetodoPago());
-        
-        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+    public void buscarVendedor() {
+        tipo_operacion_bancaria tipo_operacionAConsultar = new tipo_operacion_bancaria();
+        tipo_operacion_bancariaDAO tipo_operacion_bancariaDAO = new tipo_operacion_bancariaDAO();
+        tipo_operacionAConsultar.setId_tipo_operacion(Integer.parseInt(txtbuscado.getText()));
+        tipo_operacionAConsultar = tipo_operacion_bancariaDAO.query(tipo_operacionAConsultar);
+        txtTipo_operacion.setText(tipo_operacionAConsultar.getTipo_operacion());
+        txtDescripcion.setText(tipo_operacionAConsultar.getDescripcion());
         int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Consulta Datos MetodoDePago");
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Buscar Datos tipo_operacion_bancaria");    
+   
     }
 
-    public MantenimientoMetododePago() {
+    public MantenimientoTipo_operacion_bancaria() {
         initComponents();
         llenadoDeTablas();
         llenadoDeCombos();
@@ -84,20 +88,19 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
         btnBuscar = new javax.swing.JButton();
         label1 = new javax.swing.JLabel();
         btnModificar = new javax.swing.JButton();
+        label3 = new javax.swing.JLabel();
         txtbuscado = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
+        txtTipo_operacion = new javax.swing.JTextField();
         btnLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaVendedores = new javax.swing.JTable();
+        tablaTipo_operacion_bancaria = new javax.swing.JTable();
         cbox_empleado = new javax.swing.JComboBox<>();
         label4 = new javax.swing.JLabel();
-        txtDireccion = new javax.swing.JTextField();
+        txtDescripcion = new javax.swing.JTextField();
         label5 = new javax.swing.JLabel();
         lb = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        label6 = new javax.swing.JLabel();
-        Reporte = new javax.swing.JButton();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -106,7 +109,7 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Mantenimiento Metodo de Pago");
+        setTitle("MantenimientoTipo_operacion_bancaria");
         setVisible(true);
 
         btnEliminar.setText("Eliminar");
@@ -131,7 +134,8 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
         });
 
         label1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label1.setText("Metodo de Pago");
+        label1.setText("Tipo operacion bancaria");
+        label1.setToolTipText("");
 
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -140,13 +144,11 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
             }
         });
 
-        txtNombre.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txtNombre.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
+        label3.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        label3.setText("Tipo Operacion");
+
+        txtTipo_operacion.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtTipo_operacion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -155,24 +157,27 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
             }
         });
 
-        tablaVendedores.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        tablaVendedores.setModel(new javax.swing.table.DefaultTableModel(
+        tablaTipo_operacion_bancaria.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tablaTipo_operacion_bancaria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID Vendedor", "ID Empleado", "Correo", "Telefono", "Direccion", "Porcentaje", "Comision"
+                "id_tipo_operacion", "tipo_operacion", "descripcion"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true, true
+                false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tablaVendedores);
+        jScrollPane1.setViewportView(tablaTipo_operacion_bancaria);
+        if (tablaTipo_operacion_bancaria.getColumnModel().getColumnCount() > 0) {
+            tablaTipo_operacion_bancaria.getColumnModel().getColumn(0).setResizable(false);
+        }
 
         cbox_empleado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         cbox_empleado.addActionListener(new java.awt.event.ActionListener() {
@@ -182,13 +187,13 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
         });
 
         label4.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label4.setText("Metodo de Pago");
+        label4.setText("Empleado:");
 
-        txtDireccion.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txtDireccion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+        txtDescripcion.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtDescripcion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
 
         label5.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label5.setText("Nombre");
+        label5.setText("Descripcion");
 
         lb.setForeground(new java.awt.Color(204, 204, 204));
         lb.setText(".");
@@ -202,16 +207,6 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
             }
         });
 
-        label6.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label6.setText("Estatus");
-
-        Reporte.setText("Reporte");
-        Reporte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReporteActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -219,22 +214,10 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label5)
-                            .addComponent(label6))
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtDireccion)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(7, 7, 7)
-                        .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Reporte, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
+                            .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -244,51 +227,60 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(358, 358, 358)
+                        .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label3)
+                            .addComponent(label5))
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtDescripcion)
+                            .addComponent(txtTipo_operacion, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(label1)
-                        .addGap(294, 294, 294))))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(70, 70, 70))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(135, 135, 135)))
-                .addComponent(label4)
-                .addGap(46, 46, 46)
-                .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jButton1)
+                                    .addGap(70, 70, 70))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jButton2)
+                                    .addGap(135, 135, 135)))
+                            .addComponent(label4)
+                            .addGap(46, 46, 46)
+                            .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(48, 48, 48))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(label1)
+                            .addGap(253, 253, 253)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(label1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(label1)
                         .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(lb)
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lb)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(label5)
-                                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(label6)
-                                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtTipo_operacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label3))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnRegistrar)
@@ -300,16 +292,14 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
                                     .addComponent(btnBuscar)
                                     .addComponent(btnLimpiar))))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(label4)
-                                .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton2))
-                            .addComponent(Reporte)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(label4)
+                            .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(34, 34, 34)
                         .addComponent(jButton1)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -317,59 +307,62 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        MetododepagoDAO metododepagoDAO = new MetododepagoDAO();
-        Metododepago metodoAEliminar = new Metododepago();
-        metodoAEliminar.setId_metodoPago(Integer.parseInt(txtbuscado.getText()));
-        metododepagoDAO.delete(metodoAEliminar);
+        tipo_operacion_bancariaDAO tipo_operacion_bancariaDAO = new tipo_operacion_bancariaDAO();
+        tipo_operacion_bancaria tipo_operacionAEliminar = new tipo_operacion_bancaria();
+        tipo_operacionAEliminar.setId_tipo_operacion(Integer.parseInt(txtbuscado.getText()));
+        tipo_operacion_bancariaDAO.delete(tipo_operacionAEliminar);
         llenadoDeTablas();
-        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+         UsuarioConectado usuarioEnSesion = new UsuarioConectado();
         int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Borrar Datos MetodoDePago");
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Eliminar Datos tipo_operacion_bancaria");
+    
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        MetododepagoDAO metododepagoDAO = new MetododepagoDAO();
-        Metododepago metodoAInsertar = new Metododepago();
-        metodoAInsertar.setNombreMetodoPago(txtNombre.getText());
-        metodoAInsertar.setEstatusMetodoPago(txtDireccion.getText());
-        metododepagoDAO.insert(metodoAInsertar);
+        tipo_operacion_bancariaDAO tipo_operacion_bancariaDAO = new tipo_operacion_bancariaDAO();
+        tipo_operacion_bancaria tipo_operacionAInsertar = new tipo_operacion_bancaria();
+        tipo_operacionAInsertar.setTipo_operacion(txtTipo_operacion.getText());
+        tipo_operacionAInsertar.setDescripcion(txtDescripcion.getText());
+        tipo_operacion_bancariaDAO.insert(tipo_operacionAInsertar);
+        llenadoDeTablas();
         UsuarioConectado usuarioEnSesion = new UsuarioConectado();
         int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Ingreso Datos MetodoDePego");
-        llenadoDeTablas();
-        
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Insertar Datos tipo_operacion_bancaria");
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        buscarMetododepago();
+        buscarVendedor();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 //        // TODO add your handling code here:
-        MetododepagoDAO metododepagoDAO = new MetododepagoDAO();
-        Metododepago metodoAActualizar = new Metododepago();
-        metodoAActualizar.setId_metodoPago(Integer.parseInt(txtbuscado.getText()));
-        metodoAActualizar.setNombreMetodoPago(txtNombre.getText());
-        metodoAActualizar.setEstatusMetodoPago(txtDireccion.getText());
-        metododepagoDAO.update(metodoAActualizar);
+        tipo_operacion_bancariaDAO tipo_operacion_bancariaDAO = new tipo_operacion_bancariaDAO();
+        tipo_operacion_bancaria tipo_operacionAActualizar = new tipo_operacion_bancaria();
+        tipo_operacionAActualizar.setId_tipo_operacion(Integer.parseInt(txtbuscado.getText()));
+        tipo_operacionAActualizar.setTipo_operacion(txtTipo_operacion.getText());
+        tipo_operacionAActualizar.setDescripcion(txtDescripcion.getText());
+        tipo_operacion_bancariaDAO.update(tipo_operacionAActualizar);
         llenadoDeTablas();
-        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
         int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Actualizacion Datos MetodoDePago");
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Modificar Datos tipo_operacion_bancaria");    
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         cbox_empleado.setSelectedIndex(0);
-        txtNombre.setText("");
-        txtDireccion.setText("");
+        txtTipo_operacion.setText("");
+        txtDescripcion.setText("");
         txtbuscado.setText("");
         btnRegistrar.setEnabled(true);
         btnModificar.setEnabled(true);
         btnEliminar.setEnabled(true);
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Limpiar Datos tipo_operacion_bancaria");    
+   
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed
@@ -378,14 +371,21 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_cbox_empleadoActionPerformed
-
+/*
+     // TODO add your handling code here:
+        MantenimientoAula ventana = new MantenimientoAula();
+        jDesktopPane1.add(ventana);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Ayuda Implementada por Alisson López
-       try {
-            if ((new File("src\\main\\java\\ayudas\\ayudasComprasyCuentasPorPagar.chm")).exists()) {
+        // TODO add your handling code here:
+        try {
+            if ((new File("src\\main\\java\\ayudas\\ProcesoMayor.chm")).exists()) {
                 Process p = Runtime
                         .getRuntime()
-                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\ayudasComprasyCuentasPorPagar.chm");
+                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\ProcesoMayor.chm");
                 p.waitFor();
             } else {
                 System.out.println("La ayuda no Fue encontrada");
@@ -393,21 +393,11 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
             System.out.println("Correcto");
         } catch (Exception ex) {
             ex.printStackTrace();
-        }  
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
-
-    private void ReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteActionPerformed
-        MetododepagoDAO metododepagoDAO = new MetododepagoDAO();
-        metododepagoDAO.imprimirReporte(); 
-    }//GEN-LAST:event_ReporteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Reporte;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiar;
@@ -418,15 +408,15 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label1;
+    private javax.swing.JLabel label3;
     private javax.swing.JLabel label4;
     private javax.swing.JLabel label5;
-    private javax.swing.JLabel label6;
     private javax.swing.JLabel lb;
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lbusu;
-    private javax.swing.JTable tablaVendedores;
-    private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTable tablaTipo_operacion_bancaria;
+    private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtTipo_operacion;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables
 }

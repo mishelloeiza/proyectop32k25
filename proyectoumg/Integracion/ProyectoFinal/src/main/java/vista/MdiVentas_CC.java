@@ -19,23 +19,23 @@ import vista.seguridad.MantenimientoBitacora;
 import vista.seguridad.AplicacionaUsuariosDEF;
 import vista.seguridad.MantenimientoRelPerfApl;
 import vista.seguridad.MantenimientoRelPerfUsu;
-import vista.compras_cxp.MantenimientoProveedores;
-import vista.compras_cxp.MantenimientoMetododePago;
+import vista.ventas_cxc.MantenimientoClientes;
+import vista.ventas_cxc.MantenimientoVendedores;
 
 /**
  *
  * @author visitante
  */
-public class MdiGRUPO2 extends javax.swing.JFrame {
+public class MdiVentas_CC extends javax.swing.JFrame {
 
     /**
-     * Creates new form MdiGeneral
+     * Creates new form MdiVentas_CC
      */
     final int APLICACION=99;
-    public MdiGRUPO2() {
+    public MdiVentas_CC() {
         initComponents();
         setLocationRelativeTo(null);
-        this.setExtendedState(MdiGRUPO2.MAXIMIZED_BOTH);
+        this.setExtendedState(MdiVentas_CC.MAXIMIZED_BOTH);
         this.setTitle("Ejemplo Capas");
         //setDefaultCloseOperation(EXIT_ON_CLOSE);
         cerrar();
@@ -55,13 +55,11 @@ public class MdiGRUPO2 extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        MenuGeneralSeguridad = new javax.swing.JMenu();
-        Bitacora = new javax.swing.JMenu();
-        ConsultaBitacora = new javax.swing.JMenuItem();
-        salirSistema = new javax.swing.JMenuItem();
-        MenuGeneralMantenimientos = new javax.swing.JMenu();
-        ManteniProvee = new javax.swing.JMenuItem();
-        ManteniMetodo = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -82,54 +80,41 @@ public class MdiGRUPO2 extends javax.swing.JFrame {
             .addGap(0, 279, Short.MAX_VALUE)
         );
 
-        MenuGeneralSeguridad.setText("Sistema");
+        jMenu1.setText("Contenedor");
 
-        Bitacora.setText("Bitacora");
-        Bitacora.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem6.setText("Mantenimiento vendedores");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BitacoraActionPerformed(evt);
+                jMenuItem6ActionPerformed(evt);
             }
         });
+        jMenu1.add(jMenuItem6);
 
-        ConsultaBitacora.setText("Consulta Bitacora");
-        ConsultaBitacora.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem7.setText("Mantenimiento Clientes");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConsultaBitacoraActionPerformed(evt);
+                jMenuItem7ActionPerformed(evt);
             }
         });
-        Bitacora.add(ConsultaBitacora);
+        jMenu1.add(jMenuItem7);
 
-        MenuGeneralSeguridad.add(Bitacora);
-
-        salirSistema.setText("Salir del Sistema");
-        salirSistema.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem4.setText("Bitacora");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                salirSistemaActionPerformed(evt);
+                jMenuItem4ActionPerformed(evt);
             }
         });
-        MenuGeneralSeguridad.add(salirSistema);
+        jMenu1.add(jMenuItem4);
 
-        jMenuBar1.add(MenuGeneralSeguridad);
-
-        MenuGeneralMantenimientos.setText("Mantenimientos");
-
-        ManteniProvee.setText("Proveedores");
-        ManteniProvee.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem5.setText("Salir del Sistema");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ManteniProveeActionPerformed(evt);
+                jMenuItem5ActionPerformed(evt);
             }
         });
-        MenuGeneralMantenimientos.add(ManteniProvee);
+        jMenu1.add(jMenuItem5);
 
-        ManteniMetodo.setText("Metodo de Pago");
-        ManteniMetodo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ManteniMetodoActionPerformed(evt);
-            }
-        });
-        MenuGeneralMantenimientos.add(ManteniMetodo);
-
-        jMenuBar1.add(MenuGeneralMantenimientos);
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -173,19 +158,27 @@ public class MdiGRUPO2 extends javax.swing.JFrame {
                     }
     }
     
-    private void BitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BitacoraActionPerformed
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
-//       MantenimientoBitacora ventana = new MantenimientoBitacora();
-//       jDesktopPane1.add(ventana);
-//       Dimension desktopSize = jDesktopPane1.getSize();
-//       Dimension FrameSize = ventana.getSize();
-//       ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-    }//GEN-LAST:event_BitacoraActionPerformed
+             MantenimientoVendedores ventana = new MantenimientoVendedores();
+       jDesktopPane1.add(ventana);
+      Dimension desktopSize = jDesktopPane1.getSize();
+      Dimension FrameSize = ventana.getSize();
+     ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
-    private void ConsultaBitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultaBitacoraActionPerformed
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         // TODO add your handling code here:
-                 // Cerrar otros JInternalFrame antes de abrir uno nuevo//MISHEL
-for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+             MantenimientoClientes ventana = new MantenimientoClientes();
+       jDesktopPane1.add(ventana);
+      Dimension desktopSize = jDesktopPane1.getSize();
+      Dimension FrameSize = ventana.getSize();
+     ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
     frame.dispose(); // Cierra cada ventana abierta
 }
        MantenimientoBitacora ventana = new MantenimientoBitacora();
@@ -193,12 +186,12 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
        Dimension desktopSize = jDesktopPane1.getSize();
        Dimension FrameSize = ventana.getSize();
        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-    }//GEN-LAST:event_ConsultaBitacoraActionPerformed
 
-    private void salirSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirSistemaActionPerformed
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-                 // Cerrar otros JInternalFrame antes de abrir uno nuevo//MISHEL
-for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+                for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
     frame.dispose(); // Cierra cada ventana abierta
 }
 //        
@@ -208,23 +201,7 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
                         JOptionPane.showMessageDialog(null, "Gracias por su visita, hasta pronto", "Gracias", JOptionPane.INFORMATION_MESSAGE);
                         System.exit(0);
                     }
-    }//GEN-LAST:event_salirSistemaActionPerformed
-
-    private void ManteniMetodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManteniMetodoActionPerformed
-        MantenimientoMetododePago ventana = new MantenimientoMetododePago();
-        jDesktopPane1.add(ventana);
-        Dimension desktopSize = jDesktopPane1.getSize();
-        Dimension FrameSize = ventana.getSize();
-        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-    }//GEN-LAST:event_ManteniMetodoActionPerformed
-
-    private void ManteniProveeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManteniProveeActionPerformed
-        MantenimientoProveedores ventana = new MantenimientoProveedores();
-        jDesktopPane1.add(ventana);
-        Dimension desktopSize = jDesktopPane1.getSize();
-        Dimension FrameSize = ventana.getSize();
-        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-    }//GEN-LAST:event_ManteniProveeActionPerformed
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,13 +220,13 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MdiGRUPO2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MdiVentas_CC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MdiGRUPO2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MdiVentas_CC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MdiGRUPO2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MdiVentas_CC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MdiGRUPO2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MdiVentas_CC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -257,23 +234,21 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MdiGRUPO2().setVisible(true);
+                new MdiVentas_CC().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu Bitacora;
-    private javax.swing.JMenuItem ConsultaBitacora;
-    private javax.swing.JMenuItem ManteniMetodo;
-    private javax.swing.JMenuItem ManteniProvee;
-    private javax.swing.JMenu MenuGeneralMantenimientos;
-    private javax.swing.JMenu MenuGeneralSeguridad;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem salirSistema;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,59 +3,54 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo.compras_cxp;
+package Modelo.bancos;
 
-import Controlador.compras_cxp.Metododepago;
+import Modelo.seguridad.*;
+import Controlador.bancos.tipo_operacion_bancaria;
 import Modelo.Conexion;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
  * @author visitante
  */
-public class MetododepagoDAO {
+public class tipo_operacion_bancariaDAO {
 
-    private static final String SQL_SELECT = "SELECT id_metodo_pago, nombre_metodo_pago, estatus_metodo_pago FROM metodo_pago";
-    private static final String SQL_INSERT = "INSERT INTO metodo_pago(nombre_metodo_pago, estatus_metodo_pago) VALUES(?, ?)";
-    private static final String SQL_UPDATE = "UPDATE metodo_pago SET nombre_metodo_pago=?, estatus_metodo_pago=? WHERE id_metodo_pago = ?";
-    private static final String SQL_DELETE = "DELETE FROM metodo_pago WHERE id_metodo_pago=?";
-    private static final String SQL_QUERY = "SELECT id_metodo_pago, nombre_metodo_pago, estatus_metodo_pago FROM metodo_pago WHERE id_metodo_pago = ?";
+    private static final String SQL_SELECT = "SELECT id_tipo_operacion, tipo_operacion, descripcion FROM tipo_operacion_bancaria";
+    private static final String SQL_INSERT = "INSERT INTO tipo_operacion_bancaria(tipo_operacion, descripcion) VALUES(?,?)";
+    private static final String SQL_UPDATE = "UPDATE tipo_operacion_bancaria SET  tipo_operacion=?, descripcion=? WHERE id_tipo_operacion = ?";
+    private static final String SQL_DELETE = "DELETE FROM tipo_operacion_bancaria WHERE id_tipo_operacion=?";
+    private static final String SQL_QUERY = "SELECT id_tipo_operacion, tipo_operacion, descripcion FROM tipo_operacion_bancaria WHERE id_tipo_operacion = ?";
 
-    public List<Metododepago> select() {
+    public List<tipo_operacion_bancaria> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Metododepago vendedor = null;
-        List<Metododepago> vendedores = new ArrayList<Metododepago>();
+        tipo_operacion_bancaria tipo_operacion_bancaria = null;
+        List<tipo_operacion_bancaria> list_tipo_operaciones_bancarias = new ArrayList<tipo_operacion_bancaria>();
 
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int id_metodo = rs.getInt("id_metodo_pago");
-                String nombre = rs.getString("nombre_metodo_pago");
-                String estatus = rs.getString("estatus_metodo_pago");
+                int id_tipo_operacion = rs.getInt("id_tipo_operacion");
+                String tipo_operacion = rs.getString("tipo_operacion");
+                String descripcion = rs.getString("descripcion");
                 
-                vendedor = new Metododepago();
-                vendedor.setId_metodoPago(id_metodo);
-                vendedor.setNombreMetodoPago(nombre);
-                vendedor.setEstatusMetodoPago(estatus);
+                tipo_operacion_bancaria = new tipo_operacion_bancaria();
+                tipo_operacion_bancaria.setId_tipo_operacion(id_tipo_operacion);
+                tipo_operacion_bancaria.setTipo_operacion(tipo_operacion);
+                tipo_operacion_bancaria.setDescripcion(descripcion);
+              
                 
-                vendedores.add(vendedor);
+                list_tipo_operaciones_bancarias.add(tipo_operacion_bancaria);
+              
             }
 
         } catch (SQLException ex) {
@@ -66,18 +61,19 @@ public class MetododepagoDAO {
             Conexion.close(conn);
         }
 
-        return vendedores;
+        return list_tipo_operaciones_bancarias;
     }
 
-    public int insert(Metododepago vendedor) {
+    public int insert(tipo_operacion_bancaria tipo_operacion_bancaria) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, vendedor.getNombreMetodoPago());
-            stmt.setString(2, vendedor.getEstatusMetodoPago());
+            stmt.setString(1, tipo_operacion_bancaria.getTipo_operacion());
+            stmt.setString(2, tipo_operacion_bancaria.getDescripcion());
+         
 
 
             System.out.println("ejecutando query:" + SQL_INSERT);
@@ -93,7 +89,7 @@ public class MetododepagoDAO {
         return rows;
     }
 
-    public int update(Metododepago vendedor) {
+    public int update(tipo_operacion_bancaria tipo_operacion_bancaria) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -102,9 +98,10 @@ public class MetododepagoDAO {
             conn = Conexion.getConnection();
             System.out.println("ejecutando query: " + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, vendedor.getNombreMetodoPago());
-            stmt.setString(2, vendedor.getEstatusMetodoPago());
-            stmt.setInt(3, vendedor.getId_metodoPago());
+            stmt.setString(1, tipo_operacion_bancaria.getTipo_operacion());
+            stmt.setString(2, tipo_operacion_bancaria.getDescripcion());
+            stmt.setInt(3,tipo_operacion_bancaria.getId_tipo_operacion());
+           
 
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado:" + rows);
@@ -119,7 +116,7 @@ public class MetododepagoDAO {
         return rows;
     }
 
-    public int delete(Metododepago vendedor) {
+    public int delete(tipo_operacion_bancaria tipo_operacion_bancaria) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -128,7 +125,7 @@ public class MetododepagoDAO {
             conn = Conexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_DELETE);
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(1, vendedor.getId_metodoPago());
+            stmt.setInt(1, tipo_operacion_bancaria.getId_tipo_operacion());
             rows = stmt.executeUpdate();
             System.out.println("Registros eliminados:" + rows);
         } catch (SQLException ex) {
@@ -142,28 +139,31 @@ public class MetododepagoDAO {
     }
 
 //    public List<Persona> query(Persona vendedor) { // Si se utiliza un ArrayList
-    public Metododepago query(Metododepago vendedor) {    
+    public tipo_operacion_bancaria query(tipo_operacion_bancaria tipo_operacion_bancaria) {    
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Metododepago> vendedores = new ArrayList<Metododepago>();
+        List<tipo_operacion_bancaria> list_tipo_operacion_bancaria = new ArrayList<tipo_operacion_bancaria>();
         int rows = 0;
 
         try {
             conn = Conexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_QUERY);
             stmt = conn.prepareStatement(SQL_QUERY);
-            stmt.setInt(1, vendedor.getId_metodoPago());
+            stmt.setInt(1, tipo_operacion_bancaria.getId_tipo_operacion());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int id_metodo = rs.getInt("id_metodo_pago");
-                String nombre = rs.getString("nombre_metodo_pago");
-                String estatus = rs.getString("estatus_metodo_pago");
+             int id_tipo_operacion = rs.getInt("id_tipo_operacion");
+                String tipo_operacion = rs.getString("tipo_operacion");
+                String descripcion = rs.getString("descripcion");
                 
-                vendedor = new Metododepago();
-                vendedor.setId_metodoPago(id_metodo);
-                vendedor.setNombreMetodoPago(nombre);
-                vendedor.setEstatusMetodoPago(estatus);
+                tipo_operacion_bancaria = new tipo_operacion_bancaria();
+                tipo_operacion_bancaria.setId_tipo_operacion(id_tipo_operacion);
+                tipo_operacion_bancaria.setTipo_operacion(tipo_operacion);
+                tipo_operacion_bancaria.setDescripcion(descripcion);
+              
+                
+               
                 
                 //vendedores.add(vendedor); // Si se utiliza un ArrayList
             }
@@ -177,26 +177,7 @@ public class MetododepagoDAO {
         }
 
         //return vendedores;  // Si se utiliza un ArrayList
-        return vendedor;
+        return tipo_operacion_bancaria;
     }
-    public void imprimirReporte() {
-        Connection conn = null;
-        Map p = new HashMap();
-        JasperReport report;
-        JasperPrint print;
-
-        try {
-            conn = Conexion.getConnection();
-            report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
-                    + "/src/main/java/reportes_compras_cxp/"+ "ReporteMetodoDePago.jrxml");
-            print = JasperFillManager.fillReport(report, p, conn);
-            JasperViewer view = new JasperViewer(print, false);
-            view.setTitle("Reporte de Vendedores");
-            view.setVisible(true);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-        
+            
 }

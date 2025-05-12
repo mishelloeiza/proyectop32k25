@@ -7,11 +7,10 @@ import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 //Bitacora Implemenrada por Oscar Morales
 import Controlador.seguridad.Bitacora;
 import Controlador.seguridad.UsuarioConectado;
+
 /**
  *
  * @author visitante
@@ -65,7 +64,7 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         proveedorAConsultar = proveedorDAO.query(proveedorAConsultar);
         
         txtNombre.setText(proveedorAConsultar.getNombre_proveedor());
-        dire.setText(proveedorAConsultar.getDireccion_proveedor());
+        txtDireccion.setText(proveedorAConsultar.getDireccion_proveedor());
         txtTelefono.setText(proveedorAConsultar.getTelefono_proveedor());
         txtEmail.setText(proveedorAConsultar.getEmail_proveedor());
         txtSaldo.setText(String.valueOf(proveedorAConsultar.getSaldo_proveedor()));
@@ -227,6 +226,11 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         });
 
         txtAyuda.setText("Ayudas");
+        txtAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAyudaActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel6.setText("Fecha Registro");
@@ -384,7 +388,6 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
         ProveedorDAO proveedorDAO = new ProveedorDAO();
         Proveedor proveedorAEliminar = new Proveedor();
         proveedorAEliminar.setId_proveedor(Integer.parseInt(txtbuscado.getText()));
@@ -467,8 +470,27 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbox_proveedorActionPerformed
 
     private void txtReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReporteActionPerformed
-        
+             ProveedorDAO proveedorDAO = new ProveedorDAO();
+        proveedorDAO.imprimirReporte(); 
     }//GEN-LAST:event_txtReporteActionPerformed
+
+    private void txtAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAyudaActionPerformed
+ //ayuda implementada por Alisson López
+        
+        try {
+            if ((new File("src\\main\\java\\ayudas\\ayudasComprasyCuentasPorPagar.chm")).exists()) {
+                Process p = Runtime
+                        .getRuntime()
+                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\ayudasComprasyCuentasPorPagar.chm");
+                p.waitFor();
+            } else {
+                System.out.println("La ayuda no Fue encontrada");
+            }
+            System.out.println("Correcto");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }  
+    }//GEN-LAST:event_txtAyudaActionPerformed
 
     
 

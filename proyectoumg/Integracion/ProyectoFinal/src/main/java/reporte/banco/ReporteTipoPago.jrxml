@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1607b174-8814-4f63-8b75-78fbe97e1098">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[Select * from tipo_pago]]>
+	</queryString>
+	<field name="id_tipo_pago" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_pago" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="status" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="54" y="2" width="100" height="20" uuid="00f03f8d-9032-4c2d-b04f-f6b77a55b48e"/>
+				<text><![CDATA[id_tipo_pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="194" y="2" width="100" height="20" uuid="0f9a1b8c-d301-4c90-97e9-91b83f418c0a"/>
+				<text><![CDATA[tipo_pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="328" y="2" width="100" height="20" uuid="4671cd03-69c0-498b-afc6-2cb5a36cc4b7"/>
+				<text><![CDATA[status]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="43" splitType="Stretch">
+			<textField>
+				<reportElement x="54" y="10" width="100" height="20" uuid="06fd7f19-0154-4064-ad20-8fb2b6e04cf8"/>
+				<textFieldExpression><![CDATA[$F{id_tipo_pago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="194" y="10" width="100" height="20" uuid="fb461e75-038f-4d27-8cb0-78def64d98c4"/>
+				<textFieldExpression><![CDATA[$F{tipo_pago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="328" y="10" width="100" height="20" uuid="b70689b7-dac2-41e4-becb-5057a82e5eec"/>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

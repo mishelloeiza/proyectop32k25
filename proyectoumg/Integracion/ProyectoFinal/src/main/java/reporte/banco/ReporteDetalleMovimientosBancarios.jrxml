@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="835dc760-c601-493f-a7a9-c8c2fa581ea1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[Select * from detalle_movimientos_bancarios]]>
+	</queryString>
+	<field name="id_detalle" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_movimiento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_tipo_operacion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_tipo_pago" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_movimiento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="54" height="20" uuid="81391fd9-90d1-4028-825d-a145ace557b7"/>
+				<text><![CDATA[id_detalle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="2" width="72" height="20" uuid="8b824a98-36e5-4b3f-acc5-a97b3f836f25"/>
+				<text><![CDATA[id_movimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="2" width="89" height="20" uuid="e3273feb-3219-40fa-a22f-06e6a1a31f5b"/>
+				<text><![CDATA[id_tipo_operacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="2" width="67" height="20" uuid="8fe1afb9-911e-456a-a4f2-0c4aa96b016d"/>
+				<text><![CDATA[id_tipo_pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="493" y="2" width="62" height="20" uuid="40573c3f-4fbe-40eb-bf3d-3550b07d954e"/>
+				<text><![CDATA[monto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="323" y="2" width="100" height="20" uuid="c6b160b6-2737-42fa-bb9b-44f63ac77f57"/>
+				<text><![CDATA[tipo_movimiento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="54" height="20" uuid="74883c8a-a051-40d4-9934-01b10653fd08"/>
+				<textFieldExpression><![CDATA[$F{id_detalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="0" width="72" height="20" uuid="9138a79b-485c-4d5c-b446-4cb006085584"/>
+				<textFieldExpression><![CDATA[$F{id_movimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="0" width="89" height="20" uuid="9617369f-43c1-4c76-8e30-ffdec66fc1fe"/>
+				<textFieldExpression><![CDATA[$F{id_tipo_operacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="0" width="67" height="20" uuid="e816a199-48b3-41ab-8382-323582192995"/>
+				<textFieldExpression><![CDATA[$F{id_tipo_pago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="0" width="62" height="20" uuid="9427e9f2-394e-4dd5-aad7-8747763b9b1e"/>
+				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="323" y="0" width="158" height="20" uuid="2f838b98-2395-43a9-a3e1-e26939ebc931"/>
+				<textFieldExpression><![CDATA[$F{tipo_movimiento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

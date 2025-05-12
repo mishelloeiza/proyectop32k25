@@ -522,7 +522,7 @@ int APLICACION=301;
         try {
             Connection connectio = Conexion.getConnection();
             report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
-            + "/src/main/java/reporte/ReporteVentass.jrxml");
+            + "/src/main/java/Reportes_VentasCC/reporteventas.jrxml");
             
             print = JasperFillManager.fillReport(report, p, connectio);
             
@@ -531,7 +531,7 @@ int APLICACION=301;
             view.setTitle("Reporte de aplicaciones a perfiles");
             view.setVisible(true);
         } catch (Exception e) {
-        }        // TODO add your handling code here:
+        } 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed

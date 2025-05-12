@@ -174,82 +174,106 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-      // Verificación de campos vacíos
-        if (txtUsuario.getText().trim().isEmpty() || txtContraseña.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "NO PUEDEN HABER CAMPOS VACIOS", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } else {
-            try {
-                Usuario usuarioAConsultar = new Usuario();
-                UsuarioDAO usuarioDAO = new UsuarioDAO();
-                usuarioAConsultar.setUsername(txtUsuario.getText().trim());
-                
-                // Recuperación de información a través de otro objeto
-                usuarioAConsultar = usuarioDAO.query(usuarioAConsultar);
+       if (txtUsuario.getText().trim().isEmpty() || txtContraseña.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(this, "NO PUEDEN HABER CAMPOS VACIOS", "ERROR", JOptionPane.ERROR_MESSAGE);
+} else {
+    try {
+        Usuario usuarioAConsultar = new Usuario();
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        usuarioAConsultar.setUsername(txtUsuario.getText().trim());
 
-                // Cifrar la contraseña ingresada
-                String contrasenaCifradaIngresada = cifrarContrasena(txtContraseña.getText().trim());
+        // Recuperación de información del usuario
+        usuarioAConsultar = usuarioDAO.query(usuarioAConsultar);
 
-                // Verificar si el usuario y la contraseña cifrada coinciden
+        // Cifrar la contraseña ingresada
+        String contrasenaCifradaIngresada = cifrarContrasena(txtContraseña.getText().trim());
+
+        // Verificar si el usuario y la contraseña cifrada coinciden
+
                 if (contrasenaCifradaIngresada != null &&
-                    contrasenaCifradaIngresada.equals(usuarioAConsultar.getPassword()) &&
-                    txtUsuario.getText().equals(usuarioAConsultar.getUsername())) {
-                    JOptionPane.showMessageDialog(null, "Bienvenido al SISTEMA\n", "Mensaje de bienvenida", JOptionPane.INFORMATION_MESSAGE);
-                    
+            contrasenaCifradaIngresada.equals(usuarioAConsultar.getPassword()) &&
+            txtUsuario.getText().trim().equals(usuarioAConsultar.getUsername())) {
 
+            JOptionPane.showMessageDialog(null, "Bienvenido al SISTEMA\n", "Mensaje de bienvenida", JOptionPane.INFORMATION_MESSAGE);
 
+            // Registro del usuario en sesión
+            UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+            usuarioEnSesion.setIdUsuario(usuarioAConsultar.getId_usuario());
+            usuarioEnSesion.setUserName(usuarioAConsultar.getUsername());
 
-                    //Registro del usuario en sesiòn
-                    UsuarioConectado usuarioEnSesion = new UsuarioConectado();
-                    usuarioEnSesion.setIdUsuario(usuarioAConsultar.getId_usuario());
-                    usuarioEnSesion.setUserName(usuarioAConsultar.getUsername());
-                    //Registro de Bitacora
-                    int resultadoBitacora=0;
-                    Bitacora bitacoraRegistro = new Bitacora();
-                    resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Inicio Sesion");
-                    
-                    MdiGeneral menuGeneral = new MdiGeneral();
-                    menuGeneral.setVisible(true);
-                    this.dispose();
-                    //
-                    //---Agregando switch case para funcionalidad de todos los módulos
-                    
-                    String areaSeleccionada;
-                    areaSeleccionada = cboModulos.getSelectedItem().toString();
-                    
-                    switch (areaSeleccionada) {
-                        case "Seguridad":
-                            try {
-                                 MdiGeneral menu = new MdiGeneral();
-                                menu.setVisible(true);
-                                this.dispose();
-                            } catch (Exception e) {
-                                System.out.println(e);
-                            }   
-                            break;
+            // Registro de Bitácora
+            Bitacora bitacoraRegistro = new Bitacora();
+            int resultadoBitacora = bitacoraRegistro.setIngresarBitacora(
+                usuarioEnSesion.getIdUsuario(),
+                APLICACION,
+                "Inicio Sesion"
+            );
 
-                        case "Compras":
-                            try {
-                               MdiCompras menu2 = new MdiCompras();
-                                menu2.setVisible(true);
-                                this.dispose();
-                            } catch (Exception e) {
-                                System.out.println(e);
-                            }   
-                            break;
+            // Obtener módulo seleccionado
+            String areaSeleccionada = cboModulos.getSelectedItem().toString().trim();
+            System.out.println("Área seleccionada: " + areaSeleccionada); // Diagnóstico
 
-                        default:
-                            break;
+            // Redirigir según módulo
+            switch (areaSeleccionada) {
+                case "Seguridad":
+                    try {
+                        MdiGeneral menu = new MdiGeneral();
+                        menu.setVisible(true);
+                        this.dispose();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    //
-                } else {
-                    JOptionPane.showMessageDialog(this, "ERROR AL ENCONTRAR USUARIO o CONTRASEÑA", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    txtContraseña.setText("");
-                    txtUsuario.setText("");
-                }
-            } catch (HeadlessException e) {
-                JOptionPane.showMessageDialog(this, "ERROR AL ENCONTRAR USUARIO o CONTRASEÑA", "ERROR", JOptionPane.ERROR_MESSAGE);
-                txtContraseña.setText("");
-                txtUsuario.setText("");   
+                    break;
+
+                case "Ventas":
+                    try {
+                        Mdi_VentasCC menuVentas = new Mdi_VentasCC();
+                        menuVentas.setVisible(true);
+                        this.dispose();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(this, "Error al abrir el módulo Ventas", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+                    
+                case "Compras":
+                    try {
+                        MdiCompras menuVentas = new MdiCompras();
+                        menuVentas.setVisible(true);
+                        this.dispose();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(this, "Error al abrir el módulo Ventas", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+                    
+                case "Bancos":
+                    try {
+                        MdiGenebac menuVentas = new MdiGenebac();
+                        menuVentas.setVisible(true);
+                        this.dispose();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(this, "Error al abrir el módulo Ventas", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+
+                default:
+                    JOptionPane.showMessageDialog(this, "Módulo no reconocido: " + areaSeleccionada, "ERROR", JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "ERROR AL ENCONTRAR USUARIO o CONTRASEÑA", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtContraseña.setText("");
+            txtUsuario.setText("");
+        }
+    } catch (HeadlessException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "ERROR AL ENCONTRAR USUARIO o CONTRASEÑA", "ERROR", JOptionPane.ERROR_MESSAGE);
+        txtContraseña.setText("");
+        txtUsuario.setText("");   
+   
   } 
               } 
     }//GEN-LAST:event_btnAceptarActionPerformed

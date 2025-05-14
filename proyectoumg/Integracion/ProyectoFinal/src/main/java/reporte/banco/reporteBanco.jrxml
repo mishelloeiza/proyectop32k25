@@ -52,10 +52,6 @@
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
 			</frame>
-			<image>
-				<reportElement x="152" y="0" width="307" height="93" uuid="73eed584-3561-46a4-a494-322f60f8f37c"/>
-				<imageExpression><![CDATA["C:\\Users\\Ruddyard\\Desktop\\ProyectoFinal\\src\\main\\java\\reporte\\banco\\imgLogoBanco.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>

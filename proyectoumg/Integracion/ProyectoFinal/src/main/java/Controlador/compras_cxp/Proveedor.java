@@ -21,10 +21,12 @@
         String fecha_registro;
         int saldo_proveedor;
         int estatus_proveedor;
+        int saldo_pendiente;
+        int plazo_limite;
         
 
 
-        public Proveedor(int id_proveedor, String nombre_proveedor, String direccion_proveedor, String telefono_proveedor, String email_proveedor, int saldo_proveedor, int estatus_proveedor, String fecha_registro) {
+        public Proveedor(int id_proveedor, String nombre_proveedor, String direccion_proveedor, String telefono_proveedor, String email_proveedor, int saldo_proveedor, int estatus_proveedor, String fecha_registro,int saldo_pendiente, int plazo_limite) {
             this.id_proveedor = id_proveedor;
             this.nombre_proveedor = nombre_proveedor;
             this.direccion_proveedor = direccion_proveedor;
@@ -33,12 +35,31 @@
             this.saldo_proveedor = saldo_proveedor;
             this.estatus_proveedor = estatus_proveedor;
             this.fecha_registro = fecha_registro;
+            this.plazo_limite = plazo_limite;
+            this.saldo_pendiente = saldo_pendiente;
+            
         }
+
 
         @Override
         public String toString() {
-            return "Proveedor{" + "id_proveedor=" + id_proveedor + ", nombre_proveedor=" + nombre_proveedor + ", direccion_proveedor=" + direccion_proveedor + ", telefono_proveedor=" + telefono_proveedor + ", email_proveedor=" + email_proveedor + ", saldo_proveedor=" + saldo_proveedor + ", estatus_proveedor=" + estatus_proveedor + ", fecha_registro=" + fecha_registro +'}';
+            return "Proveedor{" + "id_proveedor=" + id_proveedor + ", nombre_proveedor=" + nombre_proveedor + ", direccion_proveedor=" + direccion_proveedor + ", telefono_proveedor=" + telefono_proveedor + ", email_proveedor=" + email_proveedor + ", saldo_proveedor=" + saldo_proveedor + ", estatus_proveedor=" + estatus_proveedor + ", fecha_registro=" + fecha_registro + ",saldo_pendiente="+saldo_pendiente+ ",plazo_limite=" + plazo_limite+'}';
         }
+            public void setSaldo_pendiente(int saldo_pendiente) {
+        this.saldo_pendiente = saldo_pendiente;
+    }
+
+    public void setPlazo_limite(int plazo_limite) {
+        this.plazo_limite = plazo_limite;
+    }
+          
+        public int getSaldo_pendiente() {
+        return saldo_pendiente;
+    }
+
+    public int getPlazo_limite() {
+        return plazo_limite;
+    }
 
         public int getId_proveedor() {
             return id_proveedor;

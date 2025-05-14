@@ -29,11 +29,11 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class detalle_movimientos_bancariosDAO {
 
-    private static final String SQL_SELECT = "SELECT id_detalle, id_movimiento, id_tipo_operacion, id_tipo_pago, tipo_movimiento, monto FROM detalle_movimientos_bancarios";
-    private static final String SQL_INSERT = "INSERT INTO detalle_movimientos_bancarios(id_movimiento, id_tipo_operacion, id_tipo_pago, tipo_movimiento, monto) VALUES(?,?,?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE detalle_movimientos_bancarios SET id_movimiento=?, id_tipo_operacion=?, id_tipo_pago=?, tipo_movimiento=?, monto=? WHERE id_detalle=?";
+    private static final String SQL_SELECT = "SELECT id_detalle, id_movimiento_bancario, id_tipo_operacion, id_tipo_pago, monto, descripcion FROM detalle_movimientos_bancarios";
+    private static final String SQL_INSERT = "INSERT INTO detalle_movimientos_bancarios(id_movimiento_bancario, id_tipo_operacion, id_tipo_pago, monto, descripcion) VALUES(?,?,?,?,?)";
+    private static final String SQL_UPDATE = "UPDATE detalle_movimientos_bancarios SET id_movimiento_bancario=?, id_tipo_operacion=?, id_tipo_pago=?, monto=?, descripcion=? WHERE id_detalle=?";
     private static final String SQL_DELETE = "DELETE FROM detalle_movimientos_bancarios WHERE id_detalle=?";
-    private static final String SQL_QUERY  = "SELECT id_detalle, id_movimiento, id_tipo_operacion, id_tipo_pago, tipo_movimiento, monto FROM detalle_movimientos_bancarios WHERE id_detalle=?";
+    private static final String SQL_QUERY  = "SELECT id_detalle, id_movimiento_bancario, id_tipo_operacion, id_tipo_pago, monto, descripcion FROM detalle_movimientos_bancarios WHERE id_detalle=?";
 
     public List<detalle_movimientos_bancarios> select() {
         Connection conn = null;
@@ -50,11 +50,11 @@ public class detalle_movimientos_bancariosDAO {
             while (rs.next()) {
                 detalle = new detalle_movimientos_bancarios();
                 detalle.setIdDetalle(rs.getInt("id_detalle"));
-                detalle.setIdMovimiento(rs.getInt("id_movimiento"));
+                detalle.setIdMovimiento(rs.getInt("id_movimiento_bancario"));
                 detalle.setIdTipoOperacion(rs.getInt("id_tipo_operacion"));
                 detalle.setIdTipoPago(rs.getInt("id_tipo_pago"));
-                detalle.setTipoMovimiento(rs.getString("tipo_movimiento"));
                 detalle.setMonto(rs.getFloat("monto"));
+                detalle.setDescripcion(rs.getString("descripcion"));
                 detalles.add(detalle);
             }
 
@@ -80,8 +80,8 @@ public class detalle_movimientos_bancariosDAO {
             stmt.setInt(1, detalle.getIdMovimiento());
             stmt.setInt(2, detalle.getIdTipoOperacion());
             stmt.setInt(3, detalle.getIdTipoPago());
-            stmt.setString(4, detalle.getTipoMovimiento());
-            stmt.setFloat(5, detalle.getMonto());
+            stmt.setFloat(4, detalle.getMonto());
+            stmt.setString(5, detalle.getDescripcion());
 
             System.out.println("Ejecutando query: " + SQL_INSERT);
             rows = stmt.executeUpdate();
@@ -107,8 +107,8 @@ public class detalle_movimientos_bancariosDAO {
             stmt.setInt(1, detalle.getIdMovimiento());
             stmt.setInt(2, detalle.getIdTipoOperacion());
             stmt.setInt(3, detalle.getIdTipoPago());
-            stmt.setString(4, detalle.getTipoMovimiento());
-            stmt.setFloat(5, detalle.getMonto());
+            stmt.setFloat(4, detalle.getMonto());
+            stmt.setString(5, detalle.getDescripcion());
             stmt.setInt(6, detalle.getIdDetalle());
 
             System.out.println("Ejecutando query: " + SQL_UPDATE);
@@ -161,11 +161,11 @@ public class detalle_movimientos_bancariosDAO {
             while (rs.next()) {
                 detalle = new detalle_movimientos_bancarios();
                 detalle.setIdDetalle(rs.getInt("id_detalle"));
-                detalle.setIdMovimiento(rs.getInt("id_movimiento"));
+                detalle.setIdMovimiento(rs.getInt("id_movimiento_bancario"));
                 detalle.setIdTipoOperacion(rs.getInt("id_tipo_operacion"));
                 detalle.setIdTipoPago(rs.getInt("id_tipo_pago"));
-                detalle.setTipoMovimiento(rs.getString("tipo_movimiento"));
                 detalle.setMonto(rs.getFloat("monto"));
+                detalle.setDescripcion(rs.getString("descripcion"));
             }
 
         } catch (SQLException ex) {

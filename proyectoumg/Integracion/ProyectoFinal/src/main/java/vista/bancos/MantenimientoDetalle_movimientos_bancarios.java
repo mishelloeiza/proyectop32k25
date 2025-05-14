@@ -39,7 +39,7 @@ int APLICACION=110;
         List<detalle_movimientos_bancarios> salon = detalle_movimientos_bancariosDAO.select();
         cbox_empleado.addItem("Seleccione una opción");
         for (int i = 0; i < salon.size(); i++) {
-            cbox_empleado.addItem(salon.get(i).getTipoMovimiento());
+            cbox_empleado.addItem(salon.get(i).getDescripcion());
         }
     }
     
@@ -47,11 +47,11 @@ int APLICACION=110;
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("id_detalle");
-        modelo.addColumn("id_movimiento");
+        modelo.addColumn("id_movimiento_bancario");
         modelo.addColumn("id_tipo_operacion");
         modelo.addColumn("id_tipo_pago");
-        modelo.addColumn("tipo_movimiento");
         modelo.addColumn("monto");
+        modelo.addColumn("descripcion");
         detalle_movimientos_bancariosDAO detalle_movimientos_bancariosDAO = new detalle_movimientos_bancariosDAO();
         List<detalle_movimientos_bancarios> lista = detalle_movimientos_bancariosDAO.select();
         tablaDetalle_movimientos_bancarios.setModel(modelo);
@@ -61,8 +61,8 @@ int APLICACION=110;
             dato[1] = Integer.toString(detalle.getIdMovimiento());
             dato[2] = Integer.toString(detalle.getIdTipoOperacion());
             dato[3] = Integer.toString(detalle.getIdTipoPago());
-            dato[4] = detalle.getTipoMovimiento();
-            dato[5] = Float.toString(detalle.getMonto());
+            dato[4] = Float.toString(detalle.getMonto());
+            dato[5] = detalle.getDescripcion();
             modelo.addRow(dato);
         }
     }
@@ -72,11 +72,13 @@ int APLICACION=110;
         detalle_movimientos_bancariosDAO dao = new detalle_movimientos_bancariosDAO();
         detalleAConsultar.setIdDetalle(Integer.parseInt(txtbuscado.getText()));
         detalleAConsultar = dao.query(detalleAConsultar);
+        
         txtIdMovimiento.setText(Integer.toString(detalleAConsultar.getIdMovimiento()));
         txtIdTipoOperacion.setText(Integer.toString(detalleAConsultar.getIdTipoOperacion()));
         txtIdTipoPago.setText(Integer.toString(detalleAConsultar.getIdTipoPago()));
-        txtTipoMovimiento.setText(detalleAConsultar.getTipoMovimiento());
         txtMonto.setText(Float.toString(detalleAConsultar.getMonto()));
+        txtDescripcion.setText(detalleAConsultar.getDescripcion());
+        
         Bitacora bitacoraRegistro = new Bitacora();
         bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Buscar Datos detalle_movimientos_bancarios");
     }
@@ -118,7 +120,7 @@ int APLICACION=110;
         label6 = new javax.swing.JLabel();
         label7 = new javax.swing.JLabel();
         txtIdTipoOperacion = new javax.swing.JTextField();
-        txtTipoMovimiento = new javax.swing.JTextField();
+        txtDescripcion = new javax.swing.JTextField();
         txtMonto = new javax.swing.JTextField();
         label8 = new javax.swing.JLabel();
         label9 = new javax.swing.JLabel();
@@ -239,8 +241,13 @@ int APLICACION=110;
         txtIdTipoOperacion.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtIdTipoOperacion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
 
-        txtTipoMovimiento.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txtTipoMovimiento.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+        txtDescripcion.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtDescripcion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+        txtDescripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescripcionActionPerformed(evt);
+            }
+        });
 
         txtMonto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtMonto.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
@@ -249,7 +256,7 @@ int APLICACION=110;
         label8.setText("Monto");
 
         label9.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label9.setText("Tipo Movimiento");
+        label9.setText("Descripcion");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -257,6 +264,23 @@ int APLICACION=110;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                            .addComponent(btnReporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(358, 358, 358)
                         .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -267,44 +291,22 @@ int APLICACION=110;
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(label7)
-                                    .addComponent(label6))
+                                    .addComponent(label6)
+                                    .addComponent(label8))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtIdTipoOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtIdTipoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtIdMovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(label9)
-                                    .addComponent(label8))
-                                .addGap(28, 28, 28)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtTipoMovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txtIdMovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 20, Short.MAX_VALUE)
+                        .addComponent(label9)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(207, 207, 207)
@@ -322,7 +324,8 @@ int APLICACION=110;
             .addGroup(layout.createSequentialGroup()
                 .addComponent(label1)
                 .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lb)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -339,34 +342,29 @@ int APLICACION=110;
                             .addComponent(txtIdTipoPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(label9)
-                            .addComponent(txtTipoMovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label8))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(label8)
-                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(label9)
+                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnEliminar)
                             .addComponent(btnRegistrar)
+                            .addComponent(btnEliminar)
                             .addComponent(btnModificar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnLimpiar)
-                            .addComponent(btnBuscar)
-                            .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnReporte)
-                            .addComponent(jButton2))
-                        .addGap(75, 75, 75))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                            .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscar)
+                            .addComponent(btnLimpiar))))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label4)
-                    .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2)
+                    .addComponent(btnReporte))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -390,8 +388,8 @@ int APLICACION=110;
         detalleAInsertar.setIdMovimiento(Integer.parseInt(txtIdMovimiento.getText()));
         detalleAInsertar.setIdTipoOperacion(Integer.parseInt(txtIdTipoOperacion.getText()));
         detalleAInsertar.setIdTipoPago(Integer.parseInt(txtIdTipoPago.getText()));
-        detalleAInsertar.setTipoMovimiento(txtTipoMovimiento.getText());
         detalleAInsertar.setMonto(Float.parseFloat(txtMonto.getText()));
+        detalleAInsertar.setDescripcion(txtDescripcion.getText());
         dao.insert(detalleAInsertar);
         llenadoDeTablas();
         Bitacora bitacoraRegistro = new Bitacora();
@@ -411,8 +409,8 @@ int APLICACION=110;
         detalleAActualizar.setIdMovimiento(Integer.parseInt(txtIdMovimiento.getText()));
         detalleAActualizar.setIdTipoOperacion(Integer.parseInt(txtIdTipoOperacion.getText()));
         detalleAActualizar.setIdTipoPago(Integer.parseInt(txtIdTipoPago.getText()));
-        detalleAActualizar.setTipoMovimiento(txtTipoMovimiento.getText());
         detalleAActualizar.setMonto(Float.parseFloat(txtMonto.getText()));
+        detalleAActualizar.setDescripcion(txtDescripcion.getText());
         dao.update(detalleAActualizar);
         llenadoDeTablas();
         Bitacora bitacoraRegistro = new Bitacora();
@@ -424,8 +422,8 @@ int APLICACION=110;
         txtIdMovimiento.setText("");
         txtIdTipoOperacion.setText("");
         txtIdTipoPago.setText("");
-        txtTipoMovimiento.setText("");
         txtMonto.setText("");
+        txtDescripcion.setText("");
         txtbuscado.setText("");
         btnRegistrar.setEnabled(true);
         btnModificar.setEnabled(true);
@@ -475,7 +473,7 @@ private Connection connectio = null;
         try {
             connectio = Conexion.getConnection();
             report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
-                    + "/src/main/java/reporte/banco/ReporteDetalleMovimientosBancarios.jrxml");
+                    + "/src/main/java/reporte/banco/ReporteDetalleMovimientoBancario.jrxml");
 //
             print = JasperFillManager.fillReport(report, p, connectio);
 
@@ -488,8 +486,11 @@ private Connection connectio = null;
             JOptionPane.showMessageDialog(this, "Error al generar el reporte: " + e.getMessage());
         }
         
-    //GEN-LAST:event_btnReporteActionPerformed
     }//GEN-LAST:event_btnReporteActionPerformed
+
+    private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescripcionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -513,11 +514,11 @@ private Connection connectio = null;
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lbusu;
     private javax.swing.JTable tablaDetalle_movimientos_bancarios;
+    private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtIdMovimiento;
     private javax.swing.JTextField txtIdTipoOperacion;
     private javax.swing.JTextField txtIdTipoPago;
     private javax.swing.JTextField txtMonto;
-    private javax.swing.JTextField txtTipoMovimiento;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables
 }

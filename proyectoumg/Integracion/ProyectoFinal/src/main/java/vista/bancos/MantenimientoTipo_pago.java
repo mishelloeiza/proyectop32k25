@@ -31,7 +31,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author visitante
  */
 public class MantenimientoTipo_pago extends javax.swing.JInternalFrame {
-int APLICACION=108;
+int APLICACION=110;
 
     
     public void llenadoDeCombos() {
@@ -423,7 +423,7 @@ int APLICACION=108;
             JOptionPane.showMessageDialog(this, "Error al generar el reporte: " + e.getMessage());
         }
         
-    //GEN-LAST:event_btnReporteActionPerformed
+                                              
     }//GEN-LAST:event_btnReporteActionPerformed
 
 

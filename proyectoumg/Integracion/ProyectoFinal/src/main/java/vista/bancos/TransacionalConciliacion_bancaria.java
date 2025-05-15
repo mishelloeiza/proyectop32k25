@@ -28,7 +28,7 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class TransacionalConciliacion_bancaria extends javax.swing.JInternalFrame {
 
-    int APLICACION = 105; // Código de la aplicación para bitácora
+    int APLICACION = 111; // Código de la aplicación para bitácora
     private ConciliacionBancariaDAO conciliacionDAO = new ConciliacionBancariaDAO();
 
     public void llenadoDeCombos() {

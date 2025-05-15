@@ -31,7 +31,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author visitante
  */
 public class MantenimientoDetalle_movimientos_bancarios extends javax.swing.JInternalFrame {
-int APLICACION=110;
+int APLICACION=105;
 
     
     public void llenadoDeCombos() {

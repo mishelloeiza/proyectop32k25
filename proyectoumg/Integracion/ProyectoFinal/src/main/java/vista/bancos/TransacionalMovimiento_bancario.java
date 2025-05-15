@@ -39,7 +39,7 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame {
 
-    int APLICACION = 105; // Ajustar según corresponda
+    int APLICACION = 112; // Ajustar según corresponda
     private MovimientoBancarioDAO movimientoDAO = new MovimientoBancarioDAO();
 
     public void llenadoDeCombos() {

@@ -30,7 +30,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author visitante
  */
 public class MantenimientoTipo_moneda extends javax.swing.JInternalFrame {
-    int APLICACION = 105;
+    int APLICACION = 108;
 
     public void llenadoDeCombos() {
         tipo_monedaDAO tipo_monedaDAO = new tipo_monedaDAO();
@@ -473,7 +473,7 @@ resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdU
             JOptionPane.showMessageDialog(this, "Error al generar el reporte: " + e.getMessage());
         }
         
-    //GEN-LAST:event_btnReporteActionPerformed
+                                              
     }//GEN-LAST:event_btnReporteActionPerformed
 
 

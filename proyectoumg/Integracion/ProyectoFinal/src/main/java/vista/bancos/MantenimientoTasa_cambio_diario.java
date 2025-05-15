@@ -38,7 +38,7 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class MantenimientoTasa_cambio_diario extends javax.swing.JInternalFrame {
 
-     int APLICACION = 105; // Ajustar según corresponda
+     int APLICACION = 106; // Ajustar según corresponda
     private tasa_cambio_diarioDAO tasaDAO = new tasa_cambio_diarioDAO();
 
     public void llenadoDeCombos() {
@@ -507,7 +507,7 @@ public class MantenimientoTasa_cambio_diario extends javax.swing.JInternalFrame 
             JOptionPane.showMessageDialog(this, "Error al generar el reporte: " + e.getMessage());
         }
         
-    //GEN-LAST:event_btnReporteActionPerformed
+                                              
     }//GEN-LAST:event_btnReporteActionPerformed
 
 

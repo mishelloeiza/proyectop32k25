@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 
 
 public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
-    int APLICACION = 110;
+    int APLICACION = 104;
 
     public void llenadoDeCombos() {
         cuentas_bancariasDAO cuentas_bancariasDAO = new cuentas_bancariasDAO();

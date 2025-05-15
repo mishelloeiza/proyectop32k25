@@ -12,6 +12,7 @@ import java.awt.PopupMenu;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import vista.bancos.MantenimientoBancos;
 import vista.bancos.MantenimientoCuentas_bancarias;
@@ -69,6 +70,7 @@ public class MdiBancoPro extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -172,6 +174,14 @@ public class MdiBancoPro extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setFont(new java.awt.Font("SimSun", 1, 18)); // NOI18N
+        jButton2.setText("PERMISOS");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -192,7 +202,9 @@ public class MdiBancoPro extends javax.swing.JFrame {
                 .addComponent(jButton9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(703, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(284, 284, 284))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,6 +223,10 @@ public class MdiBancoPro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
@@ -321,7 +337,7 @@ public class MdiBancoPro extends javax.swing.JFrame {
                 .addComponent(btnMoviminetoBancario2)
                 .addGap(18, 18, 18)
                 .addComponent(btnMoviminetoBancario)
-                .addContainerGap(531, Short.MAX_VALUE))
+                .addContainerGap(537, Short.MAX_VALUE))
         );
 
         jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Desktop\\FERRARI PROY\\proyectop32k25\\proyectoumg\\Integracion\\ProyectoFinal\\src\\main\\java\\vista\\about.png")); // NOI18N
@@ -518,6 +534,34 @@ public class MdiBancoPro extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnMoviminetoBancario3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+    for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
+        frame.dispose();
+    }
+
+    // Crea el JPanel que contiene la tabla (NewJPanel)
+    NewJPanel panelPermisos = new NewJPanel();
+
+    // Crea un JInternalFrame que lo contendrá
+    JInternalFrame internalFrame = new JInternalFrame("Permisos de Usuario", true, true, true, true);
+    internalFrame.setContentPane(panelPermisos);
+    internalFrame.pack(); // ajusta al tamaño del panel
+    internalFrame.setVisible(true);
+
+    // Añade el internal frame al desktop
+    jDesktopPane1.add(internalFrame);
+
+    // Centra la ventana interna
+    Dimension desktopSize = jDesktopPane1.getSize();
+    Dimension frameSize = internalFrame.getSize();
+    internalFrame.setLocation(
+        (desktopSize.width - frameSize.width) / 2,
+        (desktopSize.height - frameSize.height) / 2
+    );
+
+    }//GEN-LAST:event_jButton2ActionPerformed
     public void cerrar(){
         try 
         {
@@ -616,6 +660,7 @@ public static void main(String args[]) {
     private javax.swing.JButton btnMoviminetoBancario3;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton9;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;

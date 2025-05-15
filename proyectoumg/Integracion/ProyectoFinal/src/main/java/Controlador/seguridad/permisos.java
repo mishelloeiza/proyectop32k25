@@ -23,4 +23,8 @@ public class permisos {//validacion con minuscula
     public void setPuedeProcesos(boolean puedeProcesos) {
         this.puedeProcesos = puedeProcesos;
     }
+
+    public Object getIdUsuario() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

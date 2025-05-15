@@ -353,7 +353,7 @@ public class MdiBancoMan extends javax.swing.JFrame {
                 .addComponent(jButton5)
                 .addGap(18, 18, 18)
                 .addComponent(jButton7)
-                .addContainerGap(482, Short.MAX_VALUE))
+                .addContainerGap(490, Short.MAX_VALUE))
         );
 
         jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Desktop\\FERRARI PROY\\proyectop32k25\\proyectoumg\\Integracion\\ProyectoFinal\\src\\main\\java\\vista\\about.png")); // NOI18N
@@ -407,7 +407,7 @@ public class MdiBancoMan extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

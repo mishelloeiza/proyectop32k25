@@ -4,7 +4,7 @@ package Controlador.seguridad;
  *
  * @author MISHEL LOEIZA 9959-23-3457
  */
-public class Permisos {//validacion 
+public class permisos {//validacion con minuscula
     private boolean puedeMantenimiento;
     private boolean puedeProcesos;
 

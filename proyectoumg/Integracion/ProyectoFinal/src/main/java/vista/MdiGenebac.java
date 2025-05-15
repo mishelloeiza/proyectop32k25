@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista;
-import Controlador.seguridad.Permisos;
-import Modelo.seguridad.UsuarioDAO;
-import Controlador.seguridad.Permisos;
+import Controlador.seguridad.permisos;
+
 import Controlador.seguridad.Bitacora;
-import Controlador.seguridad.UsuarioConectado;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.PopupMenu;
@@ -31,36 +24,43 @@ import vista.seguridad.MantenimientoAplicacion;
 import vista.seguridad.MantenimientoBitacora;
 import vista.seguridad.AplicacionaUsuariosDEF;
 
+//faltantes nuevos
+import Controlador.seguridad.permisos;
+import Modelo.seguridad.UsuarioDAO;
+import Controlador.seguridad.UsuarioConectado;
 
-/**
- *
- * @author visitante
- */
 public class MdiGenebac extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MdiGeneral
-     */
-    final int APLICACION=99;
-public MdiGenebac() {
-    initComponents();
+    private int idUsuarioSesion;
+    private UsuarioDAO usuarioDAO;
+    private permisos permisosUsuario;
 
-    setLocationRelativeTo(null);
-    this.setExtendedState(MdiGenebac.MAXIMIZED_BOTH);
-    this.setTitle("Ejemplo Capas");
+    final int APLICACION = 99;
 
-    txtUsuarioEnSesion.setText(UsuarioConectado.getUserName());
+    public MdiGenebac() {
+        initComponents();
 
-    int idUsuarioSesion = UsuarioConectado.getIdUsuario();
+        setLocationRelativeTo(null);
+        this.setExtendedState(MdiGenebac.MAXIMIZED_BOTH);
+        this.setTitle("Ejemplo Capas");
 
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
-    Permisos permisosUsuario = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion);
+        idUsuarioSesion = UsuarioConectado.getIdUsuario();
+        txtUsuarioEnSesion.setText(UsuarioConectado.getUserName());
 
-    jButton9.setEnabled(permisosUsuario.isPuedeMantenimiento());
-    jButton8.setEnabled(permisosUsuario.isPuedeProcesos());
+        usuarioDAO = new UsuarioDAO();
 
-    cerrar(); // asegúrate de que esté definido
-}
+        // Obtener permisos correctamente
+        permisosUsuario = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion);
+
+        // Habilitar o deshabilitar botones según permisos
+        jButton9.setEnabled(permisosUsuario.isPuedeMantenimiento());
+        jButton8.setEnabled(permisosUsuario.isPuedeProcesos());
+
+        cerrar(); // Asegúrate que este método esté definido en tu clase
+    }
+    
+    // Aquí deberían ir el resto de métodos y componentes que tengas en la clase
+
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

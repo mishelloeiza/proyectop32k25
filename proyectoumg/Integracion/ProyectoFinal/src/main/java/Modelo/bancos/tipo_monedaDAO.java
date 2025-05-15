@@ -16,7 +16,8 @@ public class tipo_monedaDAO {
     private static final String SQL_UPDATE = "UPDATE tipo_moneda SET tipo_moneda=?, tasa_cambio_usd=? WHERE id_tipo_moneda = ?";
     private static final String SQL_DELETE = "DELETE FROM tipo_moneda WHERE id_tipo_moneda=?";
     private static final String SQL_QUERY = "SELECT id_tipo_moneda, tipo_moneda, tasa_cambio_usd FROM tipo_moneda WHERE id_tipo_moneda = ?";
-    private static final String SQL_EXISTE = "SELECT COUNT(*) FROM tipo_moneda WHERE tipo_moneda = ?"; // Consulta para verificar existencia
+    private static final String SQL_EXISTE = "SELECT COUNT(*) FROM tipo_moneda WHERE tipo_moneda = ?";
+    private static final String SQL_EXISTE_ID = "SELECT 1 FROM tipo_moneda WHERE id_tipo_moneda = ?"; // ← Agregado
 
     public List<tipo_moneda> select() {
         Connection conn = null;
@@ -149,7 +150,7 @@ public class tipo_monedaDAO {
         return tipo_moneda;
     }
 
-    // Método para verificar si el tipo de moneda ya existe
+    // Verifica si el tipo de moneda ya existe (por nombre)
     public boolean existeTipoMoneda(String tipoMoneda) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -159,14 +160,38 @@ public class tipo_monedaDAO {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_EXISTE);
-            stmt.setString(1, tipoMoneda); // Compara el tipo de moneda ingresado
+            stmt.setString(1, tipoMoneda);
             rs = stmt.executeQuery();
-            
+
+            if (rs.next() && rs.getInt(1) > 0) {
+                existe = true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+
+        return existe;
+    }
+
+    // ✅ Verifica si existe una moneda por ID
+    public boolean existeTipoMoneda(int idMoneda) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        boolean existe = false;
+
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_EXISTE_ID);
+            stmt.setInt(1, idMoneda);
+            rs = stmt.executeQuery();
+
             if (rs.next()) {
-                int count = rs.getInt(1); // Si el conteo es mayor a 0, significa que ya existe
-                if (count > 0) {
-                    existe = true;
-                }
+                existe = true;
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

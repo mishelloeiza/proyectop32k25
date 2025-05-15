@@ -8,13 +8,13 @@ public  class  detalle_movimientos_bancarios{
     private int idMovimiento;
     private int idTipoOperacion;
     private int idTipoPago;
-    private String tipoMovimiento;
     private float Monto;
+    private String Descripcion;
 
 
     @Override
     public String toString() {
-        return "detalle_movimientos_bancarios{" + "idDetalle=" + idDetalle + ", idMovimiento=" + idMovimiento + ", idTipoOperacion=" + idTipoOperacion + ", idTipoPago=" + idTipoPago + ", tipoMovimiento=" + tipoMovimiento + ", Monto=" + Monto + '}';
+        return "detalle_movimientos_bancarios{" + "idDetalle=" + idDetalle + ", idMovimiento=" + idMovimiento + ", idTipoOperacion=" + idTipoOperacion + ", idTipoPago=" + idTipoPago + ", Monto=" + Monto + ", Descripcion=" + Descripcion + '}';
     }
 
   
@@ -50,14 +50,6 @@ public  class  detalle_movimientos_bancarios{
         this.idTipoPago = idTipoPago;
     }
 
-    public String getTipoMovimiento() {
-        return tipoMovimiento;
-    }
-
-    public void setTipoMovimiento(String tipoMovimiento) {
-        this.tipoMovimiento = tipoMovimiento;
-    }
-
     public float getMonto() {
         return Monto;
     }
@@ -65,17 +57,25 @@ public  class  detalle_movimientos_bancarios{
     public void setMonto(float Monto) {
         this.Monto = Monto;
     }
+    
+    public String getDescripcion() {
+        return Descripcion;
+    }
+
+    public void setDescripcion(String Descripcion) {
+        this.Descripcion = Descripcion;
+    }
 
     public detalle_movimientos_bancarios() {
     }
 
-    public detalle_movimientos_bancarios(int idDetalle, int idMovimiento, int idTipoOperacion, int idTipoPago, String tipoMovimiento, float Monto) {
+    public detalle_movimientos_bancarios(int idDetalle, int idMovimiento, int idTipoOperacion, int idTipoPago, float Monto, String Descripcion) {
         this.idDetalle = idDetalle;
         this.idMovimiento = idMovimiento;
         this.idTipoOperacion = idTipoOperacion;
         this.idTipoPago = idTipoPago;
-        this.tipoMovimiento = tipoMovimiento;
         this.Monto = Monto;
+        this.Descripcion = Descripcion;
     }
 
 }

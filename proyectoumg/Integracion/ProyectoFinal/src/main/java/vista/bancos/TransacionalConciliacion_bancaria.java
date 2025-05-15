@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
+//Mishel Loeiza Ramirez
 
 public class TransacionalConciliacion_bancaria extends javax.swing.JInternalFrame {
 
@@ -54,44 +56,36 @@ public class TransacionalConciliacion_bancaria extends javax.swing.JInternalFram
     }
 
     public void buscarConciliacion() {
-        conciliacion_bancaria consulta = new conciliacion_bancaria();
-        consulta.setId_conciliacion(Integer.parseInt(txtbuscado.getText()));
-        consulta = conciliacionDAO.query(consulta);
+         conciliacion_bancaria consulta = new conciliacion_bancaria();
+    consulta.setId_conciliacion(Integer.parseInt(txtbuscado.getText()));
+    consulta = conciliacionDAO.query(consulta);
 
-        if (consulta != null) {
-            txtIidCuenta.setText(String.valueOf(consulta.getId_tipo_cuenta()));
-            txtFecha.setText(consulta.getFecha().toString());
-            txtEstado.setText(consulta.getStatus());
-
-            Bitacora bitacoraRegistro = new Bitacora();
-            bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Buscar Conciliación");
-        } else {
-            JOptionPane.showMessageDialog(this, "Conciliación no encontrada.");
-        }
+    if (consulta != null) {
+        txtIidCuenta.setText(String.valueOf(consulta.getId_tipo_cuenta()));
+        // Formatear la fecha con hora
+        txtFecha.setText(consulta.getFecha().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        txtEstado.setText(consulta.getStatus());
+    }
     }
 
     public TransacionalConciliacion_bancaria() {
         initComponents();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        txtFecha.setText(formatter.format(LocalDateTime.now()));
-        txtFecha.setForeground(Color.GRAY);
+          txtFecha.addFocusListener(new java.awt.event.FocusAdapter() {
+    public void focusGained(java.awt.event.FocusEvent evt) {
+        if (txtFecha.getForeground().equals(Color.GRAY)) {
+            txtFecha.setText(""); // Limpiar al seleccionar
+            txtFecha.setForeground(Color.BLACK);
+        }
+    }
 
-        txtFecha.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                if (txtFecha.getForeground().equals(Color.GRAY)) {
-                    txtFecha.setText("");
-                    txtFecha.setForeground(Color.BLACK);
-                }
-            }
-
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                if (txtFecha.getText().isEmpty()) {
-                    txtFecha.setText(formatter.format(LocalDateTime.now()));
-                    txtFecha.setForeground(Color.GRAY);
-                }
-            }
-        });
+    public void focusLost(java.awt.event.FocusEvent evt) {
+        if (txtFecha.getText().isEmpty()) {
+            txtFecha.setText(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()));
+            txtFecha.setForeground(Color.GRAY);
+        }
+    }
+});
 
         llenadoDeTablas();
         llenadoDeCombos();
@@ -130,6 +124,7 @@ public class TransacionalConciliacion_bancaria extends javax.swing.JInternalFram
         btnreporteTasaDecambioDiario = new javax.swing.JButton();
         txtEstado = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        StatC = new javax.swing.JComboBox<>();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -243,7 +238,15 @@ public class TransacionalConciliacion_bancaria extends javax.swing.JInternalFram
             }
         });
 
+        txtEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEstadoActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText("Status");
+
+        StatC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PENDIENTE", "CONCILIADO", " " }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -258,22 +261,25 @@ public class TransacionalConciliacion_bancaria extends javax.swing.JInternalFram
                                 .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnLimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                                    .addComponent(btnAyudasTasaDecambioDiario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnAyudasTasaDecambioDiario)
                                         .addGap(18, 18, 18)
-                                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnreporteTasaDecambioDiario))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(btnreporteTasaDecambioDiario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,11 +290,16 @@ public class TransacionalConciliacion_bancaria extends javax.swing.JInternalFram
                                     .addComponent(txtFecha)
                                     .addComponent(txtIidCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE))))
                         .addGap(0, 2, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(StatC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -332,6 +343,8 @@ public class TransacionalConciliacion_bancaria extends javax.swing.JInternalFram
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel1))
+                                .addGap(18, 18, 18)
+                                .addComponent(StatC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnRegistrar)
@@ -393,55 +406,40 @@ public class TransacionalConciliacion_bancaria extends javax.swing.JInternalFram
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
                                         
-    try {
+      try {
         conciliacion_bancaria nuevaConciliacion = new conciliacion_bancaria();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+        // Validaciones
         if (txtIidCuenta.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Debe ingresar un ID de cuenta", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
+        // Asignar valores (la fecha SIEMPRE será la actual al registrar)
+        LocalDateTime fechaActual = LocalDateTime.now();
         nuevaConciliacion.setId_tipo_cuenta(Integer.parseInt(txtIidCuenta.getText()));
+        nuevaConciliacion.setFecha(fechaActual); // Usamos la fecha/hora exacta del registro
+        nuevaConciliacion.setStatus("Activo"); // Estado por defecto (ajusta según tu lógica)
 
-        LocalDateTime fecha;
-        if (txtFecha.getText().trim().isEmpty() || txtFecha.getText().equals("yyyy-MM-dd HH:mm:ss")) {
-            fecha = LocalDateTime.now(); 
-            SwingUtilities.invokeLater(() -> {
-                txtFecha.setText(formatter.format(fecha)); 
-                txtFecha.setForeground(Color.BLACK); 
-            });
-        } else {
-            try {
-                fecha = LocalDateTime.parse(txtFecha.getText(), formatter);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this,
-                        "Formato de fecha inválido. Use yyyy-MM-dd\nEjemplo: " + formatter.format(LocalDateTime.now()),
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        }
-
-        nuevaConciliacion.setFecha(fecha);
-
+        // Insertar en BD
         ConciliacionBancariaDAO conciliacionDAO = new ConciliacionBancariaDAO();
         conciliacionDAO.insert(nuevaConciliacion);
 
+        // Actualizar UI
         llenadoDeTablas();
+        txtIidCuenta.setText("");
+        txtFecha.setText(formatter.format(fechaActual)); // Mostrar la fecha/hora de registro
+        txtFecha.setForeground(Color.BLACK);
 
+        // Bitácora
         Bitacora bitacoraRegistro = new Bitacora();
-        bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Insertar Conciliación Bancaria");
+        bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Registro de Conciliación");
 
-        txtIidCuenta.setText(""); 
-        SwingUtilities.invokeLater(() -> {
-            txtFecha.setText("yyyy-MM-dd HH:mm:ss");
-            txtFecha.setForeground(Color.GRAY); 
-        });
+        JOptionPane.showMessageDialog(this, "¡Registro exitoso!\nFecha: " + formatter.format(fechaActual));
 
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "ID de cuenta debe ser numérico", "Error", JOptionPane.ERROR_MESSAGE);
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error al registrar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     }//GEN-LAST:event_btnRegistrarActionPerformed
@@ -453,28 +451,45 @@ public class TransacionalConciliacion_bancaria extends javax.swing.JInternalFram
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 try {
-    conciliacion_bancaria conciliacionActualizar = new conciliacion_bancaria();
-    conciliacionActualizar.setId_conciliacion(Integer.parseInt(txtbuscado.getText()));
-    conciliacionActualizar.setId_tipo_cuenta(Integer.parseInt(txtIidCuenta.getText()));
+        conciliacion_bancaria conciliacionActualizar = new conciliacion_bancaria();
+        
+        // Validar campos obligatorios
+        if (txtbuscado.getText().trim().isEmpty() || txtIidCuenta.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "ID de conciliación y ID de cuenta son requeridos", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    conciliacionActualizar.setFecha(LocalDateTime.parse(txtFecha.getText(), formatter));
+        conciliacionActualizar.setId_conciliacion(Integer.parseInt(txtbuscado.getText()));
+        conciliacionActualizar.setId_tipo_cuenta(Integer.parseInt(txtIidCuenta.getText()));
 
-    conciliacionActualizar.setStatus(txtEstado.getText().trim());
+        // Parseo de fecha con manejo de errores
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime fecha = LocalDateTime.parse(txtFecha.getText(), formatter);
+            conciliacionActualizar.setFecha(fecha);
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, 
+                "Formato de fecha debe ser: yyyy-MM-dd HH:mm:ss\nEjemplo: " + 
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), 
+                "Error de formato", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    conciliacion_bancariaDAO conciliacionDAO = new conciliacion_bancariaDAO();
-    conciliacionDAO.update(conciliacionActualizar);
+        conciliacionActualizar.setStatus(txtEstado.getText().trim());
 
-    llenadoDeTablas();
+        // Actualizar en BD
+        ConciliacionBancariaDAO conciliacionDAO = new ConciliacionBancariaDAO();
+        conciliacionDAO.update(conciliacionActualizar);
 
-    Bitacora bitacoraRegistro = new Bitacora();
-    bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Modificar Conciliación Bancaria");
+        // Actualizar UI
+        llenadoDeTablas();
+        JOptionPane.showMessageDialog(this, "Conciliación modificada correctamente");
 
-    JOptionPane.showMessageDialog(this, "Conciliación modificada correctamente.");
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(this, "Error al modificar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-}
-
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "IDs deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al modificar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -554,8 +569,13 @@ private Connection connectio = null;
         
     }//GEN-LAST:event_btnreporteTasaDecambioDiarioActionPerformed
 
+    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEstadoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> StatC;
     private javax.swing.JButton btnAyudasTasaDecambioDiario;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
@@ -587,10 +607,6 @@ private Connection connectio = null;
         }
 
         private void delete(conciliacion_bancaria conciliacionEliminar) {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        }
-
-        private void update(conciliacion_bancaria conciliacionActualizar) {
             throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         }
     }

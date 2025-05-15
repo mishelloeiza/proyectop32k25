@@ -23,7 +23,6 @@ public class cuentas_bancariasDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        cuentas_bancarias cuentaBancaria = null;
         List<cuentas_bancarias> listCuentasBancarias = new ArrayList<>();
 
         try {
@@ -31,19 +30,12 @@ public class cuentas_bancariasDAO {
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int idCuenta = rs.getInt("id_cuenta");
-                int idBanco = rs.getInt("id_banco");
-                int idTipoCuenta = rs.getInt("id_tipo_cuenta");
-                int idTipoMoneda = rs.getInt("id_tipo_moneda");
-                double saldo = rs.getDouble("saldo");
-
-                cuentaBancaria = new cuentas_bancarias();
-                cuentaBancaria.setId_cuenta(idCuenta);
-                cuentaBancaria.setId_banco(idBanco);
-                cuentaBancaria.setId_tipo_cuenta(idTipoCuenta);
-                cuentaBancaria.setId_tipo_moneda(idTipoMoneda);
-                cuentaBancaria.setSaldo(saldo);
-
+                cuentas_bancarias cuentaBancaria = new cuentas_bancarias();
+                cuentaBancaria.setId_cuenta(rs.getInt("id_cuenta"));
+                cuentaBancaria.setId_banco(rs.getInt("id_banco"));
+                cuentaBancaria.setId_tipo_cuenta(rs.getInt("id_tipo_cuenta"));
+                cuentaBancaria.setId_tipo_moneda(rs.getInt("id_tipo_moneda"));
+                cuentaBancaria.setSaldo(rs.getDouble("saldo"));
                 listCuentasBancarias.add(cuentaBancaria);
             }
 
@@ -156,7 +148,7 @@ public class cuentas_bancariasDAO {
         return cuentaBancaria;
     }
 
-    public boolean existeTipoCuenta(String cuentaBancaria) {
+    public boolean existeCuenta(int idCuenta) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -165,14 +157,12 @@ public class cuentas_bancariasDAO {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_EXISTE);
-            stmt.setString(1, cuentaBancaria);
+            stmt.setInt(1, idCuenta);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
                 int count = rs.getInt(1);
-                if (count > 0) {
-                    existe = true;
-                }
+                existe = count > 0;
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

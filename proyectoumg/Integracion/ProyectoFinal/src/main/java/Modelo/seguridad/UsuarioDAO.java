@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelo.seguridad;
 
 import Modelo.*;
 import Controlador.seguridad.Usuario;
+import Controlador.seguridad.Permisos;
 import Modelo.Conexion;
 import java.sql.*;
 import java.util.ArrayList;
@@ -149,7 +145,6 @@ public class UsuarioDAO {
                 usuario.setUsername(username);
                 usuario.setPassword(password);
             }
-            //System.out.println("Registros buscado:" + persona);
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -158,9 +153,9 @@ public class UsuarioDAO {
             Conexion.close(conn);
         }
 
-        //return personas;  // Si se utiliza un ArrayList
         return usuario;
     }
+
     public Usuario query2(Usuario usuario) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -181,7 +176,6 @@ public class UsuarioDAO {
                 usuario.setUsername(username);
                 usuario.setPassword(password);
             }
-            //System.out.println("Registros buscado:" + persona);
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -190,7 +184,34 @@ public class UsuarioDAO {
             Conexion.close(conn);
         }
 
-        //return personas;  // Si se utiliza un ArrayList
         return usuario;
+    }
+
+    public Permisos obtenerPermisosPorUsuario(int idUsuario) {
+        Permisos permisos = new Permisos();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = Conexion.getConnection();
+            String sql = "SELECT puede_mantenimiento, puede_procesos FROM permisos_usuario WHERE id_usuario = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, idUsuario);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                permisos.setPuedeMantenimiento(rs.getBoolean("puede_mantenimiento"));
+                permisos.setPuedeProcesos(rs.getBoolean("puede_procesos"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(ps);
+            Conexion.close(conn);
+        }
+        return permisos;
     }
 }

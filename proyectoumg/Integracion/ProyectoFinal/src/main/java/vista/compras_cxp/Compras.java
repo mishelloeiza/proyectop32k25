@@ -6,7 +6,12 @@ package vista.compras_cxp;
 
 import Modelo.compras_cxp.ProveedorDAO;
 import Controlador.compras_cxp.Proveedor;
+import Controlador.inventarios.productos;
+import Modelo.inventarios.ProductosDAO;
 import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -23,37 +28,39 @@ public class Compras extends javax.swing.JFrame {
         }
         
         //Kathia Contreras llenado de productos disponibles para la lista #1
-        /*AplicacionDAO aplicacionDAO = new AplicacionDAO();//crea objeto 
-        List<Aplicacion> aplicaciones = aplicacionDAO.select(); //crea una lista
+        ProductosDAO productosDAO = new ProductosDAO();//crea objeto 
+        List<productos> producto = productosDAO.select(); //crea una lista
          DefaultListModel<String> modelo = new DefaultListModel<>();//crea un modelo para la lista
-        for (Aplicacion app : aplicaciones) { //recorre la lista aplicaciones
-            modelo.addElement(app.getNombre_aplicacion()); //agrega los nombres de aplicaciones 
+        for (productos app : producto) { //recorre la lista aplicaciones
+            modelo.addElement(app.getProNombre()); //agrega los nombres de aplicaciones 
         }
-        lst1App.setModel(modelo);//manda el modelo a la lista (visualmente)
-     */   
-     //HECHO POR KATHIA CONTRERAS - 8246 
-     //MANDA ID DE APLICACION SELECCIONADO
-    /*lst2App.addListSelectionListener(new ListSelectionListener() {
+        listaproductos.setModel(modelo);//manda el modelo a la lista (visualmente)
+          
+     //CORREGIR --- NO FUNCIONA ---
+     
+     //MANDA nombre y precio de aplicacion seleccionada
+    listaproductos.addListSelectionListener(new ListSelectionListener() {
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) { // evitar eventos duplicados y mejora el rendimiento con break.
-            String nombreaplisele = lst2App.getSelectedValue();// variable que obtiene el nombre de aplicacion seleccionada
-            //verifica que no esté vacía
-            if (nombreaplisele != null) {
+            String nomproducsele = listaproductos.getSelectedValue();// variable que obtiene el nombre de aplicacion seleccionada
+            
+             //verifica que no esté vacía
+            if (nomproducsele != null) {
                 // Ciclo que busca el ID de la aplicación seleccionada
-                for (Aplicacion appli : aplicaciones) {
+                for ( productos produc : producto) {
                     //verifica si el nombre del objeto es igual al nombre seleccionado
-                    if (appli.getNombre_aplicacion().equals(nombreaplisele)) {
-                        int idAppSeleccionada = appli.getId_aplicacion();
-                        System.out.println("ID seleccionado: " + idAppSeleccionada); // Opcional: para debug
-                        jTextField2.setText(String.valueOf(idAppSeleccionada)); // Asignar el ID a un campo
+                    if (produc.getProNombre().equals(nomproducsele)) {
+                        String idproducSeleccionada = String.valueOf(produc.getProCodigo());
+                        System.out.println("ID seleccionado: " + idproducSeleccionada); // Opcional: para debug
+                        productotxt.setText(idproducSeleccionada); // Asignar el ID a un campo
                         break;
                     }
                 }
             }
         }
     }
-});*/
+});
     }
 
     /**
@@ -85,7 +92,7 @@ public class Compras extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         agrega = new javax.swing.JButton();
-        producto = new javax.swing.JTextField();
+        productotxt = new javax.swing.JTextField();
         cantidad = new javax.swing.JTextField();
         precio = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -107,11 +114,6 @@ public class Compras extends javax.swing.JFrame {
 
         jLabel5.setText("Lista de productos disponibles");
 
-        listaproductos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(listaproductos);
 
         jLabel6.setText("Producto");
@@ -161,7 +163,7 @@ public class Compras extends javax.swing.JFrame {
                                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGap(18, 18, 18)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(producto)
+                                                .addComponent(productotxt)
                                                 .addComponent(precio)))
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,7 +214,7 @@ public class Compras extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(productotxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -296,7 +298,7 @@ public class Compras extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JList<String> listaproductos;
     private javax.swing.JTextField precio;
-    private javax.swing.JTextField producto;
+    private javax.swing.JTextField productotxt;
     private javax.swing.JTextField proveedorselec;
     // End of variables declaration//GEN-END:variables
 }

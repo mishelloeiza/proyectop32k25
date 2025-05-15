@@ -1,16 +1,17 @@
 package Modelo.seguridad;
 
-import Modelo.Conexion;
+import Modelo.*;
 import Controlador.seguridad.Usuario;
 import Controlador.seguridad.permisos;
+
+import Modelo.Conexion;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author Mishel
- * //corrigiendo duplicado
+ * @author visitante
  */
 public class UsuarioDAO {
 
@@ -25,18 +26,22 @@ public class UsuarioDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Usuario> usuarios = new ArrayList<>();
-
+        Usuario usuario = null;
+        List<Usuario> usuarios = new ArrayList<Usuario>();
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
-
             while (rs.next()) {
-                Usuario usuario = new Usuario();
-                usuario.setId_usuario(rs.getInt("id_usuario"));
-                usuario.setUsername(rs.getString("username"));
-                usuario.setPassword(rs.getString("password"));
+                int id_usuario = rs.getInt("id_usuario");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+
+                usuario = new Usuario();
+                usuario.setId_usuario(id_usuario);
+                usuario.setUsername(username);
+                usuario.setPassword(password);
+
                 usuarios.add(usuario);
             }
 
@@ -55,16 +60,15 @@ public class UsuarioDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
-
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
             stmt.setString(1, usuario.getUsername());
             stmt.setString(2, usuario.getPassword());
 
-            System.out.println("Ejecutando query: " + SQL_INSERT);
+            System.out.println("ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
-            System.out.println("Registros afectados: " + rows);
+            System.out.println("Registros afectados:" + rows);
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -79,17 +83,17 @@ public class UsuarioDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
-
         try {
             conn = Conexion.getConnection();
+            System.out.println("ejecutando query: " + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
             stmt.setString(1, usuario.getUsername());
             stmt.setString(2, usuario.getPassword());
             stmt.setInt(3, usuario.getId_usuario());
 
-            System.out.println("Ejecutando query: " + SQL_UPDATE);
             rows = stmt.executeUpdate();
-            System.out.println("Registros actualizados: " + rows);
+            System.out.println("Registros actualizado:" + rows);
+
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -107,12 +111,11 @@ public class UsuarioDAO {
 
         try {
             conn = Conexion.getConnection();
+            System.out.println("Ejecutando query:" + SQL_DELETE);
             stmt = conn.prepareStatement(SQL_DELETE);
             stmt.setInt(1, usuario.getId_usuario());
-
-            System.out.println("Ejecutando query: " + SQL_DELETE);
             rows = stmt.executeUpdate();
-            System.out.println("Registros eliminados: " + rows);
+            System.out.println("Registros eliminados:" + rows);
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -127,18 +130,21 @@ public class UsuarioDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             conn = Conexion.getConnection();
+            System.out.println("Ejecutando query:" + SQL_QUERY);
             stmt = conn.prepareStatement(SQL_QUERY);
             stmt.setString(1, usuario.getUsername());
             rs = stmt.executeQuery();
+            while (rs.next()) {
+                int id_usuario = rs.getInt("id_usuario");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
 
-            if (rs.next()) {
                 usuario = new Usuario();
-                usuario.setId_usuario(rs.getInt("id_usuario"));
-                usuario.setUsername(rs.getString("username"));
-                usuario.setPassword(rs.getString("password"));
+                usuario.setId_usuario(id_usuario);
+                usuario.setUsername(username);
+                usuario.setPassword(password);
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -155,18 +161,21 @@ public class UsuarioDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             conn = Conexion.getConnection();
+            System.out.println("Ejecutando query:" + SQL_QUERY2);
             stmt = conn.prepareStatement(SQL_QUERY2);
             stmt.setInt(1, usuario.getId_usuario());
             rs = stmt.executeQuery();
+            while (rs.next()) {
+                int id_usuario = rs.getInt("id_usuario");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
 
-            if (rs.next()) {
                 usuario = new Usuario();
-                usuario.setId_usuario(rs.getInt("id_usuario"));
-                usuario.setUsername(rs.getString("username"));
-                usuario.setPassword(rs.getString("password"));
+                usuario.setId_usuario(id_usuario);
+                usuario.setUsername(username);
+                usuario.setPassword(password);
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -204,9 +213,6 @@ public class UsuarioDAO {
             Conexion.close(ps);
             Conexion.close(conn);
         }
-
         return permisos;
     }
-
-   
 }

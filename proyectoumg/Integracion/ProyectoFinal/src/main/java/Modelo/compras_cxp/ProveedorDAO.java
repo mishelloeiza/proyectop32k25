@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controlador.compras_cxp;
+package Modelo.compras_cxp;
 
+import Controlador.compras_cxp.*;
 import Controlador.compras_cxp.Proveedor;
 import Modelo.Conexion;
 import java.io.File;
@@ -24,11 +25,11 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class ProveedorDAO {
 
-    private static final String SQL_SELECT = "SELECT id_proveedor, nombre_proveedor, direccion_proveedor, telefono_proveedor, email_proveedor, saldo_proveedor, estatus_proveedor, fecha_registro,saldo_pendiente, plazo_limite   FROM proveedor";
-    private static final String SQL_INSERT = "INSERT INTO proveedor (id_proveedor, nombre_proveedor, direccion_proveedor, telefono_proveedor, email_proveedor, saldo_proveedor, estatus_proveedor, fecha_registro, saldo_pendiente, plazo_limite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE proveedor SET nombre_proveedor=?, direccion_proveedor=?, telefono_proveedor=?, email_proveedor=?, saldo_proveedor=?, estatus_proveedor=?, fecha_registro=?, saldo_pendiente=?, plazo_limite=? WHERE id_proveedor=? ";
+    private static final String SQL_SELECT = "SELECT id_proveedor, nombre_proveedor, direccion_proveedor, telefono_proveedor, email_proveedor, saldo_proveedor, estatus_proveedor, fecha_registro, plazo_limite   FROM proveedor";
+    private static final String SQL_INSERT = "INSERT INTO proveedor (id_proveedor, nombre_proveedor, direccion_proveedor, telefono_proveedor, email_proveedor, saldo_proveedor, estatus_proveedor, fecha_registro, plazo_limite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE = "UPDATE proveedor SET nombre_proveedor=?, direccion_proveedor=?, telefono_proveedor=?, email_proveedor=?, saldo_proveedor=?, estatus_proveedor=?, fecha_registro=?, plazo_limite=? WHERE id_proveedor=? ";
     private static final String SQL_DELETE = "DELETE FROM proveedor WHERE id_proveedor=?";
-    private static final String SQL_QUERY = "SELECT id_proveedor, nombre_proveedor, direccion_proveedor, telefono_proveedor, email_proveedor, saldo_proveedor, estatus_proveedor, fecha_registro, saldo_pendiente=? plazo_limite=? FROM proveedor WHERE id_proveedor=?";
+    private static final String SQL_QUERY = "SELECT id_proveedor, nombre_proveedor, direccion_proveedor, telefono_proveedor, email_proveedor, saldo_proveedor, estatus_proveedor, fecha_registro, plazo_limite FROM proveedor WHERE id_proveedor=?";
 
     public List<Proveedor> select() {
         Connection conn = null;
@@ -50,7 +51,6 @@ public class ProveedorDAO {
                 proveedor.setSaldo_proveedor(rs.getInt("saldo_proveedor"));
                 proveedor.setEstatus_proveedor(rs.getInt("estatus_proveedor"));
                 proveedor.setFecha_registro(rs.getString("fecha_registro"));
-                proveedor.setSaldo_pendiente(rs.getInt("saldo_pendiente"));
                 proveedor.setPlazo_limite(rs.getInt("plazo_limite"));
 
                 list_proveedores.add(proveedor);
@@ -83,8 +83,7 @@ public class ProveedorDAO {
             stmt.setInt(6, proveedor.getSaldo_proveedor());
             stmt.setInt(7, proveedor.getEstatus_proveedor());
             stmt.setString(8, proveedor.getFecha_registro());
-            stmt.setInt(9, proveedor.getSaldo_pendiente());
-            stmt.setInt(10, proveedor.getPlazo_limite());
+            stmt.setInt(9, proveedor.getPlazo_limite());
 
             rows = stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -113,8 +112,7 @@ public class ProveedorDAO {
             stmt.setInt(6, proveedor.getEstatus_proveedor());
             stmt.setString(7, proveedor.getFecha_registro());
             stmt.setInt(8, proveedor.getId_proveedor());
-            stmt.setInt(9, proveedor.getSaldo_pendiente());
-            stmt.setInt(10, proveedor.getPlazo_limite());
+            stmt.setInt(9, proveedor.getPlazo_limite());
 
             rows = stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -166,7 +164,6 @@ public class ProveedorDAO {
                 proveedor.setSaldo_proveedor(rs.getInt("saldo_proveedor"));
                 proveedor.setEstatus_proveedor(rs.getInt("estatus_proveedor"));
                 proveedor.setFecha_registro(rs.getString("fecha_registro"));
-                proveedor.setSaldo_pendiente(rs.getInt("saldo_pendiente"));
                 proveedor.setPlazo_limite(rs.getInt("plazo_limite"));
                 
             }

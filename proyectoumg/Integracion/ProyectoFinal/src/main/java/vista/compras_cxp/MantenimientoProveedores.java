@@ -1,7 +1,7 @@
 package vista.compras_cxp;
 
 import Controlador.compras_cxp.Proveedor;
-import Controlador.compras_cxp.ProveedorDAO;
+import Modelo.compras_cxp.ProveedorDAO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
@@ -40,12 +40,12 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         modelo.addColumn("Estatus ");
         modelo.addColumn("Fecha Registro");
         modelo.addColumn("Plazo Limite");
-        modelo.addColumn("Saldo Pendiente");
+       
         
         ProveedorDAO proveedorDAO = new ProveedorDAO();
         List<Proveedor> proveedores = proveedorDAO.select();
         tablaProveedores.setModel(modelo);
-        String[] dato = new String[10];
+        String[] dato = new String[9];
         for (int i = 0; i < proveedores.size(); i++) {
             dato[0] = Integer.toString(proveedores.get(i).getId_proveedor());
             dato[1] = proveedores.get(i).getNombre_proveedor();
@@ -55,8 +55,7 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
             dato[5] = Integer.toString(proveedores.get(i).getSaldo_proveedor());
             dato[6] = Integer.toString(proveedores.get(i).getEstatus_proveedor());
             dato[7] = proveedores.get(i).getFecha_registro();
-            dato[8] = Integer.toString(proveedores.get(i).getSaldo_pendiente());
-            dato[9] = Integer.toString(proveedores.get(i).getPlazo_limite());
+            dato[8] = Integer.toString(proveedores.get(i).getPlazo_limite());
             modelo.addRow(dato);
         }
     }
@@ -73,8 +72,7 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         txtTelefono.setText(proveedorAConsultar.getTelefono_proveedor());
         txtEmail.setText(proveedorAConsultar.getEmail_proveedor());
         txtSaldo.setText(String.valueOf(proveedorAConsultar.getSaldo_proveedor()));
-        txtpendiente.setText(String.valueOf(proveedorAConsultar.getSaldo_pendiente()));
-        txtSaldo.setText(String.valueOf(proveedorAConsultar.getPlazo_limite()));
+        txtlimite.setText(String.valueOf(proveedorAConsultar.getPlazo_limite()));
         txtEstatus.setText(String.valueOf(proveedorAConsultar.getEstatus_proveedor()));
         txtFechaRegistro.setText(proveedorAConsultar.getFecha_registro());
         UsuarioConectado usuarioEnSesion = new UsuarioConectado();
@@ -133,8 +131,6 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         txtFechaRegistro = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        txtpendiente = new javax.swing.JTextField();
         txtlimite = new javax.swing.JTextField();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
@@ -249,9 +245,6 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel7.setText("Días de plazo Limite");
 
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel8.setText("Saldo Pendiente");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -271,38 +264,38 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
                         .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(763, Short.MAX_VALUE))
+                .addContainerGap(791, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(dire)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5))
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-                            .addComponent(txtDireccion)
-                            .addComponent(txtEmail)
-                            .addComponent(txtSaldo)
-                            .addComponent(txtEstatus)
-                            .addComponent(txtNombre)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4)
+                                    .addComponent(dire)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5))
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                                    .addComponent(txtDireccion)
+                                    .addComponent(txtEmail)
+                                    .addComponent(txtSaldo)
+                                    .addComponent(txtEstatus)
+                                    .addComponent(txtNombre)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel7))
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtlimite, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtpendiente, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtFechaRegistro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtlimite, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -380,26 +373,18 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(txtEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel7)
-                                            .addComponent(txtlimite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(21, 21, 21)
-                                        .addComponent(txtFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(txtpendiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel8))
-                                        .addGap(0, 44, Short.MAX_VALUE))))))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(txtFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(24, 24, 24)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(txtlimite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)))
-                .addGap(15, 15, 15)
+                .addGap(15, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrar)
                     .addComponent(btnEliminar)
@@ -444,8 +429,7 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         proveedorAInsertar.setTelefono_proveedor(txtTelefono.getText());
         proveedorAInsertar.setEmail_proveedor(txtEmail.getText());
         proveedorAInsertar.setSaldo_proveedor(Integer.parseInt(txtSaldo.getText()));
-        proveedorAInsertar.setEstatus_proveedor(Integer.parseInt(txtEstatus.getText()));        
-        proveedorAInsertar.setSaldo_pendiente(Integer.parseInt(txtpendiente.getText()));
+        proveedorAInsertar.setEstatus_proveedor(Integer.parseInt(txtEstatus.getText()));       
         proveedorAInsertar.setPlazo_limite(Integer.parseInt(txtlimite.getText()));       
         proveedorAInsertar.setFecha_registro(txtFechaRegistro.getText());
         proveedorDAO.insert(proveedorAInsertar);
@@ -475,8 +459,7 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         proveedorAActualizar.setTelefono_proveedor(txtTelefono.getText());
         proveedorAActualizar.setEmail_proveedor(txtEmail.getText());
         proveedorAActualizar.setSaldo_proveedor(Integer.parseInt(txtSaldo.getText()));
-        proveedorAActualizar.setPlazo_limite(Integer.parseInt(txtlimite.getText()));
-        proveedorAActualizar.setSaldo_pendiente(Integer.parseInt(txtpendiente.getText()));
+        proveedorAActualizar.setPlazo_limite(Integer.parseInt(txtlimite.getText())); 
         proveedorAActualizar.setEstatus_proveedor(Integer.parseInt(txtEstatus.getText()));
         proveedorAActualizar.setFecha_registro(txtFechaRegistro.getText());
         proveedorDAO.update(proveedorAActualizar);
@@ -498,7 +481,7 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         txtFechaRegistro.setText("");
         txtbuscado.setText("");
         txtlimite.setText("");
-        txtpendiente.setText("");
+       
         btnRegistrar.setEnabled(true);
         btnModificar.setEnabled(true);
         btnEliminar.setEnabled(true);
@@ -552,7 +535,6 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label3;
@@ -572,6 +554,5 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtbuscado;
     private javax.swing.JTextField txtlimite;
-    private javax.swing.JTextField txtpendiente;
     // End of variables declaration//GEN-END:variables
 }

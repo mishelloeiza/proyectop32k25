@@ -2,7 +2,7 @@ package Controlador.seguridad;
 
 /**
  *
- * @author cdavi
+ * @author MISHEL LOEIZA 9959-23-3457
  */
 public class Permisos {
     private boolean puedeMantenimiento;

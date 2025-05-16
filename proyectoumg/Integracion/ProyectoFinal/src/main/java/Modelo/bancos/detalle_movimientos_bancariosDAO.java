@@ -197,4 +197,40 @@ public class detalle_movimientos_bancariosDAO {
             e.printStackTrace();
         }
     }
+    
+    public boolean existeMovimientoBancario(int id) {
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement stmt = conn.prepareStatement("SELECT 1 FROM movimientos_bancarios WHERE id_movimiento_bancario = ?")) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean existeTipoOperacion(int id) {
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement stmt = conn.prepareStatement("SELECT 1 FROM tipo_operacion_bancaria WHERE id_tipo_operacion = ?")) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean existeTipoPago(int id) {
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement stmt = conn.prepareStatement("SELECT 1 FROM tipo_pago WHERE id_tipo_pago = ?")) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

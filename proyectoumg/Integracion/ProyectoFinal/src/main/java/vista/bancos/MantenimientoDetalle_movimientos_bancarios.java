@@ -384,16 +384,42 @@ int APLICACION=105;
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         detalle_movimientos_bancariosDAO dao = new detalle_movimientos_bancariosDAO();
+        String errores = "";
+
+        int idMovimiento = Integer.parseInt(txtIdMovimiento.getText());
+        int idTipoOperacion = Integer.parseInt(txtIdTipoOperacion.getText());
+        int idTipoPago = Integer.parseInt(txtIdTipoPago.getText());
+
+        if (!dao.existeMovimientoBancario(idMovimiento)) {
+            errores += "❌ El ID del movimiento bancario no existe.\n";
+        }
+        if (!dao.existeTipoOperacion(idTipoOperacion)) {
+            errores += "❌ El ID del tipo de operación no existe.\n";
+        }
+        if (!dao.existeTipoPago(idTipoPago)) {
+            errores += "❌ El ID del tipo de pago no existe.\n";
+        }
+
+        if (!errores.isEmpty()) {
+            JOptionPane.showMessageDialog(this, errores, "Errores de validación", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Si todo es válido, registrar
         detalle_movimientos_bancarios detalleAInsertar = new detalle_movimientos_bancarios();
-        detalleAInsertar.setIdMovimiento(Integer.parseInt(txtIdMovimiento.getText()));
-        detalleAInsertar.setIdTipoOperacion(Integer.parseInt(txtIdTipoOperacion.getText()));
-        detalleAInsertar.setIdTipoPago(Integer.parseInt(txtIdTipoPago.getText()));
+        detalleAInsertar.setIdMovimiento(idMovimiento);
+        detalleAInsertar.setIdTipoOperacion(idTipoOperacion);
+        detalleAInsertar.setIdTipoPago(idTipoPago);
         detalleAInsertar.setMonto(Float.parseFloat(txtMonto.getText()));
         detalleAInsertar.setDescripcion(txtDescripcion.getText());
+
         dao.insert(detalleAInsertar);
         llenadoDeTablas();
+
         Bitacora bitacoraRegistro = new Bitacora();
         bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Insertar Datos detalle_movimientos_bancarios");
+
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed

@@ -39,13 +39,22 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame {
 
-    int APLICACION = 112; // Ajustar según corresponda
+    int APLICACION = 105; // Ajustar según corresponda
     private MovimientoBancarioDAO movimientoDAO = new MovimientoBancarioDAO();
 
     public void llenadoDeCombos() {
         // Implementar si se necesita cargar tipos de cuenta
         cbox_empleado.addItem("Seleccione una opción");
         // Ejemplo: cargar tipos de cuenta desde la base de datos
+        cboTipoSaldo = new javax.swing.JComboBox<>();
+    cboTipoSaldo.setFont(new java.awt.Font("Century Gothic", 0, 12));
+    cboTipoSaldo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Acreedor", "Deudor" }));
+    
+    // Crear el campo para saldo disponible (solo lectura)
+    txtSaldo = new javax.swing.JTextField();
+    lblSaldo.setFont(new java.awt.Font("Century Gothic", 0, 12));
+    lblSaldo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+    txtSaldo.setEditable(false);
     }
 
     public void llenadoDeTablas() {
@@ -53,31 +62,62 @@ public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame 
         modelo.addColumn("ID Movimiento");
         modelo.addColumn("ID Tipo Cuenta");
         modelo.addColumn("Fecha");
-        
+        modelo.addColumn("tipo Saldo");
+        modelo.addColumn("Monto");
         List<movimiento_bancario> movimientos = movimientoDAO.select();
         tblMovimientos.setModel(modelo);
         
-        String[] dato = new String[3];
+       String[] dato = new String[5];
         for (movimiento_bancario movimiento : movimientos) {
             dato[0] = String.valueOf(movimiento.getId_movimiento_bancario());
             dato[1] = String.valueOf(movimiento.getId_tipo_cuenta());
             dato[2] = movimiento.getFecha().toString();
-            modelo.addRow(dato);
-        }
+            dato[3] = movimiento.getTipoSaldo();
+            dato[4] = String.valueOf(movimiento.getMonto());
+            modelo.addRow(dato);}
     }
 
-    public void buscarMovimiento() {
+   public void buscarMovimiento() {
+       cboTipoSaldo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Acreedor", "Deudor" }));
+    try {
+        // Validar que el campo de búsqueda no esté vacío
+        if (txtbuscado.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese un ID para buscar", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Crear y configurar el objeto de consulta
         movimiento_bancario movimientoConsulta = new movimiento_bancario();
         movimientoConsulta.setId_movimiento_bancario(Integer.parseInt(txtbuscado.getText()));
+        
+        // Ejecutar la consulta
         movimientoConsulta = movimientoDAO.query(movimientoConsulta);
         
-        txtIdTipoCuenta.setText(String.valueOf(movimientoConsulta.getId_tipo_cuenta()));
-        txtFecha.setText(movimientoConsulta.getFecha().toString());
-        
-        // Bitácora
-        Bitacora bitacoraRegistro = new Bitacora();
-        bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Buscar Movimiento");
+        if (movimientoConsulta != null) {
+            // Mostrar los datos en los campos correspondientes
+            txtIdTipoCuenta.setText(String.valueOf(movimientoConsulta.getId_tipo_cuenta()));
+            txtFecha.setText(movimientoConsulta.getFecha().toString());
+            
+            // Configurar el ComboBox con el valor del movimiento
+            cboTipoSaldo.setSelectedItem(movimientoConsulta.getTipoSaldo());
+            lblSaldo.setText(String.valueOf(movimientoConsulta.getMonto()));
+            
+            // Registrar en bitácora
+            Bitacora bitacoraRegistro = new Bitacora();
+            bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Buscar Movimiento");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró ningún movimiento con el ID especificado", 
+                                         "Búsqueda sin resultados", JOptionPane.INFORMATION_MESSAGE);
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "El ID debe ser un número válido", "Error de formato", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al buscar movimiento: " + e.getMessage(), 
+                                     "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
     }
+}
+
 
     public TransacionalMovimiento_bancario() {
         initComponents();
@@ -144,6 +184,10 @@ public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame 
         jButton1 = new javax.swing.JButton();
         btnAyudasTasaDecambioDiario = new javax.swing.JButton();
         btnreporteTasaDecambioDiario = new javax.swing.JButton();
+        cboTipoSaldo = new javax.swing.JComboBox<>();
+        txtTipoSaldo = new javax.swing.JLabel();
+        lblSaldo = new javax.swing.JLabel();
+        txtSaldo = new javax.swing.JTextField();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -257,43 +301,73 @@ public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame 
             }
         });
 
+        cboTipoSaldo.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        cboTipoSaldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTipoSaldoActionPerformed(evt);
+            }
+        });
+
+        txtTipoSaldo.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        txtTipoSaldo.setText("Tipo Saldo");
+
+        lblSaldo.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        lblSaldo.setText("Saldo");
+
+        txtSaldo.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtSaldo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(358, 358, 358)
-                        .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label3)
-                            .addComponent(label5))
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtFecha)
-                            .addComponent(txtIdTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtTipoSaldo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cboTipoSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnAyudasTasaDecambioDiario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap()
+                                .addComponent(lblSaldo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(358, 358, 358)
+                                .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label3)
+                                    .addComponent(label5))
+                                .addGap(45, 45, 45)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtFecha)
+                                    .addComponent(txtIdTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnAyudasTasaDecambioDiario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
-                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(btnreporteTasaDecambioDiario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(btnreporteTasaDecambioDiario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
@@ -331,6 +405,14 @@ public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame 
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(label5))
+                                .addGap(27, 27, 27)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cboTipoSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTipoSaldo))
+                                .addGap(32, 32, 32)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblSaldo)
+                                    .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnRegistrar)
@@ -374,57 +456,47 @@ public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame 
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
                                                 
-     try {
-            movimiento_bancario nuevoMovimiento = new movimiento_bancario();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            
-            // Validar y obtener ID tipo cuenta
-            if(txtIdTipoCuenta.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debe ingresar un ID de tipo de cuenta", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            nuevoMovimiento.setId_tipo_cuenta(Integer.parseInt(txtIdTipoCuenta.getText()));
-            
-            // Manejo de fecha
-            LocalDateTime fecha;
-            if(txtFecha.getText().trim().isEmpty() || 
-               txtFecha.getForeground().equals(Color.GRAY)) {
-                fecha = LocalDateTime.now();
-                SwingUtilities.invokeLater(() -> {
-                    txtFecha.setText(formatter.format(fecha));
-                    txtFecha.setForeground(Color.BLACK);
-                });
-            } else {
-                try {
-                    fecha = LocalDateTime.parse(txtFecha.getText(), formatter);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, 
-                        "Formato de fecha inválido. Use yyyy-MM-dd HH:mm\nEjemplo: " + formatter.format(LocalDateTime.now()), 
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
-            nuevoMovimiento.setFecha(fecha);
-            
-            // Insertar y actualizar tabla
-            movimientoDAO.insert(nuevoMovimiento);
-            llenadoDeTablas();
-            
-            // Bitácora y limpieza
-            Bitacora bitacoraRegistro = new Bitacora();
-            bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Insertar Movimiento");
-            
-            txtIdTipoCuenta.setText("");
-            SwingUtilities.invokeLater(() -> {
-                txtFecha.setText(formatter.format(LocalDateTime.now()));
-                txtFecha.setForeground(Color.GRAY);
-            });
-            
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "ID tipo cuenta debe ser numérico", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al registrar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+      try {
+        movimiento_bancario movimientoActualizar = new movimiento_bancario();
+        
+        // Validar campos obligatorios
+        if (txtbuscado.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe buscar un movimiento primero", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+        
+        if (cboTipoSaldo.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un tipo de saldo", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (lblSaldo.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un monto", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // Configurar el movimiento
+        movimientoActualizar.setId_movimiento_bancario(Integer.parseInt(txtbuscado.getText()));
+        movimientoActualizar.setId_tipo_cuenta(Integer.parseInt(txtIdTipoCuenta.getText()));
+        movimientoActualizar.setTipoSaldo(cboTipoSaldo.getSelectedItem().toString());
+        movimientoActualizar.setMonto(Float.parseFloat(lblSaldo.getText()));
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        movimientoActualizar.setFecha(LocalDateTime.parse(txtFecha.getText(), formatter));
+        
+        // Actualizar movimiento
+        movimientoDAO.update(movimientoActualizar);
+        llenadoDeTablas();
+        
+        // Registrar en bitácora
+        Bitacora bitacoraRegistro = new Bitacora();
+        bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Modificar Movimiento");
+            
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Error en formato numérico", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al modificar movimiento: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
         
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -435,7 +507,7 @@ public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame 
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 //        // TODO add your handling code here:
-       try {
+        try {
             movimiento_bancario movimientoActualizar = new movimiento_bancario();
             movimientoActualizar.setId_movimiento_bancario(Integer.parseInt(txtbuscado.getText()));
             movimientoActualizar.setId_tipo_cuenta(Integer.parseInt(txtIdTipoCuenta.getText()));
@@ -455,16 +527,22 @@ public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame 
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        cbox_empleado.setSelectedIndex(0);
+                cbox_empleado.setSelectedIndex(0);
         txtIdTipoCuenta.setText("");
         txtFecha.setText("");
+        cboTipoSaldo.setSelectedIndex(0);;
+        lblSaldo.setText("");
         txtbuscado.setText("");
         btnRegistrar.setEnabled(true);
         btnModificar.setEnabled(true);
         btnEliminar.setEnabled(true);
         int resultadoBitacora=0;
+        // Se restablece la fecha y hora 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        txtFecha.setText(formatter.format(LocalDateTime.now()));
+        txtFecha.setForeground(Color.GRAY);
         Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Limpiar Datos Tasa de Cambio Diario");    
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Se limpio Transaccional Movimiento bancario");    
    
 
         // TODO add your handling code here:
@@ -525,6 +603,10 @@ private Connection connectio = null;
         
     }//GEN-LAST:event_btnreporteTasaDecambioDiarioActionPerformed
 
+    private void cboTipoSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTipoSaldoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboTipoSaldoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAyudasTasaDecambioDiario;
@@ -534,6 +616,7 @@ private Connection connectio = null;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnreporteTasaDecambioDiario;
+    private javax.swing.JComboBox<String> cboTipoSaldo;
     private javax.swing.JComboBox<String> cbox_empleado;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -543,10 +626,13 @@ private Connection connectio = null;
     private javax.swing.JLabel label5;
     private javax.swing.JLabel lb;
     private javax.swing.JLabel lb2;
+    private javax.swing.JLabel lblSaldo;
     private javax.swing.JLabel lbusu;
     private javax.swing.JTable tblMovimientos;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtIdTipoCuenta;
+    private javax.swing.JTextField txtSaldo;
+    private javax.swing.JLabel txtTipoSaldo;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables
 }

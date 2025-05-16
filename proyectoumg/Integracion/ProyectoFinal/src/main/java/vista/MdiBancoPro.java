@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import vista.bancos.MantenimientoBancos;
-import vista.bancos.MantenimientoCuentas_bancarias;
+//import vista.bancos.MantenimientoCuentas_bancarias;
 import vista.bancos.MantenimientoDetalle_movimientos_bancarios;
 import vista.bancos.MantenimientoTipo_moneda;
 import vista.bancos.MantenimientoTipo_operacion_bancaria;
@@ -487,8 +487,8 @@ public class MdiBancoPro extends javax.swing.JFrame {
     private void btnMoviminetoBancario2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoviminetoBancario2ActionPerformed
         // TODO add your handling code here:
                 // TODO add your handling code here:
-                // TODO add your handling code here:
-        
+                
+     /*   
            for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
             frame.dispose();
         }
@@ -504,7 +504,7 @@ public class MdiBancoPro extends javax.swing.JFrame {
             (desktopSize.width - FrameSize.width) / 2,
             (desktopSize.height - FrameSize.height) / 2
         );
-
+*/
         
         
     }//GEN-LAST:event_btnMoviminetoBancario2ActionPerformed

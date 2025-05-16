@@ -481,11 +481,6 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel9">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\user\Desktop\FERRARI PROY\proyectop32k25\proyectoumg\Integracion\ProyectoFinal\src\main\java\vista\about.png"/>
-            </Property>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>

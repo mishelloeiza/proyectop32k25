@@ -14,12 +14,24 @@
 		</conditionalStyle>
 	</style>
 	<queryString>
-		<![CDATA[SELECT * FROM sig2k25.tipo_pago;]]>
+		<![CDATA[SELECT * FROM sig2k25.banco;]]>
 	</queryString>
-	<field name="id_tipo_pago" class="java.lang.Integer">
+	<field name="id_banco" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="tipo_pago" class="java.lang.String">
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sede" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="telefono" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="status" class="java.lang.String">
@@ -40,10 +52,6 @@
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
 			</frame>
-			<image>
-				<reportElement positionType="FixRelativeToBottom" x="185" y="12" width="205" height="100" uuid="65fd713e-9cfc-4a18-86cd-68551afcff6f"/>
-				<imageExpression><![CDATA["C:\\Users\\Ruddyard\\Desktop\\ProyectoFinal\\src\\main\\java\\reporte\\banco\\imgLogoBanco.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -52,16 +60,28 @@
 	<columnHeader>
 		<band height="51" splitType="Stretch">
 			<staticText>
-				<reportElement x="55" y="2" width="100" height="20" uuid="ed9b0876-2e54-4689-bf85-b6e7aef4d9db"/>
-				<text><![CDATA[id_tipo_pago]]></text>
+				<reportElement x="7" y="0" width="62" height="20" uuid="64e63a5b-9073-4f5b-a086-fa608d918ab6"/>
+				<text><![CDATA[id_banco]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="193" y="2" width="100" height="20" uuid="1787d414-29e5-47ec-923d-6f6b3f3f6c0c"/>
-				<text><![CDATA[tipo_pago]]></text>
+				<reportElement x="118" y="2" width="47" height="20" uuid="c875cf34-425a-481e-855c-3fe9e512a3b5"/>
+				<text><![CDATA[nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="355" y="2" width="100" height="20" uuid="576e80aa-d235-451e-b17a-5b7c3b25f9d3"/>
-				<text><![CDATA[status]]></text>
+				<reportElement x="234" y="2" width="100" height="20" uuid="f8d4cf5a-64fa-43ab-ac10-32664f186b79"/>
+				<text><![CDATA[sede]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="329" y="2" width="45" height="20" uuid="fbf3640f-b324-4799-8fa4-7918098ed74e"/>
+				<text><![CDATA[direccion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="409" y="2" width="50" height="20" uuid="071df2e6-7b1b-4be1-9efc-a0d63d8e6eb4"/>
+				<text><![CDATA[telefono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="501" y="2" width="39" height="20" uuid="9d349005-5aa3-4e76-8266-55258c349bb2"/>
+				<text><![CDATA[email]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -71,16 +91,28 @@
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="e2b0dbf3-15cd-45ed-b826-4f59ff6f6c40"/>
 			</frame>
 			<textField>
-				<reportElement x="55" y="25" width="100" height="20" uuid="4c905c02-7a3b-4c5d-a480-6549cfca7711"/>
-				<textFieldExpression><![CDATA[$F{id_tipo_pago}]]></textFieldExpression>
+				<reportElement x="7" y="35" width="62" height="20" uuid="a265f133-9f67-4559-ab58-2d3de92cc47b"/>
+				<textFieldExpression><![CDATA[$F{id_banco}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="193" y="33" width="100" height="20" uuid="2174a83f-be8c-42d9-a135-09e0434ab05e"/>
-				<textFieldExpression><![CDATA[$F{tipo_pago}]]></textFieldExpression>
+				<reportElement x="107" y="35" width="100" height="20" uuid="54fb0cc3-f73e-4036-8477-10d0f1c2d6b3"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="355" y="33" width="100" height="20" uuid="6b2deccc-b5d3-481d-9267-af863c86fd0f"/>
-				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+				<reportElement x="234" y="35" width="42" height="20" uuid="026c07c7-3315-416f-a99d-c6de4e87cc0d"/>
+				<textFieldExpression><![CDATA[$F{sede}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="318" y="35" width="68" height="20" uuid="eac1c840-ce2a-447d-8990-d46404de533b"/>
+				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="409" y="35" width="62" height="20" uuid="950a4314-4db4-473e-bf9d-1466b7387412"/>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="489" y="35" width="66" height="20" uuid="cd930ec1-38c7-4bb8-9e53-3710ae6e11f2"/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

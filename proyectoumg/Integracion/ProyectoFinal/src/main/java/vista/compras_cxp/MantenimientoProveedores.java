@@ -72,9 +72,9 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         txtTelefono.setText(proveedorAConsultar.getTelefono_proveedor());
         txtEmail.setText(proveedorAConsultar.getEmail_proveedor());
         txtSaldo.setText(String.valueOf(proveedorAConsultar.getSaldo_proveedor()));
-        txtlimite.setText(String.valueOf(proveedorAConsultar.getPlazo_limite()));
         txtEstatus.setText(String.valueOf(proveedorAConsultar.getEstatus_proveedor()));
         txtFechaRegistro.setText(proveedorAConsultar.getFecha_registro());
+        txtlimite.setText(String.valueOf(proveedorAConsultar.getPlazo_limite()));
         UsuarioConectado usuarioEnSesion = new UsuarioConectado();
         int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
@@ -429,9 +429,9 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         proveedorAInsertar.setTelefono_proveedor(txtTelefono.getText());
         proveedorAInsertar.setEmail_proveedor(txtEmail.getText());
         proveedorAInsertar.setSaldo_proveedor(Integer.parseInt(txtSaldo.getText()));
-        proveedorAInsertar.setEstatus_proveedor(Integer.parseInt(txtEstatus.getText()));       
-        proveedorAInsertar.setPlazo_limite(Integer.parseInt(txtlimite.getText()));       
+        proveedorAInsertar.setEstatus_proveedor(Integer.parseInt(txtEstatus.getText()));              
         proveedorAInsertar.setFecha_registro(txtFechaRegistro.getText());
+        proveedorAInsertar.setPlazo_limite(Integer.parseInt(txtlimite.getText()));
         proveedorDAO.insert(proveedorAInsertar);
         
         UsuarioConectado usuarioEnSesion = new UsuarioConectado();
@@ -458,12 +458,13 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         proveedorAActualizar.setDireccion_proveedor(txtDireccion.getText());
         proveedorAActualizar.setTelefono_proveedor(txtTelefono.getText());
         proveedorAActualizar.setEmail_proveedor(txtEmail.getText());
-        proveedorAActualizar.setSaldo_proveedor(Integer.parseInt(txtSaldo.getText()));
-        proveedorAActualizar.setPlazo_limite(Integer.parseInt(txtlimite.getText())); 
+        proveedorAActualizar.setSaldo_proveedor(Integer.parseInt(txtSaldo.getText())); 
         proveedorAActualizar.setEstatus_proveedor(Integer.parseInt(txtEstatus.getText()));
         proveedorAActualizar.setFecha_registro(txtFechaRegistro.getText());
+        proveedorAActualizar.setPlazo_limite(Integer.parseInt(txtlimite.getText()));
         proveedorDAO.update(proveedorAActualizar);
         llenadoDeTablas();
+        
         UsuarioConectado usuarioEnSesion = new UsuarioConectado();
         int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();

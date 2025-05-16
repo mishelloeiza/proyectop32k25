@@ -15,9 +15,8 @@ public class tipo_cuentaDAO {
     private static final String SQL_INSERT = "INSERT INTO tipo_cuenta(tipo_cuenta, status) VALUES(?, ?)";
     private static final String SQL_UPDATE = "UPDATE tipo_cuenta SET tipo_cuenta=?, status=? WHERE id_tipo_cuenta = ?";
     private static final String SQL_QUERY = "SELECT id_tipo_cuenta, tipo_cuenta, status FROM tipo_cuenta WHERE id_tipo_cuenta = ?";
-    private static final String SQL_DELETE = "DELETE FROM tipo_cuenta WHERE id_tipo_cuenta = ?";
-    private static final String SQL_EXISTE = "SELECT COUNT(*) FROM tipo_cuenta WHERE tipo_cuenta = ?";
-    private static final String SQL_EXISTE_ID = "SELECT 1 FROM tipo_cuenta WHERE id_tipo_cuenta = ?";
+    private static final String SQL_DELETE = "DELETE FROM tipo_cuenta WHERE id_tipo_cuenta = ?"; // ← Agregado
+    private static final String SQL_EXISTE = "SELECT COUNT(*) FROM tipo_cuenta WHERE tipo_cuenta = ?"; // ← Agregado
 
     public List<tipo_cuenta> select() {
         Connection conn = null;
@@ -33,12 +32,12 @@ public class tipo_cuentaDAO {
             while (rs.next()) {
                 int idTipoCuenta = rs.getInt("id_tipo_cuenta");
                 String tipoCuentaStr = rs.getString("tipo_cuenta");
-                int status = rs.getInt("status");
+                int status = rs.getInt("status"); // ← Agregado
 
                 tipoCuenta = new tipo_cuenta();
                 tipoCuenta.setId_tipo_cuenta(idTipoCuenta);
                 tipoCuenta.setTipo_cuenta(tipoCuentaStr);
-                tipoCuenta.setStatus(status);
+                tipoCuenta.setStatus(status); // ← Agregado
 
                 listTipoCuentas.add(tipoCuenta);
             }
@@ -63,7 +62,7 @@ public class tipo_cuentaDAO {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
             stmt.setString(1, tipoCuenta.getTipo_cuenta());
-            stmt.setInt(2, tipoCuenta.getStatus());
+            stmt.setInt(2, tipoCuenta.getStatus()); // ← Agregado
 
             rows = stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -85,8 +84,8 @@ public class tipo_cuentaDAO {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
             stmt.setString(1, tipoCuenta.getTipo_cuenta());
-            stmt.setInt(2, tipoCuenta.getStatus());
-            stmt.setInt(3, tipoCuenta.getId_tipo_cuenta());
+            stmt.setInt(2, tipoCuenta.getStatus()); // ← Agregado
+            stmt.setInt(3, tipoCuenta.getId_tipo_cuenta()); // ← Reordenado correctamente
 
             rows = stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -132,12 +131,12 @@ public class tipo_cuentaDAO {
             if (rs.next()) {
                 int idTipoCuenta = rs.getInt("id_tipo_cuenta");
                 String tipoCuentaStr = rs.getString("tipo_cuenta");
-                int status = rs.getInt("status");
+                int status = rs.getInt("status"); // ← Agregado
 
                 tipoCuenta = new tipo_cuenta();
                 tipoCuenta.setId_tipo_cuenta(idTipoCuenta);
                 tipoCuenta.setTipo_cuenta(tipoCuentaStr);
-                tipoCuenta.setStatus(status);
+                tipoCuenta.setStatus(status); // ← Agregado
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -150,7 +149,7 @@ public class tipo_cuentaDAO {
         return tipoCuenta;
     }
 
-    // Verifica si el tipo_cuenta ya existe por nombre
+    // Método para verificar si el tipo de cuenta ya existe
     public boolean existeTipoCuenta(String tipoCuenta) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -160,38 +159,14 @@ public class tipo_cuentaDAO {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_EXISTE);
-            stmt.setString(1, tipoCuenta);
-            rs = stmt.executeQuery();
-
-            if (rs.next() && rs.getInt(1) > 0) {
-                existe = true;
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        } finally {
-            Conexion.close(rs);
-            Conexion.close(stmt);
-            Conexion.close(conn);
-        }
-
-        return existe;
-    }
-
-    // ✅ Verifica si existe por id_tipo_cuenta
-    public boolean existeTipoCuenta(int idTipoCuenta) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        boolean existe = false;
-
-        try {
-            conn = Conexion.getConnection();
-            stmt = conn.prepareStatement(SQL_EXISTE_ID);
-            stmt.setInt(1, idTipoCuenta);
+            stmt.setString(1, tipoCuenta); // Compara el tipo de cuenta ingresado
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                existe = true;
+                int count = rs.getInt(1); // Si el conteo es mayor a 0, significa que ya existe
+                if (count > 0) {
+                    existe = true;
+                }
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

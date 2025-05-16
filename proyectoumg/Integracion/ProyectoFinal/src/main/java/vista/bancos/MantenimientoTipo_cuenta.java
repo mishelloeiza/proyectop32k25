@@ -5,13 +5,13 @@
  */
 package vista.bancos;
 
+import Modelo.Conexion;
 import Modelo.bancos.tipo_cuentaDAO;
 import Controlador.bancos.tipo_cuenta;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import Controlador.seguridad.Bitacora;
 import Controlador.seguridad.UsuarioConectado;
-import Modelo.Conexion;
 import java.io.File;
 import java.sql.Connection;
 import java.util.HashMap;
@@ -24,12 +24,12 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 
 // MANTENIMIENTO CREADO POR GABRIELA PINTO 9959-23-1087
-
-/**
+/*
  *
  * @author visitante
  */
 public class MantenimientoTipo_cuenta extends javax.swing.JInternalFrame {
+
     int APLICACION = 105;
 
     public void llenadoDeCombos() {
@@ -45,8 +45,7 @@ public class MantenimientoTipo_cuenta extends javax.swing.JInternalFrame {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("id_tipo_cuenta");
         modelo.addColumn("tipo_cuenta");
-        modelo.addColumn ("estatus");
-
+        modelo.addColumn("estatus");
 
         tipo_cuentaDAO tipo_cuentaDAO = new tipo_cuentaDAO();
         List<tipo_cuenta> tipo_cuentas = tipo_cuentaDAO.select();
@@ -69,11 +68,11 @@ public class MantenimientoTipo_cuenta extends javax.swing.JInternalFrame {
 
         txtTipo_cuenta.setText(tipoCuentaConsultar.getTipo_cuenta());
         txtStatus.setText(Integer.toString(tipoCuentaConsultar.getStatus()));
-        
+
         int resultadoBitacora = 0;
         Bitacora bitacoraRegistro = new Bitacora();
         resultadoBitacora = bitacoraRegistro.setIngresarBitacora(
-            UsuarioConectado.getIdUsuario(), APLICACION, "Buscar Datos tipo_cuenta"
+                UsuarioConectado.getIdUsuario(), APLICACION, "Buscar Datos tipo_cuenta"
         );
     }
 
@@ -112,7 +111,7 @@ public class MantenimientoTipo_cuenta extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
         label5 = new javax.swing.JLabel();
         txtStatus = new javax.swing.JTextField();
-        btnReporte = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -217,10 +216,10 @@ public class MantenimientoTipo_cuenta extends javax.swing.JInternalFrame {
         txtStatus.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtStatus.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
 
-        btnReporte.setText("Reporte");
-        btnReporte.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Reporte");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReporteActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -248,24 +247,22 @@ public class MantenimientoTipo_cuenta extends javax.swing.JInternalFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jButton1)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(btnReporte, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(207, 207, 207)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,10 +270,13 @@ public class MantenimientoTipo_cuenta extends javax.swing.JInternalFrame {
                                 .addComponent(label4)
                                 .addGap(46, 46, 46)
                                 .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(48, 48, 48))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(label1)
-                                .addGap(253, 253, 253))))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,66 +312,65 @@ public class MantenimientoTipo_cuenta extends javax.swing.JInternalFrame {
                             .addComponent(label4)
                             .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnReporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addGap(9, 9, 9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2))))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-      // TODO add your handling code here:
-      tipo_cuentaDAO tipo_cuentaDAO = new tipo_cuentaDAO();
-      tipo_cuenta tipoCuentaAEliminar = new tipo_cuenta();
-      tipoCuentaAEliminar.setId_tipo_cuenta(Integer.parseInt(txtbuscado.getText()));
-      tipoCuentaAEliminar.setStatus(Integer.parseInt(txtStatus.getText()));
-      tipo_cuentaDAO.delete(tipoCuentaAEliminar);
-      llenadoDeTablas();
-      
-      UsuarioConectado usuarioEnSesion = new UsuarioConectado();
-      int resultadoBitacora = 0;
-      Bitacora bitacoraRegistro = new Bitacora();
-      resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION, "Eliminar Datos tipo_cuenta");
+        // TODO add your handling code here:
+        tipo_cuentaDAO tipo_cuentaDAO = new tipo_cuentaDAO();
+        tipo_cuenta tipoCuentaAEliminar = new tipo_cuenta();
+        tipoCuentaAEliminar.setId_tipo_cuenta(Integer.parseInt(txtbuscado.getText()));
+        tipoCuentaAEliminar.setStatus(Integer.parseInt(txtStatus.getText()));
+        tipo_cuentaDAO.delete(tipoCuentaAEliminar);
+        llenadoDeTablas();
+
+        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        int resultadoBitacora = 0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION, "Eliminar Datos tipo_cuenta");
 
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
- // Instancia de tipo_monedaDAO
-      tipo_cuentaDAO tipo_cuentaDAO = new tipo_cuentaDAO();
+        // Instancia de tipo_monedaDAO
+        tipo_cuentaDAO tipo_cuentaDAO = new tipo_cuentaDAO();
 
 // Verifica si el tipo de moneda ya existe
-      if (tipo_cuentaDAO.existeTipoCuenta(txtTipo_cuenta.getText())) {
-    // Si el tipo de moneda ya existe, muestra un mensaje de error
-    JOptionPane.showMessageDialog(null, "¡El tipo de cuenta ya existe en la base de datos!", "Error", JOptionPane.ERROR_MESSAGE);
-} else {
-    // Si no existe, proceder con la inserción
-    tipo_cuenta tipoCuentaAInsertar = new tipo_cuenta();
-    tipoCuentaAInsertar.setTipo_cuenta(txtTipo_cuenta.getText());
-    tipoCuentaAInsertar.setStatus(Integer.parseInt(txtStatus.getText()));
+        if (tipo_cuentaDAO.existeTipoCuenta(txtTipo_cuenta.getText())) {
+            // Si el tipo de moneda ya existe, muestra un mensaje de error
+            JOptionPane.showMessageDialog(null, "¡El tipo de cuenta ya existe en la base de datos!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Si no existe, proceder con la inserción
+            tipo_cuenta tipoCuentaAInsertar = new tipo_cuenta();
+            tipoCuentaAInsertar.setTipo_cuenta(txtTipo_cuenta.getText());
+            tipoCuentaAInsertar.setStatus(Integer.parseInt(txtStatus.getText()));
 
+            // Inserta el nuevo tipo de moneda
+            int resultado = tipo_cuentaDAO.insert(tipoCuentaAInsertar);
 
-    // Inserta el nuevo tipo de moneda
-    int resultado = tipo_cuentaDAO.insert(tipoCuentaAInsertar);
+            // Verifica si la inserción fue exitosa
+            if (resultado > 0) {
+                // Si la inserción fue exitosa, muestra un mensaje de éxito
+                JOptionPane.showMessageDialog(null, "Tipo de cuenta insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-    // Verifica si la inserción fue exitosa
-    if (resultado > 0) {
-        // Si la inserción fue exitosa, muestra un mensaje de éxito
-        JOptionPane.showMessageDialog(null, "Tipo de cuenta insertado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                llenadoDeTablas();
 
-        llenadoDeTablas();
-
-        // Registrar el evento en la bitácora
-        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
-        Bitacora bitacoraRegistro = new Bitacora();
-        bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION, "Insertar Datos tipo_cuenta");
-    } else {
-        // Si la inserción falló, muestra un mensaje de error
-        JOptionPane.showMessageDialog(null, "Error al insertar el tipo de cuenta.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-}
+                // Registrar el evento en la bitácora
+                UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+                Bitacora bitacoraRegistro = new Bitacora();
+                bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION, "Insertar Datos tipo_cuenta");
+            } else {
+                // Si la inserción falló, muestra un mensaje de error
+                JOptionPane.showMessageDialog(null, "Error al insertar el tipo de cuenta.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -381,17 +380,17 @@ public class MantenimientoTipo_cuenta extends javax.swing.JInternalFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 //    // TODO add your handling code here:
-tipo_cuentaDAO tipo_cuentaDAO = new tipo_cuentaDAO();
-tipo_cuenta tipoCuentaAActualizar = new tipo_cuenta();
-tipoCuentaAActualizar.setId_tipo_cuenta(Integer.parseInt(txtbuscado.getText()));
-tipoCuentaAActualizar.setTipo_cuenta(txtTipo_cuenta.getText());
-tipoCuentaAActualizar.setStatus(Integer.parseInt(txtStatus.getText()));
-tipo_cuentaDAO.update(tipoCuentaAActualizar);
-llenadoDeTablas();
+        tipo_cuentaDAO tipo_cuentaDAO = new tipo_cuentaDAO();
+        tipo_cuenta tipoCuentaAActualizar = new tipo_cuenta();
+        tipoCuentaAActualizar.setId_tipo_cuenta(Integer.parseInt(txtbuscado.getText()));
+        tipoCuentaAActualizar.setTipo_cuenta(txtTipo_cuenta.getText());
+        tipoCuentaAActualizar.setStatus(Integer.parseInt(txtStatus.getText()));
+        tipo_cuentaDAO.update(tipoCuentaAActualizar);
+        llenadoDeTablas();
 
-int resultadoBitacora = 0;
-Bitacora bitacoraRegistro = new Bitacora();
-resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Modificar Datos tipo_cuenta");
+        int resultadoBitacora = 0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Modificar Datos tipo_cuenta");
 
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -399,35 +398,35 @@ resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdU
         cbox_empleado.setSelectedIndex(0);
         txtTipo_cuenta.setText("");
         txtbuscado.setText("");
-        txtStatus.setText(""); 
+        txtStatus.setText("");
         btnRegistrar.setEnabled(true);
         btnModificar.setEnabled(true);
         btnEliminar.setEnabled(true);
 
-int resultadoBitacora = 0;
-Bitacora bitacoraRegistro = new Bitacora();
-resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Limpiar Datos tipo_cuenta");
+        int resultadoBitacora = 0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Limpiar Datos tipo_cuenta");
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void cbox_empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_empleadoActionPerformed
 
         // TODO add your handling code here:
     }//GEN-LAST:event_cbox_empleadoActionPerformed
-/*
+    /*
      // TODO add your handling code here:
         MantenimientoAula ventana = new MantenimientoAula();
         jDesktopPane1.add(ventana);
         Dimension desktopSize = jDesktopPane1.getSize();
         Dimension FrameSize = ventana.getSize();
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-    */
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         try {
-            if ((new File("src\\main\\java\\ayudas\\ProcesoMayor.chm")).exists()) {
+            if ((new File("src\\main\\java\\ayudas\\banco\\AyudaTipocuenta.chm")).exists()) {
                 Process p = Runtime
                         .getRuntime()
-                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\ProcesoMayor.chm");
+                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\banco\\AyudaTipocuenta.chm");
                 p.waitFor();
             } else {
                 System.out.println("La ayuda no Fue encontrada");
@@ -437,17 +436,16 @@ resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdU
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
-        // TODO add your handling code here:
-                       Map p = new HashMap();
+    private Connection connectio = null;
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       Map p = new HashMap();
         JasperReport report;
         JasperPrint print;
 
         try {
-                           Connection connectio = Conexion.getConnection();
+            connectio = Conexion.getConnection();
             report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
-                    + "/src/main/java/reporte/banco/reporteTipocuenta2.jrxml");
+                    + "/src/main/java/reporte/banco/reporteTipoCuenta.jrxml");
 //
             print = JasperFillManager.fillReport(report, p, connectio);
 
@@ -459,9 +457,7 @@ resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdU
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al generar el reporte: " + e.getMessage());
         }
-        
-    //GEN-LAST:event_btnReporteActionPerformed
-    }//GEN-LAST:event_btnReporteActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -470,8 +466,8 @@ resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdU
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JButton btnReporte;
     private javax.swing.JComboBox<String> cbox_empleado;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label1;

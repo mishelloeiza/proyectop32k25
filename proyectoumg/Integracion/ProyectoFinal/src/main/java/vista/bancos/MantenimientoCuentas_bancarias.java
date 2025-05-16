@@ -13,9 +13,6 @@ import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import Controlador.seguridad.Bitacora;
 import Controlador.seguridad.UsuarioConectado;
-import Modelo.bancos.BancoDAO;
-import Modelo.bancos.tipo_cuentaDAO;
-import Modelo.bancos.tipo_monedaDAO;
 import java.io.File;
 import javax.swing.JOptionPane;
 
@@ -53,7 +50,7 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
             dato[1] = Integer.toString(cuenta.getId_banco());        // id_banco 
             dato[2] = Integer.toString(cuenta.getId_tipo_cuenta()); 
             dato[3] = Integer.toString(cuenta.getId_tipo_moneda());  // id_tipo_moneda 
-            dato[4] = Float.toString((float) cuenta.getSaldo());    // saldo 
+            dato[4] = Float.toString(cuenta.getSaldo());    // saldo 
             modelo.addRow(dato);
         }
     }
@@ -68,7 +65,7 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
         txtBanco.setText(Integer.toString(cuentaAConsultar.getId_banco()));
         txtTipoCuenta.setText(Integer.toString(cuentaAConsultar.getId_tipo_cuenta()));
         txtMoneda.setText(Integer.toString(cuentaAConsultar.getId_tipo_moneda()));
-        txtSaldo.setText(Float.toString((float) cuentaAConsultar.getSaldo()));
+        txtSaldo.setText(Float.toString(cuentaAConsultar.getSaldo()));
         
         Bitacora bitacoraRegistro = new Bitacora();
         bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Buscar Datos cuentas_bancarias");
@@ -113,7 +110,6 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
         txtTipoCuenta = new javax.swing.JTextField();
         txtMoneda = new javax.swing.JTextField();
         txtSaldo = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -237,15 +233,6 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
         txtSaldo.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtSaldo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
 
-        jButton1.setBackground(new java.awt.Color(0, 204, 204));
-        jButton1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
-        jButton1.setText("ACTUALIZAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -271,16 +258,11 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(label3)
-                                .addGap(251, 251, 251)
-                                .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
+                                .addGap(29, 29, 29)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
-                                .addGap(26, 26, 26)
+                                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -289,9 +271,13 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jButton1))))
-                        .addGap(0, 41, Short.MAX_VALUE))
+                                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(label3)
+                                .addGap(251, 251, 251)
+                                .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 53, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(108, 108, 108)
                         .addComponent(txtBanco)))
@@ -339,8 +325,6 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(label7)
                             .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnRegistrar)
@@ -378,96 +362,19 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-      //METODO DE VALIDACION CON MANTENIMIENTOS IMPLEMENTADO POR mishelloeiza 9959-23-3457                                      
-    cuentas_bancariasDAO dao = new cuentas_bancariasDAO();
-    cuentas_bancarias cuentaAInsertar = new cuentas_bancarias();
-
-    // Validaciones básicas
-    boolean datosValidos = true;
-    StringBuilder errores = new StringBuilder();
-
-    int idBanco = 0;
-    int idTipoCuenta = 0;
-    int idMoneda = 0;
-    float saldo = 0;
-
-    try {
-        idBanco = Integer.parseInt(txtBanco.getText().trim());
-    } catch (NumberFormatException e) {
-        errores.append("❌ ID de banco inválido.\n");
-        datosValidos = false;
-    }
-
-    try {
-        idTipoCuenta = Integer.parseInt(txtTipoCuenta.getText().trim());
-    } catch (NumberFormatException e) {
-        errores.append("❌ ID de tipo de cuenta inválido.\n");
-        datosValidos = false;
-    }
-
-    try {
-        idMoneda = Integer.parseInt(txtMoneda.getText().trim());
-    } catch (NumberFormatException e) {
-        errores.append("❌ ID de tipo de moneda inválido.\n");
-        datosValidos = false;
-    }
-
-    try {
-        saldo = Float.parseFloat(txtSaldo.getText().trim());
-        if (saldo < 0) {
-            errores.append("❌ El saldo no puede ser negativo.\n");
-            datosValidos = false;
-        }
-    } catch (NumberFormatException e) {
-        errores.append("❌ Saldo inválido.\n");
-        datosValidos = false;
-    }
-
-    // Validar existencia en la base de datos (depende de DAOs )
-    if (datosValidos) {
-        BancoDAO bancoDao = new BancoDAO();
-        tipo_cuentaDAO tipoCuentaDao = new tipo_cuentaDAO();
-        tipo_monedaDAO tipoMonedaDao = new tipo_monedaDAO();
-
-        if (!bancoDao.existeBanco(idBanco)) {
-            errores.append("❌ El ID del banco no existe.\n");
-            datosValidos = false;
-        }
-
-        if (!tipoCuentaDao.existeTipoCuenta(idTipoCuenta)) {
-            errores.append("❌ El ID del tipo de cuenta no existe.\n");
-            datosValidos = false;
-        }
-
-        if (!tipoMonedaDao.existeTipoMoneda(idMoneda)) {
-            errores.append("❌ El ID del tipo de moneda no existe.\n");
-            datosValidos = false;
-        }
-    }
-
-    // Si hay errores, mostrar mensaje
-    if (!datosValidos) {
-        JOptionPane.showMessageDialog(this, errores.toString(), "Errores en el formulario", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    // Si los datos son válidos, proceder a insertar
-    cuentaAInsertar.setId_banco(idBanco);
-    cuentaAInsertar.setId_tipo_cuenta(idTipoCuenta);
-    cuentaAInsertar.setId_tipo_moneda(idMoneda);
-    cuentaAInsertar.setSaldo(saldo);
-
-    int resultado = dao.insert(cuentaAInsertar);
-
-    if (resultado > 0) {
-        JOptionPane.showMessageDialog(this, "✅ ¡Cuenta registrada exitosamente!");
-        limpiarFormulario(); // Este es un método opcional que puedes tener para limpiar los campos
-      
-        llenadoDeTablas();   // <--- Aquí actualizas la tabla después de insertar
-    } else {
-        JOptionPane.showMessageDialog(this, "❌ Error al registrar la cuenta. Inténtalo nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
+        
+        cuentas_bancariasDAO dao = new cuentas_bancariasDAO();
+        cuentas_bancarias cuentaAInsertar = new cuentas_bancarias();
+        cuentaAInsertar.setId_banco(Integer.parseInt(txtBanco.getText()));
+        cuentaAInsertar.setId_tipo_cuenta(Integer.parseInt(txtTipoCuenta.getText()));
+        cuentaAInsertar.setId_tipo_moneda(Integer.parseInt(txtMoneda.getText()));
+        cuentaAInsertar.setSaldo(Float.parseFloat(txtSaldo.getText()));
+        dao.insert(cuentaAInsertar);
+        
+        llenadoDeTablas();
+        
+        Bitacora bitacoraRegistro = new Bitacora();
+        bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Insertar Datos cuentas_bacarias");
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -476,42 +383,31 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-  // Validar que el ID de cuenta esté presente //
-    if (txtbuscado.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Primero busca una cuenta para modificar.");
+  int fila = tablaCuentas_bancarias.getSelectedRow();
+    if (fila == -1) {
+        JOptionPane.showMessageDialog(null, "Debes seleccionar una fila para modificar.");
         return;
     }
 
-    try {
-        int idCuenta = Integer.parseInt(txtbuscado.getText().trim());
+    int idCuenta = Integer.parseInt(tablaCuentas_bancarias.getValueAt(fila, 0).toString()); // Columna 0 = id_cuenta
 
-        cuentas_bancarias cuenta = new cuentas_bancarias();
-        cuenta.setId_cuenta(idCuenta);
-        cuenta.setId_banco(Integer.parseInt(txtBanco.getText().trim()));
-        cuenta.setId_tipo_cuenta(Integer.parseInt(txtTipoCuenta.getText().trim()));
-        cuenta.setId_tipo_moneda(Integer.parseInt(txtMoneda.getText().trim()));
-        cuenta.setSaldo(Float.parseFloat(txtSaldo.getText().trim()));
+    cuentas_bancarias cuenta = new cuentas_bancarias();
+    cuenta.setId_cuenta(idCuenta); // MUY IMPORTANTE
+    cuenta.setId_banco(Integer.parseInt(txtBanco.getText()));
+    cuenta.setId_tipo_cuenta(Integer.parseInt(txtTipoCuenta.getText()));
+    cuenta.setId_tipo_moneda(Integer.parseInt(txtMoneda.getText()));
+    cuenta.setSaldo(Float.parseFloat(txtSaldo.getText()));
 
-        cuentas_bancariasDAO dao = new cuentas_bancariasDAO();
-        int resultado = dao.update(cuenta);
+    cuentas_bancariasDAO dao = new cuentas_bancariasDAO();
+    int resultado = dao.update(cuenta);
 
-        if (resultado > 0) {
-            JOptionPane.showMessageDialog(null, "✅ Cuenta modificada correctamente.");
-            llenadoDeTablas(); // Refresca la tabla
-        } else {
-            JOptionPane.showMessageDialog(null, "❌ No se pudo modificar la cuenta. Verifica el ID.");
-        }
-
-        Bitacora bitacoraRegistro = new Bitacora();
-        bitacoraRegistro.setIngresarBitacora(
-            UsuarioConectado.getIdUsuario(),
-            APLICACION,
-            "Modificar Datos cuentas_bancarias"
-        );
-        
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "❌ Error en los datos numéricos. Verifica que todos los campos tengan números válidos.");
+    if (resultado > 0) {
+        JOptionPane.showMessageDialog(null, "Cuenta modificada correctamente.");
+        llenadoDeTablas();
+    } else {
+        JOptionPane.showMessageDialog(null, "No se pudo modificar la cuenta. Verifica el ID.");
     }
+
     Bitacora bitacoraRegistro = new Bitacora();
     bitacoraRegistro.setIngresarBitacora(
         UsuarioConectado.getIdUsuario(),
@@ -572,12 +468,6 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTipoCuentaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        //actualizar mishelloeiza 9959-23-3457
-        llenadoDeTablas(); // Esto recarga los datos en la tabla
-    }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
@@ -586,7 +476,6 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> cbox_empleado;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label1;
@@ -608,19 +497,5 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
 
     private int obtenerIdCuentaSeleccionada() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void limpiarFormulario() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private static class bancoDao {
-
-        private static boolean existeBanco(int idBanco) {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        }
-
-        public bancoDao() {
-        }
     }
 }

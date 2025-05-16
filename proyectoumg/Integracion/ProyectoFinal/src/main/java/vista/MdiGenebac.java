@@ -232,7 +232,6 @@ public class MdiGenebac extends javax.swing.JFrame {
 
         jButton10.setBackground(new java.awt.Color(0, 153, 153));
         jButton10.setFont(new java.awt.Font("SimSun-ExtB", 1, 18)); // NOI18N
-        jButton10.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Desktop\\FERRARI PROY\\proyectop32k25\\proyectoumg\\Integracion\\ProyectoFinal\\src\\main\\java\\vista\\collection.png")); // NOI18N
         jButton10.setText("AYUDAS");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

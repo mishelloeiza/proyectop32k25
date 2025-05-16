@@ -1,10 +1,8 @@
 package Controlador.bancos;
 
 
-//Ruddyard Castro 9959-23-1409
-// Nombres de los geter seter y variables igual al nombre en base de datos
-// Nombre del punto java como se llama la tabla 
-// Se uso encapsulate field para get y set 
+//Anderson Rodriguez
+
 public  class  tipo_pago{
 
     private int idTipoPago;

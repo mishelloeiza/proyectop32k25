@@ -4,8 +4,14 @@
  */
 package vista;
 
+import Controlador.seguridad.RelPerfApl;
+import Controlador.seguridad.RelPerfUsu;
+import Controlador.seguridad.UsuarioConectado;
+import Modelo.seguridad.RelPerfAplDAO;
+import Modelo.seguridad.RelPerfUsuDAO;
 import java.awt.Dimension;
 import java.io.File;
+import java.util.List;
 import javax.swing.JOptionPane;
 import vista.seguridad.MantenimientoAplicacion;
 import vista.seguridad.MantenimientoBitacora;
@@ -25,7 +31,55 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
      */
     public Mdi_VentasCC() {
         initComponents();
+        Seguridad();
     }
+    public void Seguridad() {
+    RelPerfUsuDAO relPerfUsuDAO = new RelPerfUsuDAO();
+    List<RelPerfUsu> productos_ls = relPerfUsuDAO.select(); 
+    
+    RelPerfAplDAO relPerfAplDAO = new RelPerfAplDAO();
+    List<RelPerfApl> ApliUsu = relPerfAplDAO.select(); 
+   
+        
+            int idusuarioC = UsuarioConectado.getIdUsuario();
+            
+            if (idusuarioC != 0) {
+                // Buscar el ID de la aplicación seleccionada
+                for (RelPerfUsu app : productos_ls) {
+                    if (app.getUsuario_codigo()==(idusuarioC)) {
+                        int Idperfil = app.getPerfil_codigo();                                                                                                                          
+                        
+                        System.out.println("ID perfil del usuario: " + Idperfil); // Opcional: para debug
+                       
+                       for (RelPerfApl app2 : ApliUsu) {
+                        if (app2.getPerfil_codigo()==(Idperfil)) {
+                        int Idaplicacion = app2.getAplicacion_codigo();
+                        
+                        System.out.println("ID aplicacion del usuario: " + Idaplicacion); // Opcional: para debug
+                       
+                       switch(Idaplicacion) {
+                        case 330:  
+                            btnClientes.setEnabled(true);
+                            break;
+                        case 340:  
+                            btnVendedores.setEnabled(true);
+                            break;
+                        case 360:  
+                            btnCuentasXc.setEnabled(true);
+                            break;
+                        
+                        default:
+                            System.out.println("ID de aplicación no asociado a ningún botón: " + Idaplicacion);
+                    }
+                    
+                    }
+                   }
+                       
+                    }   
+                }   
+            }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,15 +94,15 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnVendedores = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnCuentasXc = new javax.swing.JButton();
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        jLabel1 = new javax.swing.JLabel();
+        btnClientes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,11 +138,11 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(204, 255, 255));
-        jButton2.setText("Vendedores");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnVendedores.setBackground(new java.awt.Color(204, 255, 255));
+        btnVendedores.setText("Vendedores");
+        btnVendedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnVendedoresActionPerformed(evt);
             }
         });
 
@@ -139,11 +193,11 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(204, 255, 255));
-        jButton7.setText("CuentasXC");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnCuentasXc.setBackground(new java.awt.Color(204, 255, 255));
+        btnCuentasXc.setText("CuentasXC");
+        btnCuentasXc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnCuentasXcActionPerformed(evt);
             }
         });
 
@@ -154,11 +208,11 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnVendedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
+                    .addComponent(btnCuentasXc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(64, 64, 64)
@@ -178,11 +232,11 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
                 .addGap(88, 88, 88)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnVendedores, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCuentasXc, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56)
@@ -205,12 +259,12 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 653, Short.MAX_VALUE)
+            .addGap(0, 703, Short.MAX_VALUE)
         );
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\vista\\ventas_cxc\\menuv.jpg"));
-        jLabel1.setText("jLabel1");
-        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnClientes.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\vista\\ventas_cxc\\menuv.jpg"));
+        btnClientes.setText("jLabel1");
+        btnClientes.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -223,25 +277,25 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(151, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1628, Short.MAX_VALUE))
+                .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 1628, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(71, Short.MAX_VALUE)
+                .addGap(0, 119, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendedoresActionPerformed
         // TODO add your handling code here:
         MantenimientoVendedores ventana = new MantenimientoVendedores();
         jLayeredPane1.add(ventana);
@@ -249,7 +303,7 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
         Dimension FrameSize = ventana.getSize();
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnVendedoresActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -297,7 +351,7 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btnCuentasXcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuentasXcActionPerformed
         // TODO add your handling code here:
         TransaccionalVentasCC ventana = new TransaccionalVentasCC();
         jLayeredPane1.add(ventana);
@@ -305,7 +359,7 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
         Dimension FrameSize = ventana.getSize();
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
 
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_btnCuentasXcActionPerformed
 
     /**
      * @param args the command line arguments
@@ -345,13 +399,13 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnClientes;
+    private javax.swing.JButton btnCuentasXc;
+    private javax.swing.JButton btnVendedores;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLayeredPane jLayeredPane1;

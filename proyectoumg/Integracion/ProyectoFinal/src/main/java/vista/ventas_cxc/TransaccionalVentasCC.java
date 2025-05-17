@@ -85,7 +85,7 @@ lstAplicA.addListSelectionListener(new ListSelectionListener() {
     }
 // -----------------------------------------EL FIN DE VICTOR----------------------------------------------------------------------------
 
-/*
+
 // ----------------------------------CARLITOS----------------------------------------------
 public TransaccionalVentasCC() {
         initComponents(); 
@@ -153,7 +153,7 @@ cboperfil1.addActionListener(e -> {
 
 }
 // ----------------------------EL FIN DE CARLITOS -----------------------------------------------
-*/
+
 // ------------------------TRANSACCIONAL ISAPRO-------------------
  public void generarVenta() {
     try {
@@ -208,7 +208,7 @@ cboperfil1.addActionListener(e -> {
                 "Venta generada exitosamente\nN° Factura: " + venta.getNo_factura(), 
                 "Éxito", JOptionPane.INFORMATION_MESSAGE);
             actualizarTablaVentas();
-            limpiarCampos();
+            
         } else {
             JOptionPane.showMessageDialog(this, "Error al generar la venta", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -297,7 +297,7 @@ cboperfil.addActionListener(e -> {
 
 }
 //------------------------ Fin de victor --------------------------------------------------------------
-/*
+
     public void llenarlistaUnoaUno() {
     int indice=0;
     String cadena; 
@@ -375,8 +375,6 @@ lstAplicA.setModel(modelo);
    
     }
 
-
-*/
 
 
 
@@ -627,7 +625,6 @@ lstAplicA.setModel(modelo);
         label13.setText("Cantidad Producto:");
 
         txtper1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtper1.setEnabled(false);
         txtper1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtper1ActionPerformed(evt);
@@ -667,13 +664,13 @@ lstAplicA.setModel(modelo);
 
         transaccional_VCXC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "no_venta", "id_vendedor", "Nombre", "Apellido", "Producto", "Cantidad", "Precio", "Saldo Anterior", "Plazo", "Total"
+                "No_factura", "no_venta", "id_vendedor", "Nombre", "Apellido", "Producto", "Cantidad", "Precio", "Saldo Anterior", "Plazo", "Total"
             }
         ));
         jScrollPane1.setViewportView(transaccional_VCXC);
@@ -892,17 +889,26 @@ lstAplicA.setModel(modelo2);
         txtproducto.setText(" ");
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarUActionPerformed
-
+private int numG;
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-       
+       numG = generaNum();
+    
+        // Opcional: Muestra el número en consola para verificar
+        System.out.println("Número generado: " + numG);
+    
+       generarVenta();
         
         int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
         resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Asignacion DE Permiso a Perfil");    
    
     }//GEN-LAST:event_btnEditarActionPerformed
-
+ private int generaNum() {
+    int min = 001;  // Valor mínimo
+    int max = 100;  // Valor máximo
+    return (int) (Math.random() * (max - min + 1) + min);
+}
  
     
     private void lstAplicDComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_lstAplicDComponentAdded

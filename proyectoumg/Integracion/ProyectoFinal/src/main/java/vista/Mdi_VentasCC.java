@@ -59,7 +59,7 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
                        
                        switch(Idaplicacion) {
                         case 330:  
-                            Label.setEnabled(true);
+                            btnClientes.setEnabled(true);
                             break;
                         case 340:  
                             btnVendedores.setEnabled(true);

@@ -14,15 +14,15 @@
 		</conditionalStyle>
 	</style>
 	<queryString>
-		<![CDATA[SELECT * FROM sig2k25.tipo_moneda;]]>
+		<![CDATA[SELECT * FROM sig2k25.tipo_cuenta;]]>
 	</queryString>
-	<field name="id_tipo_moneda" class="java.lang.Integer">
+	<field name="id_tipo_cuenta" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="tipo_moneda" class="java.lang.String">
+	<field name="tipo_cuenta" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="tasa_cambio_usd" class="java.math.BigDecimal">
+	<field name="status" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
@@ -40,10 +40,6 @@
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
 			</frame>
-			<image>
-				<reportElement positionType="FixRelativeToBottom" x="185" y="12" width="205" height="100" uuid="65fd713e-9cfc-4a18-86cd-68551afcff6f"/>
-				<imageExpression><![CDATA["C:\\Users\\Ruddyard\\Desktop\\ProyectoFinal\\src\\main\\java\\reporte\\banco\\imgLogoBanco.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -52,16 +48,16 @@
 	<columnHeader>
 		<band height="51" splitType="Stretch">
 			<staticText>
-				<reportElement x="63" y="2" width="100" height="20" uuid="8f21cd8f-bcbb-4363-bbdf-d697aa1a8dab"/>
-				<text><![CDATA[id_tipo_moneda]]></text>
+				<reportElement x="41" y="2" width="100" height="20" uuid="664d89ef-0218-42a5-b5cc-67def13d3257"/>
+				<text><![CDATA[id_tipo_cuenta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="227" y="2" width="100" height="20" uuid="d71c4d4b-ab55-4cdf-9151-1a05696a93f7"/>
-				<text><![CDATA[tipo_moneda]]></text>
+				<reportElement x="201" y="2" width="100" height="20" uuid="522c2afd-c54f-4808-a08f-a28d70aba2ee"/>
+				<text><![CDATA[tipo_cuenta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="421" y="2" width="100" height="20" uuid="1223a348-c8c9-49cf-84e5-e377a7f2e030"/>
-				<text><![CDATA[tasa_cambio_usd]]></text>
+				<reportElement x="412" y="2" width="100" height="20" uuid="771f93e9-739e-4d08-b57d-207f3639330e"/>
+				<text><![CDATA[status]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -71,16 +67,16 @@
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="e2b0dbf3-15cd-45ed-b826-4f59ff6f6c40"/>
 			</frame>
 			<textField>
-				<reportElement x="63" y="22" width="100" height="20" uuid="acb86b22-61e2-4bdc-8a35-6df42a6c2fb8"/>
-				<textFieldExpression><![CDATA[$F{id_tipo_moneda}]]></textFieldExpression>
+				<reportElement x="41" y="31" width="100" height="20" uuid="9fd75d43-ba72-456a-98db-2b32ebb80d3b"/>
+				<textFieldExpression><![CDATA[$F{id_tipo_cuenta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="227" y="31" width="100" height="20" uuid="7f04149c-e4d2-47eb-bf64-cc681cf0a3e0"/>
-				<textFieldExpression><![CDATA[$F{tipo_moneda}]]></textFieldExpression>
+				<reportElement x="201" y="35" width="100" height="20" uuid="9f27c2fa-b1d9-4ddc-a237-4a1ce3592104"/>
+				<textFieldExpression><![CDATA[$F{tipo_cuenta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="421" y="35" width="100" height="20" uuid="86d8e1d3-1a39-4804-b4c4-c395385d7cd1"/>
-				<textFieldExpression><![CDATA[$F{tasa_cambio_usd}]]></textFieldExpression>
+				<reportElement x="412" y="30" width="100" height="20" uuid="9906da5a-706c-4bc3-abca-3771aaf055db"/>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

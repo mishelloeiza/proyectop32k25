@@ -207,6 +207,7 @@
                   <Font name="Barlow Condensed ExtraLight" size="24" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="M&#xe9;todo de Pago"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MetodoDePagoActionPerformed"/>
@@ -266,6 +267,7 @@
                   <Font name="Barlow Condensed ExtraLight" size="24" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Proveedores"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ProveedoresActionPerformed"/>
@@ -403,9 +405,6 @@
         </Container>
         <Component class="javax.swing.JButton" name="Ayudabtn">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Barlow Condensed ExtraLight" size="24" style="1"/>
             </Property>
@@ -469,6 +468,7 @@
                   <Font name="Barlow Condensed ExtraLight" size="24" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Compras"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="transComprasActionPerformed"/>

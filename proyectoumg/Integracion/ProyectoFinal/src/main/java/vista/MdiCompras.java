@@ -26,6 +26,14 @@ import vista.seguridad.MantenimientoRelPerfApl;
 import vista.seguridad.MantenimientoRelPerfUsu;
 import vista.compras_cxp.MantenimientoProveedores;
 import vista.compras_cxp.MantenimientoMetododePago;
+//import extras para seguridad hecho por: Pablo Palencia
+import Modelo.seguridad.RelPerfUsuDAO;
+import Controlador.seguridad.RelPerfUsu;
+import Modelo.seguridad.RelPerfAplDAO;
+import Controlador.seguridad.RelPerfApl;
+import Modelo.seguridad.RelusuaplDAO;
+import Controlador.seguridad.Relusuapl;
+import java.util.List;
 
 /**
  *
@@ -39,6 +47,7 @@ public class MdiCompras extends javax.swing.JFrame {
     final int APLICACION=99;
     public MdiCompras() {
         initComponents();
+        filtros();
         setLocationRelativeTo(null);
         this.setExtendedState(MdiCompras.MAXIMIZED_BOTH);
         this.setTitle("MDI Compras");
@@ -47,6 +56,48 @@ public class MdiCompras extends javax.swing.JFrame {
         //setDefaultCloseOperation(EXIT_ON_CLOSE);
         cerrar();
 
+    }
+    
+        //metodo para verificar acceso a mantenimientos mediante filtros, hecho por Pablo Palencia
+    public void filtros() {
+            RelPerfUsuDAO relPerfUsuDAO = new RelPerfUsuDAO();
+            List<RelPerfUsu> PerfUsu = relPerfUsuDAO.select(); 
+    
+            RelusuaplDAO relusuaplDAO = new RelusuaplDAO();
+            List<Relusuapl> UsuApl = relusuaplDAO.select();
+   
+            int idusuarioC = UsuarioConectado.getIdUsuario();
+            
+                if (idusuarioC != 0) {
+                    //For que recorre la lista para encontrar el ID del usuario conectado
+                    for (RelPerfUsu app : PerfUsu) {
+                        if (app.getUsuario_codigo()==(idusuarioC)) {
+                            int Idusuario = app.getUsuario_codigo();
+                        
+                            //for que recorre lista para encontrar ID aplicacion de usuario conectado
+                            for (Relusuapl app2 : UsuApl) {
+                                if (app2.getId_usuario()==(Idusuario)) {
+                                int Idaplicacion = app2.getId_aplicacion();
+                        
+                            switch(Idaplicacion) {
+                            case 202:  
+                                Proveedores.setEnabled(true);
+                            break;
+                            case 203:  
+                                MetodoDePago.setEnabled(true);
+                            break;
+                            case 204:  
+                                transCompras.setEnabled(true);
+                            break;
+                            default:
+                            }
+                    
+                            }
+                        }
+                       
+                    }   
+                }   
+            }
     }
 
     /**
@@ -119,6 +170,7 @@ public class MdiCompras extends javax.swing.JFrame {
 
         MetodoDePago.setFont(new java.awt.Font("Barlow Condensed ExtraLight", 1, 24)); // NOI18N
         MetodoDePago.setText("Método de Pago");
+        MetodoDePago.setEnabled(false);
         MetodoDePago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MetodoDePagoActionPerformed(evt);
@@ -156,6 +208,7 @@ public class MdiCompras extends javax.swing.JFrame {
 
         Proveedores.setFont(new java.awt.Font("Barlow Condensed ExtraLight", 1, 24)); // NOI18N
         Proveedores.setText("Proveedores");
+        Proveedores.setEnabled(false);
         Proveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ProveedoresActionPerformed(evt);
@@ -262,7 +315,6 @@ public class MdiCompras extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Ayudabtn.setBackground(new java.awt.Color(255, 255, 255));
         Ayudabtn.setFont(new java.awt.Font("Barlow Condensed ExtraLight", 1, 24)); // NOI18N
         Ayudabtn.setText("Ayuda");
         Ayudabtn.addActionListener(new java.awt.event.ActionListener() {
@@ -279,6 +331,7 @@ public class MdiCompras extends javax.swing.JFrame {
 
         transCompras.setFont(new java.awt.Font("Barlow Condensed ExtraLight", 1, 24)); // NOI18N
         transCompras.setText("Compras");
+        transCompras.setEnabled(false);
         transCompras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 transComprasActionPerformed(evt);

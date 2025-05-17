@@ -132,6 +132,7 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(204, 255, 255));
         jButton1.setText("Clientes");
+        jButton1.setEnabled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -140,6 +141,7 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
 
         btnVendedores.setBackground(new java.awt.Color(204, 255, 255));
         btnVendedores.setText("Vendedores");
+        btnVendedores.setEnabled(false);
         btnVendedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVendedoresActionPerformed(evt);
@@ -195,6 +197,7 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
 
         btnCuentasXc.setBackground(new java.awt.Color(204, 255, 255));
         btnCuentasXc.setText("CuentasXC");
+        btnCuentasXc.setEnabled(false);
         btnCuentasXc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCuentasXcActionPerformed(evt);

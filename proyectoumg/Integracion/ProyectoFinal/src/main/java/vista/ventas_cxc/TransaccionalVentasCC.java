@@ -5,11 +5,11 @@
  */
 package vista.ventas_cxc;
 
-
+import Controlador.inventarios.productos;
+import Modelo.inventarios.ProductosDAO;
 import Controlador.seguridad.RelPerfApl;
 import Modelo.seguridad.RelPerfAplDAO;
-import Modelo.seguridad.AplicacionDAO;
-import Controlador.seguridad.Aplicacion;
+
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
@@ -19,12 +19,20 @@ import org.jfree.base.log.LogConfiguration;
 import java.sql.*;
 import Modelo.seguridad.PerfilDAO;
 import Controlador.seguridad.Perfil;
+import Controlador.ventas_cxc.Clientes;
+import Controlador.ventas_cxc.Vendedores;
+import Controlador.ventas_cxc.Ventascxc;
+import Modelo.ventas_cxc.ClientesDAO;
+import Modelo.ventas_cxc.VendedoresDAO;
+import Modelo.ventas_cxc.VentascxcDAO;
+import java.awt.TextField;
 import java.util.Set;
 import javax.swing.DefaultListModel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Vector;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -36,6 +44,337 @@ import javax.swing.event.ListSelectionListener;
  */
 public class TransaccionalVentasCC extends javax.swing.JInternalFrame {
 int APLICACION=301;
+
+// --------------FUNCIONAMIENTO PANELES DE PRODUCTO (VICTORIN)---------------------------------------------------------------------
+public void llenadoDeCombos() {
+         
+    ProductosDAO productosDAO = new ProductosDAO();
+    List<productos> productos_ls = productosDAO.select(); 
+    DefaultListModel<String> modelo = new DefaultListModel<>();
+    DefaultListModel<String> modelo2 = new DefaultListModel<>();
+    //Recorre la lista :v
+    for (productos app : productos_ls) {
+    modelo.addElement(app.getProNombre()); 
+}
+lstAplicD.setModel(modelo);
+lstAplicA.setModel(modelo2);
+
+// Listener para detectar la selección del usuario
+lstAplicA.addListSelectionListener(new ListSelectionListener() {
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (!e.getValueIsAdjusting()) { // Evita doble evento
+            String nombreAppSeleccionada = lstAplicA.getSelectedValue();
+            
+            if (nombreAppSeleccionada != null) {
+                // Buscar el ID de la aplicación seleccionada
+                for (productos app : productos_ls) {
+                    if (app.getProNombre().equals(nombreAppSeleccionada)) {
+                        int idAppSeleccionada = app.getProCodigo();
+                        double precioProdcuto= app.getProPrecio();
+                        System.out.println("ID seleccionado: " + idAppSeleccionada); // Opcional: para debug
+                        txtproducto.setText(String.valueOf(idAppSeleccionada)); // Asignar el ID a un campo
+                        txtprcioproducto.setText(String.valueOf(precioProdcuto));
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    }); 
+    }
+// -----------------------------------------EL FIN DE VICTOR----------------------------------------------------------------------------
+
+/*
+// ----------------------------------CARLITOS----------------------------------------------
+public TransaccionalVentasCC() {
+        initComponents(); 
+        llenadoDeCombos();
+        llenadoDeComboC(); 
+        llenadoDeComboV();
+        actualizarTablaVentas();
+        
+    }
+
+
+public void llenadoDeComboC() {
+ClientesDAO clientesDAO = new ClientesDAO();
+List<Clientes> listClientes = clientesDAO.select();
+
+
+cboperfil.addItem("Seleccione un cliente");
+for (int i = 0; i < listClientes.size(); i++) {
+    cboperfil.addItem(listClientes.get(i).getNombre_cliente());
+}
+
+cboperfil.addActionListener(e -> {
+    if (cboperfil.getSelectedIndex() > 0) { 
+        String nombreSeleccionado = cboperfil.getSelectedItem().toString();
+        
+        // Buscar el cliente por NOMBRE para obtener su ID
+        for (Clientes cliente : listClientes) {
+            if (cliente.getNombre_cliente().equals(nombreSeleccionado)) {
+                
+                txtper.setText(String.valueOf(cliente.getId_cliente())); 
+                break;
+            }
+        }
+    } else {
+        txtper.setText(""); // Limpiar si se selecciona "Seleccione un cliente"
+    }
+}); 
+}
+public void llenadoDeComboV() {
+    VendedoresDAO vendedoresDAO = new VendedoresDAO();
+    List<Vendedores> listVendedoreses = vendedoresDAO.select();
+
+
+cboperfil1.addItem("Seleccione un Vendedor");
+for (int i = 0; i < listVendedoreses.size(); i++) {
+    cboperfil1.addItem(listVendedoreses.get(i).getNombre_vendedor());
+}
+
+cboperfil1.addActionListener(e -> {
+    if (cboperfil1.getSelectedIndex() > 0) { 
+        String nombreSeleccionado = cboperfil1.getSelectedItem().toString();
+        
+        // Buscar el cliente por NOMBRE para obtener su ID
+        for (Vendedores vendedores : listVendedoreses) {
+            if (vendedores.getNombre_vendedor().equals(nombreSeleccionado)) {
+                
+                txtper3.setText(String.valueOf(vendedores.getId_vendedor())); 
+                break;
+            }
+        }
+    } else {
+        txtper3.setText(""); // Limpiar si se selecciona "Seleccione un cliente"
+    }
+}); 
+
+}
+// ----------------------------EL FIN DE CARLITOS -----------------------------------------------
+
+// ------------------------TRANSACCIONAL ISAPRO-------------------
+ public void generarVenta() {
+    try {
+        // Obtener datos de los campos
+        int idCliente = Integer.parseInt(txtper.getText());
+        int idVendedor = Integer.parseInt(txtper3.getText());
+        int idProducto = Integer.parseInt(txtproducto.getText());
+        int cantidad = Integer.parseInt(txtper1.getText());
+        double proPrecio = Double.parseDouble(txtprcioproducto.getText());
+        
+       
+
+        // Obtener datos del cliente (incluyendo crédito y saldo)
+        ClientesDAO clientesDAO = new ClientesDAO();
+        Clientes cliente = clientesDAO.getById(idCliente);
+        
+        // Obtener datos del producto
+        ProductosDAO productosDAO = new ProductosDAO();
+        productos producto = productosDAO.getById(idProducto);
+        double saldoActual = cliente.getSaldo_actual_CLE(); // lo obtienes del cliente
+        double subtotal=(cantidad*proPrecio);
+        double total = subtotal + saldoActual;
+
+        // Crear objeto venta
+        Ventascxc venta = new Ventascxc();
+        
+        // Configurar campos que vienen del cliente
+        // Configurar la venta con los métodos CORRECTOS (_CLE)
+        venta.setDias_credito(cliente.getDias_credito_CLE());
+        venta.setSaldo_actual(cliente.getSaldo_actual_CLE());
+        
+        
+        
+        
+        String numGua = String.valueOf(numG);
+        venta.setNo_factura(idCliente);
+        venta.setNo_venta(numGua);
+        venta.setId_vendedor(idVendedor);
+        venta.setNombre_cliente(cliente.getNombre_cliente());
+        venta.setApellido_cliente(cliente.getApellido_cliente());
+        venta.setPro_codigo(idProducto);
+        venta.setCantidad(cantidad);
+        venta.setProPrecios(proPrecio);
+        venta.setProNombre(producto.getProNombre());
+        venta.setTotal(total);
+
+        // Insertar en la base de datos
+        boolean exito = new VentascxcDAO().insert(venta);
+
+        if (exito) {
+            JOptionPane.showMessageDialog(this, 
+                "Venta generada exitosamente\nN° Factura: " + venta.getNo_factura(), 
+                "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            actualizarTablaVentas();
+            limpiarCampos();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al generar la venta", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Por favor ingrese valores válidos", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+//---------------------------------ACTUALIZA-----------------------------------------------
+public void actualizarTablaVentas() {
+    DefaultTableModel modelo = (DefaultTableModel) transaccional_VCXC.getModel();
+    modelo.setRowCount(0);
+
+    List<Ventascxc> ventas = new VentascxcDAO().select();
+    for (Ventascxc venta : ventas) {
+        modelo.addRow(new Object[]{
+            venta.getNo_factura(),
+            venta.getNo_venta(),
+            venta.getId_vendedor(),
+            venta.getNombre_cliente(),
+            venta.getApellido_cliente(),
+            venta.getProNombre(),
+            venta.getCantidad(),
+            venta.getProPrecios(),
+            venta.getSaldo_actual(),
+            venta.getDias_credito(),
+            venta.getTotal(),
+            venta.getPrecio_producto()
+        });
+    }
+}
+
+// --------------------------------------FIN DE ISAPRO-------------------------------------------
+*/
+//-------------VICTOR--------------------------------------------------------------------------------------
+
+public void llenadoperfilesaplicaciones(){
+// 1. Obtener todas las aplicaciones disponibles
+
+ProductosDAO prductosDAO = new ProductosDAO();
+List<productos> productos_ls = prductosDAO.select();
+
+// 2. Modelos para las listas
+DefaultListModel<String> modelo = new DefaultListModel<>(); // Para listAplicD (todas las apps)
+DefaultListModel<String> modelo2 = new DefaultListModel<>(); // Para listAplicA (apps del perfil)
+
+// 3. Llenar listAplicD con TODAS las aplicaciones
+for (productos aplicacion : productos_ls) {
+    modelo.addElement(aplicacion.getProNombre());
+}
+lstAplicD.setModel(modelo);
+
+// 4. Listener para cuando seleccionen un perfil
+cboperfil.addActionListener(e -> {
+    // Limpiar modelo2 antes de agregar nuevos elementos
+    modelo2.clear();
+    
+    try {
+        // Obtener perfil seleccionado
+        String idSelec = cboperfil.getSelectedItem().toString();
+        int idSeleccionado = Integer.parseInt(idSelec);
+        
+        // Obtener relaciones perfil-aplicación
+        RelPerfAplDAO relPerfAplDAO = new RelPerfAplDAO();
+        List<RelPerfApl> relaciones = relPerfAplDAO.select();
+        
+        // Filtrar aplicaciones del perfil seleccionado
+        for (RelPerfApl relacion : relaciones) {
+            if (relacion.getPerfil_codigo() == idSeleccionado) {
+                // Buscar la aplicación por ID
+                for (productos app : productos_ls) {
+                    if (app.getProCodigo()== relacion.getAplicacion_codigo()) {
+                        modelo2.addElement(app.getProNombre());
+                              
+                        break; // Salir del for interno
+                    }
+                }
+            }
+        }
+        
+        lstAplicA.setModel(modelo2);
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al cargar Productos: " + ex.getMessage());
+    }
+});
+
+}
+//------------------------ Fin de victor --------------------------------------------------------------
+
+    public void llenarlistaUnoaUno() {
+    int indice=0;
+    String cadena; 
+     
+    indice = lstAplicD.getSelectedIndex();
+    if (indice != -1) {
+        
+    cadena = (String) lstAplicD.getSelectedValue();
+    DefaultListModel<String> modeloAplA;
+    
+    if (lstAplicA.getModel() == null) {
+        modeloAplA = new DefaultListModel<>();
+        lstAplicA.setModel(modeloAplA);
+        
+    } else {
+        
+        modeloAplA = (DefaultListModel<String>) lstAplicA.getModel();
+                
+    }
+    modeloAplA.addElement(cadena);
+    } else {
+        JOptionPane.showMessageDialog(this, "Selecciona una Aplicacion", "ERROR", JOptionPane.ERROR_MESSAGE);
+    }
+    
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Asignar Una Aplicaciones");    
+   
+    }
+    
+    public void llenarlista() {
+    ProductosDAO productosDAO = new ProductosDAO();
+    List<productos> aplicaciones = productosDAO.select(); 
+    DefaultListModel<String> modelo = new DefaultListModel<>(); 
+    //Recorre la lista :v
+    for (productos app : aplicaciones) {
+    modelo.addElement(app.getProNombre());
+    
+}
+lstAplicA.setModel(modelo);
+        
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Asignar Todas Las Aplicaciones");    
+   
+    }
+    
+    public void vaciarlista() {
+ 
+    DefaultListModel<String> modelo = new DefaultListModel<>();
+    
+    modelo.clear();
+    lstAplicA.setModel(modelo);
+      
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Eliminar Todas Las Aplicaciones");    
+   
+    }
+    
+    public void vaciarlistaUnoaUno() {
+    
+    int indice = lstAplicA.getSelectedIndex();
+    if (indice != -1) {
+        ((DefaultListModel<String>) lstAplicA.getModel()).remove(indice);
+    } else {
+        JOptionPane.showMessageDialog(this, "Selecciona una Aplicacion", "ERROR", JOptionPane.ERROR_MESSAGE);
+    }
+    
+     
+    
+        int resultadoBitacora=0;
+        Bitacora bitacoraRegistro = new Bitacora();
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Eliminar una Aplicacion");    
+   
+    }
+
 
 
 
@@ -141,7 +480,7 @@ int APLICACION=301;
         label7 = new javax.swing.JLabel();
         label8 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
-        txtidApl = new javax.swing.JTextField();
+        txtproducto = new javax.swing.JTextField();
         label9 = new javax.swing.JLabel();
         label10 = new javax.swing.JLabel();
         label11 = new javax.swing.JLabel();
@@ -153,7 +492,7 @@ int APLICACION=301;
         cboperfil1 = new javax.swing.JComboBox<>();
         txtper3 = new javax.swing.JTextField();
         label16 = new javax.swing.JLabel();
-        txtper4 = new javax.swing.JTextField();
+        txtprcioproducto = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         label17 = new javax.swing.JLabel();
@@ -270,7 +609,7 @@ int APLICACION=301;
             }
         });
 
-        txtidApl.setEnabled(false);
+        txtproducto.setEnabled(false);
 
         label9.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label9.setText("Id del producto seleccionado");
@@ -318,11 +657,11 @@ int APLICACION=301;
         label16.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label16.setText("Id");
 
-        txtper4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtper4.setEnabled(false);
-        txtper4.addActionListener(new java.awt.event.ActionListener() {
+        txtprcioproducto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtprcioproducto.setEnabled(false);
+        txtprcioproducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtper4ActionPerformed(evt);
+                txtprcioproductoActionPerformed(evt);
             }
         });
 
@@ -371,7 +710,7 @@ int APLICACION=301;
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(label9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(txtidApl, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtproducto, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(66, 66, 66))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(9, 9, 9)
@@ -409,7 +748,7 @@ int APLICACION=301;
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(label12)
                                         .addGap(58, 58, 58)
-                                        .addComponent(txtper4, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtprcioproducto, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(label13)
                                         .addGap(42, 42, 42)
@@ -463,7 +802,7 @@ int APLICACION=301;
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cboperfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtidApl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtproducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(22, 22, 22)
                                 .addComponent(label9)))
@@ -518,7 +857,7 @@ int APLICACION=301;
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(label12)
-                                        .addComponent(txtper4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtprcioproducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(22, 22, 22)
                                     .addComponent(label13))))
                         .addGap(18, 18, 18)
@@ -543,14 +882,14 @@ int APLICACION=301;
     private void btnEliminarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTActionPerformed
 //        // TODO add your handling code here:
 vaciarlista();
-txtidApl.setText(" "); 
+txtproducto.setText(" "); 
 DefaultListModel<String> modelo2 = new DefaultListModel<>();
 lstAplicA.setModel(modelo2);
     }//GEN-LAST:event_btnEliminarTActionPerformed
 
     private void btnEliminarUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUActionPerformed
         vaciarlistaUnoaUno();
-        txtidApl.setText(" ");
+        txtproducto.setText(" ");
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarUActionPerformed
 
@@ -612,9 +951,9 @@ lstAplicA.setModel(modelo2);
         // TODO add your handling code here:
     }//GEN-LAST:event_txtper3ActionPerformed
 
-    private void txtper4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtper4ActionPerformed
+    private void txtprcioproductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtprcioproductoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtper4ActionPerformed
+    }//GEN-LAST:event_txtprcioproductoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarT;
@@ -649,10 +988,10 @@ lstAplicA.setModel(modelo2);
     private javax.swing.JLabel lbusu;
     private javax.swing.JList<String> lstAplicA;
     private javax.swing.JList<String> lstAplicD;
-    private javax.swing.JTextField txtidApl;
     private javax.swing.JTextField txtper;
     private javax.swing.JTextField txtper1;
     private javax.swing.JTextField txtper3;
-    private javax.swing.JTextField txtper4;
+    private javax.swing.JTextField txtprcioproducto;
+    private javax.swing.JTextField txtproducto;
     // End of variables declaration//GEN-END:variables
 }

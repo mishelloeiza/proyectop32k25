@@ -11,7 +11,7 @@ import vista.seguridad.MantenimientoAplicacion;
 import vista.seguridad.MantenimientoBitacora;
 import vista.ventas_cxc.MantenimientoClientes;
 import vista.ventas_cxc.MantenimientoVendedores;
-import vista.ventas_cxc.MantenimientoVentas;
+
 import vista.ventas_cxc.TransaccionalVentasCC;
 
 /**
@@ -269,13 +269,7 @@ public class Mdi_VentasCC extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        MantenimientoVentas ventana = new MantenimientoVentas();
-        jLayeredPane1.add(ventana);
-        Dimension desktopSize = jLayeredPane1.getSize();
-        Dimension FrameSize = ventana.getSize();
-        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-
+     
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

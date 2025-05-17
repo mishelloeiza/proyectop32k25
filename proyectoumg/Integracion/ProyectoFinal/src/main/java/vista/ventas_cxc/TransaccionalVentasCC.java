@@ -38,201 +38,79 @@ public class TransaccionalVentasCC extends javax.swing.JInternalFrame {
 int APLICACION=301;
 
 
-public void llenadoDeCombos() {
-         
-        PerfilDAO perfilDAO = new PerfilDAO();
-        List<Perfil> salon = perfilDAO.select();
-        cboperfil.addItem("Seleccione un Id");
-        for (int i = 0; i < salon.size(); i++) {
-            cboperfil.addItem(String.valueOf(salon.get(i).getId_perfil()));
-            cboperfil.addActionListener(e -> {
-    // mandamos a traer el ID
-    String idSelec = cboperfil.getSelectedItem().toString();
-    int idSeleccionado = Integer.parseInt(idSelec);
-    // Busca el perfil en la lista
-    for (Perfil perfil : salon) {
-        if (perfil.getId_perfil() == idSeleccionado) {
-            txtper.setText(perfil.getNombre_perfil());
-            
-            break;
-        }
-    }});
-            
-    }
-    AplicacionDAO aplicacionDAO = new AplicacionDAO();
-    List<Aplicacion> aplicaciones = aplicacionDAO.select(); 
-    DefaultListModel<String> modelo = new DefaultListModel<>();
-    DefaultListModel<String> modelo2 = new DefaultListModel<>();
-    //Recorre la lista :v
-    for (Aplicacion app : aplicaciones) {
-    modelo.addElement(app.getNombre_aplicacion()); 
-}
-lstAplicD.setModel(modelo);
-lstAplicA.setModel(modelo2);
-
-// Listener para detectar la selección del usuario
-lstAplicA.addListSelectionListener(new ListSelectionListener() {
-    @Override
-    public void valueChanged(ListSelectionEvent e) {
-        if (!e.getValueIsAdjusting()) { // Evita doble evento
-            String nombreAppSeleccionada = lstAplicA.getSelectedValue();
-            
-            if (nombreAppSeleccionada != null) {
-                // Buscar el ID de la aplicación seleccionada
-                for (Aplicacion app : aplicaciones) {
-                    if (app.getNombre_aplicacion().equals(nombreAppSeleccionada)) {
-                        int idAppSeleccionada = app.getId_aplicacion();
-                        System.out.println("ID seleccionado: " + idAppSeleccionada); // Opcional: para debug
-                        txtidApl.setText(String.valueOf(idAppSeleccionada)); // Asignar el ID a un campo
-                        break;
-                    }
-                }
-            }
-        }
-    }
-}); 
-
-    }
 
 
 
 
-public void llenadoperfilesaplicaciones(){
-// 1. Obtener todas las aplicaciones disponibles
-
-AplicacionDAO aplicacionDAO = new AplicacionDAO();
-List<Aplicacion> aplicaciones = aplicacionDAO.select();
-
-// 2. Modelos para las listas
-DefaultListModel<String> modelo = new DefaultListModel<>(); // Para listAplicD (todas las apps)
-DefaultListModel<String> modelo2 = new DefaultListModel<>(); // Para listAplicA (apps del perfil)
-
-// 3. Llenar listAplicD con TODAS las aplicaciones
-for (Aplicacion aplicacion : aplicaciones) {
-    modelo.addElement(aplicacion.getNombre_aplicacion());
-}
-lstAplicD.setModel(modelo);
-
-// 4. Listener para cuando seleccionen un perfil
-cboperfil.addActionListener(e -> {
-    // Limpiar modelo2 antes de agregar nuevos elementos
-    modelo2.clear();
-    
-    try {
-        // Obtener perfil seleccionado
-        String idSelec = cboperfil.getSelectedItem().toString();
-        int idSeleccionado = Integer.parseInt(idSelec);
-        
-        // Obtener relaciones perfil-aplicación
-        RelPerfAplDAO relPerfAplDAO = new RelPerfAplDAO();
-        List<RelPerfApl> relaciones = relPerfAplDAO.select();
-        
-        // Filtrar aplicaciones del perfil seleccionado
-        for (RelPerfApl relacion : relaciones) {
-            if (relacion.getPerfil_codigo() == idSeleccionado) {
-                // Buscar la aplicación por ID
-                for (Aplicacion app : aplicaciones) {
-                    if (app.getId_aplicacion()== relacion.getAplicacion_codigo()) {
-                        modelo2.addElement(app.getNombre_aplicacion());
-                        break; // Salir del for interno
-                    }
-                }
-            }
-        }
-        
-        lstAplicA.setModel(modelo2);
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Error al cargar aplicaciones: " + ex.getMessage());
-    }
-});
-
-}
 
 
-    public void llenarlistaUnoaUno() {
-    int indice=0;
-    String cadena; 
-     
-    indice = lstAplicD.getSelectedIndex();
-    if (indice != -1) {
-        
-    cadena = (String) lstAplicD.getSelectedValue();
-    DefaultListModel<String> modeloAplA;
-    
-    if (lstAplicA.getModel() == null) {
-        modeloAplA = new DefaultListModel<>();
-        lstAplicA.setModel(modeloAplA);
-        
-    } else {
-        
-        modeloAplA = (DefaultListModel<String>) lstAplicA.getModel();
-                
-    }
-    modeloAplA.addElement(cadena);
-    } else {
-        JOptionPane.showMessageDialog(this, "Selecciona una Aplicacion", "ERROR", JOptionPane.ERROR_MESSAGE);
-    }
-    
-        int resultadoBitacora=0;
-        Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Asignar Una Aplicaciones");    
-   
-    }
-    
-    public void llenarlista() {
-    AplicacionDAO aplicacionDAO = new AplicacionDAO();
-    List<Aplicacion> aplicaciones = aplicacionDAO.select(); 
-    DefaultListModel<String> modelo = new DefaultListModel<>(); 
-    //Recorre la lista :v
-    for (Aplicacion app : aplicaciones) {
-    modelo.addElement(app.getNombre_aplicacion()); 
-}
-lstAplicA.setModel(modelo);
-        
-        int resultadoBitacora=0;
-        Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Asignar Todas Las Aplicaciones");    
-   
-    }
-    
-    public void vaciarlista() {
- 
-    DefaultListModel<String> modelo = new DefaultListModel<>();
-    
-    modelo.clear();
-    lstAplicA.setModel(modelo);
-      
-        int resultadoBitacora=0;
-        Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Eliminar Todas Las Aplicaciones");    
-   
-    }
-    
-    public void vaciarlistaUnoaUno() {
-    
-    int indice = lstAplicA.getSelectedIndex();
-    if (indice != -1) {
-        ((DefaultListModel<String>) lstAplicA.getModel()).remove(indice);
-    } else {
-        JOptionPane.showMessageDialog(this, "Selecciona una Aplicacion", "ERROR", JOptionPane.ERROR_MESSAGE);
-    }
-    
-     
-    
-        int resultadoBitacora=0;
-        Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Eliminar una Aplicacion");    
-   
-    }
-    
-    public TransaccionalVentasCC() {
-        initComponents(); 
-        llenadoDeCombos(); 
-        llenadoperfilesaplicaciones();
-        
-    }
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -456,7 +334,7 @@ lstAplicA.setModel(modelo);
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "id_venta", "id_vendedor", "Nombre", "Apellido", "Producto", "Cantidad", "Precio", "Saldo Anterior", "Plazo", "Total"
+                "no_venta", "id_vendedor", "Nombre", "Apellido", "Producto", "Cantidad", "Precio", "Saldo Anterior", "Plazo", "Total"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -476,18 +354,15 @@ lstAplicA.setModel(modelo);
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(63, 63, 63)
-                                                .addComponent(cboperfil, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txtper, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(89, 89, 89)
-                                                .addComponent(label10)
-                                                .addGap(112, 112, 112)
-                                                .addComponent(label11)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                        .addGap(63, 63, 63)
+                                        .addComponent(cboperfil, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtper, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(89, 89, 89)
+                                        .addComponent(label10)
+                                        .addGap(112, 112, 112)
+                                        .addComponent(label11))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(label4)
                                         .addGap(88, 88, 88)))
@@ -592,7 +467,6 @@ lstAplicA.setModel(modelo);
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(22, 22, 22)
                                 .addComponent(label9)))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -649,7 +523,7 @@ lstAplicA.setModel(modelo);
                                     .addComponent(label13))))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();

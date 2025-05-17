@@ -153,7 +153,7 @@ cboperfil1.addActionListener(e -> {
 
 }
 // ----------------------------EL FIN DE CARLITOS -----------------------------------------------
-
+*/
 // ------------------------TRANSACCIONAL ISAPRO-------------------
  public void generarVenta() {
     try {
@@ -241,7 +241,7 @@ public void actualizarTablaVentas() {
 }
 
 // --------------------------------------FIN DE ISAPRO-------------------------------------------
-*/
+
 //-------------VICTOR--------------------------------------------------------------------------------------
 
 public void llenadoperfilesaplicaciones(){
@@ -297,7 +297,7 @@ cboperfil.addActionListener(e -> {
 
 }
 //------------------------ Fin de victor --------------------------------------------------------------
-
+/*
     public void llenarlistaUnoaUno() {
     int indice=0;
     String cadena; 
@@ -376,7 +376,7 @@ lstAplicA.setModel(modelo);
     }
 
 
-
+*/
 
 
 
@@ -494,7 +494,7 @@ lstAplicA.setModel(modelo);
         label16 = new javax.swing.JLabel();
         txtprcioproducto = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        transaccional_VCXC = new javax.swing.JTable();
         label17 = new javax.swing.JLabel();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
@@ -665,7 +665,7 @@ lstAplicA.setModel(modelo);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        transaccional_VCXC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
@@ -676,7 +676,7 @@ lstAplicA.setModel(modelo);
                 "no_venta", "id_vendedor", "Nombre", "Apellido", "Producto", "Cantidad", "Precio", "Saldo Anterior", "Plazo", "Total"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(transaccional_VCXC);
 
         label17.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label17.setText("   Salir");
@@ -967,7 +967,6 @@ lstAplicA.setModel(modelo2);
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel label10;
     private javax.swing.JLabel label11;
     private javax.swing.JLabel label12;
@@ -988,6 +987,7 @@ lstAplicA.setModel(modelo2);
     private javax.swing.JLabel lbusu;
     private javax.swing.JList<String> lstAplicA;
     private javax.swing.JList<String> lstAplicD;
+    private javax.swing.JTable transaccional_VCXC;
     private javax.swing.JTextField txtper;
     private javax.swing.JTextField txtper1;
     private javax.swing.JTextField txtper3;

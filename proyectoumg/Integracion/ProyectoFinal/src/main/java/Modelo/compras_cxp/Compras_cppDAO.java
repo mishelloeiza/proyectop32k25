@@ -25,11 +25,11 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class Compras_cppDAO {
 
-    private static final String SQL_SELECT = "SELECT no_compra, nombre_usuario, apellido_usuario, id_proveedor, producto, cantidad, precio, saldo_anterior, plazo, total   FROM proveedor";
-    private static final String SQL_INSERT = "INSERT INTO proveedor (no_compra, nombre_usuario, apellido_usuario, id_proveedor, producto, cantidad, precio, saldo_anterior, plazo, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE proveedor SET nombre_usuario=?, apellido_usuario=?, id_proveedor=?, producto=?, cantidad=?, precio=?, saldo_anterior=?, plazo=?, total=? WHERE no_compra=? ";
-    private static final String SQL_DELETE = "DELETE FROM proveedor WHERE no_compra=?";
-    private static final String SQL_QUERY = "SELECT no_compra, nombre_usuario, apellido_usuario, id_proveedor, producto, cantidad, precio, saldo_anterior, plazo=? total=? FROM proveedor WHERE no_compra=?";
+    private static final String SQL_SELECT = "SELECT no_compra, nombre_usuario, apellido_usuario, id_proveedor, producto, cantidad, precio, saldo_anterior, plazo, total   FROM compra_cpp";
+    private static final String SQL_INSERT = "INSERT INTO compra_cpp (no_compra, nombre_usuario, apellido_usuario, id_proveedor, producto, cantidad, precio, saldo_anterior, plazo, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE = "UPDATE compra_cpp SET nombre_usuario=?, apellido_usuario=?, id_proveedor=?, producto=?, cantidad=?, precio=?, saldo_anterior=?, plazo=?, total=? WHERE no_compra=? ";
+    private static final String SQL_DELETE = "DELETE FROM compra_cpp WHERE no_compra=?";
+    private static final String SQL_QUERY = "SELECT no_compra, nombre_usuario, apellido_usuario, id_proveedor, producto, cantidad, precio, saldo_anterior, plazo, total FROM compra_cpp WHERE no_compra=?";
 
     public List<Compra_cpp> select() {
         Connection conn = null;

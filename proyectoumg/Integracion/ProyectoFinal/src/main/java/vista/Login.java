@@ -243,7 +243,7 @@ public class Login extends javax.swing.JFrame {
                         this.dispose();
                     } catch (Exception e) {
                         e.printStackTrace();
-                        JOptionPane.showMessageDialog(this, "Error al abrir el módulo Ventas", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Error al abrir el módulo Compras", "ERROR", JOptionPane.ERROR_MESSAGE);
                     }
                     break;
                     

@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package vista.bancos;
+import Controlador.seguridad.UsuarioConectado;  // Para obtener usuario actual
+import Modelo.seguridad.UsuarioDAO;               // Para manejar la lógica de usuario (ajusta el paquete si es otro)
+import Controlador.seguridad.permisos;          // La clase que representa los permisos del usuario (ajusta el paquete)
 
 import vista.seguridad.*;
 import Modelo.bancos.cuentas_bancariasDAO;
@@ -17,6 +20,7 @@ import Modelo.bancos.BancoDAO;
 import Modelo.bancos.tipo_cuentaDAO;
 import Modelo.bancos.tipo_monedaDAO;
 import java.io.File;
+import java.sql.Connection;
 import javax.swing.JOptionPane;
 
 // MANTENIMIENTO CREADO POR GABRIELA PINTO 9959-23-1087
@@ -24,7 +28,14 @@ import javax.swing.JOptionPane;
 
 public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
     int APLICACION = 104;
+    
+    private Connection connectio;
+    // 🔒 Variables para permisos
+    private int idUsuarioSesion;
+    private UsuarioDAO usuarioDAO;
+    private permisos permisos;
 
+    private permisos permisosUsuarioActual; 
     public void llenadoDeCombos() {
         cuentas_bancariasDAO cuentas_bancariasDAO = new cuentas_bancariasDAO();
         List<cuentas_bancarias> salon = cuentas_bancariasDAO.select();
@@ -78,6 +89,18 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
         initComponents();
         llenadoDeTablas();
         llenadoDeCombos();
+    
+     // 🔐 Validación de permisos
+       idUsuarioSesion = UsuarioConectado.getIdUsuario();
+
+        usuarioDAO = new UsuarioDAO();
+        permisos = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion);
+
+        
+        btnEliminar.setEnabled(permisos.isPuedeEliminar());
+        btnRegistrar.setEnabled(permisos.isPuedeRegistrar());
+        btnModificar.setEnabled(permisos.isPuedeModificar());
+
     }
 
     /**
@@ -288,9 +311,9 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(108, 108, 108)
                         .addComponent(txtBanco)))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(22, 22, 22))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(label1)
@@ -508,20 +531,30 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        
 
-        txtBanco.setText("");
-        txtTipoCuenta.setText("");
-        txtMoneda.setText("");
-        txtSaldo.setText("");
-        txtbuscado.setText("");
-        btnRegistrar.setEnabled(true);
-        btnModificar.setEnabled(true);
-        btnEliminar.setEnabled(true);
-        
+    // Recorre todos los componentes dentro del panel principal//NUEVO METODO FUNCIONAL
+    for (java.awt.Component comp : this.getContentPane().getComponents()) {
+        if (comp instanceof javax.swing.JTextField) {
+            ((javax.swing.JTextField) comp).setText("");
+        } else if (comp instanceof javax.swing.JComboBox) {
+            ((javax.swing.JComboBox<?>) comp).setSelectedIndex(0);
+        }
+    }
+    // Aquí se habilitan los botones según los permisos actuales, no todos en true
+    aplicarPermisos(permisosUsuarioActual);
+
+
+    // botones estén habilitados
+    btnRegistrar.setEnabled(true);
+    btnModificar.setEnabled(true);
+    btnEliminar.setEnabled(true);
+
+    System.out.println("Todos los campos han sido limpiados automáticamente.");
+      UsuarioConectado usuarioEnSesion = new UsuarioConectado();
         int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Limpiar Datos cuentas_bancarias");    
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Limpiar Cuenta");
+
     }//GEN-LAST:event_btnLimpiarActionPerformed
 /*
      // TODO add your handling code here:
@@ -590,6 +623,10 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
     }
 
     private void limpiarFormulario() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void aplicarPermisos(permisos permisosUsuarioActual) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

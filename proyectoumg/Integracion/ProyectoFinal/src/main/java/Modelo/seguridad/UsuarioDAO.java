@@ -188,59 +188,208 @@ public class UsuarioDAO {
         return usuario;
     }
 
-    public permisos obtenerPermisosPorUsuario(int idUsuario) {
-        permisos permisos = new permisos();
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+ public permisos obtenerPermisosPorUsuario(int idUsuario) {
+    permisos permisos = new permisos();
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
 
-        try {
-            conn = Conexion.getConnection();
-            String sql = "SELECT puede_mantenimiento, puede_procesos FROM permisos_usuario WHERE id_usuario = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, idUsuario);
-            rs = ps.executeQuery();
+    try {
+        conn = Conexion.getConnection();
+        String sql = "SELECT puede_mantenimiento, puede_procesos, puede_eliminar, puede_registrar, puede_modificar " +
+                     "FROM permisos_usuario WHERE id_usuario = ?";
+        ps = conn.prepareStatement(sql);
+        ps.setInt(1, idUsuario);
+        rs = ps.executeQuery();
 
-            if (rs.next()) {
-                permisos.setPuedeMantenimiento(rs.getBoolean("puede_mantenimiento"));
-                permisos.setPuedeProcesos(rs.getBoolean("puede_procesos"));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace(System.out);
-        } finally {
-            Conexion.close(rs);
-            Conexion.close(ps);
-            Conexion.close(conn);
+        if (rs.next()) {
+            permisos.setPuedeMantenimiento(rs.getBoolean("puede_mantenimiento"));
+            permisos.setPuedeProcesos(rs.getBoolean("puede_procesos"));
+            permisos.setPuedeEliminar(rs.getBoolean("puede_eliminar"));
+            permisos.setPuedeRegistrar(rs.getBoolean("puede_registrar"));
+            permisos.setPuedeModificar(rs.getBoolean("puede_modificar"));
+            permisos.setIdUsuario(idUsuario);
         }
-        return permisos;
-    }
 
-    public List<Integer> obtenerTodosIds() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    } catch (SQLException e) {
+        e.printStackTrace(System.out);
+    } finally {
+        Conexion.close(rs);
+        Conexion.close(ps);
+        Conexion.close(conn);
     }
+    return permisos;
+}
 
-    public String obtenerUsernamePorId(Integer idUsuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
-    public boolean eliminarPermisos(int idUsuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+public boolean eliminarPermisos(int idUsuario) {
+    Connection conn = null;
+    PreparedStatement ps = null;
+    try {
+        conn = Conexion.getConnection();
+        String sql = "DELETE FROM permisos_usuario WHERE id_usuario = ?";
+        ps = conn.prepareStatement(sql);
+        ps.setInt(1, idUsuario);
+        int rows = ps.executeUpdate();
+        return rows > 0;
+    } catch (SQLException e) {
+        e.printStackTrace(System.out);
+        return false;
+    } finally {
+        Conexion.close(ps);
+        Conexion.close(conn);
     }
+}
 
-    public boolean actualizarPermisos(int idUsuario, boolean puedeMantenimiento, boolean puedeProcesos) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+public boolean actualizarPermisos(int idUsuario, boolean puedeMantenimiento, boolean puedeProcesos,
+                                  boolean puedeEliminar, boolean puedeRegistrar, boolean puedeModificar) {
+    Connection conn = null;
+    PreparedStatement ps = null;
+    try {
+        conn = Conexion.getConnection();
+        String sql = "UPDATE permisos_usuario SET puede_mantenimiento = ?, puede_procesos = ?, " +
+                     "puede_eliminar = ?, puede_registrar = ?, puede_modificar = ? WHERE id_usuario = ?";
+        ps = conn.prepareStatement(sql);
+        ps.setBoolean(1, puedeMantenimiento);
+        ps.setBoolean(2, puedeProcesos);
+        ps.setBoolean(3, puedeEliminar);
+        ps.setBoolean(4, puedeRegistrar);
+        ps.setBoolean(5, puedeModificar);
+        ps.setInt(6, idUsuario);
 
-    public boolean insertarpermisos(int idUsuario, boolean puedeMantenimiento, boolean puedeProcesos) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int rows = ps.executeUpdate();
+        return rows > 0;
+    } catch (SQLException e) {
+        e.printStackTrace(System.out);
+        return false;
+    } finally {
+        Conexion.close(ps);
+        Conexion.close(conn);
     }
+}
 
-    public boolean existeUsuario(int idUsuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+public boolean insertarpermisos(int idUsuario, boolean puedeMantenimiento, boolean puedeProcesos,
+                               boolean puedeEliminar, boolean puedeRegistrar, boolean puedeModificar) {
+    Connection conn = null;
+    PreparedStatement ps = null;
+    try {
+        conn = Conexion.getConnection();
+        String sql = "INSERT INTO permisos_usuario (id_usuario, puede_mantenimiento, puede_procesos, " +
+                     "puede_eliminar, puede_registrar, puede_modificar) VALUES (?, ?, ?, ?, ?, ?)";
+        ps = conn.prepareStatement(sql);
+        ps.setInt(1, idUsuario);
+        ps.setBoolean(2, puedeMantenimiento);
+        ps.setBoolean(3, puedeProcesos);
+        ps.setBoolean(4, puedeEliminar);
+        ps.setBoolean(5, puedeRegistrar);
+        ps.setBoolean(6, puedeModificar);
 
-    public List<permisos> obtenerPermisos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int rows = ps.executeUpdate();
+        return rows > 0;
+    } catch (SQLException e) {
+        e.printStackTrace(System.out);
+        return false;
+    } finally {
+        Conexion.close(ps);
+        Conexion.close(conn);
     }
+}
+
+public boolean existeUsuario(int idUsuario) {
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    try {
+        conn = Conexion.getConnection();
+        String sql = "SELECT 1 FROM usuario WHERE id_usuario = ?";
+        ps = conn.prepareStatement(sql);
+        ps.setInt(1, idUsuario);
+        rs = ps.executeQuery();
+        return rs.next();
+    } catch (SQLException e) {
+        e.printStackTrace(System.out);
+        return false;
+    } finally {
+        Conexion.close(rs);
+        Conexion.close(ps);
+        Conexion.close(conn);
+    }
+}
+
+public List<Integer> obtenerTodosIds() {
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    List<Integer> ids = new ArrayList<>();
+    try {
+        conn = Conexion.getConnection();
+        String sql = "SELECT id_usuario FROM usuario";
+        ps = conn.prepareStatement(sql);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            ids.add(rs.getInt("id_usuario"));
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(System.out);
+    } finally {
+        Conexion.close(rs);
+        Conexion.close(ps);
+        Conexion.close(conn);
+    }
+    return ids;
+}
+
+public String obtenerUsernamePorId(Integer idUsuario) {
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    String username = null;
+    try {
+        conn = Conexion.getConnection();
+        String sql = "SELECT username FROM usuario WHERE id_usuario = ?";
+        ps = conn.prepareStatement(sql);
+        ps.setInt(1, idUsuario);
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            username = rs.getString("username");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(System.out);
+    } finally {
+        Conexion.close(rs);
+        Conexion.close(ps);
+        Conexion.close(conn);
+    }
+    return username;
+}
+
+public List<permisos> obtenerPermisos() {
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    List<permisos> listaPermisos = new ArrayList<>();
+    try {
+        conn = Conexion.getConnection();
+        String sql = "SELECT id_usuario, puede_mantenimiento, puede_procesos, puede_eliminar, puede_registrar, puede_modificar FROM permisos_usuario";
+        ps = conn.prepareStatement(sql);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            permisos p = new permisos();
+            p.setIdUsuario(rs.getInt("id_usuario"));
+            p.setPuedeMantenimiento(rs.getBoolean("puede_mantenimiento"));
+            p.setPuedeProcesos(rs.getBoolean("puede_procesos"));
+            p.setPuedeEliminar(rs.getBoolean("puede_eliminar"));
+            p.setPuedeRegistrar(rs.getBoolean("puede_registrar"));
+            p.setPuedeModificar(rs.getBoolean("puede_modificar"));
+            listaPermisos.add(p);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(System.out);
+    } finally {
+        Conexion.close(rs);
+        Conexion.close(ps);
+        Conexion.close(conn);
+    }
+    return listaPermisos;
+ }
 }

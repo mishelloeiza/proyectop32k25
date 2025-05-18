@@ -1,13 +1,23 @@
 package Controlador.seguridad;
 
-/**
- *
- * @author MISHEL LOEIZA 9959-23-3457
- */
-public class permisos {//validacion con minuscula
+public class permisos {
+    private int idUsuario; // <- agregar este atributo
     private boolean puedeMantenimiento;
     private boolean puedeProcesos;
+    private boolean puedeEliminar;
+    private boolean puedeRegistrar;
+    private boolean puedeModificar;
 
+    // Getters y setters para idUsuario
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    // Getters y setters para los permisos
     public boolean isPuedeMantenimiento() {
         return puedeMantenimiento;
     }
@@ -24,7 +34,27 @@ public class permisos {//validacion con minuscula
         this.puedeProcesos = puedeProcesos;
     }
 
-    public Object getIdUsuario() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean isPuedeEliminar() {
+        return puedeEliminar;
+    }
+
+    public void setPuedeEliminar(boolean puedeEliminar) {
+        this.puedeEliminar = puedeEliminar;
+    }
+
+    public boolean isPuedeRegistrar() {
+        return puedeRegistrar;
+    }
+
+    public void setPuedeRegistrar(boolean puedeRegistrar) {
+        this.puedeRegistrar = puedeRegistrar;
+    }
+
+    public boolean isPuedeModificar() {
+        return puedeModificar;
+    }
+
+    public void setPuedeModificar(boolean puedeModificar) {
+        this.puedeModificar = puedeModificar;
     }
 }

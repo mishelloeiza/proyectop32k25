@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package vista.bancos;
+import Controlador.seguridad.UsuarioConectado;  // Para obtener usuario actual
+import Modelo.seguridad.UsuarioDAO;               // Para manejar la lógica de usuario (ajusta el paquete si es otro)
+import Controlador.seguridad.permisos;          // La clase que representa los permisos del usuario (ajusta el paquete)
 
 import vista.seguridad.*;
 import Modelo.bancos.detalle_movimientos_bancariosDAO;
@@ -32,8 +35,13 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class MantenimientoDetalle_movimientos_bancarios extends javax.swing.JInternalFrame {
 int APLICACION=105;
+ private Connection connectio;
+    // 🔒 Variables para permisos
+    private int idUsuarioSesion;
+    private UsuarioDAO usuarioDAO;
+    private permisos permisos;
 
-    
+ private permisos permisosUsuarioActual;
     public void llenadoDeCombos() {
         detalle_movimientos_bancariosDAO detalle_movimientos_bancariosDAO = new detalle_movimientos_bancariosDAO();
         List<detalle_movimientos_bancarios> salon = detalle_movimientos_bancariosDAO.select();
@@ -87,6 +95,17 @@ int APLICACION=105;
         initComponents();
         llenadoDeTablas();
         llenadoDeCombos();
+   // 🔐 Validación de permisos
+       idUsuarioSesion = UsuarioConectado.getIdUsuario();
+
+        usuarioDAO = new UsuarioDAO();
+        permisos = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion);
+
+        
+        btnEliminar.setEnabled(permisos.isPuedeEliminar());
+        btnRegistrar.setEnabled(permisos.isPuedeRegistrar());
+        btnModificar.setEnabled(permisos.isPuedeModificar());
+
     }
 
     /**
@@ -292,11 +311,11 @@ int APLICACION=105;
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(label9)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(27, 27, 27))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(650, Short.MAX_VALUE)
                 .addComponent(label1)
                 .addGap(225, 225, 225))
         );
@@ -423,22 +442,28 @@ int APLICACION=105;
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+  // Recorre todos los componentes dentro del panel principal//NUEVO METODO FUNCIONAL
+    for (java.awt.Component comp : this.getContentPane().getComponents()) {
+        if (comp instanceof javax.swing.JTextField) {
+            ((javax.swing.JTextField) comp).setText("");
+        } else if (comp instanceof javax.swing.JComboBox) {
+            ((javax.swing.JComboBox<?>) comp).setSelectedIndex(0);
+        }
+    }
+    // Aquí se habilitan los botones según los permisos actuales, no todos en true
+    aplicarPermisos(permisosUsuarioActual);
 
-        txtIdMovimiento.setText("");
-        txtIdTipoOperacion.setText("");
-        txtIdTipoPago.setText("");
-        txtMonto.setText("");
-        txtDescripcion.setText("");
-        txtbuscado.setText("");
-        btnRegistrar.setEnabled(true);
-        btnModificar.setEnabled(true);
-        btnEliminar.setEnabled(true);
+
+    // botones estén habilitados
+    btnRegistrar.setEnabled(true);
+    btnModificar.setEnabled(true);
+    btnEliminar.setEnabled(true);
+
+    System.out.println("Todos los campos han sido limpiados automáticamente.");
+      UsuarioConectado usuarioEnSesion = new UsuarioConectado();
         int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Limpiar Datos detalle_movimientos_bancarios");    
-   
-
-        // TODO add your handling code here:
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Limpiar DETALLE DE MOVIMIENTO");
     }//GEN-LAST:event_btnLimpiarActionPerformed
 /*
      // TODO add your handling code here:
@@ -464,7 +489,7 @@ int APLICACION=105;
             ex.printStackTrace();
         }*/
     }//GEN-LAST:event_jButton2ActionPerformed
-private Connection connectio = null;
+
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
                Map p = new HashMap();
         JasperReport report;
@@ -519,4 +544,8 @@ private Connection connectio = null;
     private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables
+
+    private void aplicarPermisos(permisos permisosUsuarioActual) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

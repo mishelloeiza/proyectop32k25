@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package vista.bancos;
+import Controlador.seguridad.UsuarioConectado;  // Para obtener usuario actual
+import Modelo.seguridad.UsuarioDAO;               // Para manejar la lógica de usuario (ajusta el paquete si es otro)
+import Controlador.seguridad.permisos;          // La clase que representa los permisos del usuario (ajusta el paquete)
 
 //import Controlador.bancos.tasa_cambio_diario;
 import vista.seguridad.*;
@@ -39,6 +42,13 @@ import net.sf.jasperreports.view.JasperViewer;
 public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame {
 
     int APLICACION = 105; // Ajustar según corresponda
+     private Connection connectio;
+    // 🔒 Variables para permisos
+    private int idUsuarioSesion;
+    private UsuarioDAO usuarioDAO;
+    private permisos permisos;
+    private permisos permisosUsuarioActual;
+    
     private MovimientoBancarioDAO movimientoDAO = new MovimientoBancarioDAO();
     private float saldoAcumulado = 0.0f;
 
@@ -160,7 +170,19 @@ public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame 
 
         llenadoDeTablas();
         llenadoDeCombos();
+     // 🔐 Validación de permisos
+       idUsuarioSesion = UsuarioConectado.getIdUsuario();
+
+        usuarioDAO = new UsuarioDAO();
+        permisos = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion);
+
+        
+        btnEliminar.setEnabled(permisos.isPuedeEliminar());
+        btnRegistrar.setEnabled(permisos.isPuedeRegistrar());
+        btnModificar.setEnabled(permisos.isPuedeModificar());
+
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -399,7 +421,6 @@ public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame 
                         .addComponent(label1)
                         .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lb)
                                 .addGap(18, 18, 18)
@@ -418,7 +439,7 @@ public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame 
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lblSaldo)
                                     .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(15, 15, 15)
                                 .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -429,11 +450,12 @@ public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame 
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnBuscar)
-                                    .addComponent(btnLimpiar))))
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAyudasTasaDecambioDiario)
-                            .addComponent(btnreporteTasaDecambioDiario)))
+                                    .addComponent(btnLimpiar))
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnAyudasTasaDecambioDiario)
+                                    .addComponent(btnreporteTasaDecambioDiario)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(jButton1)))
@@ -595,7 +617,7 @@ public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame 
             ex.printStackTrace();
         }
     }//GEN-LAST:event_btnAyudasTasaDecambioDiarioActionPerformed
-    private Connection connectio = null;
+
     private void btnreporteTasaDecambioDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreporteTasaDecambioDiarioActionPerformed
         // TODO add your handling code here:
 

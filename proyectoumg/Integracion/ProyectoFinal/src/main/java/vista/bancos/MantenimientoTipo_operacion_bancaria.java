@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package vista.bancos;
+import Controlador.seguridad.UsuarioConectado;  // Para obtener usuario actual
+import Modelo.seguridad.UsuarioDAO;               // Para manejar la lógica de usuario (ajusta el paquete si es otro)
+import Controlador.seguridad.permisos;          // La clase que representa los permisos del usuario (ajusta el paquete)
 
 import vista.seguridad.*;
 import Modelo.bancos.tipo_operacion_bancariaDAO;
@@ -32,7 +35,12 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class MantenimientoTipo_operacion_bancaria extends javax.swing.JInternalFrame {
 int APLICACION=109;
-
+private Connection connectio;
+    // 🔒 Variables para permisos
+    private int idUsuarioSesion;
+    private UsuarioDAO usuarioDAO;
+    private permisos permisos;
+private permisos permisosUsuarioActual; 
 
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -69,6 +77,17 @@ int APLICACION=109;
     public MantenimientoTipo_operacion_bancaria() {
         initComponents();
         llenadoDeTablas();
+    // 🔐 Validación de permisos
+       idUsuarioSesion = UsuarioConectado.getIdUsuario();
+
+        usuarioDAO = new UsuarioDAO();
+        permisos = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion);
+
+        
+        btnEliminar.setEnabled(permisos.isPuedeEliminar());
+        btnRegistrar.setEnabled(permisos.isPuedeRegistrar());
+        btnModificar.setEnabled(permisos.isPuedeModificar());
+
     }
 
     /**
@@ -329,18 +348,29 @@ int APLICACION=109;
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        txtTipo_operacion.setText("");
-        txtDescripcion.setText("");
-        txtbuscado.setText("");
-        btnRegistrar.setEnabled(true);
-        btnModificar.setEnabled(true);
-        btnEliminar.setEnabled(true);
+
+    // Recorre todos los componentes dentro del panel principal//NUEVO METODO FUNCIONAL
+    for (java.awt.Component comp : this.getContentPane().getComponents()) {
+        if (comp instanceof javax.swing.JTextField) {
+            ((javax.swing.JTextField) comp).setText("");
+        } else if (comp instanceof javax.swing.JComboBox) {
+            ((javax.swing.JComboBox<?>) comp).setSelectedIndex(0);
+        }
+    }
+    // Aquí se habilitan los botones según los permisos actuales, no todos en true
+    aplicarPermisos(permisosUsuarioActual);
+
+
+    // botones estén habilitados
+    btnRegistrar.setEnabled(true);
+    btnModificar.setEnabled(true);
+    btnEliminar.setEnabled(true);
+
+    System.out.println("Todos los campos han sido limpiados automáticamente.");
+      UsuarioConectado usuarioEnSesion = new UsuarioConectado();
         int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Limpiar Datos tipo_operacion_bancaria");    
-   
-
-        // TODO add your handling code here:
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Limpiar OPERACION BANCARIA");
     }//GEN-LAST:event_btnLimpiarActionPerformed
 /*
      // TODO add your handling code here:
@@ -413,4 +443,8 @@ int APLICACION=109;
     private javax.swing.JTextField txtTipo_operacion;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables
+
+    private void aplicarPermisos(permisos permisosUsuarioActual) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

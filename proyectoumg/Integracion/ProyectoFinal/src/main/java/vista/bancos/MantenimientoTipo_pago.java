@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package vista.bancos;
+import Controlador.seguridad.UsuarioConectado;  // Para obtener usuario actual
+import Modelo.seguridad.UsuarioDAO;               // Para manejar la lógica de usuario (ajusta el paquete si es otro)
+import Controlador.seguridad.permisos;          // La clase que representa los permisos del usuario (ajusta el paquete)
 
 import vista.seguridad.*;
 import Modelo.bancos.tipo_pagoDAO;
@@ -32,6 +35,12 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class MantenimientoTipo_pago extends javax.swing.JInternalFrame {
 int APLICACION=110;
+    private Connection connectio;
+    // 🔒 Variables para permisos
+    private int idUsuarioSesion;
+    private UsuarioDAO usuarioDAO;
+    private permisos permisos;
+private permisos permisosUsuarioActual;
 
 
     public void llenadoDeTablas() {
@@ -67,6 +76,17 @@ int APLICACION=110;
     public MantenimientoTipo_pago() {
         initComponents();
         llenadoDeTablas();
+        // 🔐 Validación de permisos
+       idUsuarioSesion = UsuarioConectado.getIdUsuario();
+
+        usuarioDAO = new UsuarioDAO();
+        permisos = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion);
+
+        
+        btnEliminar.setEnabled(permisos.isPuedeEliminar());
+        btnRegistrar.setEnabled(permisos.isPuedeRegistrar());
+        btnModificar.setEnabled(permisos.isPuedeModificar());
+
     }
 
     /**
@@ -245,8 +265,7 @@ int APLICACION=110;
             .addGroup(layout.createSequentialGroup()
                 .addComponent(label1)
                 .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lb)
                         .addGap(18, 18, 18)
@@ -257,7 +276,7 @@ int APLICACION=110;
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(label5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(153, 153, 153)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnRegistrar)
                             .addComponent(btnEliminar)
@@ -266,11 +285,12 @@ int APLICACION=110;
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBuscar)
-                            .addComponent(btnLimpiar))))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(btnReporte))
+                            .addComponent(btnLimpiar))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2)
+                            .addComponent(btnReporte)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -324,18 +344,29 @@ int APLICACION=110;
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        txtTipo_pago.setText("");
-        txtStatus.setText("");
-        txtbuscado.setText("");
-        btnRegistrar.setEnabled(true);
-        btnModificar.setEnabled(true);
-        btnEliminar.setEnabled(true);
+    // Recorre todos los componentes dentro del panel principal//NUEVO METODO FUNCIONAL
+    for (java.awt.Component comp : this.getContentPane().getComponents()) {
+        if (comp instanceof javax.swing.JTextField) {
+            ((javax.swing.JTextField) comp).setText("");
+        } else if (comp instanceof javax.swing.JComboBox) {
+            ((javax.swing.JComboBox<?>) comp).setSelectedIndex(0);
+        }
+    }
+    // Aquí se habilitan los botones según los permisos actuales, no todos en true
+    aplicarPermisos(permisosUsuarioActual);
+
+
+    // botones estén habilitados
+    btnRegistrar.setEnabled(true);
+    btnModificar.setEnabled(true);
+    btnEliminar.setEnabled(true);
+
+    System.out.println("Todos los campos han sido limpiados automáticamente.");
+      UsuarioConectado usuarioEnSesion = new UsuarioConectado();
         int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Limpiar Datos tipo_pago");    
-   
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Limpiar TIPO DE PAGO");
 
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed
 /*
      // TODO add your handling code here:
@@ -408,4 +439,8 @@ int APLICACION=110;
     private javax.swing.JTextField txtTipo_pago;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables
+
+    private void aplicarPermisos(permisos permisosUsuarioActual) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

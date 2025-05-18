@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package vista.bancos;
+import Controlador.seguridad.UsuarioConectado;  // Para obtener usuario actual
+import Modelo.seguridad.UsuarioDAO;               // Para manejar la lógica de usuario (ajusta el paquete si es otro)
+import Controlador.seguridad.permisos;          // La clase que representa los permisos del usuario (ajusta el paquete)
 
 import Controlador.bancos.tasa_cambio_diario;
 import vista.seguridad.*;
@@ -39,6 +42,12 @@ import net.sf.jasperreports.view.JasperViewer;
 public class MantenimientoTasa_cambio_diario extends javax.swing.JInternalFrame {
 
      int APLICACION = 106; // Ajustar según corresponda
+        private Connection connectio;
+    // 🔒 Variables para permisos
+    private int idUsuarioSesion;
+    private UsuarioDAO usuarioDAO;
+    private permisos permisos;
+private permisos permisosUsuarioActual; 
     private tasa_cambio_diarioDAO tasaDAO = new tasa_cambio_diarioDAO();
 
     public void llenadoDeCombos() {
@@ -105,6 +114,17 @@ public class MantenimientoTasa_cambio_diario extends javax.swing.JInternalFrame 
     });
         llenadoDeTablas();
         llenadoDeCombos();
+    // 🔐 Validación de permisos
+       idUsuarioSesion = UsuarioConectado.getIdUsuario();
+
+        usuarioDAO = new UsuarioDAO();
+        permisos = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion);
+
+        
+        btnEliminar.setEnabled(permisos.isPuedeEliminar());
+        btnRegistrar.setEnabled(permisos.isPuedeRegistrar());
+        btnModificar.setEnabled(permisos.isPuedeModificar());
+
     }
 
     /**
@@ -296,7 +316,6 @@ public class MantenimientoTasa_cambio_diario extends javax.swing.JInternalFrame 
                         .addComponent(label1)
                         .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lb)
                                 .addGap(18, 18, 18)
@@ -307,7 +326,7 @@ public class MantenimientoTasa_cambio_diario extends javax.swing.JInternalFrame 
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(label5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(153, 153, 153)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnRegistrar)
                                     .addComponent(btnEliminar)
@@ -316,11 +335,12 @@ public class MantenimientoTasa_cambio_diario extends javax.swing.JInternalFrame 
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnBuscar)
-                                    .addComponent(btnLimpiar))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(btnReporte)))
+                                    .addComponent(btnLimpiar))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButton2)
+                                    .addComponent(btnReporte)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(jButton1)))
@@ -421,19 +441,30 @@ public class MantenimientoTasa_cambio_diario extends javax.swing.JInternalFrame 
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        
-        txtValorPromedio.setText("");
-        txtFechaHora.setText("");
-        txtbuscado.setText("");
-        btnRegistrar.setEnabled(true);
-        btnModificar.setEnabled(true);
-        btnEliminar.setEnabled(true);
+
+    // Recorre todos los componentes dentro del panel principal//NUEVO METODO FUNCIONAL
+    for (java.awt.Component comp : this.getContentPane().getComponents()) {
+        if (comp instanceof javax.swing.JTextField) {
+            ((javax.swing.JTextField) comp).setText("");
+        } else if (comp instanceof javax.swing.JComboBox) {
+            ((javax.swing.JComboBox<?>) comp).setSelectedIndex(0);
+        }
+    }
+    // Aquí se habilitan los botones según los permisos actuales, no todos en true
+    aplicarPermisos(permisosUsuarioActual);
+
+
+    // botones estén habilitados
+    btnRegistrar.setEnabled(true);
+    btnModificar.setEnabled(true);
+    btnEliminar.setEnabled(true);
+
+    System.out.println("Todos los campos han sido limpiados automáticamente.");
+      UsuarioConectado usuarioEnSesion = new UsuarioConectado();
         int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Limpiar Datos Tasa de Cambio Diario");    
-   
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Limpiar TASA DE CAMBIO DIARIO");
 
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed
 /*
      // TODO add your handling code here:
@@ -507,4 +538,8 @@ public class MantenimientoTasa_cambio_diario extends javax.swing.JInternalFrame 
     private javax.swing.JTextField txtValorPromedio;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables
+
+    private void aplicarPermisos(permisos permisosUsuarioActual) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

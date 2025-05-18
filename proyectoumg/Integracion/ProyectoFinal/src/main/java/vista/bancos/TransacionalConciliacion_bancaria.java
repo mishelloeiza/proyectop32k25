@@ -1,4 +1,7 @@
 package vista.bancos;
+import Controlador.seguridad.UsuarioConectado;  // Para obtener usuario actual
+import Modelo.seguridad.UsuarioDAO;               // Para manejar la lógica de usuario (ajusta el paquete si es otro)
+import Controlador.seguridad.permisos;          // La clase que representa los permisos del usuario (ajusta el paquete)
 
 import vista.seguridad.*;
 import Controlador.seguridad.Bitacora;
@@ -29,6 +32,13 @@ import net.sf.jasperreports.view.JasperViewer;
 public class TransacionalConciliacion_bancaria extends javax.swing.JInternalFrame {
 
     int APLICACION = 111; // Código de la aplicación para bitácora
+       private Connection connectio;
+    // 🔒 Variables para permisos
+    private int idUsuarioSesion;
+    private UsuarioDAO usuarioDAO;
+    private permisos permisos;
+    private permisos permisosUsuarioActual;
+   
     private ConciliacionBancariaDAO conciliacionDAO = new ConciliacionBancariaDAO();
 
     public void llenadoDeCombos() {
@@ -89,7 +99,17 @@ public class TransacionalConciliacion_bancaria extends javax.swing.JInternalFram
 
         llenadoDeTablas();
         llenadoDeCombos();
-    }
+     // 🔐 Validación de permisos
+       idUsuarioSesion = UsuarioConectado.getIdUsuario();
+
+        usuarioDAO = new UsuarioDAO();
+        permisos = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion);
+
+        
+        btnEliminar.setEnabled(permisos.isPuedeEliminar());
+        btnRegistrar.setEnabled(permisos.isPuedeRegistrar());
+        btnModificar.setEnabled(permisos.isPuedeModificar());
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -308,7 +328,6 @@ public class TransacionalConciliacion_bancaria extends javax.swing.JInternalFram
                         .addComponent(label1)
                         .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lb)
                                 .addGap(18, 18, 18)
@@ -326,7 +345,7 @@ public class TransacionalConciliacion_bancaria extends javax.swing.JInternalFram
                                     .addComponent(jLabel1))
                                 .addGap(18, 18, 18)
                                 .addComponent(StatC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(79, 79, 79)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnRegistrar)
                                     .addComponent(btnEliminar)
@@ -335,11 +354,12 @@ public class TransacionalConciliacion_bancaria extends javax.swing.JInternalFram
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnBuscar)
-                                    .addComponent(btnLimpiar))))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnreporteTasaDecambioDiario)
-                            .addComponent(btnAyudasTasaDecambioDiario)))
+                                    .addComponent(btnLimpiar))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnreporteTasaDecambioDiario)
+                                    .addComponent(btnAyudasTasaDecambioDiario)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(jButton1)))
@@ -478,10 +498,8 @@ txtFecha.setText("yyyy-MM-dd");
 txtFecha.setForeground(Color.GRAY);
 txtEstado.setText("");
 txtbuscado.setText("");
+ // Aquí se habilitan los botones según los permisos actuales, no todos en true
 
-btnRegistrar.setEnabled(true);
-btnModificar.setEnabled(true);
-btnEliminar.setEnabled(true);
 
 // Registrar acción en bitácora
 Bitacora bitacoraRegistro = new Bitacora();
@@ -490,6 +508,7 @@ int resultadoBitacora = bitacoraRegistro.setIngresarBitacora(
     APLICACION,  
     "Limpiar Datos Conciliación Bancaria"
 );
+
 
     }//GEN-LAST:event_btnLimpiarActionPerformed
 /*
@@ -516,7 +535,7 @@ int resultadoBitacora = bitacoraRegistro.setIngresarBitacora(
             ex.printStackTrace();
         }
     }//GEN-LAST:event_btnAyudasTasaDecambioDiarioActionPerformed
-private Connection connectio = null;
+
     private void btnreporteTasaDecambioDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreporteTasaDecambioDiarioActionPerformed
         // TODO add your handling code here:
         

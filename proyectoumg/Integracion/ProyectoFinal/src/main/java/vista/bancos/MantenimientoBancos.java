@@ -1,4 +1,7 @@
 package vista.bancos;
+import Controlador.seguridad.UsuarioConectado;  // Para obtener usuario actual
+import Modelo.seguridad.UsuarioDAO;               // Para manejar la lógica de usuario (ajusta el paquete si es otro)
+import Controlador.seguridad.permisos;          // La clase que representa los permisos del usuario (ajusta el paquete)
 
 import Modelo.bancos.BancoDAO;
 import Controlador.bancos.bancos;
@@ -19,8 +22,15 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 //MANTENIMIENTO CREADO POR MISHEL LOEIZA 9959-23-3457
 public class MantenimientoBancos extends javax.swing.JInternalFrame {
+    
 int APLICACION=103;
     private Connection connectio;
+    // 🔒 Variables para permisos
+    private int idUsuarioSesion;
+    private UsuarioDAO usuarioDAO;
+    private permisos permisos;
+
+private permisos permisosUsuarioActual; 
 
  public void llenadoDeCombos() {
         BancoDAO bancoDAO = new BancoDAO();
@@ -57,6 +67,7 @@ int APLICACION=103;
             modelo.addRow(dato);
         }
     }
+    
 
     public void buscarBanco() {
         bancos bancoConsultar = new bancos();
@@ -78,6 +89,17 @@ int APLICACION=103;
     public MantenimientoBancos() {
         initComponents();
         llenadoDeTablas();
+        // 🔐 Validación de permisos
+       idUsuarioSesion = UsuarioConectado.getIdUsuario();
+
+        usuarioDAO = new UsuarioDAO();
+        permisos = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion);
+
+        
+        btnEliminar.setEnabled(permisos.isPuedeEliminar());
+        btnRegistrar.setEnabled(permisos.isPuedeRegistrar());
+        btnModificar.setEnabled(permisos.isPuedeModificar());
+
     }
 
     @SuppressWarnings("unchecked")
@@ -118,6 +140,7 @@ int APLICACION=103;
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
 
+        setBackground(new java.awt.Color(0, 153, 153));
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
@@ -463,6 +486,9 @@ llenadoDeTablas();
             ((javax.swing.JComboBox<?>) comp).setSelectedIndex(0);
         }
     }
+    // Aquí se habilitan los botones según los permisos actuales, no todos en true
+    aplicarPermisos(permisosUsuarioActual);
+
 
     // botones estén habilitados
     btnRegistrar.setEnabled(true);
@@ -556,4 +582,8 @@ llenadoDeTablas();
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables
+
+    private void aplicarPermisos(permisos permisosUsuarioActual) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

@@ -33,16 +33,6 @@ import net.sf.jasperreports.view.JasperViewer;
 public class MantenimientoTipo_pago extends javax.swing.JInternalFrame {
 int APLICACION=110;
 
-    
-    public void llenadoDeCombos() {
-        tipo_pagoDAO tipo_pagoDAO = new tipo_pagoDAO();
-        List<tipo_pago> salon = tipo_pagoDAO.select();
-        cbox_empleado.addItem("Seleccione una opción");
-        for (int i = 0; i < salon.size(); i++) {
-            cbox_empleado.addItem(salon.get(i).getTipoPago());
-        }
-    }
-    
 
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -77,7 +67,6 @@ int APLICACION=110;
     public MantenimientoTipo_pago() {
         initComponents();
         llenadoDeTablas();
-        llenadoDeCombos();
     }
 
     /**
@@ -102,8 +91,6 @@ int APLICACION=110;
         btnLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaTipo_pago = new javax.swing.JTable();
-        cbox_empleado = new javax.swing.JComboBox<>();
-        label4 = new javax.swing.JLabel();
         txtStatus = new javax.swing.JTextField();
         label5 = new javax.swing.JLabel();
         lb = new javax.swing.JLabel();
@@ -187,16 +174,6 @@ int APLICACION=110;
             tablaTipo_pago.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        cbox_empleado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        cbox_empleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbox_empleadoActionPerformed(evt);
-            }
-        });
-
-        label4.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label4.setText("Empleado:");
-
         txtStatus.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtStatus.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
 
@@ -256,16 +233,8 @@ int APLICACION=110;
                                 .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(207, 207, 207)
-                        .addComponent(label4)
-                        .addGap(46, 46, 46)
-                        .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48))))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(label1)
@@ -300,8 +269,6 @@ int APLICACION=110;
                             .addComponent(btnLimpiar))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label4)
-                    .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2)
                     .addComponent(btnReporte))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -357,7 +324,6 @@ int APLICACION=110;
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        cbox_empleado.setSelectedIndex(0);
         txtTipo_pago.setText("");
         txtStatus.setText("");
         txtbuscado.setText("");
@@ -371,11 +337,6 @@ int APLICACION=110;
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed
-
-    private void cbox_empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_empleadoActionPerformed
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbox_empleadoActionPerformed
 /*
      // TODO add your handling code here:
         MantenimientoAula ventana = new MantenimientoAula();
@@ -410,7 +371,7 @@ int APLICACION=110;
         try {
                            Connection connectio = Conexion.getConnection();
             report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
-                    + "/src/main/java/reporte/banco/reporteTipoPago.jrxml");
+                    + "/src/main/java/reporte/banco/ReporteTipoPago.jrxml");
 //
             print = JasperFillManager.fillReport(report, p, connectio);
 
@@ -434,12 +395,10 @@ int APLICACION=110;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnReporte;
-    private javax.swing.JComboBox<String> cbox_empleado;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label3;
-    private javax.swing.JLabel label4;
     private javax.swing.JLabel label5;
     private javax.swing.JLabel lb;
     private javax.swing.JLabel lb2;

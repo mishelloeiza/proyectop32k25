@@ -378,7 +378,8 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-      //METODO DE VALIDACION CON MANTENIMIENTOS IMPLEMENTADO POR mishelloeiza 9959-23-3457                                      
+                                           
+    // Instancias de DAO
     cuentas_bancariasDAO dao = new cuentas_bancariasDAO();
     cuentas_bancarias cuentaAInsertar = new cuentas_bancarias();
 
@@ -389,7 +390,7 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
     int idBanco = 0;
     int idTipoCuenta = 0;
     int idMoneda = 0;
-    float saldo = 0;
+    double saldo = 0;  // mejor double que float para saldo
 
     try {
         idBanco = Integer.parseInt(txtBanco.getText().trim());
@@ -413,7 +414,7 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
     }
 
     try {
-        saldo = Float.parseFloat(txtSaldo.getText().trim());
+        saldo = Double.parseDouble(txtSaldo.getText().trim());
         if (saldo < 0) {
             errores.append("❌ El saldo no puede ser negativo.\n");
             datosValidos = false;
@@ -423,7 +424,7 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
         datosValidos = false;
     }
 
-    // Validar existencia en la base de datos (depende de DAOs )
+    // Validar existencia en base de datos (dependiendo de DAOs)
     if (datosValidos) {
         BancoDAO bancoDao = new BancoDAO();
         tipo_cuentaDAO tipoCuentaDao = new tipo_cuentaDAO();
@@ -445,13 +446,13 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
         }
     }
 
-    // Si hay errores, mostrar mensaje
+    // Mostrar errores si los hay
     if (!datosValidos) {
         JOptionPane.showMessageDialog(this, errores.toString(), "Errores en el formulario", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    // Si los datos son válidos, proceder a insertar
+    // Si todo está OK, insertar la cuenta
     cuentaAInsertar.setId_banco(idBanco);
     cuentaAInsertar.setId_tipo_cuenta(idTipoCuenta);
     cuentaAInsertar.setId_tipo_moneda(idMoneda);
@@ -461,9 +462,8 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
 
     if (resultado > 0) {
         JOptionPane.showMessageDialog(this, "✅ ¡Cuenta registrada exitosamente!");
-        limpiarFormulario(); // Este es un método opcional que puedes tener para limpiar los campos
-      
-        llenadoDeTablas();   // <--- Aquí actualizas la tabla después de insertar
+        limpiarFormulario();  // Método para limpiar campos (debes implementarlo)
+        llenadoDeTablas();    // Método para actualizar la tabla en pantalla (debes implementarlo)
     } else {
         JOptionPane.showMessageDialog(this, "❌ Error al registrar la cuenta. Inténtalo nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
     }

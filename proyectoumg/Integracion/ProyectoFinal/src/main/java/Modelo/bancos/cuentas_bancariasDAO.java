@@ -1,5 +1,4 @@
 package Modelo.bancos;
-//CREADO POR Gabriela Pinto  9959-23-1087
 
 import Modelo.Conexion;
 import Controlador.bancos.cuentas_bancarias;
@@ -12,12 +11,32 @@ import java.util.List;
 
 public class cuentas_bancariasDAO {
 
-    private static final String SQL_SELECT = "SELECT id_cuenta, id_banco, id_tipo_cuenta, id_tipo_moneda, saldo FROM cuentas_bancarias";
-    private static final String SQL_INSERT = "INSERT INTO cuentas_bancarias(id_banco, id_tipo_cuenta, id_tipo_moneda, saldo) VALUES(?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE cuentas_bancarias SET id_banco=?, id_tipo_cuenta=?, id_tipo_moneda=?, saldo=? WHERE id_cuenta = ?";
-    private static final String SQL_QUERY = "SELECT id_cuenta, id_banco, id_tipo_cuenta, id_tipo_moneda, saldo FROM cuentas_bancarias WHERE id_cuenta = ?";
-    private static final String SQL_DELETE = "DELETE FROM cuentas_bancarias WHERE id_cuenta = ?";
-    private static final String SQL_EXISTE = "SELECT COUNT(*) FROM cuentas_bancarias WHERE id_cuenta = ?";
+    private static final String SQL_SELECT = 
+        "SELECT cb.id_cuenta, cb.id_banco, cb.id_tipo_cuenta, cb.id_tipo_moneda, cb.saldo, " +
+        "tm.tipo_moneda, tcd.valor_promedio_dia AS tasa_cambio " +
+        "FROM cuentas_bancarias cb " +
+        "JOIN tipo_moneda tm ON cb.id_tipo_moneda = tm.id_tipo_moneda " +
+        "LEFT JOIN tasas_cambio_diario tcd ON tm.id_tasa_cambio_diario = tcd.id_tasa_cambio_diario";
+
+    private static final String SQL_INSERT = 
+        "INSERT INTO cuentas_bancarias(id_banco, id_tipo_cuenta, id_tipo_moneda, saldo) VALUES(?, ?, ?, ?)";
+
+    private static final String SQL_UPDATE = 
+        "UPDATE cuentas_bancarias SET id_banco=?, id_tipo_cuenta=?, id_tipo_moneda=?, saldo=? WHERE id_cuenta = ?";
+
+    private static final String SQL_QUERY = 
+        "SELECT cb.id_cuenta, cb.id_banco, cb.id_tipo_cuenta, cb.id_tipo_moneda, cb.saldo, " +
+        "tm.tipo_moneda, tcd.valor_promedio_dia AS tasa_cambio " +
+        "FROM cuentas_bancarias cb " +
+        "JOIN tipo_moneda tm ON cb.id_tipo_moneda = tm.id_tipo_moneda " +
+        "LEFT JOIN tasas_cambio_diario tcd ON tm.id_tasa_cambio_diario = tcd.id_tasa_cambio_diario " +
+        "WHERE cb.id_cuenta = ?";
+
+    private static final String SQL_DELETE = 
+        "DELETE FROM cuentas_bancarias WHERE id_cuenta = ?";
+
+    private static final String SQL_EXISTE = 
+        "SELECT COUNT(*) FROM cuentas_bancarias WHERE id_cuenta = ?";
 
     public List<cuentas_bancarias> select() {
         Connection conn = null;
@@ -36,6 +55,9 @@ public class cuentas_bancariasDAO {
                 cuentaBancaria.setId_tipo_cuenta(rs.getInt("id_tipo_cuenta"));
                 cuentaBancaria.setId_tipo_moneda(rs.getInt("id_tipo_moneda"));
                 cuentaBancaria.setSaldo(rs.getDouble("saldo"));
+                // Estos campos nuevos que traemos de la join:
+                cuentaBancaria.setTipo_moneda(rs.getString("tipo_moneda")); // Asume que tienes este setter
+                cuentaBancaria.setTasa_cambio(rs.getDouble("tasa_cambio")); // Asume que tienes este setter
                 listCuentasBancarias.add(cuentaBancaria);
             }
 
@@ -136,6 +158,9 @@ public class cuentas_bancariasDAO {
                 cuentaBancaria.setId_tipo_cuenta(rs.getInt("id_tipo_cuenta"));
                 cuentaBancaria.setId_tipo_moneda(rs.getInt("id_tipo_moneda"));
                 cuentaBancaria.setSaldo(rs.getDouble("saldo"));
+                // Nuevos campos de la join:
+                cuentaBancaria.setTipo_moneda(rs.getString("tipo_moneda"));
+                cuentaBancaria.setTasa_cambio(rs.getDouble("tasa_cambio"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package vista.bancos;
+import Controlador.seguridad.UsuarioConectado;  // Para obtener usuario actual
+import Modelo.seguridad.UsuarioDAO;               // Para manejar la lógica de usuario (ajusta el paquete si es otro)
+import Controlador.seguridad.permisos;          // La clase que representa los permisos del usuario (ajusta el paquete)
 
 //import Controlador.bancos.tasa_cambio_diario;
 import vista.seguridad.*;
@@ -21,8 +24,10 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import Controlador.bancos.movimiento_bancario;
+import Controlador.seguridad.permisos;
 import Modelo.Conexion;
 import Modelo.bancos.MovimientoBancarioDAO;
+import Modelo.seguridad.UsuarioDAO;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +45,13 @@ import net.sf.jasperreports.view.JasperViewer;
 public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame {
 
     int APLICACION = 105; // Ajustar según corresponda
+       private Connection connectio;
+    // 🔒 Variables para permisos
+    private int idUsuarioSesion;
+    private UsuarioDAO usuarioDAO;
+    private permisos permisos;
+
+private permisos permisosUsuarioActual; 
     private MovimientoBancarioDAO movimientoDAO = new MovimientoBancarioDAO();
     private float saldoAcumulado = 0.0f;
 
@@ -177,6 +189,17 @@ public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame 
         
         llenadoDeTablas();
         llenadoDeCombos();
+    // 🔐 Validación de permisos
+       idUsuarioSesion = UsuarioConectado.getIdUsuario();
+
+        usuarioDAO = new UsuarioDAO();
+        permisos = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion);
+
+        
+        btnEliminar.setEnabled(permisos.isPuedeEliminar());
+        btnRegistrar.setEnabled(permisos.isPuedeRegistrar());
+        btnModificar.setEnabled(permisos.isPuedeModificar());
+
     }
     private float obtenerSaldoCuenta(int idCuenta) {
         Modelo.bancos.cuentas_bancariasDAO dao = new Modelo.bancos.cuentas_bancariasDAO();
@@ -723,7 +746,7 @@ public class TransacionalMovimiento_bancario extends javax.swing.JInternalFrame 
             ex.printStackTrace();
         }
     }//GEN-LAST:event_btnAyudasTasaDecambioDiarioActionPerformed
-    private Connection connectio = null;
+   
     private void btnreporteTasaDecambioDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreporteTasaDecambioDiarioActionPerformed
         // TODO add your handling code here:
 

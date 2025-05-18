@@ -392,4 +392,33 @@ public List<permisos> obtenerPermisos() {
     }
     return listaPermisos;
  }
+public List<Usuario> obtenerTodosLosUsuarios() {
+    List<Usuario> lista = new ArrayList<>();
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+    try {
+        conn = Conexion.getConnection();
+        // Consulta SQL: tomar id_usuario y username tal cual
+        stmt = conn.prepareStatement("SELECT id_usuario, username FROM usuario");
+        rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Usuario u = new Usuario();
+            u.setId_usuario(rs.getInt("id_usuario"));  // Asignar id_usuario correctamente
+            u.setUsername(rs.getString("username"));   // Asignar username correctamente
+            lista.add(u);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(System.out);
+    } finally {
+        Conexion.close(rs);
+        Conexion.close(stmt);
+        Conexion.close(conn);
+    }
+
+    return lista;
+}
+
 }

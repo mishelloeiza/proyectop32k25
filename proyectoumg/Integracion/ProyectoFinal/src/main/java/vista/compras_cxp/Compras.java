@@ -15,6 +15,7 @@ import Controlador.inventarios.productos;
 import Controlador.seguridad.Perfil;
 import Modelo.inventarios.ProductosDAO;
 import Modelo.seguridad.PerfilDAO;
+import java.io.File;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.event.ListSelectionEvent;
@@ -167,6 +168,7 @@ public class Compras extends javax.swing.JInternalFrame {
         exis = new javax.swing.JTextField();
         codiprotxt = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        BAyudas = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -258,6 +260,13 @@ public class Compras extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Stock");
 
+        BAyudas.setText("Ayuda");
+        BAyudas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BAyudasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -287,8 +296,11 @@ public class Compras extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(9, 9, 9)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(agrega)
-                                    .addComponent(txtplazo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtplazo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(agrega)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(BAyudas))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(25, 25, 25)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -374,7 +386,9 @@ public class Compras extends javax.swing.JInternalFrame {
                             .addComponent(jLabel7)
                             .addComponent(cantidadtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34)
-                        .addComponent(agrega)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(agrega)
+                            .addComponent(BAyudas))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -494,8 +508,26 @@ public class Compras extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_listaproductosAncestorAdded
 
+    private void BAyudasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAyudasActionPerformed
+        //ayuda implementada por Andy
+        try {
+            if ((new File("src\\main\\java\\ayudas\\ayudasComprasyCuentasPorPagar.chm")).exists()) {
+                Process p = Runtime
+                        .getRuntime()
+                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\ayudasComprasyCuentasPorPagar.chm");
+                p.waitFor();
+            } else {
+                System.out.println("La ayuda no Fue encontrada");
+            }
+            System.out.println("Correcto");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }  
+    }//GEN-LAST:event_BAyudasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BAyudas;
     private javax.swing.JTextField NomProductotxt;
     private javax.swing.JButton agrega;
     private javax.swing.JTextField cantidadtxt;

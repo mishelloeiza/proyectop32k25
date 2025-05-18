@@ -502,7 +502,7 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
 
     private void txtAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAyudaActionPerformed
  //ayuda implementada por Alisson López
-        
+       
         try {
             if ((new File("src\\main\\java\\ayudas\\ayudasComprasyCuentasPorPagar.chm")).exists()) {
                 Process p = Runtime

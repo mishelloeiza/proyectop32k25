@@ -35,9 +35,9 @@ public class MantenimientoTipo_moneda extends javax.swing.JInternalFrame {
     public void llenadoDeCombos() {
         tipo_monedaDAO tipo_monedaDAO = new tipo_monedaDAO();
         List<tipo_moneda> monedas = tipo_monedaDAO.select();
-        cbox_empleado.addItem("Seleccione una opción");
+       
         for (int i = 0; i < monedas.size(); i++) {
-            cbox_empleado.addItem(monedas.get(i).getTipo_moneda());
+            
         }
     }
 
@@ -116,8 +116,6 @@ public class MantenimientoTipo_moneda extends javax.swing.JInternalFrame {
         btnLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaTipo_moneda = new javax.swing.JTable();
-        cbox_empleado = new javax.swing.JComboBox<>();
-        label4 = new javax.swing.JLabel();
         txtTasa_cambio_usd = new javax.swing.JTextField();
         label5 = new javax.swing.JLabel();
         lb = new javax.swing.JLabel();
@@ -202,16 +200,6 @@ public class MantenimientoTipo_moneda extends javax.swing.JInternalFrame {
             tablaTipo_moneda.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        cbox_empleado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        cbox_empleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbox_empleadoActionPerformed(evt);
-            }
-        });
-
-        label4.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label4.setText("Moneda");
-
         txtTasa_cambio_usd.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtTasa_cambio_usd.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
 
@@ -290,11 +278,7 @@ public class MantenimientoTipo_moneda extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
                         .addGap(118, 118, 118))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(label4)
-                        .addGap(46, 46, 46)
-                        .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(label1)
                         .addGap(253, 253, 253))))
         );
@@ -334,13 +318,8 @@ public class MantenimientoTipo_moneda extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton2)
                             .addComponent(btnReporte)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(label4)
-                            .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -428,7 +407,7 @@ resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdU
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-     cbox_empleado.setSelectedIndex(0);
+   
 txtTipo_moneda.setText("");
 txtTasa_cambio_usd.setText("");
 txtbuscado.setText("");
@@ -440,11 +419,6 @@ int resultadoBitacora = 0;
 Bitacora bitacoraRegistro = new Bitacora();
 resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Limpiar Datos tipo_moneda");
     }//GEN-LAST:event_btnLimpiarActionPerformed
-
-    private void cbox_empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_empleadoActionPerformed
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbox_empleadoActionPerformed
 /*
      // TODO add your handling code here:
         MantenimientoAula ventana = new MantenimientoAula();
@@ -507,12 +481,10 @@ resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdU
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnReporte;
-    private javax.swing.JComboBox<String> cbox_empleado;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label3;
-    private javax.swing.JLabel label4;
     private javax.swing.JLabel label5;
     private javax.swing.JLabel lb;
     private javax.swing.JLabel lb2;

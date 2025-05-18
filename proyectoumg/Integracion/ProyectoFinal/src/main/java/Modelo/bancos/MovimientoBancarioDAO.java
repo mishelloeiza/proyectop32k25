@@ -9,11 +9,11 @@ import java.util.List;
 // Made By Ruddyard Castro 
 public class MovimientoBancarioDAO {
     // Actualizadas para incluir los nuevos campos
-    private static final String SQL_SELECT = "SELECT id_movimiento_bancario, id_tipo_cuenta, fecha, tipo_saldo, monto FROM movimientos_bancarios";
-    private static final String SQL_INSERT = "INSERT INTO movimientos_bancarios(id_tipo_cuenta, fecha, tipo_saldo, monto) VALUES(?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE movimientos_bancarios SET id_tipo_cuenta=?, fecha=?, tipo_saldo=?, monto=? WHERE id_movimiento_bancario = ?";
+    private static final String SQL_SELECT = "SELECT id_movimiento_bancario, id_cuenta, fecha, tipo_saldo, monto, saldo_actualizado FROM movimientos_bancarios";
+    private static final String SQL_INSERT = "INSERT INTO movimientos_bancarios(id_cuenta, fecha, tipo_saldo, monto, saldo_actualizado) VALUES(?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE = "UPDATE movimientos_bancarios SET id_cuenta=?, fecha=?, tipo_saldo=?, monto=?, saldo_actualizado=? WHERE id_movimiento_bancario = ?";
     private static final String SQL_DELETE = "DELETE FROM movimientos_bancarios WHERE id_movimiento_bancario=?";
-    private static final String SQL_QUERY = "SELECT id_movimiento_bancario, id_tipo_cuenta, fecha, tipo_saldo, monto FROM movimientos_bancarios WHERE id_movimiento_bancario = ?";
+    private static final String SQL_QUERY = "SELECT id_movimiento_bancario, id_cuenta, fecha, tipo_saldo, monto, saldo_actualizado FROM movimientos_bancarios WHERE id_movimiento_bancario = ?";
 
     public List<movimiento_bancario> select() {
         Connection conn = null;
@@ -27,17 +27,19 @@ public class MovimientoBancarioDAO {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id_movimiento_bancario");
-                int idTipoCuenta = rs.getInt("id_tipo_cuenta");
+                int idCuenta = rs.getInt("id_cuenta");
                 LocalDateTime fecha = rs.getTimestamp("fecha").toLocalDateTime();
                 String tipoSaldo = rs.getString("tipo_saldo");
                 float monto = rs.getFloat("monto");
+                float saldoActualizado = rs.getFloat("saldo_actualizado");
 
                 movimiento_bancario movimiento = new movimiento_bancario();
                 movimiento.setId_movimiento_bancario(id);
-                movimiento.setId_tipo_cuenta(idTipoCuenta);
+                movimiento.setId_cuenta(idCuenta);
                 movimiento.setFecha(fecha);
                 movimiento.setTipoSaldo(tipoSaldo);
                 movimiento.setMonto(monto);
+                movimiento.setSaldoActualizado(saldoActualizado);
 
                 movimientos.add(movimiento);
             }
@@ -58,10 +60,11 @@ public class MovimientoBancarioDAO {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setInt(1, movimiento.getId_tipo_cuenta());
+            stmt.setInt(1, movimiento.getId_cuenta());
             stmt.setTimestamp(2, Timestamp.valueOf(movimiento.getFecha()));
             stmt.setString(3, movimiento.getTipoSaldo());
             stmt.setFloat(4, movimiento.getMonto());
+            stmt.setFloat(5, movimiento.getSaldoActualizado());
             rows = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -79,11 +82,12 @@ public class MovimientoBancarioDAO {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setInt(1, movimiento.getId_tipo_cuenta());
+            stmt.setInt(1, movimiento.getId_cuenta());
             stmt.setTimestamp(2, Timestamp.valueOf(movimiento.getFecha()));
             stmt.setString(3, movimiento.getTipoSaldo());
             stmt.setFloat(4, movimiento.getMonto());
-            stmt.setInt(5, movimiento.getId_movimiento_bancario());
+            stmt.setFloat(5, movimiento.getSaldoActualizado());
+            stmt.setInt(6, movimiento.getId_movimiento_bancario());
             rows = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -123,17 +127,19 @@ public class MovimientoBancarioDAO {
             rs = stmt.executeQuery();
             if (rs.next()) {
                 int id = rs.getInt("id_movimiento_bancario");
-                int idTipoCuenta = rs.getInt("id_tipo_cuenta");
+                int idCuenta = rs.getInt("id_cuenta");
                 LocalDateTime fecha = rs.getTimestamp("fecha").toLocalDateTime();
                 String tipoSaldo = rs.getString("tipo_saldo");
                 float monto = rs.getFloat("monto");
+                float saldoActualizado = rs.getFloat("saldo_actualizado");
 
                 movimiento = new movimiento_bancario();
                 movimiento.setId_movimiento_bancario(id);
-                movimiento.setId_tipo_cuenta(idTipoCuenta);
+                movimiento.setId_cuenta(idCuenta);
                 movimiento.setFecha(fecha);
                 movimiento.setTipoSaldo(tipoSaldo);
                 movimiento.setMonto(monto);
+                movimiento.setSaldoActualizado(saldoActualizado);
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -144,4 +150,5 @@ public class MovimientoBancarioDAO {
         }
         return movimiento;
     }
+
 }

@@ -144,6 +144,7 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         setVisible(true);
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.setEnabled(false);
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -151,6 +152,7 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         });
 
         btnRegistrar.setText("Registrar");
+        btnRegistrar.setEnabled(false);
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarActionPerformed(evt);
@@ -168,6 +170,7 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         label1.setText("Proveedores");
 
         btnModificar.setText("Modificar");
+        btnModificar.setEnabled(false);
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
@@ -226,6 +229,7 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         jLabel5.setText("Estatus");
 
         txtReporte.setText("Reporte");
+        txtReporte.setEnabled(false);
         txtReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtReporteActionPerformed(evt);
@@ -483,9 +487,9 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         txtbuscado.setText("");
         txtlimite.setText("");
        
-        btnRegistrar.setEnabled(true);
-        btnModificar.setEnabled(true);
-        btnEliminar.setEnabled(true);
+        //btnRegistrar.setEnabled(true);
+        //btnModificar.setEnabled(true);
+        //btnEliminar.setEnabled(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed
@@ -495,6 +499,22 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbox_proveedorActionPerformed
 
+    public void habilitarEliminar(boolean habilitado) {
+        btnEliminar.setEnabled(habilitado);
+    }
+    
+    public void habilitarRegistrar(boolean habilitado) {
+        btnRegistrar.setEnabled(habilitado);
+    }
+    
+    public void habilitarBuscar(boolean habilitado) {
+        txtReporte.setEnabled(habilitado);
+    }
+    
+    public void habilitarModificar(boolean habilitado) {
+        btnModificar.setEnabled(habilitado);
+    }
+    
     private void txtReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReporteActionPerformed
              ProveedorDAO proveedorDAO = new ProveedorDAO();
         proveedorDAO.imprimirReporte(); 

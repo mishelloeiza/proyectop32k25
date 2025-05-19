@@ -389,10 +389,10 @@ public class Compras extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(agrega)
                             .addComponent(BAyudas))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(35, 35, 35)
+                        .addGap(0, 1, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         NomProductotxt.setEditable(false);
@@ -511,10 +511,10 @@ public class Compras extends javax.swing.JInternalFrame {
     private void BAyudasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAyudasActionPerformed
         //ayuda implementada por Andy
         try {
-            if ((new File("src\\main\\java\\ayudas\\ayudasComprasyCuentasPorPagar.chm")).exists()) {
+            if ((new File("src\\main\\java\\ayudas\\ayudaComprasTransaccional.chm")).exists()) {
                 Process p = Runtime
                         .getRuntime()
-                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\ayudasComprasyCuentasPorPagar.chm");
+                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\ayudaComprasTransaccional.chm");
                 p.waitFor();
             } else {
                 System.out.println("La ayuda no Fue encontrada");

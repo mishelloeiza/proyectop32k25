@@ -185,4 +185,23 @@ public class Compras_cppDAO {
         return compra_cpp;
         
     }
+    public void imprimirReporte() {
+        Connection conn = null;
+        Map p = new HashMap();
+        JasperReport report;
+        JasperPrint print;
+
+        try {
+            conn = Conexion.getConnection();
+            report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
+                    + "/src/main/java/ReporteCompraCPP/"+ "reporte.comprascpp.jrxml");
+            print = JasperFillManager.fillReport(report, p, conn);
+            JasperViewer view = new JasperViewer(print, false);
+            view.setTitle("Reporte de Vendedores");
+            view.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

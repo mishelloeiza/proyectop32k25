@@ -169,6 +169,7 @@ public class Compras extends javax.swing.JInternalFrame {
         codiprotxt = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         BAyudas = new javax.swing.JButton();
+        Reporte = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -267,6 +268,13 @@ public class Compras extends javax.swing.JInternalFrame {
             }
         });
 
+        Reporte.setText("Reporte");
+        Reporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReporteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -299,8 +307,10 @@ public class Compras extends javax.swing.JInternalFrame {
                                     .addComponent(txtplazo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(agrega)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(BAyudas))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(BAyudas)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(Reporte))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(25, 25, 25)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -388,7 +398,8 @@ public class Compras extends javax.swing.JInternalFrame {
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(agrega)
-                            .addComponent(BAyudas))
+                            .addComponent(BAyudas)
+                            .addComponent(Reporte))
                         .addGap(0, 1, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -525,10 +536,16 @@ public class Compras extends javax.swing.JInternalFrame {
         }  
     }//GEN-LAST:event_BAyudasActionPerformed
 
+    private void ReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteActionPerformed
+    Compras_cppDAO compras_cppDAO = new Compras_cppDAO();
+        compras_cppDAO.imprimirReporte();
+    }//GEN-LAST:event_ReporteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BAyudas;
     private javax.swing.JTextField NomProductotxt;
+    private javax.swing.JButton Reporte;
     private javax.swing.JButton agrega;
     private javax.swing.JTextField cantidadtxt;
     private javax.swing.JTextField codiprotxt;

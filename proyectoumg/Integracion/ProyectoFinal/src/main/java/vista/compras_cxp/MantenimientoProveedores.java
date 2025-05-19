@@ -498,7 +498,8 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_cbox_proveedorActionPerformed
-
+    //Serie de funciones publicas para Seguridad. Hecho por Pablo Palencia
+    //Funciones publicas son llamadas cuando se crea la ventana para habilitar o desahibilitar botones
     public void habilitarEliminar(boolean habilitado) {
         btnEliminar.setEnabled(habilitado);
     }

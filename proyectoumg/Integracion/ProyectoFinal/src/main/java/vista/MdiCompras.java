@@ -45,11 +45,17 @@ public class MdiCompras extends javax.swing.JFrame {
      * Creates new form MdiGeneral
      */
     final int APLICACION=99;
-    //variables "globales" añadido para validar. by Pablo Palencia
+    //variables "globales" añadidas para validar derechos de aplicacion. by Pablo Palencia
+    //toman los derechos de proveedor
     private String eli;
     private String reg;
     private String bus;
     private String mod;
+    //toman los derechos de metodo pago
+    private String eli2;
+    private String reg2;
+    private String bus2;
+    private String mod2;
     
     public MdiCompras() {
         initComponents();
@@ -64,16 +70,17 @@ public class MdiCompras extends javax.swing.JFrame {
 
     }
     
-        //metodo para verificar acceso a mantenimientos mediante filtros, hecho por Pablo Palencia
+        //Seguridad. Metodo para verificar acceso a mantenimientos mediante filtros, hecho por Pablo Palencia
     public void filtros() {
+        //crea objeto relperdusuDao para buscar usuario conectado
             RelPerfUsuDAO relPerfUsuDAO = new RelPerfUsuDAO();
             List<RelPerfUsu> PerfUsu = relPerfUsuDAO.select(); 
-    
+    //crea objeto relusuapl para verificar aplicacion y derechos de usuario conectado
             RelusuaplDAO relusuaplDAO = new RelusuaplDAO();
             List<Relusuapl> UsuApl = relusuaplDAO.select();
-   
+   //toma el usuario conectado (el que inicia sesion)
             int idusuarioC = UsuarioConectado.getIdUsuario();
-            
+            //si existe realiza dos for
                 if (idusuarioC != 0) {
                     //For que recorre la lista para encontrar el ID del usuario conectado
                     for (RelPerfUsu app : PerfUsu) {
@@ -84,23 +91,29 @@ public class MdiCompras extends javax.swing.JFrame {
                             for (Relusuapl app2 : UsuApl) {
                                 if (app2.getId_usuario()==(Idusuario)) {
                                 int Idaplicacion = app2.getId_aplicacion();
+                        
+                            switch(Idaplicacion) {
+                            case 202:  
+                                Proveedores.setEnabled(true);
                                 //variables globales toman valor de los derechos del usuario
                                 eli = app2.getDer_eliminar();
                                 mod = app2.getDer_editar();
                                 reg = app2.getDer_insertar();
                                 bus = app2.getDer_imprimir();
-                        
-                            switch(Idaplicacion) {
-                            case 202:  
-                                Proveedores.setEnabled(true);
                             break;
                             case 203:  
                                 MetodoDePago.setEnabled(true);
+                                //variables globales toman valor de los derechos del usuario
+                                eli2 = app2.getDer_eliminar();
+                                mod2 = app2.getDer_editar();
+                                reg2 = app2.getDer_insertar();
+                                bus2 = app2.getDer_imprimir();
                             break;
                             case 204:  
                                 transCompras.setEnabled(true);
                             break;
                             default:
+        
                             }
                     
                             }
@@ -547,10 +560,12 @@ public class MdiCompras extends javax.swing.JFrame {
         Dimension desktopSize = jDesktopPane1.getSize();
         Dimension FrameSize = ventana.getSize();
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        
+        //Seguridad.Verifica los derechos a los que tiene acceso. Hecho por Pablo Palencia
         if("1".equals(reg)){
             ventana.habilitarRegistrar(true);
         } else {
-           ventana.habilitarRegistrar(false); 
+            ventana.habilitarRegistrar(false); 
         }
         if("1".equals(eli)){
             ventana.habilitarEliminar(true);
@@ -567,7 +582,6 @@ public class MdiCompras extends javax.swing.JFrame {
         } else {
             ventana.habilitarBuscar(false);
         }
-        
     }//GEN-LAST:event_ProveedoresActionPerformed
 
     private void MetodoDePagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MetodoDePagoActionPerformed
@@ -579,22 +593,23 @@ public class MdiCompras extends javax.swing.JFrame {
         ventana.setVisible(true);
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
         
-        if("1".equals(reg)){
+        //Seguridad.Verifica los derechos a los que tiene acceso. Hecho por Pablo Palencia
+        if("1".equals(reg2)){
             ventana.habilitarRegistrar(true);
         } else {
-           ventana.habilitarRegistrar(false); 
+            ventana.habilitarRegistrar(false); 
         }
-        if("1".equals(eli)){
+        if("1".equals(eli2)){
             ventana.habilitarEliminar(true);
         } else {
             ventana.habilitarEliminar(false);
         }
-        if("1".equals(mod)){
+        if("1".equals(mod2)){
             ventana.habilitarModificar(true);
         } else {
             ventana.habilitarModificar(false);
         }
-        if("1".equals(bus)){
+        if("1".equals(bus2)){
             ventana.habilitarBuscar(true);
         } else {
             ventana.habilitarBuscar(false);

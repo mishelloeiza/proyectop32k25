@@ -13,7 +13,7 @@ public class SesionInactiva {
     }
     private Timer timerCerrarSesion;
     private Timer timerContador;
-    private final int TIEMPO_INACTIVIDAD = 5*60*1000; // 3 segundos para prueba 3 * 1000; (luego 5*60*1000)
+    private final int TIEMPO_INACTIVIDAD = 3*60*1000; // 3 segundos para prueba 3 * 1000; (luego 5*60*1000)
     private int tiempoRestante; // en segundos
     private JLabel labelContador;
 

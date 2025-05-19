@@ -110,6 +110,7 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
         setVisible(true);
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.setEnabled(false);
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -117,6 +118,7 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
         });
 
         btnRegistrar.setText("Registrar");
+        btnRegistrar.setEnabled(false);
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarActionPerformed(evt);
@@ -134,6 +136,7 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
         label1.setText("Metodo de Pago");
 
         btnModificar.setText("Modificar");
+        btnModificar.setEnabled(false);
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
@@ -206,6 +209,7 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
         label6.setText("Estatus");
 
         Reporte.setText("Reporte");
+        Reporte.setEnabled(false);
         Reporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ReporteActionPerformed(evt);
@@ -367,9 +371,9 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
         txtNombre.setText("");
         txtDireccion.setText("");
         txtbuscado.setText("");
-        btnRegistrar.setEnabled(true);
-        btnModificar.setEnabled(true);
-        btnEliminar.setEnabled(true);
+        //btnRegistrar.setEnabled(true);
+        //btnModificar.setEnabled(true);
+        //btnEliminar.setEnabled(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed
@@ -400,6 +404,22 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
+    public void habilitarEliminar(boolean habilitado) {//Metodos para habilitar botones. by Pablo Palencia
+        btnEliminar.setEnabled(habilitado);
+    }
+    
+    public void habilitarRegistrar(boolean habilitado) {
+        btnRegistrar.setEnabled(habilitado);
+    }
+    
+    public void habilitarBuscar(boolean habilitado) {
+        Reporte.setEnabled(habilitado);
+    }
+    
+    public void habilitarModificar(boolean habilitado) {
+        btnModificar.setEnabled(habilitado);
+    }
+    
     private void ReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteActionPerformed
         MetododepagoDAO metododepagoDAO = new MetododepagoDAO();
         metododepagoDAO.imprimirReporte(); 

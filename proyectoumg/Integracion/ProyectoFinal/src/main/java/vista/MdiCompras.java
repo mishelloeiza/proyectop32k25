@@ -45,6 +45,12 @@ public class MdiCompras extends javax.swing.JFrame {
      * Creates new form MdiGeneral
      */
     final int APLICACION=99;
+    //variables "globales" añadidas para guardar valores y validar. by Pablo Palencia
+    private String eli;
+    private String reg;
+    private String bus;
+    private String mod;
+    
     public MdiCompras() {
         initComponents();
         filtros();
@@ -78,6 +84,11 @@ public class MdiCompras extends javax.swing.JFrame {
                             for (Relusuapl app2 : UsuApl) {
                                 if (app2.getId_usuario()==(Idusuario)) {
                                 int Idaplicacion = app2.getId_aplicacion();
+                                //variables globales toman el valor (0,1) de los derechos del usuario encontrado
+                                eli = app2.getDer_eliminar();
+                                mod = app2.getDer_editar();
+                                reg = app2.getDer_insertar();
+                                bus = app2.getDer_imprimir();
                         
                             switch(Idaplicacion) {
                             case 202:  
@@ -441,6 +452,29 @@ public class MdiCompras extends javax.swing.JFrame {
         Dimension FrameSize = ventana.getSize();
         ventana.setVisible(true);
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        
+        //Condiciones que habilitan/deshabilitan los botones segun derechos en variables globales. by Pablo Palencia
+        if("1".equals(reg)){
+            ventana.habilitarRegistrar(true);
+        } else {
+           ventana.habilitarRegistrar(false); 
+        }
+        if("1".equals(eli)){
+            ventana.habilitarEliminar(true);
+        } else {
+            ventana.habilitarEliminar(false);
+        }
+        if("1".equals(mod)){
+            ventana.habilitarModificar(true);
+        } else {
+            ventana.habilitarModificar(false);
+        }
+        if("1".equals(bus)){
+            ventana.habilitarBuscar(true);
+        } else {
+            ventana.habilitarBuscar(false);
+        }
+        
     }//GEN-LAST:event_MetodoDePagoActionPerformed
 
     private void ProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProveedoresActionPerformed
@@ -451,6 +485,29 @@ public class MdiCompras extends javax.swing.JFrame {
         Dimension desktopSize = jDesktopPane1.getSize();
         Dimension FrameSize = ventana.getSize();
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        
+        //Condiciones que habilitan/deshabilitan los botones segun derechos en variables globales. by Pablo Palencia
+        if("1".equals(reg)){
+            ventana.habilitarRegistrar(true);
+        } else {
+           ventana.habilitarRegistrar(false); 
+        }
+        if("1".equals(eli)){
+            ventana.habilitarEliminar(true);
+        } else {
+            ventana.habilitarEliminar(false);
+        }
+        if("1".equals(mod)){
+            ventana.habilitarModificar(true);
+        } else {
+            ventana.habilitarModificar(false);
+        }
+        if("1".equals(bus)){
+            ventana.habilitarBuscar(true);
+        } else {
+            ventana.habilitarBuscar(false);
+        }
+        
     }//GEN-LAST:event_ProveedoresActionPerformed
 
     private void BitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BitacoraActionPerformed

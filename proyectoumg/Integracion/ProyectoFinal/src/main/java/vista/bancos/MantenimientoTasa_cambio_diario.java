@@ -494,7 +494,7 @@ public class MantenimientoTasa_cambio_diario extends javax.swing.JInternalFrame 
         try {
                            Connection connectio = Conexion.getConnection();
             report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
-                    + "/src/main/java/reporte/banco/reporteBitacora.jrxml");
+                    + "/src/main/java/reporte/banco/tasaCambioDiario.jrxml");
 //
             print = JasperFillManager.fillReport(report, p, connectio);
 

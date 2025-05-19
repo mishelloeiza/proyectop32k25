@@ -639,7 +639,7 @@ private permisos permisosUsuarioActual;
         try {
             connectio = Conexion.getConnection();
             report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
-            + "/src/main/java/reporte/banco/reporteTasaCambioDiario.jrxml");
+            + "/src/main/java/reporte/banco/Reporteconciliacion.jrxml");
             
             print = JasperFillManager.fillReport(report, p, connectio);
             

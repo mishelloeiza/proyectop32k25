@@ -16,12 +16,20 @@ import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import Controlador.seguridad.Bitacora;
 import Controlador.seguridad.UsuarioConectado;
+import Modelo.Conexion;
 import Modelo.bancos.BancoDAO;
 import Modelo.bancos.tipo_cuentaDAO;
 import Modelo.bancos.tipo_monedaDAO;
 import java.io.File;
 import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 // MANTENIMIENTO CREADO POR GABRIELA PINTO 9959-23-1087
 
@@ -259,6 +267,11 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
         });
 
         btnReporte1.setText("Reporte");
+        btnReporte1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporte1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -590,6 +603,33 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
         //actualizar mishelloeiza 9959-23-3457
         llenadoDeTablas(); // Esto recarga los datos en la tabla
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnReporte1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporte1ActionPerformed
+        // TODO add your handling code here:
+               // TODO add your handling code here:
+        
+          Map p = new HashMap();
+        JasperReport report;
+        JasperPrint print;
+        
+        try {
+            connectio = Conexion.getConnection();
+            report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
+            + "/src/main/java/reporte/banco/ReporteCBANC.jrxml");
+            
+            print = JasperFillManager.fillReport(report, p, connectio);
+            
+            JasperViewer view = new JasperViewer(print, false);
+            
+            view.setTitle("Prueba reporte");
+            view.setVisible(true);
+        } catch (Exception e) {
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_btnReporte1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

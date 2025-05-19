@@ -498,7 +498,7 @@ int APLICACION=105;
         try {
             connectio = Conexion.getConnection();
             report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
-                    + "/src/main/java/reporte/banco/ReporteDetalleMovimientoBancario.jrxml");
+                    + "/src/main/java/reporte/banco/ReporteDetalleMovimientosBancarios.jrxml");
 //
             print = JasperFillManager.fillReport(report, p, connectio);
 

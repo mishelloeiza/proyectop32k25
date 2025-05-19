@@ -4,9 +4,6 @@
  * and open the template in the editor.
  */
 package vista.bancos;
-import Controlador.seguridad.UsuarioConectado;  // Para obtener usuario actual
-import Modelo.seguridad.UsuarioDAO;               // Para manejar la lógica de usuario (ajusta el paquete si es otro)
-import Controlador.seguridad.permisos;          // La clase que representa los permisos del usuario (ajusta el paquete)
 
 import Controlador.bancos.tasa_cambio_diario;
 import vista.seguridad.*;
@@ -41,18 +38,12 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class MantenimientoTasa_cambio_diario extends javax.swing.JInternalFrame {
 
-     int APLICACION = 106; // Ajustar según corresponda
-        private Connection connectio;
-    // 🔒 Variables para permisos
-    private int idUsuarioSesion;
-    private UsuarioDAO usuarioDAO;
-    private permisos permisos;
-private permisos permisosUsuarioActual; 
+     int APLICACION = 105; // Ajustar según corresponda
     private tasa_cambio_diarioDAO tasaDAO = new tasa_cambio_diarioDAO();
 
     public void llenadoDeCombos() {
         // (Opcional) Si necesitas cargar combo de monedas u otra entidad relacionada
-       
+        cbox_empleado.addItem("Seleccione una opción");
         // Implementar lógica si es necesaria
     }
 
@@ -114,17 +105,6 @@ private permisos permisosUsuarioActual;
     });
         llenadoDeTablas();
         llenadoDeCombos();
-    // 🔐 Validación de permisos
-       idUsuarioSesion = UsuarioConectado.getIdUsuario();
-
-        usuarioDAO = new UsuarioDAO();
-        permisos = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion);
-
-        
-        btnEliminar.setEnabled(permisos.isPuedeEliminar());
-        btnRegistrar.setEnabled(permisos.isPuedeRegistrar());
-        btnModificar.setEnabled(permisos.isPuedeModificar());
-
     }
 
     /**
@@ -149,6 +129,8 @@ private permisos permisosUsuarioActual;
         btnLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaTipo_operacion_bancaria = new javax.swing.JTable();
+        cbox_empleado = new javax.swing.JComboBox<>();
+        label4 = new javax.swing.JLabel();
         txtFechaHora = new javax.swing.JTextField();
         label5 = new javax.swing.JLabel();
         lb = new javax.swing.JLabel();
@@ -233,6 +215,16 @@ private permisos permisosUsuarioActual;
             tablaTipo_operacion_bancaria.getColumnModel().getColumn(0).setResizable(false);
         }
 
+        cbox_empleado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        cbox_empleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbox_empleadoActionPerformed(evt);
+            }
+        });
+
+        label4.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        label4.setText("Empleado:");
+
         txtFechaHora.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtFechaHora.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
 
@@ -303,7 +295,11 @@ private permisos permisosUsuarioActual;
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jButton1)
-                                .addGap(490, 490, 490))
+                                .addGap(70, 70, 70)
+                                .addComponent(label4)
+                                .addGap(46, 46, 46)
+                                .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(label1)
                                 .addGap(253, 253, 253))))))
@@ -316,6 +312,7 @@ private permisos permisosUsuarioActual;
                         .addComponent(label1)
                         .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lb)
                                 .addGap(18, 18, 18)
@@ -326,7 +323,7 @@ private permisos permisosUsuarioActual;
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(label5))
-                                .addGap(153, 153, 153)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnRegistrar)
                                     .addComponent(btnEliminar)
@@ -335,12 +332,15 @@ private permisos permisosUsuarioActual;
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnBuscar)
-                                    .addComponent(btnLimpiar))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton2)
-                                    .addComponent(btnReporte)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                                    .addComponent(btnLimpiar))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(label4)
+                                .addComponent(cbox_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton2)
+                                .addComponent(btnReporte))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(jButton1)))
@@ -441,31 +441,25 @@ private permisos permisosUsuarioActual;
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-
-    // Recorre todos los componentes dentro del panel principal//NUEVO METODO FUNCIONAL
-    for (java.awt.Component comp : this.getContentPane().getComponents()) {
-        if (comp instanceof javax.swing.JTextField) {
-            ((javax.swing.JTextField) comp).setText("");
-        } else if (comp instanceof javax.swing.JComboBox) {
-            ((javax.swing.JComboBox<?>) comp).setSelectedIndex(0);
-        }
-    }
-    // Aquí se habilitan los botones según los permisos actuales, no todos en true
-    aplicarPermisos(permisosUsuarioActual);
-
-
-    // botones estén habilitados
-    btnRegistrar.setEnabled(true);
-    btnModificar.setEnabled(true);
-    btnEliminar.setEnabled(true);
-
-    System.out.println("Todos los campos han sido limpiados automáticamente.");
-      UsuarioConectado usuarioEnSesion = new UsuarioConectado();
+        cbox_empleado.setSelectedIndex(0);
+        txtValorPromedio.setText("");
+        txtFechaHora.setText("");
+        txtbuscado.setText("");
+        btnRegistrar.setEnabled(true);
+        btnModificar.setEnabled(true);
+        btnEliminar.setEnabled(true);
         int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Limpiar TASA DE CAMBIO DIARIO");
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Limpiar Datos Tasa de Cambio Diario");    
+   
 
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void cbox_empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_empleadoActionPerformed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbox_empleadoActionPerformed
 /*
      // TODO add your handling code here:
         MantenimientoAula ventana = new MantenimientoAula();
@@ -477,10 +471,10 @@ private permisos permisosUsuarioActual;
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         try {
-            if ((new File("src\\main\\java\\ayudas\\banco\\AyudaBanco.chm")).exists()) {
+            if ((new File("src\\main\\java\\ayudas\\ProcesoMayor.chm")).exists()) {
                 Process p = Runtime
                         .getRuntime()
-                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\banco\\AyudaBanco.chm");
+                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\ProcesoMayor.chm");
                 p.waitFor();
             } else {
                 System.out.println("La ayuda no Fue encontrada");
@@ -500,7 +494,7 @@ private permisos permisosUsuarioActual;
         try {
                            Connection connectio = Conexion.getConnection();
             report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
-                    + "/src/main/java/reporte/banco/tasaCambioDiario.jrxml");
+                    + "/src/main/java/reporte/banco/reporteBitacora.jrxml");
 //
             print = JasperFillManager.fillReport(report, p, connectio);
 
@@ -524,11 +518,13 @@ private permisos permisosUsuarioActual;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnReporte;
+    private javax.swing.JComboBox<String> cbox_empleado;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label3;
+    private javax.swing.JLabel label4;
     private javax.swing.JLabel label5;
     private javax.swing.JLabel lb;
     private javax.swing.JLabel lb2;
@@ -538,8 +534,4 @@ private permisos permisosUsuarioActual;
     private javax.swing.JTextField txtValorPromedio;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables
-
-    private void aplicarPermisos(permisos permisosUsuarioActual) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

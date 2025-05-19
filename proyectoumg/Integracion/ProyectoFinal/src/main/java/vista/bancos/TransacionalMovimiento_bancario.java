@@ -748,25 +748,26 @@ private permisos permisosUsuarioActual;
     }//GEN-LAST:event_btnAyudasTasaDecambioDiarioActionPerformed
    
     private void btnreporteTasaDecambioDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreporteTasaDecambioDiarioActionPerformed
-        // TODO add your handling code here:
-
-        Map p = new HashMap();
+               // TODO add your handling code here:
+        
+          Map p = new HashMap();
         JasperReport report;
         JasperPrint print;
-
+        
         try {
             connectio = Conexion.getConnection();
             report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
-                    + "/src/main/java/reporte/banco/reporteTasaCambioDiario.jrxml");
-
+            + "/src/main/java/reporte/banco/reporteTasaCambioDiario.jrxml");
+            
             print = JasperFillManager.fillReport(report, p, connectio);
-
+            
             JasperViewer view = new JasperViewer(print, false);
-
+            
             view.setTitle("Prueba reporte");
             view.setVisible(true);
         } catch (Exception e) {
         }
+        
 
 
     }//GEN-LAST:event_btnreporteTasaDecambioDiarioActionPerformed

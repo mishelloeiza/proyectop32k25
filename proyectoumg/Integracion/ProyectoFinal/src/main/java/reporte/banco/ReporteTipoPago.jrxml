@@ -3,7 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-        <style name="DefaultStyle" isDefault="true" fontName="Times New Roman" fontSize="10"/>
+	<style name="DefaultStyle" isDefault="true" fontName="Times New Roman" fontSize="10"/>
 	<style name="Column header" mode="Opaque" forecolor="#666666" backcolor="#F0F0F0" fontName="Times New Roman" fontSize="12" isBold="true" pdfFontName="Helvetica-Bold">
 		<box>
 			<pen lineWidth="0.5" lineColor="#CCCCCC"/>
@@ -36,10 +36,6 @@
 	</background>
 	<title>
 		<band height="151" splitType="Stretch">
-			<image>
-				<reportElement positionType="FixRelativeToBottom" x="154" y="3" width="220" height="107" uuid="7a2d13f3-15fc-435c-ab6c-78e0413712fc"/>
-				<imageExpression><![CDATA["src\\main\\java\\reporte\\banco\\imgLogoBanco.jpg"]]></imageExpression>
-			</image>
 			<frame>
 				<reportElement mode="Opaque" x="-18" y="110" width="591" height="32" forecolor="#000000" backcolor="#6600CC" uuid="07b82bd7-2c8b-43dc-ad5c-6c8df8557a2c"/>
 				<textField pattern="EEEEE dd MMMMM yyyy">

@@ -36,12 +36,15 @@ import javax.swing.JTable;
  * @author oscar
  */
 public class Compras extends javax.swing.JInternalFrame {
+    // Despliegue de id proveedor en combobox ----- HECHO POR KATHIA CONTRERAS 8246
          public void llenadoDeCombos() {
+        // instancia de ProveedorDAO
         ProveedorDAO proveedorDAO = new ProveedorDAO();
+        //manda con select a una lista todos los proveedores.
         List<Proveedor> proveedores = proveedorDAO.select();
-       // jComboBox1.addItem("Seleccione una opción");
+       //ciclo que recorre todos los proveedores existentes
         for (int i = 0; i < proveedores.size(); i++) {
-            //jComboBox1.addItem(usuarios.get(i).getUsername());
+            //agrega todos los proveedores a item del combobox
             idproveedor.addItem(String.valueOf(proveedores.get(i).getId_proveedor()));
         }
         

@@ -200,7 +200,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Century Gothic" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Metodo de Pago"/>
+        <Property name="text" type="java.lang.String" value="Metodo de Pago - 203"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnModificar">

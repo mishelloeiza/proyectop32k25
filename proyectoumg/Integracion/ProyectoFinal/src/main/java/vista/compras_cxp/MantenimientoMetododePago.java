@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package vista.compras_cxp;
 import Controlador.compras_cxp.Metododepago;
 import Modelo.compras_cxp.MetododepagoDAO;
@@ -16,7 +17,7 @@ import Controlador.seguridad.UsuarioConectado;
  *
  * @author visitante
  */
-//Mantenimiento Realizado por Alisson Rocio Abigail López Ortíz
+//Mantenimiento Vista Metodo de Pago implementado por Alisson López
 public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
     
     final int APLICACION=203;
@@ -133,7 +134,7 @@ public class MantenimientoMetododePago extends javax.swing.JInternalFrame {
         });
 
         label1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label1.setText("Metodo de Pago");
+        label1.setText("Metodo de Pago - 203");
 
         btnModificar.setText("Modificar");
         btnModificar.setEnabled(false);

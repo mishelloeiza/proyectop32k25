@@ -167,7 +167,7 @@ public class MantenimientoProveedores extends javax.swing.JInternalFrame {
         });
 
         label1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label1.setText("Proveedores");
+        label1.setText("Proveedores - 202");
 
         btnModificar.setText("Modificar");
         btnModificar.setEnabled(false);

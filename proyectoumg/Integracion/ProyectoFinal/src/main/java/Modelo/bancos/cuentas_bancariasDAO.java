@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class cuentas_bancariasDAO {
-
+//Hecho por Gabriela Pinto
+// DAO para operaciones CRUD sobre la tabla cuentas_bancarias, incluye info relacionada de tipo_moneda y tasas_cambio_diario
+    
+    // Consultas SQL para SELECT, INSERT, UPDATE, DELETE, QUERY y verificación de existencia
     private static final String SQL_SELECT = 
         "SELECT cb.id_cuenta, cb.id_banco, cb.id_tipo_cuenta, cb.id_tipo_moneda, cb.saldo, " +
         "tm.tipo_moneda, tcd.valor_promedio_dia AS tasa_cambio " +
@@ -72,6 +75,7 @@ public class cuentas_bancariasDAO {
         return listCuentasBancarias;
     }
 
+    // Insertar una nueva cuenta bancaria
     public int insert(cuentas_bancarias cuentaBancaria) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -96,6 +100,7 @@ public class cuentas_bancariasDAO {
         return rows;
     }
 
+    // Actualizar los datos de una cuenta bancaria
     public int update(cuentas_bancarias cuentaBancaria) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -121,6 +126,7 @@ public class cuentas_bancariasDAO {
         return rows;
     }
 
+    // Eliminar una cuenta bancaria por ID
     public int delete(cuentas_bancarias cuentaBancaria) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -141,6 +147,7 @@ public class cuentas_bancariasDAO {
         return rows;
     }
 
+    // Consultar una cuenta bancaria por su ID
     public cuentas_bancarias query(cuentas_bancarias cuentaBancaria) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -173,6 +180,7 @@ public class cuentas_bancariasDAO {
         return cuentaBancaria;
     }
 
+    // Verifica si existe una cuenta bancaria por su ID
     public boolean existeCuenta(int idCuenta) {
         Connection conn = null;
         PreparedStatement stmt = null;

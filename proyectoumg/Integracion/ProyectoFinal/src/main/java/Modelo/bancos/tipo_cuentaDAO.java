@@ -11,6 +11,7 @@ import java.util.List;
 
 public class tipo_cuentaDAO {
 
+     // Consultas SQL necesarias para operar con la tabla tipo_cuenta
     private static final String SQL_SELECT = "SELECT id_tipo_cuenta, tipo_cuenta, status FROM tipo_cuenta";
     private static final String SQL_INSERT = "INSERT INTO tipo_cuenta(tipo_cuenta, status) VALUES(?, ?)";
     private static final String SQL_UPDATE = "UPDATE tipo_cuenta SET tipo_cuenta=?, status=? WHERE id_tipo_cuenta = ?";
@@ -19,6 +20,7 @@ public class tipo_cuentaDAO {
     private static final String SQL_EXISTE = "SELECT COUNT(*) FROM tipo_cuenta WHERE tipo_cuenta = ?";
     private static final String SQL_EXISTE_ID = "SELECT 1 FROM tipo_cuenta WHERE id_tipo_cuenta = ?";
 
+     // Método para obtener todos los tipos de cuenta
     public List<tipo_cuenta> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -54,6 +56,7 @@ public class tipo_cuentaDAO {
         return listTipoCuentas;
     }
 
+    // Método para insertar un nuevo tipo de cuenta
     public int insert(tipo_cuenta tipoCuenta) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -76,6 +79,7 @@ public class tipo_cuentaDAO {
         return rows;
     }
 
+    // Método para actualizar un tipo de cuenta existente
     public int update(tipo_cuenta tipoCuenta) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -99,6 +103,7 @@ public class tipo_cuentaDAO {
         return rows;
     }
 
+    // Método para eliminar un tipo de cuenta por ID
     public int delete(tipo_cuenta tipoCuenta) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -119,6 +124,7 @@ public class tipo_cuentaDAO {
         return rows;
     }
 
+    // Método para consultar un tipo de cuenta por ID
     public tipo_cuenta query(tipo_cuenta tipoCuenta) {
         Connection conn = null;
         PreparedStatement stmt = null;

@@ -41,6 +41,7 @@ public class MantenimientoTipo_cuenta extends javax.swing.JInternalFrame {
     private permisos permisos;
 private permisos permisosUsuarioActual; 
 
+// Método para llenar la tabla con datos de tipos de cuenta
     public void llenadoDeCombos() {
         tipo_cuentaDAO tipo_cuentaDAO = new tipo_cuentaDAO();
         List<tipo_cuenta> cuentas = tipo_cuentaDAO.select();
@@ -49,7 +50,7 @@ private permisos permisosUsuarioActual;
             cbox_empleado.addItem(cuentas.get(i).getTipo_cuenta());
         }
     }
-
+// 📋 Llena la tabla con las tipo_cuentas guardadas
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("id_tipo_cuenta");
@@ -70,15 +71,18 @@ private permisos permisosUsuarioActual;
         }
     }
 
+    // Método para buscar una cuenta por ID
     public void buscarCuenta() {
         tipo_cuenta tipoCuentaConsultar = new tipo_cuenta();
         tipo_cuentaDAO tipo_cuentaDAO = new tipo_cuentaDAO();
-        tipoCuentaConsultar.setId_tipo_cuenta(Integer.parseInt(txtbuscado.getText()));
-        tipoCuentaConsultar = tipo_cuentaDAO.query(tipoCuentaConsultar);
+        tipoCuentaConsultar.setId_tipo_cuenta(Integer.parseInt(txtbuscado.getText())); // Establecer ID a buscar
+        tipoCuentaConsultar = tipo_cuentaDAO.query(tipoCuentaConsultar);// Consultar en la base de datos
 
+         // Mostrar datos en los campos de texto
         txtTipo_cuenta.setText(tipoCuentaConsultar.getTipo_cuenta());
         txtStatus.setText(Integer.toString(tipoCuentaConsultar.getStatus()));
         
+        // Registrar la acción en la bitácora
         int resultadoBitacora = 0;
         Bitacora bitacoraRegistro = new Bitacora();
         resultadoBitacora = bitacoraRegistro.setIngresarBitacora(
@@ -86,6 +90,7 @@ private permisos permisosUsuarioActual;
         );
     }
 
+    // Constructor de la clase
     public MantenimientoTipo_cuenta() {
         initComponents();
         llenadoDeTablas();
@@ -96,7 +101,7 @@ private permisos permisosUsuarioActual;
         usuarioDAO = new UsuarioDAO();
         permisos = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion);
 
-        
+        // Habilitar o deshabilitar botones según permisos
         btnEliminar.setEnabled(permisos.isPuedeEliminar());
         btnRegistrar.setEnabled(permisos.isPuedeRegistrar());
         btnModificar.setEnabled(permisos.isPuedeModificar());
@@ -341,16 +346,17 @@ private permisos permisosUsuarioActual;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+// Método para eliminar un tipo de cuenta
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
       // TODO add your handling code here:
       tipo_cuentaDAO tipo_cuentaDAO = new tipo_cuentaDAO();
       tipo_cuenta tipoCuentaAEliminar = new tipo_cuenta();
-      tipoCuentaAEliminar.setId_tipo_cuenta(Integer.parseInt(txtbuscado.getText()));
+      tipoCuentaAEliminar.setId_tipo_cuenta(Integer.parseInt(txtbuscado.getText()));// Obtener ID a eliminar
       tipoCuentaAEliminar.setStatus(Integer.parseInt(txtStatus.getText()));
-      tipo_cuentaDAO.delete(tipoCuentaAEliminar);
-      llenadoDeTablas();
+      tipo_cuentaDAO.delete(tipoCuentaAEliminar);// Eliminar de la base de datos
+      llenadoDeTablas();// Actualizar la tabla
       
+      // Registrar la acción en la bitácora
       UsuarioConectado usuarioEnSesion = new UsuarioConectado();
       int resultadoBitacora = 0;
       Bitacora bitacoraRegistro = new Bitacora();
@@ -401,14 +407,18 @@ private permisos permisosUsuarioActual;
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 //    // TODO add your handling code here:
+
+//Crear DAO y objeto
 tipo_cuentaDAO tipo_cuentaDAO = new tipo_cuentaDAO();
 tipo_cuenta tipoCuentaAActualizar = new tipo_cuenta();
+//Establecer valores desde la interfaz
 tipoCuentaAActualizar.setId_tipo_cuenta(Integer.parseInt(txtbuscado.getText()));
 tipoCuentaAActualizar.setTipo_cuenta(txtTipo_cuenta.getText());
 tipoCuentaAActualizar.setStatus(Integer.parseInt(txtStatus.getText()));
-tipo_cuentaDAO.update(tipoCuentaAActualizar);
+tipo_cuentaDAO.update(tipoCuentaAActualizar);//Ejecutar actualizació
 llenadoDeTablas();
 
+//Registrar en bitácora
 int resultadoBitacora = 0;
 Bitacora bitacoraRegistro = new Bitacora();
 resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Modificar Datos tipo_cuenta");
@@ -435,7 +445,9 @@ resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdU
 
     System.out.println("Todos los campos han sido limpiados automáticamente.");
       UsuarioConectado usuarioEnSesion = new UsuarioConectado();
-        int resultadoBitacora=0;
+      
+//Registra en Bitacora  
+      int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
         resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Limpiar TIPO DE CUENTA");
 

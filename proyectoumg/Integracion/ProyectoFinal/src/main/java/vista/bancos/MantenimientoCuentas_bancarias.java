@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+// 📦 Importación de clases necesarias para seguridad, base de datos y reportes
 package vista.bancos;
 import Controlador.seguridad.UsuarioConectado;  // Para obtener usuario actual
 import Modelo.seguridad.UsuarioDAO;               // Para manejar la lógica de usuario (ajusta el paquete si es otro)
@@ -25,6 +27,7 @@ import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+// 📄 Librerías de JasperReports
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -35,10 +38,11 @@ import net.sf.jasperreports.view.JasperViewer;
 
 
 public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
-    int APLICACION = 104;
+    int APLICACION = 104; // Código de la aplicación para bitácora
     
     private Connection connectio;
-    // 🔒 Variables para permisos
+    
+    // 🔐 Variables para saber quién está usando y qué permisos tiene
     private int idUsuarioSesion;
     private UsuarioDAO usuarioDAO;
     private permisos permisos;
@@ -53,6 +57,7 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
         }
     }
 
+      // 📋 Llena la tabla con las cuentas bancarias guardadas
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("id_cuenta");
@@ -61,11 +66,12 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
         modelo.addColumn("id_tipo_moneda");
         modelo.addColumn ("saldo");
 
-
+// Llamamos al DAO para obtener la lista desde la base de datos
         cuentas_bancariasDAO cuentas_bancariasDAO = new cuentas_bancariasDAO();
         List<cuentas_bancarias> lista = cuentas_bancariasDAO.select();
         tablaCuentas_bancarias.setModel(modelo);
 
+        // Llenar cada fila con los datos de las cuentas
         String[] dato = new String[5];
         for (cuentas_bancarias cuenta : lista) {
             dato[0] = Integer.toString(cuenta.getId_cuenta());       // id_cuenta 
@@ -78,23 +84,28 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
     }
 
  public void buscarCuenta() {
-     
+     // Crear objeto de cuenta con el ID a buscar
         cuentas_bancarias cuentaAConsultar = new cuentas_bancarias();
         cuentas_bancariasDAO dao = new cuentas_bancariasDAO();
+        // Establecer el ID de la cuenta a buscar (convertido de String a int)
         cuentaAConsultar.setId_cuenta(Integer.parseInt(txtbuscado.getText()));
+        // Ejecutar la consulta
         cuentaAConsultar = dao.query(cuentaAConsultar);
-        
+        // Mostrar los datos encontrados en los campos de texto
         txtBanco.setText(Integer.toString(cuentaAConsultar.getId_banco()));
         txtTipoCuenta.setText(Integer.toString(cuentaAConsultar.getId_tipo_cuenta()));
         txtMoneda.setText(Integer.toString(cuentaAConsultar.getId_tipo_moneda()));
         txtSaldo.setText(Float.toString((float) cuentaAConsultar.getSaldo()));
         
+        // Registrar la acción en la bitácora
         Bitacora bitacoraRegistro = new Bitacora();
         bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Buscar Datos cuentas_bancarias");
     }
 
     public MantenimientoCuentas_bancarias() {
-        initComponents();
+        initComponents(); // Inicialización automática de componentes gráficos
+        
+        // Llenado inicial de datos
         llenadoDeTablas();
         llenadoDeCombos();
     
@@ -104,7 +115,7 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
         usuarioDAO = new UsuarioDAO();
         permisos = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion);
 
-        
+        // Habilitar/deshabilitar botones según permisos
         btnEliminar.setEnabled(permisos.isPuedeEliminar());
         btnRegistrar.setEnabled(permisos.isPuedeRegistrar());
         btnModificar.setEnabled(permisos.isPuedeModificar());
@@ -385,13 +396,19 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
       // TODO add your handling code here:
+      
+      // Crear DAO y objeto para eliminación
         cuentas_bancariasDAO dao = new cuentas_bancariasDAO();
         cuentas_bancarias cuentaAEliminar = new cuentas_bancarias();
+        // Establecer ID de la cuenta a eliminar
         cuentaAEliminar.setId_cuenta(Integer.parseInt(txtbuscado.getText()));
+        // Ejecutar eliminación
         dao.delete(cuentaAEliminar);
         
+        // Actualizar tabla
         llenadoDeTablas();
         
+        // Registrar en bitácora
         Bitacora bitacoraRegistro = new Bitacora();
         bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Eliminar Datos cuentas_bancarias");
       
@@ -413,27 +430,28 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
     int idMoneda = 0;
     double saldo = 0;  // mejor double que float para saldo
 
+    // Validación de datos numéricos
     try {
         idBanco = Integer.parseInt(txtBanco.getText().trim());
     } catch (NumberFormatException e) {
         errores.append("❌ ID de banco inválido.\n");
         datosValidos = false;
     }
-
+    // Validación de ID de tipo de cuenta
     try {
         idTipoCuenta = Integer.parseInt(txtTipoCuenta.getText().trim());
     } catch (NumberFormatException e) {
         errores.append("❌ ID de tipo de cuenta inválido.\n");
         datosValidos = false;
     }
-
+    // Validación de ID de tipo de moneda
     try {
         idMoneda = Integer.parseInt(txtMoneda.getText().trim());
     } catch (NumberFormatException e) {
         errores.append("❌ ID de tipo de moneda inválido.\n");
         datosValidos = false;
     }
-
+    // Validación de saldo
     try {
         saldo = Double.parseDouble(txtSaldo.getText().trim());
         if (saldo < 0) {
@@ -506,6 +524,7 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
     try {
         int idCuenta = Integer.parseInt(txtbuscado.getText().trim());
 
+        // Crear objeto con datos actualizados
         cuentas_bancarias cuenta = new cuentas_bancarias();
         cuenta.setId_cuenta(idCuenta);
         cuenta.setId_banco(Integer.parseInt(txtBanco.getText().trim()));
@@ -513,9 +532,11 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
         cuenta.setId_tipo_moneda(Integer.parseInt(txtMoneda.getText().trim()));
         cuenta.setSaldo(Float.parseFloat(txtSaldo.getText().trim()));
 
+        // Ejecutar actualización
         cuentas_bancariasDAO dao = new cuentas_bancariasDAO();
         int resultado = dao.update(cuenta);
 
+        // Manejar resultado
         if (resultado > 0) {
             JOptionPane.showMessageDialog(null, "✅ Cuenta modificada correctamente.");
             llenadoDeTablas(); // Refresca la tabla
@@ -523,6 +544,7 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "❌ No se pudo modificar la cuenta. Verifica el ID.");
         }
 
+        // Registrar en bitácora
         Bitacora bitacoraRegistro = new Bitacora();
         bitacoraRegistro.setIngresarBitacora(
             UsuarioConectado.getIdUsuario(),
@@ -564,7 +586,9 @@ public class MantenimientoCuentas_bancarias extends javax.swing.JInternalFrame {
 
     System.out.println("Todos los campos han sido limpiados automáticamente.");
       UsuarioConectado usuarioEnSesion = new UsuarioConectado();
-        int resultadoBitacora=0;
+      
+// Registrar en bitácora 
+      int resultadoBitacora=0;
         Bitacora bitacoraRegistro = new Bitacora();
         resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Limpiar Cuenta");
 

@@ -7,19 +7,26 @@ package Controlador.bancos;
 
 public class cuentas_bancarias {
 
+    // Identificador único de la cuenta bancaria
     private int id_cuenta;
+    // Identificador del banco asociado
     private int id_banco;
+    // Identificador del tipo de cuenta (por ejemplo: ahorro, corriente)
     private int id_tipo_cuenta;
+    // Identificador del tipo de moneda (por ejemplo: quetzales, dólares)
     private int id_tipo_moneda;
+    // Saldo actual de la cuenta
     private double saldo;
 
     // Nuevos atributos para mostrar info relacionada
+    // Nombre del tipo de moneda (por ejemplo: "USD", "GTQ")
     private String tipo_moneda;
+    // Tasa de cambio actual de la moneda asociada
     private double tasa_cambio;
 
     public cuentas_bancarias() {
     }
-
+// Constructor con los atributos principales
     public cuentas_bancarias(int id_cuenta, int id_banco, int id_tipo_cuenta, int id_tipo_moneda, double saldo) {
         this.id_cuenta = id_cuenta;
         this.id_banco = id_banco;
@@ -28,6 +35,7 @@ public class cuentas_bancarias {
         this.saldo = saldo;
     }
 
+// Representación en forma de cadena del objeto cuentas_bancarias
     @Override
     public String toString() {
         return "cuentas_bancarias{" +

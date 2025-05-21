@@ -1,94 +1,93 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package vista.bancos;
-import Controlador.seguridad.UsuarioConectado;  // Para obtener usuario actual
-import Modelo.seguridad.UsuarioDAO;               // Para manejar la lógica de usuario (ajusta el paquete si es otro)
-import Controlador.seguridad.permisos;          // La clase que representa los permisos del usuario (ajusta el paquete)
+package vista.bancos; // Declaración del paquete donde se encuentra esta clase
 
-import vista.seguridad.*;
-import Modelo.bancos.tipo_operacion_bancariaDAO;
-import Controlador.bancos.tipo_operacion_bancaria;
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
-import java.io.File;
-import Controlador.seguridad.Bitacora;
-import Controlador.seguridad.UsuarioConectado;
-import Modelo.Conexion;
-import java.sql.Connection;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.JOptionPane;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
+// Importaciones necesarias para funcionalidades de seguridad, base de datos, interfaz gráfica y reportes
+import Controlador.seguridad.UsuarioConectado;  // Para obtener el usuario actualmente conectado
+import Modelo.seguridad.UsuarioDAO;             // DAO para acceder a datos del usuario
+import Controlador.seguridad.permisos;          // Clase que representa los permisos del usuario
 
-//MANTENIMINETO CREADO POR Anderson Cristofer Rodríguez Pivaral 
+import vista.seguridad.*;                        // Importación de vistas relacionadas con seguridad
+import Modelo.bancos.tipo_operacion_bancariaDAO; // DAO para operaciones con tipo_operacion_bancaria
+import Controlador.bancos.tipo_operacion_bancaria; // Clase del modelo tipo_operacion_bancaria
+import java.util.List;                           // Para manejar listas de datos
+import javax.swing.table.DefaultTableModel;     // Modelo de tabla para JTable
+import java.io.File;                             // Para manejo de archivos
+import Controlador.seguridad.Bitacora;          // Para registrar acciones en bitácora
+import Controlador.seguridad.UsuarioConectado;  // (Repetido) Para obtener usuario actual
+import Modelo.Conexion;                          // Clase para manejar la conexión a la base de datos
+import java.sql.Connection;                      // Clase de conexión JDBC
+import java.util.HashMap;                        // Mapa para parámetros de reportes
+import java.util.Map;                            // Interfaz Map
+import javax.swing.JOptionPane;                  // Para mostrar cuadros de diálogo
+import net.sf.jasperreports.engine.*;            // Librerías para generar reportes JasperReports
+import net.sf.jasperreports.view.JasperViewer;   // Para visualizar reportes Jasper
+
+// MANTENIMIENTO CREADO POR Anderson Cristofer Rodríguez Pivaral
 
 /**
  *
  * @author visitante
  */
-public class MantenimientoTipo_operacion_bancaria extends javax.swing.JInternalFrame {
-int APLICACION=109;
-private Connection connectio;
-    // 🔒 Variables para permisos
-    private int idUsuarioSesion;
-    private UsuarioDAO usuarioDAO;
-    private permisos permisos;
-private permisos permisosUsuarioActual; 
+public class MantenimientoTipo_operacion_bancaria extends javax.swing.JInternalFrame { // Clase que extiende de JInternalFrame
+    int APLICACION = 109; // ID de la aplicación para bitácora
+    private Connection connectio; // Conexión a la base de datos
 
+    // 🔒 Variables para permisos
+    private int idUsuarioSesion; // ID del usuario en sesión
+    private UsuarioDAO usuarioDAO; // DAO para usuarios
+    private permisos permisos; // Permisos del usuario
+    private permisos permisosUsuarioActual; // Permisos actuales del usuario
+
+    // Método para llenar la tabla con los datos de tipo_operacion_bancaria
     public void llenadoDeTablas() {
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("id_tipo_operacion");
-        modelo.addColumn("tipo_operacion");
-        modelo.addColumn("descripcion");
-        tipo_operacion_bancariaDAO tipo_operacion_bancariaDAO = new tipo_operacion_bancariaDAO();
-        List<tipo_operacion_bancaria> tipo_operaciones_bancarias = tipo_operacion_bancariaDAO.select();
-        tablaTipo_operacion_bancaria.setModel(modelo);
-        String[] dato = new String[3];
+        DefaultTableModel modelo = new DefaultTableModel(); // Crear modelo de tabla
+        modelo.addColumn("id_tipo_operacion"); // Columna ID
+        modelo.addColumn("tipo_operacion");    // Columna tipo de operación
+        modelo.addColumn("descripcion");       // Columna descripción
+
+        tipo_operacion_bancariaDAO tipo_operacion_bancariaDAO = new tipo_operacion_bancariaDAO(); // DAO para tipo_operacion_bancaria
+        List<tipo_operacion_bancaria> tipo_operaciones_bancarias = tipo_operacion_bancariaDAO.select(); // Obtener lista desde BD
+        tablaTipo_operacion_bancaria.setModel(modelo); // Asignar modelo a la tabla
+
+        String[] dato = new String[3]; // Arreglo para almacenar datos de cada fila
         for (int i = 0; i < tipo_operaciones_bancarias.size(); i++) {
-            dato[0] = Integer.toString(tipo_operaciones_bancarias.get(i).getId_tipo_operacion());
-            //dato[0] = tipo_operaciones_bancarias.get(i).getId_tipo_operacion();
-            dato[1] = tipo_operaciones_bancarias.get(i).getTipo_operacion();
-            dato[2] = tipo_operaciones_bancarias.get(i).getDescripcion();
-            //System.out.println("vendedor:" + vendedores);
-            modelo.addRow(dato);
+            dato[0] = Integer.toString(tipo_operaciones_bancarias.get(i).getId_tipo_operacion()); // ID
+            dato[1] = tipo_operaciones_bancarias.get(i).getTipo_operacion(); // Tipo de operación
+            dato[2] = tipo_operaciones_bancarias.get(i).getDescripcion();    // Descripción
+            modelo.addRow(dato); // Agregar fila al modelo
         }
     }
 
+    // Método para buscar un tipo de operación bancaria específico
     public void buscarVendedor() {
-        tipo_operacion_bancaria tipo_operacionAConsultar = new tipo_operacion_bancaria();
-        tipo_operacion_bancariaDAO tipo_operacion_bancariaDAO = new tipo_operacion_bancariaDAO();
-        tipo_operacionAConsultar.setId_tipo_operacion(Integer.parseInt(txtbuscado.getText()));
-        tipo_operacionAConsultar = tipo_operacion_bancariaDAO.query(tipo_operacionAConsultar);
-        txtTipo_operacion.setText(tipo_operacionAConsultar.getTipo_operacion());
-        txtDescripcion.setText(tipo_operacionAConsultar.getDescripcion());
-        int resultadoBitacora=0;
-        Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Buscar Datos tipo_operacion_bancaria");    
-   
+        tipo_operacion_bancaria tipo_operacionAConsultar = new tipo_operacion_bancaria(); // Crear objeto tipo_operacion_bancaria
+        tipo_operacion_bancariaDAO tipo_operacion_bancariaDAO = new tipo_operacion_bancariaDAO(); // DAO para tipo_operacion_bancaria
+        tipo_operacionAConsultar.setId_tipo_operacion(Integer.parseInt(txtbuscado.getText())); // Establecer ID a buscar
+        tipo_operacionAConsultar = tipo_operacion_bancariaDAO.query(tipo_operacionAConsultar); // Consultar en BD
+
+        txtTipo_operacion.setText(tipo_operacionAConsultar.getTipo_operacion()); // Mostrar tipo de operación
+        txtDescripcion.setText(tipo_operacionAConsultar.getDescripcion());       // Mostrar descripción
+
+        int resultadoBitacora = 0; // Variable para resultado de bitácora
+        Bitacora bitacoraRegistro = new Bitacora(); // Crear objeto bitácora
+        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(
+            UsuarioConectado.getIdUsuario(), APLICACION, "Buscar Datos tipo_operacion_bancaria"); // Registrar acción en bitácora
     }
 
+    // Constructor de la clase
     public MantenimientoTipo_operacion_bancaria() {
-        initComponents();
-        llenadoDeTablas();
-    // 🔐 Validación de permisos
-       idUsuarioSesion = UsuarioConectado.getIdUsuario();
+        initComponents(); // Inicializar componentes gráficos
+        llenadoDeTablas(); // Llenar tabla al iniciar
+        // 🔐 Validación de permisos
+        idUsuarioSesion = UsuarioConectado.getIdUsuario(); // Obtener ID del usuario en sesión
+        usuarioDAO = new UsuarioDAO(); // Crear DAO de usuario
+        permisos = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion); // Obtener permisos del usuario
 
-        usuarioDAO = new UsuarioDAO();
-        permisos = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion);
-
-        
+        // Habilitar o deshabilitar botones según permisos
         btnEliminar.setEnabled(permisos.isPuedeEliminar());
         btnRegistrar.setEnabled(permisos.isPuedeRegistrar());
         btnModificar.setEnabled(permisos.isPuedeModificar());
-
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -302,49 +301,61 @@ private permisos permisosUsuarioActual;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        tipo_operacion_bancariaDAO tipo_operacion_bancariaDAO = new tipo_operacion_bancariaDAO();
-        tipo_operacion_bancaria tipo_operacionAEliminar = new tipo_operacion_bancaria();
-        tipo_operacionAEliminar.setId_tipo_operacion(Integer.parseInt(txtbuscado.getText()));
-        tipo_operacion_bancariaDAO.delete(tipo_operacionAEliminar);
-        llenadoDeTablas();
-         UsuarioConectado usuarioEnSesion = new UsuarioConectado();
-        int resultadoBitacora=0;
-        Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Eliminar Datos tipo_operacion_bancaria");
-    
+                                                    
+    // Acción al presionar el botón Eliminar
+    tipo_operacion_bancariaDAO tipo_operacion_bancariaDAO = new tipo_operacion_bancariaDAO(); // Crear instancia del DAO
+    tipo_operacion_bancaria tipo_operacionAEliminar = new tipo_operacion_bancaria(); // Crear objeto tipo_operacion_bancaria
+    tipo_operacionAEliminar.setId_tipo_operacion(Integer.parseInt(txtbuscado.getText())); // Obtener ID desde el campo de texto
+    tipo_operacion_bancariaDAO.delete(tipo_operacionAEliminar); // Eliminar el registro en la base de datos
+    llenadoDeTablas(); // Actualizar la tabla con los datos restantes
+
+    UsuarioConectado usuarioEnSesion = new UsuarioConectado(); // Obtener usuario en sesión
+    int resultadoBitacora = 0; // Variable para resultado de bitácora
+    Bitacora bitacoraRegistro = new Bitacora(); // Crear objeto bitácora
+    resultadoBitacora = bitacoraRegistro.setIngresarBitacora(
+        usuarioEnSesion.getIdUsuario(), APLICACION, "Eliminar Datos tipo_operacion_bancaria"); // Registrar acción en bitácora                                          
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        tipo_operacion_bancariaDAO tipo_operacion_bancariaDAO = new tipo_operacion_bancariaDAO();
-        tipo_operacion_bancaria tipo_operacionAInsertar = new tipo_operacion_bancaria();
-        tipo_operacionAInsertar.setTipo_operacion(txtTipo_operacion.getText());
-        tipo_operacionAInsertar.setDescripcion(txtDescripcion.getText());
-        tipo_operacion_bancariaDAO.insert(tipo_operacionAInsertar);
-        llenadoDeTablas();
-        UsuarioConectado usuarioEnSesion = new UsuarioConectado();
-        int resultadoBitacora=0;
-        Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Insertar Datos tipo_operacion_bancaria");
+                                                   
+    // Acción al presionar el botón Registrar
+    tipo_operacion_bancariaDAO tipo_operacion_bancariaDAO = new tipo_operacion_bancariaDAO(); // Crear instancia del DAO
+    tipo_operacion_bancaria tipo_operacionAInsertar = new tipo_operacion_bancaria(); // Crear objeto tipo_operacion_bancaria
+    tipo_operacionAInsertar.setTipo_operacion(txtTipo_operacion.getText()); // Establecer tipo de operación desde campo de texto
+    tipo_operacionAInsertar.setDescripcion(txtDescripcion.getText()); // Establecer descripción desde campo de texto
+    tipo_operacion_bancariaDAO.insert(tipo_operacionAInsertar); // Insertar nuevo registro en la base de datos
+    llenadoDeTablas(); // Actualizar la tabla con los nuevos datos
+
+    UsuarioConectado usuarioEnSesion = new UsuarioConectado(); // Obtener usuario en sesión
+    int resultadoBitacora = 0; // Variable para resultado de bitácora
+    Bitacora bitacoraRegistro = new Bitacora(); // Crear objeto bitácora
+    resultadoBitacora = bitacoraRegistro.setIngresarBitacora(
+        usuarioEnSesion.getIdUsuario(), APLICACION, "Insertar Datos tipo_operacion_bancaria"); // Registrar acción en bitácora
+
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-        buscarVendedor();
+        // Acción al presionar el botón Buscar
+        buscarVendedor(); // Llamar al método que realiza la búsqueda
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-//        // TODO add your handling code here:
-        tipo_operacion_bancariaDAO tipo_operacion_bancariaDAO = new tipo_operacion_bancariaDAO();
-        tipo_operacion_bancaria tipo_operacionAActualizar = new tipo_operacion_bancaria();
-        tipo_operacionAActualizar.setId_tipo_operacion(Integer.parseInt(txtbuscado.getText()));
-        tipo_operacionAActualizar.setTipo_operacion(txtTipo_operacion.getText());
-        tipo_operacionAActualizar.setDescripcion(txtDescripcion.getText());
-        tipo_operacion_bancariaDAO.update(tipo_operacionAActualizar);
-        llenadoDeTablas();
-        int resultadoBitacora=0;
-        Bitacora bitacoraRegistro = new Bitacora();
-        resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION,  "Modificar Datos tipo_operacion_bancaria");    
+                                            
+    // Acción al presionar el botón Modificar
+    tipo_operacion_bancariaDAO tipo_operacion_bancariaDAO = new tipo_operacion_bancariaDAO(); // Crear instancia del DAO
+    tipo_operacion_bancaria tipo_operacionAActualizar = new tipo_operacion_bancaria(); // Crear objeto tipo_operacion_bancaria
+    tipo_operacionAActualizar.setId_tipo_operacion(Integer.parseInt(txtbuscado.getText())); // Obtener ID desde campo de texto
+    tipo_operacionAActualizar.setTipo_operacion(txtTipo_operacion.getText()); // Obtener nuevo tipo de operación
+    tipo_operacionAActualizar.setDescripcion(txtDescripcion.getText()); // Obtener nueva descripción
+    tipo_operacion_bancariaDAO.update(tipo_operacionAActualizar); // Actualizar el registro en la base de datos
+    llenadoDeTablas(); // Actualizar la tabla con los datos modificados
+
+    int resultadoBitacora = 0; // Variable para resultado de bitácora
+    Bitacora bitacoraRegistro = new Bitacora(); // Crear objeto bitácora
+    resultadoBitacora = bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Modificar Datos tipo_operacion_bancaria"); // Registrar acción en bitácora
+
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -372,52 +383,57 @@ private permisos permisosUsuarioActual;
         Bitacora bitacoraRegistro = new Bitacora();
         resultadoBitacora = bitacoraRegistro.setIngresarBitacora(usuarioEnSesion.getIdUsuario(), APLICACION,  "Limpiar OPERACION BANCARIA");
     }//GEN-LAST:event_btnLimpiarActionPerformed
-/*
-     // TODO add your handling code here:
-        MantenimientoAula ventana = new MantenimientoAula();
-        jDesktopPane1.add(ventana);
-        Dimension desktopSize = jDesktopPane1.getSize();
-        Dimension FrameSize = ventana.getSize();
-        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-    */
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        try {
-            if ((new File("src\\main\\java\\ayudas\\banco\\AyudaBanco.chm")).exists()) {
-                Process p = Runtime
-                        .getRuntime()
-                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\banco\\AyudaBanco.chm");
-                p.waitFor();
-            } else {
-                System.out.println("La ayuda no Fue encontrada");
-            }
-            System.out.println("Correcto");
-        } catch (Exception ex) {
-            ex.printStackTrace();
+    // Acción al presionar el botón de ayuda
+    try {
+        // Verifica si el archivo de ayuda existe en la ruta especificada
+        if ((new File("src\\main\\java\\ayudas\\banco\\AyudaBanco.chm")).exists()) {
+            // Ejecuta el archivo de ayuda utilizando el sistema operativo
+            Process p = Runtime
+                    .getRuntime()
+                    .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\banco\\AyudaBanco.chm");
+            p.waitFor(); // Espera a que el proceso termine
+        } else {
+            // Mensaje en consola si el archivo no se encuentra
+            System.out.println("La ayuda no Fue encontrada");
         }
+        // Mensaje en consola si todo fue correcto
+        System.out.println("Correcto");
+    } catch (Exception ex) {
+        // Imprime el error en caso de excepción
+        ex.printStackTrace();
+    }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
-        // TODO add your handling code here:
-                       Map p = new HashMap();
-        JasperReport report;
-        JasperPrint print;
+    // Acción al presionar el botón de generar reporte
+    Map p = new HashMap(); // Mapa para parámetros del reporte
+    JasperReport report; // Objeto para el reporte compilado
+    JasperPrint print;   // Objeto para el reporte generado
 
-        try {
-                           Connection connectio = Conexion.getConnection();
-            report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
-                    + "/src/main/java/reporte/banco/reporteTipoOperacionBancaria.jrxml");
-//
-            print = JasperFillManager.fillReport(report, p, connectio);
+    try {
+        // Obtener conexión a la base de datos
+        Connection connectio = Conexion.getConnection();
 
-            JasperViewer view = new JasperViewer(print, false);
+        // Compilar el archivo .jrxml del reporte desde su ruta
+        report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
+                + "/src/main/java/reporte/banco/ReporteTipoOperacionBancaria.jrxml");
 
-            view.setTitle("Prueba reporte");
-            view.setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al generar el reporte: " + e.getMessage());
-        }
+        // Llenar el reporte con los datos y parámetros
+        print = JasperFillManager.fillReport(report, p, connectio);
+
+        // Crear una vista del reporte generado
+        JasperViewer view = new JasperViewer(print, false);
+
+        // Establecer título de la ventana del reporte
+        view.setTitle("Prueba reporte");
+        view.setVisible(true); // Mostrar la ventana del reporte
+    } catch (Exception e) {
+        // Imprimir error en consola y mostrar mensaje al usuario
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al generar el reporte: " + e.getMessage());
+    }
         
                                               
     }//GEN-LAST:event_btnReporteActionPerformed

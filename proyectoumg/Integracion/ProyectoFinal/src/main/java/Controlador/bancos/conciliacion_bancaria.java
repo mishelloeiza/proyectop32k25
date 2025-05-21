@@ -6,17 +6,26 @@ import java.time.LocalDateTime;
 
 // Modelo para tabla conciliacion_bancaria
 public class conciliacion_bancaria {
+    // Identificador único de la conciliación bancaria
     private int id_conciliacion;
+    // Identificador de la cuenta bancaria asociada
     private int id_cuenta;
+    // Identificador del movimiento bancario relacionado
     private int id_movimiento_bancario;
+    // Fecha en que se realizó la conciliación
     private LocalDateTime fecha;
+    // Saldo registrado antes de la conciliación
     private float saldo;
+    // Saldo actualizado después de la conciliación
     private float saldo_actualizado;
+    // Estado de la conciliación (por ejemplo: pendiente, conciliado, etc.)
     private String status;
 
+    // Constructor vacío
     public conciliacion_bancaria() {
     }
 
+    // Constructor con todos los atributos
     public conciliacion_bancaria(int id_conciliacion, int id_cuenta, int id_movimiento_bancario, LocalDateTime fecha, float saldo, float saldo_actualizado, String status) {
         this.id_conciliacion = id_conciliacion;
         this.id_cuenta = id_cuenta;
@@ -26,6 +35,8 @@ public class conciliacion_bancaria {
         this.saldo_actualizado = saldo_actualizado;
         this.status = status;
     }
+
+    // Métodos getter y setter para cada atributo
 
     public int getId_conciliacion() {
         return id_conciliacion;
@@ -83,6 +94,7 @@ public class conciliacion_bancaria {
         this.status = status;
     }
 
+    // Representación en forma de cadena del objeto conciliacion_bancaria
     @Override
     public String toString() {
         return "conciliacion_bancaria{" + "id_conciliacion=" + id_conciliacion + ", id_cuenta=" + id_cuenta + ", id_movimiento_bancario=" + id_movimiento_bancario + ", fecha=" + fecha + ", saldo=" + saldo + ", saldo_actualizado=" + saldo_actualizado + ", status=" + status + '}';

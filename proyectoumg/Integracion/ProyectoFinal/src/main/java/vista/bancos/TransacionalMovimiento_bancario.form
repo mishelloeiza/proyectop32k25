@@ -90,27 +90,26 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
+                              <Component id="txtTipoSaldo" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="cboTipoSaldo" min="-2" pref="263" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="lblSaldo" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="txtSaldo" min="-2" pref="263" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtTipoSaldo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtTipoSaldo1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="cboTipoSaldo" pref="263" max="32767" attributes="0"/>
-                                  <Component id="txtMonto" max="32767" attributes="0"/>
-                              </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="txtTipoSaldo2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="txtSaldoActualizado" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="txtTipoSaldo1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="txtMonto" min="-2" pref="263" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
@@ -166,13 +165,13 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtTipoSaldo" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cboTipoSaldo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtMonto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtTipoSaldo1" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtMonto" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtTipoSaldo1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cboTipoSaldo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtTipoSaldo" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -400,7 +399,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Century Gothic" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Tipo Saldo"/>
+        <Property name="text" type="java.lang.String" value="Tipo Saldo:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblSaldo">

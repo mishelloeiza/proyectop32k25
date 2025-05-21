@@ -1,4 +1,6 @@
 package vista.bancos;
+
+// Importaciones necesarias para control de seguridad, acceso a datos y utilidades
 import Controlador.seguridad.UsuarioConectado;  // Para obtener usuario actual
 import Modelo.seguridad.UsuarioDAO;               // Para manejar la lógica de usuario (ajusta el paquete si es otro)
 import Controlador.seguridad.permisos;          // La clase que representa los permisos del usuario (ajusta el paquete)
@@ -13,6 +15,7 @@ import Modelo.bancos.cuentas_bancariasDAO;
 import Controlador.bancos.cuentas_bancarias;
 import Modelo.bancos.MovimientoBancarioDAO;
 import Controlador.bancos.movimiento_bancario;
+
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
@@ -25,6 +28,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+
+// Librerías para generación de reportes con JasperReports
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -41,14 +46,15 @@ public class TransacionalConciliacion_bancaria extends javax.swing.JInternalFram
     private int idUsuarioSesion;
     private UsuarioDAO usuarioDAO;
     private permisos permisos;
-
-private permisos permisosUsuarioActual; 
-    private ConciliacionBancariaDAO conciliacionDAO = new ConciliacionBancariaDAO();
+    private permisos permisosUsuarioActual;
     
+    // DAO para operaciones con conciliaciones bancarias
+    private ConciliacionBancariaDAO conciliacionDAO = new ConciliacionBancariaDAO();
+    // Método para llenar el combo box de estado con opciones predefinidas
     public void llenadoDeCombos() {
         cboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Seleccione", "CONCILIADO", "PENDIENTE"}));
     }
-
+    // Método para llenar la tabla con los datos de conciliaciones existentes
     public void llenadoDeTablas() {
          DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID Conciliación");
@@ -58,34 +64,35 @@ private permisos permisosUsuarioActual;
         modelo.addColumn("Saldo");
         modelo.addColumn("Saldo Actualizado");
         modelo.addColumn("Estado");
-
+        // Obtener lista de conciliaciones desde la base de datos
         List<conciliacion_bancaria> lista = conciliacionDAO.select();
         tblMovimientos.setModel(modelo);
-
+        // Llenar cada fila de la tabla con los datos formateados
         String[] dato = new String[7];
         for (conciliacion_bancaria conc : lista) {
             dato[0] = String.valueOf(conc.getId_conciliacion());
             dato[1] = String.valueOf(conc.getId_cuenta());
             dato[2] = String.valueOf(conc.getId_movimiento_bancario());
-            dato[3] = conc.getFecha().toString();
+            dato[3] = conc.getFecha().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             dato[4] = String.valueOf(conc.getSaldo());
             dato[5] = String.valueOf(conc.getSaldo_actualizado());
             dato[6] = conc.getStatus();
             modelo.addRow(dato);
         }
     }
-
+    // Método para buscar una conciliación específica por ID
     public void buscarConciliacion() {
         try {
+            // Validar que se haya ingresado un ID
             if (txtbuscado.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ingrese un ID para buscar", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
+            // Crear objeto de búsqueda y consultar en la base de datos
             conciliacion_bancaria consulta = new conciliacion_bancaria();
             consulta.setId_conciliacion(Integer.parseInt(txtbuscado.getText()));
             consulta = conciliacionDAO.query(consulta);
-
+            // Si se encuentra, llenar los campos del formulario con los datos
             if (consulta != null) {
                 txtIdCuenta.setText(String.valueOf(consulta.getId_cuenta()));
                 txtIdMovimiento.setText(String.valueOf(consulta.getId_movimiento_bancario()));
@@ -97,93 +104,95 @@ private permisos permisosUsuarioActual;
                 JOptionPane.showMessageDialog(this, "No se encontró ninguna conciliación", "Búsqueda sin resultados", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (NumberFormatException e) {
+            // Manejo de error si el ID no es un número válido
             JOptionPane.showMessageDialog(this, "El ID debe ser un número válido", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
+            // Manejo de cualquier otro error
             JOptionPane.showMessageDialog(this, "Error al buscar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public TransacionalConciliacion_bancaria() {
-        initComponents();
+    initComponents(); // Inicializa los componentes gráficos del formulario
 
-        txtFecha.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                if (txtFecha.getForeground().equals(Color.GRAY)) {
-                    txtFecha.setText(""); // Limpiar al seleccionar
-                    txtFecha.setForeground(Color.BLACK);
-                }
-            }
+    // 🕒 Establecer la fecha actual automáticamente al abrir el formulario
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    txtFecha.setText(formatter.format(LocalDateTime.now())); // Asigna la fecha y hora actual
+    txtFecha.setEditable(false); // Evita que el usuario edite el campo
+    txtFecha.setBackground(new Color(240, 240, 240)); // Fondo gris claro para indicar que es automático
+    txtFecha.setForeground(new Color(100, 100, 100)); // Texto gris más fuerte para visibilidad
 
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                if (txtFecha.getText().isEmpty()) {
-                    txtFecha.setText(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()));
-                    txtFecha.setForeground(Color.GRAY);
-                }
-            }
-        });
-
-        txtIdCuenta.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                if (!txtIdCuenta.getText().trim().isEmpty()) {
-                    try {
-                        int idCuenta = Integer.parseInt(txtIdCuenta.getText().trim());
-                        cuentas_bancariasDAO cuentaDAO = new cuentas_bancariasDAO();
-                        cuentas_bancarias cuenta = new cuentas_bancarias();
-                        cuenta.setId_cuenta(idCuenta);
-                        cuenta = cuentaDAO.query(cuenta);
-                        if (cuenta != null) {
-                            txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
-                        } else {
-                            JOptionPane.showMessageDialog(null, "ID de cuenta no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, "ID de cuenta debe ser un número válido", "Error", JOptionPane.ERROR_MESSAGE);
+    // 📌 Listener para cuando el campo de ID de cuenta pierde el foco
+    txtIdCuenta.addFocusListener(new java.awt.event.FocusAdapter() {
+        public void focusLost(java.awt.event.FocusEvent evt) {
+            if (!txtIdCuenta.getText().trim().isEmpty()) {
+                try {
+                    int idCuenta = Integer.parseInt(txtIdCuenta.getText().trim());
+                    cuentas_bancariasDAO cuentaDAO = new cuentas_bancariasDAO();
+                    cuentas_bancarias cuenta = new cuentas_bancarias();
+                    cuenta.setId_cuenta(idCuenta);
+                    cuenta = cuentaDAO.query(cuenta); // Consulta la cuenta en la base de datos
+                    if (cuenta != null) {
+                        txtSaldo.setText(String.valueOf(cuenta.getSaldo())); // Muestra el saldo de la cuenta
+                    } else {
+                        JOptionPane.showMessageDialog(null, "ID de cuenta no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
                     }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "ID de cuenta debe ser un número válido", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        });
+        }
+    });
 
-        txtIdMovimiento.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                if (!txtIdMovimiento.getText().trim().isEmpty()) {
-                    try {
-                        int idMovimiento = Integer.parseInt(txtIdMovimiento.getText().trim());
-                        MovimientoBancarioDAO movimientoDAO = new MovimientoBancarioDAO();
-                        movimiento_bancario movimiento = new movimiento_bancario();
-                        movimiento.setId_movimiento_bancario(idMovimiento);
-                        movimiento = movimientoDAO.query(movimiento);
-                        if (movimiento != null) {
-                            txtSaldoActualizado.setText(String.valueOf(movimiento.getSaldoActualizado()));
-                            // Comparar saldos y establecer estado
-                            if (txtSaldo.getText().equals(txtSaldoActualizado.getText())) {
-                                cboStatus.setSelectedItem("CONCILIADO");
-                            } else {
-                                cboStatus.setSelectedItem("PENDIENTE");
-                            }
+    // 📌 Listener para cuando el campo de ID de movimiento pierde el foco
+    txtIdMovimiento.addFocusListener(new java.awt.event.FocusAdapter() {
+        public void focusLost(java.awt.event.FocusEvent evt) {
+            if (!txtIdMovimiento.getText().trim().isEmpty()) {
+                try {
+                    int idMovimiento = Integer.parseInt(txtIdMovimiento.getText().trim());
+                    MovimientoBancarioDAO movimientoDAO = new MovimientoBancarioDAO();
+                    movimiento_bancario movimiento = new movimiento_bancario();
+                    movimiento.setId_movimiento_bancario(idMovimiento);
+                    movimiento = movimientoDAO.query(movimiento); // Consulta el movimiento en la base de datos
+                    if (movimiento != null) {
+                        txtSaldoActualizado.setText(String.valueOf(movimiento.getSaldoActualizado())); // Muestra el saldo actualizado
+
+                        // ⚖️ Comparar saldos y establecer automáticamente el estado
+                        if (txtSaldo.getText().equals(txtSaldoActualizado.getText())) {
+                            cboStatus.setSelectedItem("CONCILIADO");
                         } else {
-                            JOptionPane.showMessageDialog(null, "ID de movimiento no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+                            cboStatus.setSelectedItem("PENDIENTE");
                         }
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, "ID de movimiento debe ser un número válido", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "ID de movimiento no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
                     }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "ID de movimiento debe ser un número válido", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        });
+        }
+    });
 
-        llenadoDeTablas();
-        llenadoDeCombos();
-     // 🔐 Validación de permisos
-       idUsuarioSesion = UsuarioConectado.getIdUsuario();
+    // 📋 Llenar la tabla con los datos existentes
+    llenadoDeTablas();
 
-        usuarioDAO = new UsuarioDAO();
-        permisos = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion);
+    // 🔄 Llenar el combo box de estado y deshabilitarlo para que no sea editable
+    llenadoDeCombos();
+    cboStatus.setEnabled(false); // Desactiva la interacción del usuario
+    cboStatus.setBackground(new Color(230, 230, 230)); // Fondo gris claro
+    cboStatus.setForeground(new Color(100, 100, 100)); // Texto gris medio
 
-        
-        btnEliminar.setEnabled(permisos.isPuedeEliminar());
-        btnRegistrar.setEnabled(permisos.isPuedeRegistrar());
-        btnModificar.setEnabled(permisos.isPuedeModificar());
+    // 🔐 Validación de permisos del usuario actual
+    idUsuarioSesion = UsuarioConectado.getIdUsuario(); // Obtiene el ID del usuario en sesión
+    usuarioDAO = new UsuarioDAO();
+    permisos = usuarioDAO.obtenerPermisosPorUsuario(idUsuarioSesion); // Consulta los permisos del usuario
 
-    }
+    // 🔧 Habilita o deshabilita botones según los permisos del usuario
+    btnEliminar.setEnabled(permisos.isPuedeEliminar());
+    btnRegistrar.setEnabled(permisos.isPuedeRegistrar());
+    btnModificar.setEnabled(permisos.isPuedeModificar());
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -476,106 +485,134 @@ private permisos permisosUsuarioActual;
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
 
     try {
-            conciliacion_bancaria conciliacionEliminar = new conciliacion_bancaria();
-            String idConciliacionText = txtbuscado.getText().trim();
+        // Crear objeto de conciliación a eliminar
+        conciliacion_bancaria conciliacionEliminar = new conciliacion_bancaria();
+        String idConciliacionText = txtbuscado.getText().trim();
 
-            if (idConciliacionText.isEmpty() || !idConciliacionText.matches("\\d+")) {
-                JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID válido.");
-                return;
-            }
-
-            conciliacionEliminar.setId_conciliacion(Integer.parseInt(idConciliacionText));
-            conciliacionDAO.delete(conciliacionEliminar);
-            llenadoDeTablas();
-
-            Bitacora bitacoraRegistro = new Bitacora();
-            bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Eliminar Conciliación Bancaria");
-
-            JOptionPane.showMessageDialog(this, "Conciliación eliminada correctamente.");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al eliminar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        // Validar que el ID ingresado no esté vacío y sea numérico
+        if (idConciliacionText.isEmpty() || !idConciliacionText.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID válido.");
+            return;
         }
+
+        // Establecer el ID y eliminar la conciliación
+        conciliacionEliminar.setId_conciliacion(Integer.parseInt(idConciliacionText));
+        conciliacionDAO.delete(conciliacionEliminar);
+
+        // Actualizar la tabla después de eliminar
+        llenadoDeTablas();
+
+        // Registrar acción en bitácora
+        Bitacora bitacoraRegistro = new Bitacora();
+        bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Eliminar Conciliación Bancaria");
+
+        JOptionPane.showMessageDialog(this, "Conciliación eliminada correctamente.");
+    } catch (Exception e) {
+        // Mostrar mensaje de error si ocurre una excepción
+        JOptionPane.showMessageDialog(this, "Error al eliminar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
 
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
                                         
-      try {
-            conciliacion_bancaria nuevaConciliacion = new conciliacion_bancaria();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    try {
+        // Crear nueva instancia de conciliación
+        conciliacion_bancaria nuevaConciliacion = new conciliacion_bancaria();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-            if (txtIdCuenta.getText().trim().isEmpty() || txtIdMovimiento.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debe ingresar un ID de cuenta y un ID de movimiento", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            LocalDateTime fechaActual = LocalDateTime.now();
-            nuevaConciliacion.setId_cuenta(Integer.parseInt(txtIdCuenta.getText()));
-            nuevaConciliacion.setId_movimiento_bancario(Integer.parseInt(txtIdMovimiento.getText()));
-            nuevaConciliacion.setFecha(fechaActual);
-            nuevaConciliacion.setSaldo(Float.parseFloat(txtSaldo.getText()));
-            nuevaConciliacion.setSaldo_actualizado(Float.parseFloat(txtSaldoActualizado.getText()));
-            nuevaConciliacion.setStatus(cboStatus.getSelectedItem().toString());
-
-            conciliacionDAO.insert(nuevaConciliacion);
-            llenadoDeTablas();
-            txtIdCuenta.setText("");
-            txtIdMovimiento.setText("");
-            txtSaldo.setText("");
-            txtSaldoActualizado.setText("");
-            cboStatus.setSelectedIndex(0);
-            txtFecha.setText(formatter.format(fechaActual));
-            txtFecha.setForeground(Color.BLACK);
-
-            Bitacora bitacoraRegistro = new Bitacora();
-            bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Registro de Conciliación");
-
-            JOptionPane.showMessageDialog(this, "¡Registro exitoso! Fecha: " + formatter.format(fechaActual));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        // Validar que los campos obligatorios no estén vacíos
+        if (txtIdCuenta.getText().trim().isEmpty() || txtIdMovimiento.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un ID de cuenta y un ID de movimiento", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        // Obtener fecha actual y llenar los datos de la conciliación
+        LocalDateTime fechaActual = LocalDateTime.now();
+        nuevaConciliacion.setId_cuenta(Integer.parseInt(txtIdCuenta.getText()));
+        nuevaConciliacion.setId_movimiento_bancario(Integer.parseInt(txtIdMovimiento.getText()));
+        nuevaConciliacion.setFecha(fechaActual);
+        nuevaConciliacion.setSaldo(Float.parseFloat(txtSaldo.getText()));
+        nuevaConciliacion.setSaldo_actualizado(Float.parseFloat(txtSaldoActualizado.getText()));
+        nuevaConciliacion.setStatus(cboStatus.getSelectedItem().toString());
+
+        // Insertar la conciliación en la base de datos
+        conciliacionDAO.insert(nuevaConciliacion);
+
+        // Actualizar tabla y limpiar campos
+        llenadoDeTablas();
+        txtIdCuenta.setText("");
+        txtIdMovimiento.setText("");
+        txtSaldo.setText("");
+        txtSaldoActualizado.setText("");
+        cboStatus.setSelectedIndex(0);
+        txtFecha.setText(formatter.format(fechaActual));
+        txtFecha.setForeground(Color.BLACK);
+
+        // Registrar acción en bitácora
+        Bitacora bitacoraRegistro = new Bitacora();
+        bitacoraRegistro.setIngresarBitacora(UsuarioConectado.getIdUsuario(), APLICACION, "Registro de Conciliación");
+
+        JOptionPane.showMessageDialog(this, "¡Registro exitoso! Fecha: " + formatter.format(fechaActual));
+    } catch (Exception e) {
+        // Mostrar mensaje de error si ocurre una excepción
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
 
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-      buscarConciliacion();
+    // Ejecuta el método de búsqueda al hacer clic en el botón
+    buscarConciliacion();
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        try {
-            conciliacion_bancaria conciliacionActualizar = new conciliacion_bancaria();
 
-            if (txtbuscado.getText().trim().isEmpty() || txtIdCuenta.getText().trim().isEmpty() || txtIdMovimiento.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "ID de conciliación, ID de cuenta y ID de movimiento son requeridos", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+    try {
+        // Crear objeto de conciliación para actualizar
+        conciliacion_bancaria conciliacionActualizar = new conciliacion_bancaria();
 
-            conciliacionActualizar.setId_conciliacion(Integer.parseInt(txtbuscado.getText()));
-            conciliacionActualizar.setId_cuenta(Integer.parseInt(txtIdCuenta.getText()));
-            conciliacionActualizar.setId_movimiento_bancario(Integer.parseInt(txtIdMovimiento.getText()));
-            conciliacionActualizar.setSaldo(Float.parseFloat(txtSaldo.getText()));
-            conciliacionActualizar.setSaldo_actualizado(Float.parseFloat(txtSaldoActualizado.getText()));
-
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                LocalDateTime fecha = LocalDateTime.parse(txtFecha.getText(), formatter);
-                conciliacionActualizar.setFecha(fecha);
-            } catch (DateTimeParseException e) {
-                JOptionPane.showMessageDialog(this, "Formato de fecha debe ser: yyyy-MM-dd HH:mm:ss\nEjemplo: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), "Error de formato", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            conciliacionActualizar.setStatus(cboStatus.getSelectedItem().toString());
-            conciliacionDAO.update(conciliacionActualizar);
-            llenadoDeTablas();
-            JOptionPane.showMessageDialog(this, "Conciliación modificada correctamente");
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "IDs deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al modificar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        // Validar que los campos obligatorios no estén vacíos
+        if (txtbuscado.getText().trim().isEmpty() || txtIdCuenta.getText().trim().isEmpty() || txtIdMovimiento.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "ID de conciliación, ID de cuenta y ID de movimiento son requeridos", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        // Establecer los valores en el objeto
+        conciliacionActualizar.setId_conciliacion(Integer.parseInt(txtbuscado.getText()));
+        conciliacionActualizar.setId_cuenta(Integer.parseInt(txtIdCuenta.getText()));
+        conciliacionActualizar.setId_movimiento_bancario(Integer.parseInt(txtIdMovimiento.getText()));
+        conciliacionActualizar.setSaldo(Float.parseFloat(txtSaldo.getText()));
+        conciliacionActualizar.setSaldo_actualizado(Float.parseFloat(txtSaldoActualizado.getText()));
+
+        try {
+            // Convertir la fecha del campo de texto a LocalDateTime
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime fecha = LocalDateTime.parse(txtFecha.getText(), formatter);
+            conciliacionActualizar.setFecha(fecha);
+        } catch (DateTimeParseException e) {
+            // Mostrar mensaje si el formato de fecha es incorrecto
+            JOptionPane.showMessageDialog(this, "Formato de fecha debe ser: yyyy-MM-dd HH:mm:ss\nEjemplo: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), "Error de formato", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Establecer el estado y actualizar en la base de datos
+        conciliacionActualizar.setStatus(cboStatus.getSelectedItem().toString());
+        conciliacionDAO.update(conciliacionActualizar);
+
+        // Actualizar tabla y mostrar mensaje de éxito
+        llenadoDeTablas();
+        JOptionPane.showMessageDialog(this, "Conciliación modificada correctamente");
+
+    } catch (NumberFormatException e) {
+        // Validación de campos numéricos
+        JOptionPane.showMessageDialog(this, "IDs deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        // Manejo de cualquier otro error
+        JOptionPane.showMessageDialog(this, "Error al modificar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -613,12 +650,13 @@ private permisos permisosUsuarioActual;
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     */
     private void btnAyudasTasaDecambioDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudasTasaDecambioDiarioActionPerformed
-        // TODO add your handling code here:
-        try {
-            if ((new File("src\\main\\java\\ayudas\\banco\\AyudasTasaCambioDiario.chm")).exists()) {
+     
+    // 📘 Abre el archivo de ayuda .chm si existe en la ruta especificada
+    try {
+            if ((new File("src\\main\\java\\ayudas\\banco\\AyudaBanco.chm")).exists()) {
                 Process p = Runtime
                         .getRuntime()
-                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\banco\\AyudasTasaCambioDiario.chm");
+                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\banco\\AyudaBanco.chm");
                 p.waitFor();
             } else {
                 System.out.println("La ayuda no Fue encontrada");
@@ -632,26 +670,33 @@ private permisos permisosUsuarioActual;
     private void btnreporteTasaDecambioDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreporteTasaDecambioDiarioActionPerformed
         // TODO add your handling code here:
         
-          Map p = new HashMap();
-        JasperReport report;
-        JasperPrint print;
-        
-        try {
-            connectio = Conexion.getConnection();
-            report = JasperCompileManager.compileReport(new File("").getAbsolutePath()
-            + "/src/main/java/reporte/banco/Reporteconciliacion.jrxml");
-            
-            print = JasperFillManager.fillReport(report, p, connectio);
-            
-            JasperViewer view = new JasperViewer(print, false);
-            
-            view.setTitle("Prueba reporte");
-            view.setVisible(true);
-        } catch (Exception e) {
-        }
-        
-        
-        
+    // 📄 Genera y muestra un reporte de conciliaciones bancarias usando JasperReports
+
+    Map p = new HashMap(); // Parámetros para el reporte (vacío en este caso)
+    JasperReport report;
+    JasperPrint print;
+
+    try {
+        // Establece la conexión con la base de datos
+        connectio = Conexion.getConnection();
+
+        // Compila el archivo .jrxml del reporte
+        report = JasperCompileManager.compileReport(
+            new File("").getAbsolutePath() + "/src/main/java/reporte/banco/Reporteconciliacion.jrxml"
+        );
+
+        // Llena el reporte con los datos y parámetros
+        print = JasperFillManager.fillReport(report, p, connectio);
+
+        // Muestra el reporte en una ventana
+        JasperViewer view = new JasperViewer(print, false);
+        view.setTitle("Prueba reporte");
+        view.setVisible(true);
+    } catch (Exception e) {
+        // Silenciosamente ignora errores (se recomienda agregar manejo de errores)
+    }
+
+
         
     }//GEN-LAST:event_btnreporteTasaDecambioDiarioActionPerformed
 

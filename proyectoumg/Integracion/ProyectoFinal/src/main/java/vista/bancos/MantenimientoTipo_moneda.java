@@ -27,7 +27,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 
 // MANTENIMIENTO CREADO POR MISHEL LOEIZA 9959-23-3457 
-
+// Modificacion de tasa por Ruddyard Castro 9959-23-1409
 /**
  *
  * @author visitante

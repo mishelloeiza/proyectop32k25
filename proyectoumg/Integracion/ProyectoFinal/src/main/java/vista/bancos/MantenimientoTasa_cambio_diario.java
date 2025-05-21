@@ -37,9 +37,24 @@ import net.sf.jasperreports.view.JasperViewer;
 
 //MANTENIMINETO CREADO POR Ruddyard Eduardo Castro Chavez 
 
+
 /**
- *
- * @author visitante
+ * Clase para mantenimiento de tasas de cambio diario (Interfaz gráfica)
+ * 
+ * Funcionalidades principales:
+ * - Llenado de tablas con tasas existentes
+ * - Búsqueda de tasas por ID
+ * - Validación de permisos de usuario
+ * - Manejo de formato de fecha/hora
+ * 
+ * Componentes:
+ * - Tabla para visualización
+ * - Campos para búsqueda/registro
+ * - Botones CRUD con control de permisos
+ * 
+ * Seguridad:
+ * - Control de acceso por permisos
+ * - Registro en bitácora de acciones
  */
 public class MantenimientoTasa_cambio_diario extends javax.swing.JInternalFrame {
 
@@ -375,6 +390,19 @@ private permisos permisosUsuarioActual;
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        /**
+ * Elimina una tasa de cambio por ID y actualiza la tabla
+ * 
+ * Pasos:
+ * 1. Crea objeto tasa con ID del campo txtbuscado
+ * 2. Ejecuta eliminación a través del DAO
+ * 3. Refresca datos en tabla
+ * 4. Registra acción en bitácora
+ * 
+ * Seguridad:
+ * - El botón Eliminar ya tiene validación de permisos
+ * - Registra la acción con usuario y aplicación
+ */
       tasa_cambio_diario tasaEliminar = new tasa_cambio_diario();
         tasaEliminar.setId_tasa_cambio_diario(Integer.parseInt(txtbuscado.getText()));
         tasaDAO.delete(tasaEliminar);
@@ -404,6 +432,7 @@ private permisos permisosUsuarioActual;
            txtFechaHora.getForeground().equals(Color.GRAY)) {
             fechaHora = LocalDateTime.now();
             // Mostrar la fecha actual como texto guía visible
+            /* Ejecuta código en el hilo de la interfaz gráfica (Swing EDT) */
             SwingUtilities.invokeLater(() -> {
                 txtFechaHora.setText(formatter.format(fechaHora));
                 txtFechaHora.setForeground(Color.BLACK);
@@ -505,10 +534,10 @@ private permisos permisosUsuarioActual;
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         try {
-            if ((new File("src\\main\\java\\ayudas\\ProcesoMayor.chm")).exists()) {
+            if ((new File("src\\main\\java\\ayudas\\banco\\AyudasTasaCambioDiario.chm")).exists()) {
                 Process p = Runtime
                         .getRuntime()
-                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\ProcesoMayor.chm");
+                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\banco\\AyudasTasaCambioDiario.chm");
                 p.waitFor();
             } else {
                 System.out.println("La ayuda no Fue encontrada");

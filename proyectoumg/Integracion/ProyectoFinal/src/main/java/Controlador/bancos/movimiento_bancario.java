@@ -17,10 +17,10 @@ public class movimiento_bancario {
     private float monto;
     private float saldoActualizado;
 
-
+ //Costructor sin sobre cargar 
     public movimiento_bancario() {
     }
-
+//constructo sobre cargado 
     public movimiento_bancario(int id_movimiento_bancario, int id_cuenta, LocalDateTime fecha, String tipoSaldo, float monto, float saldoActualizado) {
         this.id_movimiento_bancario = id_movimiento_bancario;
         this.id_cuenta = id_cuenta;
@@ -77,7 +77,11 @@ public class movimiento_bancario {
     public void setSaldoActualizado(float saldoActualizado) {
         this.saldoActualizado = saldoActualizado;
     }
-
+/*
+    sirve para proporcionar una representación de cadena legible de un objeto de la clase
+    
+    La anotación @Override indica que este método está sobrescribiendo un método de una superclase (en este caso, el método toString() de la clase Object)
+    */
     @Override
     public String toString() {
         return "movimiento_bancario{" + "id_movimiento_bancario=" + id_movimiento_bancario + ", id_cuenta=" + id_cuenta + ", fecha=" + fecha + ", tipoSaldo=" + tipoSaldo + ", monto=" + monto + ", saldoActualizado=" + saldoActualizado + '}';

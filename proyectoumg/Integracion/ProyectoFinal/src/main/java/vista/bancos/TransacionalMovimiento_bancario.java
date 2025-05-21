@@ -526,7 +526,8 @@ private permisos permisosUsuarioActual;
         int idMovimiento = Integer.parseInt(txtbuscado.getText());
         movimiento_bancario movimientoEliminar = new movimiento_bancario();
         movimientoEliminar.setId_movimiento_bancario(idMovimiento);
-        movimientoEliminar = movimientoDAO.query(movimientoEliminar); // Obtener datos del movimiento
+        // Obtener datos del movimiento
+        movimientoEliminar = movimientoDAO.query(movimientoEliminar); 
 
         if (movimientoEliminar != null) {
             // Revertir el saldo en cuentas_bancarias
@@ -733,10 +734,10 @@ private permisos permisosUsuarioActual;
     private void btnAyudasTasaDecambioDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudasTasaDecambioDiarioActionPerformed
         // TODO add your handling code here:
         try {
-            if ((new File("src\\main\\java\\ayudas\\banco\\AyudasTasaCambioDiario.chm")).exists()) {
+            if ((new File("src\\main\\java\\ayudas\\banco\\AyudasMovimientoBancario.chm")).exists()) {
                 Process p = Runtime
                         .getRuntime()
-                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\banco\\AyudasTasaCambioDiario.chm");
+                        .exec("rundll32 url.dll,FileProtocolHandler src\\main\\java\\ayudas\\banco\\AyudasMovimientoBancario.chm");
                 p.waitFor();
             } else {
                 System.out.println("La ayuda no Fue encontrada");

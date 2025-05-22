@@ -9,6 +9,9 @@ package Controlador.compras_cxp;
  *
  * @author visitante
  */
+
+//Metododepago.java HECHO POR KATHIA CONTRERAS
+
 public class Metododepago {
     int id_metodoPago;
     String nombreMetodoPago;

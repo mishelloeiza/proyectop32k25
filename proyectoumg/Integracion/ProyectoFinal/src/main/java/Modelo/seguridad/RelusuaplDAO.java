@@ -43,7 +43,7 @@ public class RelusuaplDAO {
                 int idUsuario = rs.getInt("id_usuario");
                 String derInsertar = rs.getString("der_insertar");
                 String derEditar = rs.getString("der_editar");
-                String derEliminar = rs.getString("der_ eliminar");
+                String derEliminar = rs.getString("der_eliminar");
                 String derImprimir = rs.getString("der_imprimir");
                 String fechaRelUsuApl = rs.getString("fecha");
                 relusuapl = new Relusuapl();
@@ -170,7 +170,7 @@ public class RelusuaplDAO {
                 int idUsuario = rs.getInt("id_usuario");
                 String derInsertar = rs.getString("der_insertar");
                 String derEditar = rs.getString("der_editar");
-                String derEliminar = rs.getString("der_ eliminar");
+                String derEliminar = rs.getString("der_eliminar");
                 String derImprimir = rs.getString("der_imprimir");
                 String fechaRelUsuApl = rs.getString("fecha");
                 relusuapl = new Relusuapl();

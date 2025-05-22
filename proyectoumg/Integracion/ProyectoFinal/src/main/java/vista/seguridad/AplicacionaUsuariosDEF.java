@@ -42,9 +42,12 @@ public class AplicacionaUsuarios extends javax.swing.JInternalFrame {
 //--------------------------------------------------------------------------prueba
     public class AplicacionaUsuariosDEF extends javax.swing.JInternalFrame {
     public void llenadoDeCombos() {
+        //DESPLIEGUE DE USUARIOS EN COMBOBOX HECHO POR KATHIA CONTRERAS
+        //crea objeto
         UsuarioDAO usuarioDAO = new UsuarioDAO();
+        //crea lista llenandola con todos los usuarios mediante select
         List<Usuario> usuarios = usuarioDAO.select();
-       // jComboBox1.addItem("Seleccione una opción");
+       //ciclo que llena combobox
         for (int i = 0; i < usuarios.size(); i++) {
             //jComboBox1.addItem(usuarios.get(i).getUsername());
             jComboBox1.addItem(String.valueOf(usuarios.get(i).getId_usuario()));
